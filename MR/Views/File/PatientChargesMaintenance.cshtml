@@ -1,0 +1,2597 @@
+﻿@model OtherClasses.Models.MR_DATA.MR_DATAvm
+
+@{
+    ViewBag.Title = "PatientChargesMaintenance";
+    ViewBag.TitleBar = "PATIENT CHARGES MAINTENANCE (BACK-END BILLS)";
+    Layout = "~/Views/Shared/_MRFormLayout.cshtml";
+}
+
+
+<style>
+    
+    .tableDiv {
+        height: 15rem;
+    }
+
+    .tableDiv3 {
+        height: 35rem;
+    }
+
+    .borderLine {
+        border: solid 1px black;
+    }
+
+    .accessCodeModal {
+        height: 18rem !important;
+    }
+
+    .nameLabel {
+        font-size: 16px;
+    }
+
+</style>
+
+
+<!--Modal Start-->
+<div id="1LkUp" class="djq-modal djq-hide">
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR RECORDED DAILY ATTENDANCE</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable1">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+<!--Modal Start-->
+<div id="2LkUp" class="djq-modal djq-hide">
+
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR ADMISSION RECORDS</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable2">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+<!--Modal Start-->
+<div id="3LkUp" class="djq-modal djq-hide">
+
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR REGISTERED PATIENTS</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable3">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+<!--Modal Start-->
+<div id="4LkUp" class="djq-modal djq-hide">
+
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR REGISTERED PATIENTS</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable4">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+<!--Modal Start-->
+<div id="5LkUp" class="djq-modal djq-hide">
+
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR SAVED BILLS</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable5">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+<!--Modal Start-->
+<div id="6LkUp" class="djq-modal djq-hide">
+
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR [ALL] DEFINED INVESTIGATIONS/PROCEDURES</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable6">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+
+@*Stock Item Modal*@
+<div id="7LkUp" class="djq-modal djq-hide custom">
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls drk">STOCK ITEMS ON BILLING</label>
+            </div>
+        </div>
+
+        <div class="djq-c">
+            <!--CUSTOM HTML CONTENT-->
+
+            <div class="v-scroll">
+                <table class="" name="">
+                    <thead>
+                        <tr>
+                            <th class="alc all"> ... </th>
+                            <th class="alc all">ItemNo</th>
+                            <th class="alc all">Stock Code</th>
+                            <th class="alc all">Stock Description</th>
+                            <th class="alc all">Qty</th>
+                            <th class="alc all">Unit</th>
+                            <th class="alc all">UnitCost</th>
+                            <th class="alc all">Total</th>
+                            <th class="alc all">RECID</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody2"></tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="djq-body3 deep-g d-flex justify-content-around">
+            <div class="text-center">
+                <label class="label drk w-5 w-35 drk">CUMMULATIVE TOTAL</label>
+                <input type="number" placeholder="0.00" name="txt" value="" class="input w-5 w-50 cummTotal" />
+            </div>
+
+            <button type="button" class="btn stkItmRemoveBtn">REMOVE</button>
+            <button type="button" class="btn stkItmSubmitBtn">SUBMIT</button>
+            <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+        </div>
+    </div>
+</div>
+
+
+@*Access Code Modal*@
+<div id="8LkUp" class="djq-modal djq-hide custom">
+    <div class="djq-body accessCodeModal">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls drk">RESTRICTED ACCESS TO BILLS</label>
+            </div>
+        </div>
+
+        <div class="djq-c">
+            <!--CUSTOM HTML CONTENT-->
+            <div class="text-center pt-4">
+                <h5 class="drk">ENTER ACCESS CODE:</h5>
+            </div>
+            <div class="text-center pb-3">
+                <input type="text" value="" class="input w-10 w-50 increase-height accessCodeText" />
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g d-flex justify-content-around">
+            <button type="button" class="btn accessCodeSubmitBtn">SUBMIT</button>
+            <button type="button" class="btn clm close-dataJQ accessCodeCloseBtn">CLOSE</button>
+            <input type="hidden" class="btn clm close-dataJQ accessCodeCancel">
+        </div>
+    </div>
+</div>
+
+
+
+<!--Modal Start-->
+<div id="9LkUp" class="djq-modal djq-hide">
+
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR REGISTERED PATIENTS</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable9">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+<!--Modal Start-->
+<div id="10LkUp" class="djq-modal djq-hide">
+
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR REGISTERED PATIENTS</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable10">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+         
+<!--Modal Start-->
+<div id="11LkUp" class="djq-modal djq-hide">
+
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR REGISTERED PATIENTS</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable11">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+
+<!--Modal Start-->
+<div id="14LkUp" class="djq-modal djq-hide">
+
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR REGISTERED PATIENTS</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable14">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+<!--Modal Start-->
+<div id="15LkUp" class="djq-modal djq-hide">
+
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR REGISTERED PATIENTS</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable15">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+
+
+<section class="borderLine billingForm">
+    <form method="post" action="#">
+
+        <section class="py-2">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="newline n1">
+                        <label class="label w-3 w-35 drk">Group Code</label>
+                        <input type="text" value="" class="input w-5 w-50 increase-height groupCode eData2 fData2" />
+                        <input type="button" id="refLookUp3" name="btn" value="" class="btn-small" />
+                    </div>
+                    <div class="newline n1">
+                        <label class="label w-3 w-35 drk">Patient No.</label>
+                        <input type="text" value="" class="input w-5 w-50 increase-height patientNo fData1 eData1" />
+                        <input type="button" id="refLookUp4" name="btn" value="" class="btn-small" />
+                    </div>
+                    <div class="newline n1">
+                        <label class="label w-3 w-35 drk">Name</label>
+                        <input type="text" class="input w-8 w-50 increase-height name1" />
+                    </div>
+                    <div class="newline n1">
+                        <label class="label w-3 w-35 drk">Address</label>
+                        <textarea class="w-8 w-50 address" rows="3"></textarea>
+                    </div>
+                    <div class="newline n1">
+                        <label class="label w-3 w-35 drk">Currency</label>
+                        <select class="input w-5 w-50 increase-height">
+                            <option></option>
+                        </select>
+                    </div>
+                    <div class="newline n1">
+                        <label class="label w-3 w-35 drk">Exchange Rate</label>
+                        <input type="text" name="txt" value="" class="input w-5 w-50" />
+                    </div>
+                    <div class="newline n1">
+                        <label class="label w-3 w-35 drk">Transaction Type</label>
+                        <select class="input w-5 w-50 increase-height transType">
+                            <option selected="selected"></option>
+                            <option value="OUT PATIENT ACCOUNT">OUT PATIENT ACCOUNT</option>
+                            <option value="IN-PATIENT TRANSACTION">IN-PATIENT TRANSACTION</option>
+                            <option value="NHIS MONTHLY CAPITATION">NHIS MONTHLY CAPITATION</option>
+                            <option value="REVERSAL">REVERSAL</option>
+                        </select>
+                    </div>
+                    <div class="newline n1">
+                        <label class="label w-3 w-35 drk">Reference No.</label>
+                        <input type="text" name="txt" value="" class="input w-5 w-50 increase-height referenceNo gData1" />
+                        <input type="button" id="refLookUp5" name="btn" value="" class="btn-small" />
+                    </div>
+                    <div class="newline n1">
+                        <scan class="pr-4">
+                            <label class="label w-3 w-35 drk">Item Count</label>
+                            <input type="number" name="range" value="0" class="input w-2 w-50 increase-height itemCount" />
+                        </scan>
+                        <scan>
+                            <input type="checkbox" id="chkSRA" name="chk" class="chkStkItmForDrgBill"/>
+                            <label for="chkSRA" class="label drk"><i>Enable Stock Item Picks for Drug Bills</i></label>
+                        </scan>
+                    </div>
+                    <div class="newline n1">
+                        <label class="label w-3 w-35 drk">Trans. Date</label>
+                        <input type="date" name="" value="@String.Format("{0:yyyy-MM-dd}", DateTime.Now)" class="input w-5 w-50 transDate" />
+                    </div>
+                    <div class="newline n1">
+                        <label class="label w-3 w-35 drk">Doctor</label>
+                        @Html.DropDownListFor(v => v.DOCTORS.NAME,
+                            new SelectList(@Model.DOCTORSS, "reference", "name"), "",
+                            new { @class = "input w-5 w-50 increase-height doctor" })
+                    </div>
+                    <div class="newline n1">
+                        <label class="label w-3 w-35 drk">Facility</label>
+                        @Html.DropDownListFor(m => m.SYSCODETABSvm.ServiceCentreCodes.name,
+                                new SelectList(Model.SYSCODETABSvm.ServiceCentreCodess, "type_code", "name"), "",
+                                new { @class = "input w-5 increase-height facility" })
+                    </div>
+                    <div class="newline n1">
+                        <label class="label w-3 w-35 drk">Diagnosis</label>
+                        @Html.DropDownListFor(m => m.SYSCODETABSvm.DiagnosisCodes.name,
+                                new SelectList(Model.SYSCODETABSvm.DiagnosisCodess, "type_code", "name"), "",
+                                new { @class = "input w-5 increase-height diagnosis" })
+                    </div>
+
+                    <div class="newline n1">
+                        <label class="label w-3 w-35 drk">Procedure</label>
+                        @Html.DropDownListFor(m => m.TARIFF.NAME,
+                            new SelectList(Model.TARIFFS, "REFERENCE", "NAME"), "",
+                            new { @class = "input w-5 increase-height procedure hData1" })
+
+                        <input type="button" id="refLookUp6" name="btn" value="" class="btn-small" />
+                    </div>
+                    <div class="newline n1">
+                        <label class="label w-3 w-35 drk">Other Charges</label>
+                        <input type="text" name="txt" value="" class="input w-8 w-50 otherCharges" />
+                    </div>
+                    <div class="newline n1">
+                        <label class="label w-3 w-35 drk">Amount</label>
+                        <input type="number" placeholder="0.00" value="" class="input w-5 w-50 amount" />
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="newline n1">
+                        <label class="label w-5 w-35 drk"></label>
+                        <input type="checkbox" id="chkSRA2" name="chk" class="chkTodayConsult"/>
+                        <label for="chkSRA2" class="label drk"><i>Todays Consult Only</i></label>
+                    </div>
+                    <div class="newline n1">
+                        <label class="label w-5 w-35 drk"></label>
+                        <input type="checkbox" id="chkSRA1" name="chk" class="chkOPDrecords"/>
+                        <label for="chkSRA1" class="label drk">OPD Records</label>
+                    </div>
+                    <div class="newline n1">
+                        <label class="label w-5 w-35 drk">Consult/Admin Ref</label>
+                        <input type="text" value="" class="input w-5 w-50 increase-height cData1 dData1 consultAdmRef" />
+                        <input type="button" id="refLookUp1" name="btn" value="" class="btn-small" />
+                        <input type="button" id="refLookUp2" name="btn" value="" class="btn-small" />
+                    </div>
+                                       
+                    <fieldset class="py-4 lme">
+                        <legend>Bill On Acct Of</legend>
+                        <div class="newline n1">
+                            <label class="label w-5 w-35 drk">Patients Current Bill</label>
+                            <input type="number" name="txt" value="0.00" class="input w-5 w-50" />
+                        </div>
+                        <div>
+                            <label class="label w-35 drk"><i>Another Patient's Group Code</i></label>
+                        </div>
+                        <div class="newline n1">
+                            <label class="label w-5 w-35 drk">Responsible for Bill</label>
+                            <input type="text" class="input w-5 w-50 increase-height respForBill" />
+                            <input type="button" name="btn" value="" class="btn-small" />
+                        </div>
+                        <div class="newline n1">
+                            <label class="label w-5 w-35 drk">Client's Code</label>
+                            <input type="text" class="input w-5 w-50 increase-height clientCode" />
+                            <input type="button" name="btn" value="" class="btn-small" />
+                        </div>
+                        <div class="newline n1">
+                            <label class="label w-5 w-35 drk">NAME</label>
+                            <input type="text" name="txt" value="" class="input w-8 w-50 name2" />
+                        </div>
+                        <div class="newline n1">
+                            <label class="label w-5 w-35 drk">Credit Limit...</label>
+                            <input type="number" name="txt" value="0.00" class="input w-5 w-50" />
+                        </div>
+                        <div class="newline n1">
+                            <label class="label w-5 w-35 drk">Current Balance...</label>
+                            <input type="number" name="txt" value="0.00" class="input w-5 w-50" />
+                            <label class="label w-35 drk">DB</label>
+                        </div>    
+                    </fieldset>
+
+                    <div class="d-flex justify-content-around mb-5">
+                        <scan>
+                            <input type="button" name="btn" value="All Bills" class="btn allBillsBtn" />
+                        </scan>
+                        <scan>
+                            <input type="checkbox" id="chkSRA3" class="chkTransferBill" />
+                            <label for="chkSRA3" class="label drk">Transfer Bill</label>
+                        </scan>
+                    </div>
+
+                    <div class="newline n1">
+                        <label class="label w-5 w-35 drk">CURRENT TOTAL</label>
+                        <input type="number" name="txt" value="0.00" class="input w-5 w-50 currentTotal" />
+                    </div>
+                
+                </div>
+            </div>
+        </section>
+
+
+        <section class="borderLine">
+            <div class="d-flex justify-content-center py-2">
+                <input type="button" name="btnClose" value="Add" class="btn addBtn" />
+            </div>
+        </section>
+
+
+        <section>
+            <div class="tableDiv v-scroll">
+                <table class="" name="REPORTS.RptPath">
+                    <thead>
+                        <tr>
+                            <th class="alc all">Item</th>
+                            <th class="alc all">Facility</th>
+                            <th class="alc all">Service Description</th>
+                            <th class="alc all">Amount</th>
+                            <th class="alc all">Process</th>
+                            <th class="alc all">Trans. Date</th>
+                            <th class="alc all">Diagnosis</th>
+                            <th class="alc all">Doctor</th>
+                            <th class="alc all">Type</th>
+                            <th class="alc all">Service Type</th>
+                            <th class="alc all">NewRec</th>
+                            <th class="alc all">Posted</th>
+                            <th class="alc all">RECID</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody1"></tbody>
+                </table>
+            </div>
+        </section>
+
+
+        <section class="borderLine">
+            <div class="d-flex justify-content-around py-2">
+                <input type="button" name="btnClose" value="Print Bills" class="btn clm" />
+                <input type="button" name="btnClose" value="Submit" class="btn submitBtn" />
+                <input type="button" name="btn" value="Delete" class="btn deleteBtn" />
+                <input type="button" name="btnPrint" value="Close" class="btn clm" />
+            </div>
+        </section>
+
+    </form>
+
+    @*hidden fields*@
+    <input type="hidden" value="0" class="mlastno" />
+    <input type="hidden" value="false" class="hiddenNewrec" />
+    <input type="hidden" value="" class="amtSave" />
+    <input type="hidden" value="" class="savedoldamt" />
+    <input type="hidden" id="refLookUp7" />
+    <input type="hidden" id="refLookUp12" />
+
+    
+</section>
+
+
+<section class="bill4EditForm">
+    <div class="borderLine py-2">
+        <h5 class="text-center"><b>FrmLoadBills4Edit</b></h5>
+    </div>
+
+    <form>
+        <section class="lme">
+            <div class="py-5">
+                <div class="newline n1">
+                    <scan>
+                        <label class="label w-10 w-35 drk">Enter GroupHead or Customer Code...or...</label>
+                        <input type="text" value="" class="input w-5 w-50 increase-height ldBillsGroupHead kData1" />
+                        <input type="button" id="refLookUp11" name="btn" value="" class="btn-small" />
+                    </scan>
+                    <scan>
+                        <b class="nameLabel pl-4 cred"></b>
+                    </scan>
+                </div>
+                <div class="newline n1">
+                    <label class="label w-10 w-35 drk">Enter Patient GroupCode or Hospital No...or...</label>
+                    <scan>
+                        <input type="text" value="" class="input w-5 w-50 increase-height ldBillsGroupCode iData2 jData2" />
+                        <input type="button" id="refLookUp9" name="btn" value="" class="btn-small" />
+                    </scan>
+                    <scan class="pl-4">
+                        <input type="text" value="" class="input w-5 w-50 increase-height ldBillsPatientNo iData1 jData1" />
+                        <input type="button" id="refLookUp10" name="btn" value="" class="btn-small" />
+                    </scan>
+                </div>
+                <div class="newline n1">
+                    <scan>
+                        <label class="label w-10 w-35 drk">Select Transaction Date Range</label>
+                        <input type="date" name="" value="@String.Format("{0:yyyy-MM-dd}", DateTime.Now)" class="input increase-height w-5 w-50 transDate" />
+                    </scan>
+                    <scan>
+                        <label class="label w-1 w-35 drk">To:</label>
+                        <input type="date" name="" value="@String.Format("{0:yyyy-MM-dd}", DateTime.Now)" class="input increase-height w-5 w-50 dateTo" />
+                    </scan>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-4 borderLine">
+            <div class="d-flex justify-content-around">
+                <input type="button" name="" value="Load Recs" class="btn loadRecsBtn" />
+                <input type="button" name="" value="Apply Changes" class="btn applyChngsBtn" />
+                <input type="button" name="" value="Close" class="btn closeBtn" />
+            </div>
+        </section>
+
+        <section>
+            <div class="tableDiv3 v-scroll">
+                <table class="" name="REPORTS.RptPath">
+                    <thead>
+                        <tr>
+                            <th class="px-5">Type</th>
+                            <th class="px-5">Reference</th>
+                            <th class="px-5">Itm</th>
+                            <th class="px-5">PatientName</th>
+                            <th class="px-5">Diag</th>
+                            <th class="px-5">Facility</th>
+                            <th class="px-5">Diagnosis</th>
+                            <th class="px-5">Process</th>
+                            <th class="px-5">Description</th>
+                            <th class="px-5">Amount</th>
+                            <th class="px-5">TransDate</th>
+                            <th class="px-5">LockBill</th>
+                            <th class="px-5">GroupCode</th>
+                            <th class="px-5">PatientNo</th>
+                            <th class="px-5">GroupHead</th>
+                            <th class="px-5">AcctType</th>
+                            <th class="px-5">Operator</th>
+                            <th class="px-5">OpDateTime</th>
+                            <th class="px-5">GHGroupCode</th>
+                            <th class="px-5">RECID</th>
+                            <th class="px-5">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody3"></tbody>
+                </table>
+            </div>
+        </section>
+
+    </form>
+
+    <input type="hidden" id="refLookUp8" />
+    <input type="hidden" value="false" class="hiddenFcgroup" />
+
+</section>
+
+
+<section class="transferBillForm borderLine">
+    <div class="borderLine py-2">
+        <h5 class="text-center"><b>FrmLoadBills4Edit</b></h5>
+    </div>
+
+    <form>
+        <section class="lme py-5">
+            <div class="d-flex justify-content-around">
+                <scan>
+                    <input type="checkbox" id="chkSRA4" class="chkBills" checked="checked"/>
+                    <label for="chkSRA4" class="label drk">Bills</label>
+                </scan>
+                <scan>
+                    <input type="checkbox" id="chkSRA5" class="chkPayments" />
+                    <label for="chkSRA5" class="label drk">Payments</label>
+                </scan>
+                <scan>
+                    <input type="text" value="" class="input w-5 w-50 increase-height BTpaymentNo" />
+                    <input type="button" id="refLookUp13" name="btn" value="" class="btn-small" />
+                </scan>
+            </div>
+            <div class="d-flex justify-content-around py-3">
+                <scan>
+                    <label class="label w-4 w-35 drk">Patient Current Bill</label>
+                    <input type="number" value="" class="input w-5 w-50 increase-height patCurrentBill" placeholder="0.00" />
+                </scan>
+                <scan>
+                    <label class="label w-3 w-35 drk">Payment Value</label>
+                    <input type="number" value="" class="input w-5 w-50 increase-height BTpaymentVal" placeholder="0.00" />
+                </scan>
+            </div>
+        </section>
+
+        <section class="borderLine">
+            <div class="row py-4">
+                <div class="col-md-4 text-right">
+                    <b class="nameLabel drk">TRANSFER VALUE TO:</b>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex justify-content-around">
+                        <scan>
+                            <input type="radio" name="radio12" id="chkSRA7" class="chkTransferVal" />
+                            <label for="chkSRA7" class="label drk">Transfer Value</label>
+                        </scan>
+                        <scan>
+                            <input type="radio" name="radio12" id="chkSRA8" class="chkMoveDetails" checked="checked"/>
+                            <label for="chkSRA8" class="label drk">Move Details</label>
+                        </scan>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-5">
+            <div class="row">
+                <div class="col-md-10 offset-2">
+                    <div class="newline n1">
+                        <span>
+                            <label class="label w-4 w-35 drk">Group Code</label>
+                            <input type="text" value="" class="input w-5 w-50 increase-height  lData2 mData2 BTgroupCode" />
+                            <input type="button" id="refLookUp15" name="btn" value="" class="btn-small" />
+                        </span>
+                        <span class="pl-4">
+                            <label class="label drk">
+                                <i>Another Patient GroupCode</i>
+                            </label>
+                        </span>
+                    </div>
+                    <div class="newline n1">
+                        <label class="label w-4 w-35 drk">Patient No.</label>
+                        <input type="text" value="" class="input w-5 w-50 increase-height lData1 mData1 BTpatientNo" />
+                        <input type="button" id="refLookUp14" name="btn" value="" class="btn-small" />
+                    </div>
+                    <div class="newline n1">
+                        <label class="label w-4 w-35 drk">Name</label>
+                        <input type="text" value="" class="input w-9 w-50 increase-height BTname" />
+                    </div>
+                    <div class="newline n1">
+                        <label class="label w-4 w-35 drk">Responsible for Bills</label>
+                        <input type="text" value="" class="input w-5 w-50 increase-height BTrespForBills" />
+                    </div>
+                    <div class="newline n1">
+                        <label class="label w-4 w-35 drk">Value To Transfer</label>
+                        <input type="number" value="" class="input w-5 w-50 increase-height valToTransfer" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-4 borderLine">
+            <div class="d-flex justify-content-around">
+                <input type="button" name="" value="Transfer" class="btn BTtransferBtn" />
+                <input type="button" name="" value="Close" class="btn BTcloseBtn" />
+            </div>
+        </section>
+
+    </form>
+
+</section>
+
+
+
+
+
+@section scripts
+{
+    <script>
+        $(function () {
+            var dOM = $('body'); //must assign
+            var formFields = document.getElementById('mainForm'); //must assign, used for calling javaScript methods
+            appendTagInvalid1(dOM, "@ViewBag.iinvalid"); //must call
+            servErrorAlert("#eLkUp", "@ViewBag.Msg"); //must call
+
+            var dTHN1 = ['NAME', 'REFERENCE', 'DATE', 'CLINIC', 'GROUPCODE', 'PATIENTNO']; //for table header
+            var dBCN1 = ['NAME', 'REFERENCE', 'TRANS_DATE', 'CLINIC', 'GROUPCODE', 'PATIENTNO']; //for database header
+            var jaxURL1 = "@Url.Action("RptMRATTENDLookUp", "AJAX")";
+
+            var dTHN2 = ['NAME', 'GROUPCODE', 'PATIENTNO', 'REFERENCE', 'ADM_DATE', 'DISCHARGE', 'ROOM', 'BED', 'GROUPHEAD', 'GHGROUPCODE', 'ACAMT', 'PAYMENTS']; //for table header
+            var dBCN2 = ['NAME', 'GROUPCODE', 'PATIENTNO', 'REFERENCE', 'ADM_DATE', 'DISCHARGE', 'ROOM', 'BED', 'GROUPHEAD', 'GHGROUPCODE', 'ACAMT', 'PAYMENTS']; //for database header
+            var jaxURL2 = "@Url.Action("RptAdmLookUp", "AJAX")";
+
+            var dTHN3 = ['NAME', 'GROUPCODE', 'PATIENTNO', 'RESIDENCE', 'GROUPHEAD', 'SEX', 'PHONE']; //for table header
+            var dBCN3 = ['NAME', 'GROUPCODE', 'PATIENTNO', 'RESIDENCE', 'GROUPHEAD', 'SEX', 'PHONE']; //for database header
+            var jaxURL3 = "@Url.Action("RptBillChainLookUp", "AJAX")";
+
+            var dTHN4 = ['DESCRIPTION', 'CODE', 'MIN-AMOUNT', 'DIFF-CHARGE', 'FACILITY']; //for table header
+            var dBCN4 = ['NAME', 'REFERENCE', 'AMOUNT', 'DIFFCHARGE', 'CATEGORY']; //for database header
+            var jaxURL4 = "@Url.Action("RptTariffLookUp", "AJAX")";
+
+            var dTHN5 = ['NAME', 'REFERENCE', 'ADDRESS']; //for table header
+            var dBCN5 = ['NAME', 'CUSTNO', 'ADDRESS1']; //for database header
+            var jaxURL5 = "@Url.Action("RptCustomerLookUp", "AJAX")";
+
+
+
+            //For Consult/Admin Reference
+            LoadDynamicDT1(jaxURL1, dTHN1, dBCN1, 'MRATTENDS', '#refLookUp1', '#1LkUp', '#regPTable1', '.cData', [3]);
+
+            //For Consult/Admin Reference
+            LoadDynamicDT1(jaxURL2, dTHN2, dBCN2, 'ADMRECSS', '#refLookUp2', '#2LkUp', '#regPTable2', '.dData', [3]);
+
+            //For GroupCode
+            LoadDynamicDT1(jaxURL3, dTHN3, dBCN3, 'BILLCHAINS', '#refLookUp3', '#3LkUp', '#regPTable3', '.eData', [4, 3]);
+
+            //For PatientNo
+            LoadDynamicDT1(jaxURL3, dTHN3, dBCN3, 'BILLCHAINS', '#refLookUp4', '#4LkUp', '#regPTable4', '.fData', [4, 3]);
+
+            //For Reference No
+            LoadDynamicDT1(jaxURL1, dTHN1, dBCN1, 'MRATTENDS', '#refLookUp5', '#5LkUp', '#regPTable5', '.gData', [3]);
+
+            //For Procedure
+            LoadDynamicDT1(jaxURL4, dTHN4, dBCN4, 'TARIFFS', '#refLookUp6', '#6LkUp', '#regPTable6', '.hData', [3]);
+
+
+            //For loadBillsGroupCode
+            LoadDynamicDT1(jaxURL3, dTHN3, dBCN3, 'BILLCHAINS', '#refLookUp9', '#9LkUp', '#regPTable9', '.iData', [4, 3]);
+
+            //For loadBillsPatientNo
+            LoadDynamicDT1(jaxURL3, dTHN3, dBCN3, 'BILLCHAINS', '#refLookUp10', '#10LkUp', '#regPTable10', '.jData', [4, 3]);
+
+            //For loadBillsGroupHead
+            LoadDynamicDT1(jaxURL5, dTHN5, dBCN5, 'CUSTOMERS', '#refLookUp11', '#11LkUp', '#regPTable11', '.kData', [3]);
+
+            //For transferPatientNo
+            LoadDynamicDT1(jaxURL3, dTHN3, dBCN3, 'BILLCHAINS', '#refLookUp14', '#14LkUp', '#regPTable14', '.mData', [4, 3]);
+
+            //For transferGroupCode
+            LoadDynamicDT1(jaxURL3, dTHN3, dBCN3, 'BILLCHAINS', '#refLookUp15', '#15LkUp', '#regPTable15', '.lData', [4, 3]);
+
+
+            function ClearControls() {
+                location.reload(true);
+                scrollToTop();
+            }
+
+
+            //On Load
+            $(".chkTodayConsult").prop({ checked: true });
+            $(".chkOPDrecords").prop({ checked: true });
+            $("#refLookUp1").prop({ disabled: true });
+            $("#refLookUp2").prop({ disabled: true });
+            $("#refLookUp2").hide();
+            $(".bill4EditForm").hide();
+            $(".transferBillForm").hide();
+
+
+            $(".allBillsBtn").on({
+                click: function () {
+                    $(".bill4EditForm").show();
+                    $(".billingForm").hide();
+
+                    if (!confirm("Some Data element will be vulnerable on this process \r\n\r\n you are trying to run. \r\n\r\n You must therfore take full responsibility for your actions ! CONTINUE...?")) {
+                        $(".closeBtn").click();
+                    }
+
+                    $("#refLookUp8").click();
+                }
+            })
+
+          
+            $(".chkTransferBill").on({
+                click: function () {
+
+                    let chkTransferBill = $(this).prop("checked");
+                    let currentTotal = Number($(".currentTotal").val());
+                    let msection = "7";
+
+                    //Check if no row is in the table
+                    let num = Number( $(".tbody1").find("tr").last().find("td").eq(0).text() );
+
+                    if (chkTransferBill) {
+                        if (currentTotal < 1 || num < 1 || msection != "7")
+                        {
+                            let xs = msection != "7" ? "A Non-Billing Staff Cannot Transfer Bills..." : "No Value To Transfer...";
+                            alert(xs);
+                            return;
+                        }
+
+                        $(".transferBillForm").show();
+                        $(".billingForm").hide();
+
+                        //tranfer billing on load
+                        $(".patCurrentBill").val($('.currentTotal').val());
+                        $(".valToTransfer").val($('.currentTotal').val());
+
+                    }
+
+                }
+            })
+          
+            
+            $(".chkOPDrecords").on({
+                click: function () {
+                    let chkOPDrecords = $(".chkOPDrecords").prop("checked");
+
+                    if (chkOPDrecords == true) {
+                        $(".chkTodayConsult").hide();
+                        $("#refLookUp1").show();
+                        $("#refLookUp2").hide();
+                    } else {
+                        $(".chkTodayConsult").show();
+                        $("#refLookUp1").hide();
+                        $("#refLookUp2").show();
+                    }
+                }
+            })
+
+
+            $(".chkTodayConsult").on({
+                click: function () {
+                    let chkTodayConsult = $(".chkTodayConsult").prop("checked");
+
+                    if (chkTodayConsult == true) {
+                        $("#refLookUp1").prop({ disabled: true });
+                        $("#refLookUp2").prop({ disabled: true });
+                    } else {
+                        $("#refLookUp1").prop({ disabled: false });
+                        $("#refLookUp2").prop({ disabled: false });
+                    }
+                }
+            })
+
+
+            $(".consultAdmRef").on({
+                focusout: function () {
+                    let consultAdmRef = $(this).val();
+                    let chkOPDrecords = $(".chkOPDrecords").prop("checked");
+
+                    if (consultAdmRef.trim() != "") {
+                        $.ajax({
+                            url: "/AJAX/consultAdmRefFocusout",
+                            method: "POST",
+                            data: { consultAdmRef: consultAdmRef, chkOPDrecords: chkOPDrecords },
+                            success: function (data) {
+                                if (data.REPORTS != null) {
+
+                                    if (data.REPORTS.alertMessage != null) {
+                                        alert(data.REPORTS.alertMessage);
+                                        return;
+                                    }
+
+                                    $(".transDate").val(data.REPORTS.REPORT_TYPE1);
+                                    $(".name1").val(data.REPORTS.TXTPATIENTNAME);
+                                    $(".clientCode").val(data.REPORTS.cbotitle);
+                                    $(".facility").val(data.REPORTS.combFacility);
+                                    $(".address").val(data.REPORTS.txtaddress1);
+                                    $(".respForBill").val(data.REPORTS.txtghgroupcode);
+                                    $(".groupCode").val(data.REPORTS.txtgroupcode);
+                                    $(".name2").val(data.REPORTS.txtothername);
+                                    $(".patientNo").val(data.REPORTS.txtpatientno);
+                                    $(".referenceNo").val(data.REPORTS.txtreference);
+
+                                }
+
+
+                                if (data.BILLINGS != null && data.BILLINGS.length > 0) {
+                                    let name1 = $(".name1").val();
+                                    let patientNo = $(".patientNo").val();
+
+                                    let billings = data.BILLINGS;
+                                    let itemNo = 0;
+                                    let newRec = "NO"
+                                    let rows = "";
+                                    let totalAmount = 0;
+                                    let savedoldamt = 0;
+
+                                    let xname, xpatientno = "";
+
+                                    for (let i = 0; i < billings.length; i++) {
+                                        let transDate = formatDate1(billings[i].TRANS_DATE);
+                                        let posted = billings[i].POSTED == true ? "YES" : "NO";
+                                        xname = billings[i].NAME;
+                                        xpatientno = billings[i].PATIENTNO;
+
+                                        rows += "<tr>" +
+                                                    "<td>" + ++itemNo + "</td>" +
+                                                    "<td>" + billings[i].FACILITY + "</td>" +
+                                                    "<td>" + billings[i].DESCRIPTION + "</td>" +
+                                                    "<td>" + billings[i].AMOUNT + "</td>" +
+                                                    "<td>" + billings[i].PROCESS + "</td>" +
+                                                    "<td>" + transDate + "</td>" +
+                                                    "<td>" + billings[i].DIAG + "</td>" +
+                                                    "<td>" + billings[i].DOCTOR + "</td>" +
+                                                    "<td>" + billings[i].ACCOUNTTYPE + "</td>" +
+                                                    "<td>" + billings[i].SERVICETYPE + "</td>" +
+                                                    "<td>" + newRec + "</td>" +
+                                                    "<td>" + posted + "</td>" +
+                                                    "<td>" + billings[i].RECID + "</td>" +
+                                                "</tr>"
+
+                                        totalAmount += Number(billings[i].AMOUNT);
+                                        savedoldamt = Number(billings[i].AMOUNT);
+                                    }
+
+                                    $(".tbody1").html(rows);
+                                    $(".currentTotal").val(totalAmount);
+                                    $(".savedoldamt").val(savedoldamt);
+
+
+                                    if (name1.trim() != xname.trim() || patientNo.trim() != xpatientno.trim()) {
+                                        let message = `Invoice item not for this Patient...  \n Check ${xpatientno} CONTINUE ?`;
+
+                                        if (!confirm(message)) {
+                                            ClearControls();
+
+                                            return;
+                                        }
+
+                                        if (!patientNo.trim() == "" && xpatientno != patientNo) {
+                                            if(!confirm("Confirm to Change Ownership of Bill...")) {
+                                                return;
+                                            }
+                                        }
+
+                                    }
+
+                                } else {
+                                    $(".tbody1").html("");
+                                    $(".currentTotal").val(0);
+                                }
+
+                            }
+                        })
+
+                    }
+                }
+            })
+
+
+            $(".patientNo").on({
+                focusout: function () {
+                    let patientNo = $(this).val();
+                    let groupCode = $(".groupCode").val();
+
+
+                    if (patientNo.trim() != "") {
+
+                        $.ajax({
+                            url: "/AJAX/BILLINGpatientNoFocusout",
+                            method: "POST",
+                            data: {patientNo: patientNo, groupCode: groupCode},
+                            success: function (data) {
+                                if (data != null) {
+
+                                    if (data.alertMessage != null) {
+                                        alert(data.alertMessage);
+                                        return;
+                                    }
+
+                                    if (data.txtpatientno != null)
+                                        $(".patientNo").val(data.txtpatientno);
+
+                                    $(".groupCode").val(data.txtgroupcode);
+                                    $(".name1").val(data.TXTPATIENTNAME);
+                                    $(".clientCode").val(data.cbotitle);
+                                    $(".address").val(data.txtaddress1);
+                                    $(".respForBill").val(data.txtghgroupcode);
+                                    $(".name2").val(data.txtothername);
+
+                                }
+                            }
+                        })
+
+                    }
+                }
+            })
+
+
+            $(".referenceNo").on({
+                focus: function () {
+                    let referenceNo = $(this).val();
+                    let consultAdmRef = $(".consultAdmRef").val();
+                    let mlastnoView = $(".mlastno").val();
+
+                    $.ajax({
+                        url: "/AJAX/BILLINGreferenceNoFocus",
+                        method: "POST",
+                        data: { consultAdmRef: consultAdmRef, referenceNo: referenceNo, mlastnoView: mlastnoView },
+                        success: function (data) {
+                            if (data != null) {
+                                if (data.nmrBalbf != null)
+                                    $(".mlastno").val(data.nmrBalbf);
+
+                                if (data.txtreference != null)
+                                    $(".referenceNo").val(data.txtreference);
+                            }
+                        }
+                    })
+                },
+
+                focusout: function () {
+                    let mlastno = Number( $(".mlastno").val() );
+                    let referenceNo = $(".referenceNo").val();
+
+                    if (referenceNo.trim() != "") {
+                        $.ajax({
+                            url: "/AJAX/BILLINGreferenceNoFocusout",
+                            method: "POST",
+                            data: { referenceNo: referenceNo, mlastno: mlastno },
+                            success: function (data) {
+                                if (data.REPORTS != null) {
+
+                                    if (data.REPORTS.alertMessage != null) {
+                                        alert(data.REPORTS.alertMessage);
+                                        return;
+                                    }
+
+                                    if (data.REPORTS.cmbsave == true) {
+                                        $(".addBtn").prop({ diasbled: false });
+                                    }
+
+                                    $(".referenceNo").val(data.REPORTS.txtreference);
+                                    $(".currentTotal").val(data.REPORTS.txtdiscount);
+                                }
+
+
+                                if (data.BILLINGS != null && data.BILLINGS.length > 0) {
+                                    let name1 = $(".name1").val();
+                                    let patientNo = $(".patientNo").val();
+
+                                    let billings = data.BILLINGS;
+                                    let itemNo = 0;
+                                    let newRec = "NO"
+                                    let rows = "";
+                                    let totalAmount = 0;
+                                    let billingLength = data.BILLINGS.length;
+
+                                    let xname, xpatientno = "";
+
+                                    $(".currentTotal").val(0);
+
+                                    for (let i = 0; i < billings.length; i++) {
+                                        let transDate = formatDate1(billings[i].TRANS_DATE);
+                                        let posted = billings[i].POSTED == true ? "YES" : "NO";
+                                        xname = billings[i].NAME;
+                                        xpatientno = billings[i].PATIENTNO;
+
+                                        rows += "<tr>" +
+                                                    "<td>" + ++itemNo + "</td>" +
+                                                    "<td>" + billings[i].FACILITY + "</td>" +
+                                                    "<td>" + billings[i].DESCRIPTION + "</td>" +
+                                                    "<td>" + billings[i].AMOUNT + "</td>" +
+                                                    "<td>" + billings[i].PROCESS + "</td>" +
+                                                    "<td>" + transDate + "</td>" +
+                                                    "<td>" + billings[i].DIAG + "</td>" +
+                                                    "<td>" + billings[i].DOCTOR + "</td>" +
+                                                    "<td>" + billings[i].ACCOUNTTYPE + "</td>" +
+                                                    "<td>" + billings[i].SERVICETYPE + "</td>" +
+                                                    "<td>" + newRec + "</td>" +
+                                                    "<td>" + posted + "</td>" +
+                                                    "<td>" + billings[i].RECID + "</td>" +
+                                                "</tr>"
+
+                                        totalAmount += Number(billings[i].AMOUNT)
+                                    }
+
+                                    $(".tbody1").html(rows);
+                                    $(".currentTotal").val(totalAmount);
+                                    $(".itemCount").val(billingLength + 1);
+                                    
+
+                                    if (name1.trim() != xname.trim() || patientNo.trim() != xpatientno.trim()) {
+                                        let message = `Invoice item not for this Patient...  \n Check ${xpatientno} CONTINUE ?`;
+
+                                        if (!confirm(message)) {
+                                            ClearControls();
+
+                                            return;
+                                        }
+
+                                        if (!patientNo.trim() == "" && xpatientno != patientNo) {
+                                            if (!confirm("Confirm to Change Ownership of Bill...")) {
+                                                return;
+                                            }
+                                        }
+
+                                    }
+
+                                } else {
+                                    $(".tbody1").html("");
+                                    $(".currentTotal").val(0);
+                                }
+                            }
+                        })
+                    }
+
+                    $(".itemCount").focus();
+                }
+            })
+
+
+            $(".transType").on({
+                focusout: function () {
+                    let transType = $(this).val();
+
+                    if (transType == "REVERSAL") {
+
+                        if(!confirm("Transactions Reversal...\r\n" + " ...Overwrite required !  CONTINUE... ?")) {
+                            $(".transType").val("");
+                        }
+
+
+                        //DialogResult result1 = MessageBox.Show("Transactions Reversal...\r\n" + " ...Overwrite required !  CONTINUE... ?", "Invoice reversal", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                        //if (result1 == DialogResult.No)
+                        //    return false;
+                        //if (getOverwrite("R"))
+                        //    return true;
+                        //return false;
+                    }
+                }
+            })
+
+
+            $(".itemCount").on({
+                focus: function () {
+                    //We first check the total rows in the table
+                    let totalRows = Number($(".tbody1").find("tr").last().find("td").eq(0).text());
+
+                    $(this).val(totalRows + 1);
+                },
+
+                focusout: function () {
+                    let patientNo = $(".patientNo").val();
+                    let groupCode = $(".groupCode").val();
+                    let referenceNo = $(".referenceNo").val();
+                    let itemCount = Number($(this).val());
+                    let totalRows = Number($(".tbody1").find("tr").last().find("td").eq(0).text());
+
+                    if (itemCount > (totalRows + 1)) {
+                        alert("Value is out of Sequence...");
+                    }
+
+                    if (itemCount < 1) {
+                        $(".referenceNo").focus();
+                        return;
+                    }
+
+                    //BILLING Class holds the table data
+                    let tableList = [];
+                    $(".tbody1").find("tr").each(function () {
+                        let rowObject = {
+                            RECID: Number($(this).find("td").eq(0).text()),  // for count
+                            FACILITY: $(this).find("td").eq(1).text(),
+                            DESCRIPTION: $(this).find("td").eq(2).text().trim(),
+                            AMOUNT: Number($(this).find("td").eq(3).text()),
+                            PROCESS: $(this).find("td").eq(4).text(),  //procedure
+                            OPERATOR: $(this).find("td").eq(5).text().trim(), // for Trans date
+                            DIAG: $(this).find("td").eq(6).text(),
+                            DOCTOR: $(this).find("td").eq(7).text(),
+                            TTYPE: $(this).find("td").eq(8).text().trim(),
+                            SERVICETYPE: $(this).find("td").eq(9).text().trim(),
+                            EXTDESC: ($(this).find("td").eq(10).text().trim() == "YES") ? true : false, // for newrec
+                            POSTED: ($(this).find("td").eq(11).text().trim() == "YES") ? true : false,  // for posted
+                            CURRENCY: $(this).find("td").eq(12).text().trim()
+                        };
+
+                        tableList.push(rowObject)
+                    });
+
+                    if (tableList.length > 0) {
+                        $.ajax({
+                            url: "/AJAX/itemCountFocusout",
+                            method: "POST",
+                            data: {
+                                tableList: tableList, itemCount: itemCount, referenceNo: referenceNo,
+                                patientNo: patientNo, groupCode: groupCode
+                            },
+                            success: function (data) {
+
+                                if (data != null) {
+                                    if (data.alertMessage != null) {
+                                        alert(data.alertMessage);
+                                    }
+
+                                    if (data.REPORT_TYPE1 != null)
+                                        $(".amount").val(data.REPORT_TYPE1);
+                                    if (data.REPORT_TYPE2 != null)
+                                        $(".procedure").val(data.REPORT_TYPE2);
+                                    if (data.REPORT_TYPE3 != null)
+                                        $(".transDate").val(data.REPORT_TYPE3);
+                                    if (data.REPORT_TYPE4 != null)
+                                        $(".diagnosis").val(data.REPORT_TYPE4);
+                                    if (data.REPORT_TYPE5 != null)
+                                        $(".doctor").val(data.REPORT_TYPE5);
+                                    if (data.cbotitle != null)
+                                        $(".otherCharges").val(data.cbotitle);
+                                    if (data.combFacility != null)
+                                        $(".facility").val(data.combFacility);
+
+                                    //if (data.nmrPayRefTo != null)
+                                    //    $(".hiddenRecno").val(data.nmrPayRefTo);
+
+                                    $(".hiddenNewrec").val(data.newrec);
+
+                                    if (data.txtreference != null) {
+                                        $(".referenceNo").val(data.txtreference);
+                                    }
+
+                                    if (data.cmbsave == true) {
+                                        $(".addBtn").prop({ diasbled: false });
+                                    }
+                                }
+                            }
+                        })
+                    }
+
+
+                }
+            })
+
+
+            $(".procedure").on({
+                focus: function () {
+                    let chkStkItmForDrgBill = $(".chkStkItmForDrgBill").prop("checked");
+
+                    if (chkStkItmForDrgBill) {
+                        alert("You must specify DRUGS/INJECTION HERE to Load Drugs Details...")
+                    }
+                },
+
+                focusout: function () {
+                    let procedure = $(this).val();
+                    let patientNo = $(".patientNo").val();
+                    let groupCode = $(".groupCode").val();
+                    let facility = $(".facility").val();
+                    let procedureText = $(".procedure").find(`[value="${procedure}"]`).text();
+                    let chkStkItmForDrgBill = $(".chkStkItmForDrgBill").prop("checked");
+
+                    $(".otherCharges").val(procedure);
+
+                    if (procedure != "" && procedure != null) {
+
+                        $.ajax({
+                            url: "/AJAX/procedureFocusout",
+                            method: "POST",
+                            data: {
+                                procedure: procedure, patientNo: patientNo, groupCode: groupCode, facility: facility,
+                                procedureText: procedureText, chkStkItmForDrgBill: chkStkItmForDrgBill
+                            },
+                            success: function (data) {
+                                if (data != null) {
+
+                                    if (data.alertMessage != null)
+                                        alert(data.alertMessage);
+
+                                    if (data.REPORT_TYPE1 != null)
+                                        $(".otherCharges").val(data.REPORT_TYPE1);
+
+                                    if (data.txtdiscount != null) {
+                                        $(".amount").val(data.txtdiscount);
+                                        $(".amtSave").val(data.txtdiscount);
+                                    }
+
+                                    if (data.combFacility != null)
+                                        $(".facility").val(data.combFacility);
+
+                                    if (data.chkAuditProfile) {
+                                        $("#refLookUp7").click();
+                                    }
+
+                                }
+                            }
+                        })
+                    }
+
+                }
+            })
+
+
+            $(".addBtn").on({
+                click: function () {
+                    let amount = Number($(".amount").val());
+                    let amtSave = $(".amtSave").val();
+                    let otherCharges = $(".otherCharges").val();
+                    let name1 = $(".name1").val();
+                    let transType = $(".transType").val();
+                    let clientCode = $(".clientCode").val();
+                    let referenceNo = $(".referenceNo").val();
+                    let procedure = $(".procedure").val();
+                    let facility = $(".facility").val();
+                    let diagnosis = $(".diagnosis").val();
+                    let transDate = $(".transDate").val();
+                    let doctor = $(".doctor").val();
+                    let hiddenNewrec = $(".hiddenNewrec").val();
+                    //let hiddenRecno = $(".hiddenNewrec").val();
+                    let currentTotal = Number($(".currentTotal").val());
+                    let savedoldamt = Number($(".savedoldamt").val());
+                    let itemCount = Number($(".itemCount").val());
+
+
+                    if (amount == 0) {
+                        return;
+                    }
+
+                    if (amount < 1) {
+                        if (!confirm("You have specified a negative value... \n CONFIRM TO CONTINUE...")) {
+                            $(".amount").val(0);
+                            return;
+                        }
+                    }
+
+                    if (otherCharges.trim() == "") {
+                        alert("Invalid Record... Check amount/transaction desc etc.");
+                        return;
+                    }
+
+                    if (name1.trim() == "") {
+                        alert("Patient Name is Required");
+                        $("name1").focus();
+                        return;
+                    } else if (transType.trim() == "") {
+                        alert("Transaction Type is Required");
+                        $("transType").focus();
+                        return;
+                    } else if (clientCode.trim() == "") {
+                        alert("Client Code is Required");
+                        $("clientCode").focus();
+                        return;
+                    } else if (referenceNo.trim() == "") {
+                        alert("ReferenceNo is Required");
+                        $("referenceNo").focus();
+                        return;
+                    } else if (facility.trim() == "") {
+                        alert("Facility is Required");
+                        $("facility").focus();
+                        return;
+                    } else if (otherCharges.trim() == "") {
+                        alert("OtherCharges is Required");
+                        $("otherCharges").focus();
+                        return;
+                    } else if (transDate.trim() == null) {
+                        alert("Transaction Date is Required");
+                        $("transDate").focus();
+                        return;
+                    } else {
+                        let newrec = (hiddenNewrec == "true") ? true : false;
+
+                        if (!newrec) {
+                            //if is not newrec, we edit
+                            currentTotal = currentTotal - savedoldamt;
+                            $(".currentTotal").val(currentTotal);
+
+                            $(".tbody1").find("tr").each(function () {
+                                let itemNo = Number( $(this).find("td").eq(0).text().trim() );
+
+                                if (itemNo == itemCount) {
+                                    $(this).find("td").eq(1).text(facility);
+                                    $(this).find("td").eq(2).text(otherCharges);
+                                    $(this).find("td").eq(3).text(amount);
+                                    $(this).find("td").eq(4).text(procedure);
+                                    $(this).find("td").eq(5).text(transDate);
+                                    $(this).find("td").eq(6).text(diagnosis);
+                                    $(this).find("td").eq(7).text(doctor);
+
+                                }
+
+                            })
+
+                            currentTotal = currentTotal + amount;
+                            $(".currentTotal").val(currentTotal);
+
+                        } else {
+                            currentTotal = currentTotal + amount;
+                            $(".currentTotal").val(currentTotal);
+
+                            //if it is newrec, we add
+                            let rows = "<tr>" +
+                                        "<td></td>" +
+                                        "<td>" + facility + "</td>" +
+                                        "<td>" + otherCharges + "</td>" +
+                                        "<td>" + amount + "</td>" +
+                                        "<td>" + procedure + "</td>" +
+                                        "<td>" + transDate + "</td>" +
+                                        "<td>" + diagnosis + "</td>" +
+                                        "<td>" + doctor + "</td>" +
+                                        "<td>" + transType + "</td>" +
+                                        "<td> </td>" +     //service type
+                                        "<td> YES </td>" + //newrec
+                                        "<td> NO </td>" +  //posted
+                                        "<td> O </td>" +   //recid
+                                    "</tr>"
+
+                            $(".tbody1").append(rows);
+
+                            //re-adjust the count values after adding a row
+                            let counter = 0;
+                            $(".tbody1").find("tr").each(function () {
+                                $(this).find("td").eq(0).text(++counter);
+                            });
+
+                        }
+
+                    }
+
+                    $(".addBtn").prop({ disabled: true });
+
+
+                }
+            })
+
+
+            $(".deleteBtn").on({
+                click: function () {
+                    let itemCount = Number($(".itemCount").val());
+                    let rowCount = Number( $(".tbody1").find("tr").last().find("td").eq(0).text() );
+
+                    if (itemCount < 1 || itemCount > rowCount) {
+                        return;
+                    }
+
+
+                    if (confirm("Confirm To Delete Bill...?")) {
+                        let recID = 0;
+
+                        $(".tbody1").find("tr").each(function () {
+                            let itemNo = Number($(this).find("td").eq(0).text().trim());
+
+                            if (itemNo == itemCount) {
+                                recID = Number($(this).find("td").eq(12).text());
+                                $(this).remove(); //delete row
+                            }
+                        });
+
+                        $.ajax({
+                            url: "/AJAX/deleteBtnClicked",
+                            method: "POST",
+                            data: { recID: recID },
+                            success: function (data) {
+                                if (data != null) {
+                                    alert(data.alertMessage);
+                                }
+                            }
+                        });
+
+                    }
+
+                }
+            })
+
+
+            $(".submitBtn").on({
+                click: function () {
+                    let referenceNo = $(".referenceNo").val();
+                    let hiddenNewrec = $(".hiddenNewrec").val();
+                    let name1 = $(".name1").val();
+                    let newrec = (hiddenNewrec == "true") ? true : false;
+                    let mlastno = Number($(".mlastno").val());
+                    let clientCode = $(".clientCode").val();
+                    let patientNo = $(".patientNo").val();
+                    let groupCode = $(".groupCode").val();
+                    let respForBill = $(".respForBill").val();
+                    let transType = $(".transType").val();
+
+
+
+                    //The REPORTS Model holds the Object
+                    let dataObject = {
+                        txtreference: referenceNo,
+                        newrec: newrec,
+                        mlastno: mlastno,
+                        TXTPATIENTNAME: name1,
+                        cbotitle: clientCode,
+                        txtpatientno: patientNo,
+                        txtgroupcode: groupCode,
+                        txtghgroupcode: respForBill,
+                        cbotype: transType
+                    }
+
+
+                    //Check if no row is in the table
+                    let num = Number( $(".tbody1").find("tr").last().find("td").eq(0).text() );
+
+                    if (num == 0) {
+                        alert("No Records generated...");
+                        return;
+                    }
+
+
+                    //PPDRESSINGDTL Class holds the table data
+                    let tableList = [];
+                    $(".tbody1").find("tr").each(function () {
+                        let rowObject = {
+                            TITLE: $(this).find("td").eq(0).text().trim(),  // for count
+                            FACILITY: $(this).find("td").eq(1).text().trim(),  // for facility
+                            DESCRIPTION: $(this).find("td").eq(2).text().trim(), // for service description
+                            GROUPCODE: Number($(this).find("td").eq(3).text().trim()), // for amount
+                            PROCESS: $(this).find("td").eq(4).text().trim(), // for process
+                            ADDRESS1: $(this).find("td").eq(5).text().trim(), // for transDate
+                            NOTES: $(this).find("td").eq(6).text().trim(), // for diagnosis
+                            DOCTOR: $(this).find("td").eq(7).text().trim(), // for doctor
+                            TRANSTYPE: $(this).find("td").eq(8).text().trim(), // for type
+                            SERVICETYPE: $(this).find("td").eq(9).text().trim(), // for service type
+                            GROUPHEAD: $(this).find("td").eq(10).text().trim(), // for newrec
+                            CURRENCY: $(this).find("td").eq(11).text().trim(), // for posted
+                            RECID: Number($(this).find("td").eq(12).text().trim()) // for recId
+                        };
+
+                        tableList.push(rowObject)
+                    });
+
+
+
+
+                    if (confirm("Confirm to Submit ALL Records...")) {
+
+                        $.ajax({
+                            url: "/AJAX/billingSaveBtnClicked",
+                            method: "POST",
+                            data: { dataObject: dataObject, tableList: tableList },
+                            success: function (data) {
+                                if (data != null) {
+
+                                    if (data.alertMessage != null) {
+                                        alert(data.alertMessage);
+                                        return;
+                                    }
+
+                                    if (data.mlastno)
+                                        $(".mlastno").val(data.mlastno);
+
+                                    if (data.txtreference)
+                                        $(".referenceNo").val(data.txtreference);
+
+
+                                }
+                            }
+                        });
+
+                    }
+
+
+                }
+            })
+
+
+
+//start of stock items on billing form  =======================================
+            ShowModal(dOM, '#refLookUp7', '#7LkUp', function aF() {
+                dOM.find('#7LkUp .stkItmRemoveBtn').on({
+                    click: function () {
+                        //Check if no row is in the table
+                        let numOfRows = Number($(".tbody2").find("tr").last().find("td").eq(0).text());
+
+                        if (numOfRows > 0) {
+                            //Get the description and recid of the last row;
+                            let description = $(".tbody2").find("tr").last().find("td").eq(3).text();
+                            let recID = $(".tbody2").find("tr").last().find("td").eq(8).text();
+
+                            if (!confirm(`Delete Records ${description} ?`)) {
+                                return;
+                            } else {
+                                //Remove the last row
+                                $(".tbody2").find("tr").last().remove();
+
+                                $.ajax({
+                                    url: "/AJAX/stkItmRemoveBtnClicked",
+                                    method: "POST",
+                                    data: { recID: recID },
+                                    success: function (data) {
+                                        if (data != null) {
+                                            if (data.alertMessage != null) {
+                                                alert(data.alertMessage);
+                                            }
+                                        }
+                                    }
+                                });
+
+                            }
+
+                        }
+                    }
+                });
+
+                dOM.find('#7LkUp .stkItmSubmitBtn').on({
+                    click: function () {
+
+                        //Check if no row is in the table
+                        let num = Number($(".tbody2").find("tr").last().find("td").eq(0).text());
+
+                        if (num == 0) {
+                            alert("No Records generated...");
+                            return;
+                        }
+
+
+                        //PPDRESSINGDTL Class holds the table data
+                        let tableList = [];
+                        $(".tbody2").find("tr").each(function () {
+                            let rowObject = {
+                                REFERENCE: $(this).find("td").eq(1).text().trim(),  // for itemNo
+                                GROUPCODE: Number($(this).find("td").eq(2).text().trim()), // for stock code
+                                DESCRIPTION: $(this).find("td").eq(3).text().trim(), // for stock description
+                                PROCESS: $(this).find("td").eq(4).text().trim(), // for Qty
+                                ADDRESS1: $(this).find("td").eq(5).text().trim(), // for Unit
+                                NOTES: $(this).find("td").eq(6).text().trim(), // for UnitCost
+                                DOCTOR: $(this).find("td").eq(7).text().trim(), // for Total
+                                RECID: Number($(this).find("td").eq(12).text().trim()) // for recId
+                            };
+
+                            tableList.push(rowObject)
+                        });
+
+
+
+                        if (confirm("Confirm to Save Records.......")) {
+
+                            $.ajax({
+                                url: "/AJAX/stkItmSubmitBtnClicked",
+                                method: "POST",
+                                data: { tableList: tableList },
+                                success: function (data) {
+                                    if (data != null) {
+
+                                    }
+                                }
+                            });
+
+                        }
+
+                    }
+                });
+
+            });
+
+
+            $("#refLookUp7").on({
+                click: function () {
+                    let referenceNo = $(".referenceNo").val();
+
+                    $.ajax({
+                        url: "/AJAX/stkItemsOnBillingOnLoad",
+                        method: "POST",
+                        data: { referenceNo: referenceNo },
+                        success: function (data) {
+                            if (data != null) {
+
+                                if (data.length > 0) {
+                                    let rows = "";
+                                    let itemNo = 0;
+                                    let totalCost = 0;
+
+                                    for (let i = 0; i < data.length; i++) {
+
+                                        rows += "<tr>" +
+                                                    "<td></td>" +
+                                                    "<td>" + ++itemNo + "</td>" +
+                                                    "<td>" + data[i].STK_ITEM + "</td>" +
+                                                    "<td>" + data[i].STK_DESC + "</td>" +
+                                                    "<td>" + data[i].QTY + "</td>" +
+                                                    "<td>" + data[i].UNIT + "</td>" +
+                                                    "<td>" + data[i].UNITCOST + "</td>" +
+                                                    "<td>" + data[i].COST + "</td>" +
+                                                    "<td>" + data[i].RECID + "</td>" +
+                                                "</tr>";
+
+                                        totalCost += Number(data[i].COST);
+
+                                    }
+
+                                    $(".cummTotal").val(totalCost);
+                                    $(".tbody2").html(rows);
+                                }
+
+                            }
+                        }
+                    });
+                }
+            })
+
+//End of stock items on billing form   ======================================
+
+
+
+
+//Start of Transfer Billing form  =================================================
+            
+            $(".BTpatientNo").on({
+                focusout: function () {
+                    let BTpatientNo = $(".BTpatientNo").val();
+                    let BTgroupCode = $(".BTgroupCode").val();
+
+                    if (BTpatientNo.trim() != "") {
+                        $.ajax({
+                            url: "@Url.Action("BTpatientNoFocusout", "AJAX")",
+                            //url: "/AJAX/BTpatientNoFocusout",
+                            method: "POST",
+                            data: { BTpatientNo: BTpatientNo, BTgroupCode: BTgroupCode },
+                            success: function (data) {
+                                if (data != null) {
+
+                                    if (data.alertMessage != null) {
+                                        alert(data.alertMessage);
+                                        $(".BTpatientNo").val("");
+                                        return;
+                                    }
+
+                                    $(".BTname").val(data.TXTPATIENTNAME);
+                                    $(".BTrespForBills").val(data.txtgrouphead);
+
+                                }
+
+                            }
+                        });
+                    }
+
+                }
+            })
+
+            $(".BTtransferBtn").on({
+                click: function () {
+                    let BTpatientNo = $(".BTpatientNo").val();
+                    let BTgroupCode = $(".BTgroupCode").val();
+                    let valToTransfer = Number($(".valToTransfer").val());
+                    let patCurrentBill = Number($(".patCurrentBill").val());
+                    let chkBills = $(".chkBills").prop("checked");
+                    let chkPayments = $(".chkPayments").prop("checked");
+                    let chkTransferVal = $(".chkTransferVal").prop("checked");
+                    let BTpaymentVal = Number($(".BTpaymentVal").val());
+                    let BTpaymentNo = $(".BTpaymentNo").val();
+                    let consultAdmRef = $(".consultAdmRef").val();
+
+
+                    if (valToTransfer < 1 || valToTransfer > patCurrentBill ||
+                        chkBills == false && chkPayments == false)
+                    {
+                        alert("Check Value to Transfer...");
+                        return;
+                    }
+
+                    let xstr = chkTransferVal ? "Confirm to Transfer Bills..." : "Confirm to Move Bills...";
+                    let xstr2 = chkTransferVal ? "Transfer" : "Move";
+
+                    if (!confirm(xstr, " Bills/Pmts " + xstr2)) {
+                        return;
+                    } else {
+                        $.ajax({
+                            url: "/AJAX/BTtransferBtnClicked",
+                            method: "POST",
+                            data: { 
+                                chkTransferVal: chkTransferVal, BTpatientNo: BTpatientNo,
+                                BTgroupCode: BTgroupCode, valToTransfer: valToTransfer,
+                                chkBills: chkBills, chkPayments: chkPayments, BTpaymentVal: BTpaymentVal,
+                                BTpaymentNo: BTpaymentNo, consultAdmRef: consultAdmRef
+                            },
+                            success: function (data) {
+                                if (data != null) {
+                                    if (data.ActRslt != null) {
+                                        alert(data.ActRslt);
+                                    }
+
+                                    if (data.alertMessage != null) {
+                                        alert(data.alertMessage);
+
+                                        //Close billTransferForm
+                                        $(".BTcloseBtn").click();
+                                    }
+                                }
+
+                            }
+                        });
+
+                    }
+                    
+                }
+            })
+
+
+            $(".BTpaymentNo").on({
+                focusout: function () {
+                    let BTpaymentNo = $(this).val();
+
+                    $.ajax({
+                        url: "/AJAX/BTpaymentNoFocusout",
+                        method: "POST",
+                        data: { BTpaymentNo: BTpaymentNo },
+                        success: function (data) {
+                            if (data != null) {
+                                if (data.alertMessage != null) {
+                                    alert(data.alertMessage);
+                                    $(".BTpaymentNo").val(data.txtreference);
+                                    return;
+                                }
+
+                                if (data.nmrMinBalance != null) {
+                                    $(".BTpaymentVal").val(data.nmrMinBalance);
+                                }
+                            }
+
+                        }
+                    });
+                }
+            })
+
+
+            //transferBillForm close btn
+            $(".BTcloseBtn").on({
+                click: function () {
+                    $(".transferBillForm").hide();
+                    $(".billingForm").show();
+                }
+            })
+    
+
+
+//End of Transfer Billing form   ======================================
+
+
+
+//start of loadBills4Edit=============================================================
+
+
+            ShowModal(dOM, '#refLookUp8', '#8LkUp', function aF() {
+                dOM.find('#8LkUp .accessCodeSubmitBtn').on({
+                    click: function () {
+                        let accessCodeText = dOM.find('#8LkUp .accessCodeText').val().trim();
+
+                        $.ajax({
+                            url: "/AJAX/accessCodeSubmitClicked",
+                            method: "POST",
+                            data: { accessCodeText: accessCodeText },
+                            success: function (data) {
+                                if (data != null) {
+                                    if (data.alertMessage != null) {
+                                        alert(data.alertMessage);
+                                    } else {
+                                        dOM.find('#8LkUp .accessCodeCancel').click();
+                                        dOM.find('#8LkUp .accessCodeText').val("");
+                                    }
+                                }
+                            }
+                        });
+
+                    }
+                });
+
+                dOM.find('#8LkUp .accessCodeCloseBtn').on({
+                    click: function () {
+                        $(".closeBtn").click();
+                    }
+                })
+
+
+            });
+
+
+
+            $(".ldBillsGroupCode").on({
+                focusout: function () {
+                    $(".ldBillsPatientNo").focus();
+                }
+            })
+
+
+            $(".ldBillsPatientNo").on({
+                focusout: function () {
+                    let ldBillsPatientNo = $(this).val();
+                    let ldBillsGroupCode = $(".ldBillsGroupCode").val();
+
+                    if (ldBillsPatientNo.trim() != "") {
+                        $.ajax({
+                            url: "/AJAX/ldBillsPatientNoFocusout",
+                            method: "POST",
+                            data: { ldBillsPatientNo: ldBillsPatientNo, ldBillsGroupCode: ldBillsGroupCode },
+                            success: function (data) {
+                                if (data != null) {
+                                    if (data.alertMessage != null) {
+                                        alert(data.alertMessage);
+                                        return;
+                                    }
+
+                                    if(data.TXTPATIENTNAME != null) {
+                                        $(".nameLabel").text(data.TXTPATIENTNAME);
+                                    }
+
+                                    $(".hiddenFcgroup").val(data.chkbyacctofficers);
+
+                                    if (data.ActRslt != null) {
+                                        if(confirm(data.ActRslt)) {
+                                            $(".hiddenFcgroup").val("true");
+                                        }
+
+                                    }
+
+                                }
+                            }
+                        });
+
+                    }
+
+                }
+            })
+
+
+            $(".ldBillsGroupHead").on({
+                focusout: function () {
+                    let ldBillsGroupHead = $(this).val();
+
+                    if (ldBillsGroupHead.trim() != "") {
+                        $.ajax({
+                            url: "/AJAX/ldBillsGroupHeadFocusout",
+                            method: "POST",
+                            data: { ldBillsGroupHead: ldBillsGroupHead },
+                            success: function (data) {
+                                if (data != null) {
+                                    if (data.alertMessage != null) {
+                                        alert(data.alertMessage);
+
+                                        $(".ldBillsGroupHead").val("");
+                                        return;
+                                    }
+
+                                    if (data.TXTPATIENTNAME != null) {
+                                        $(".nameLabel").text(data.TXTPATIENTNAME);
+                                    }
+
+                                }
+                            }
+                        });
+
+                    }
+
+                }
+            })
+
+
+            $(".loadRecsBtn").on({
+                click: function () {
+                    let ldBillsGroupHead = $(".ldBillsGroupHead").val();
+                    let ldBillsGroupCode = $(".ldBillsGroupCode").val();
+                    let ldBillsPatientNo = $(".ldBillsPatientNo").val();
+                    let hiddenFcgroup = $(".hiddenFcgroup").val();
+                    let transDateString = $(".transDate").val();
+                    let dateToString = $(".dateTo").val();
+                    let transDate = new Date($(".transDate").val());
+                    let dateTo = new Date($(".dateTo").val());
+
+                    if (ldBillsGroupHead.trim() == "" && ldBillsPatientNo.trim() == "") {
+                        alert("A Grouphead or Patient must be selected...");
+                        return;
+                    }
+
+                    if (transDate.getMonth() != dateTo.getMonth() || transDate.getFullYear() != dateTo.getFullYear()) {
+                        alert("Transaction Dates must be within SAME month and Year...");
+                        return;
+                    }
+
+
+                    if (confirm("Confirm to Load Bills...")) {
+                        $.ajax({
+                            url: "/AJAX/loadRecsBtnClicked",
+                            method: "POST",
+                            data: {
+                                transDateString: transDateString, dateToString: dateToString, ldBillsGroupHead: ldBillsGroupHead,
+                                ldBillsPatientNo: ldBillsPatientNo, ldBillsGroupCode: ldBillsGroupCode,
+                                hiddenFcgroup: hiddenFcgroup
+                            },
+                            success: function (data) {
+                                if (data.REPORTS != null) {
+                                    if (data.REPORTS.alertMessage != null) {
+                                        alert(data.REPORTS.alertMessage);
+                                        return;
+                                    }
+                                }
+
+                                if (data.BILLINGS != null && data.BILLINGS.length > 0) {
+                                    //DISPLAY THE TABLE
+
+                                    let billings = data.BILLINGS;
+                                    //let itemNo = 0;
+                                    let rows = "";
+                                  
+                                    for (let i = 0; i < billings.length; i++) {
+                                        let transDate = formatDate1(billings[i].TRANS_DATE);
+                                        //let itemNo = billings[i].ITEMNO ? billings[i].ITEMNO : "";
+
+                                        rows += "<tr>" +
+                                                    "<td>" + billings[i].SERVICETYPE + "</td>" +
+                                                    "<td>" + billings[i].REFERENCE + "</td>" +
+                                                    "<td>" + billings[i].ITEMNO + "</td>" +
+                                                    "<td>" + billings[i].NAME + "</td>" +
+                                                    "<td>" + billings[i].DIAG + "</td>" +
+                                                    "<td>" + billings[i].FACILITY + "</td>" +
+                                                    "<td>" + billings[i].PROCESS + "</td>" +
+                                                    "<td>" + billings[i].DESCRIPTION + "</td>" +
+                                                    "<td>" + billings[i].AMOUNT + "</td>" +
+                                                    "<td>" + transDate + "</td>" +
+                                                    "<td>" + billings[i].RECEIPTED + "</td>" +
+                                                    "<td>" + billings[i].GROUPCODE + "</td>" +
+                                                    "<td>" + billings[i].PATIENTNO + "</td>" +
+                                                    "<td>" + billings[i].GROUPHEAD + "</td>" +
+                                                    "<td>" + billings[i].ACCOUNTTYPE + "</td>" +
+                                                    "<td>" + billings[i].OPERATOR + "</td>" +
+                                                    "<td>" + billings[i].OP_TIME + "</td>" +
+                                                    "<td>" + billings[i].RECID + "</td>" +
+                                                    "<td></td>" +
+                                                "</tr>"
+                                    }
+
+                                    $(".tbody3").html(rows);
+                                   
+                                }
+
+                            }
+                        });
+
+                    }
+
+
+                }
+            })
+
+
+            $(".closeBtn").on({
+                click: function () {
+                    $(".bill4EditForm").hide();
+                    $(".billingForm").show();
+                }
+            })
+
+//End of loadBills4Edit===============================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+            function formatDate1(str) {
+                str = Number(str.slice(str.indexOf("(") + 1, str.indexOf(")")));
+                var d = new Date(str);
+                d = ('0' + d.getDate()).slice(-2) + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + d.getFullYear();
+                return d; //returns 01-01-1970
+            };
+
+        })
+    </script>    
+}

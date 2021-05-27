@@ -1,0 +1,1113 @@
+﻿@model OtherClasses.Models.MR_DATA.MR_DATAvm
+
+@{
+    ViewBag.Title = "SampleCollectDetails";
+    ViewBag.TitleBar = "SAMPLE COLLECTION DETAILS";
+    Layout = "~/Views/Shared/_MRFormLayout.cshtml";
+}
+
+
+<style>
+    textarea {
+        resize: none;
+    }
+
+    .title1 {
+        font-size: 11px;
+        font-weight: bold;
+    }
+
+    .title2 {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .tableDiv1 {
+        height: 40rem;
+    }
+
+    .bgColor {
+        background-color: #f79b9b;
+    }
+
+</style>
+
+
+
+<!--Modal Start-->
+<div id="1LkUp" class="djq-modal djq-hide">
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR RECORDED DAILY ATTENDANCE</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable1">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+<input type="hidden" id="refLookUp2" />
+<div id="2LkUp" class="djq-modal djq-hide custom">
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls drk">
+                    => SELECT NEXT PATIENT - AWAITING SERVICE
+                    @*<span class="cred"></span>*@
+                </label>
+            </div>
+        </div>
+
+        <div class="djq-c">
+            <!--CUSTOM HTML CONTENT-->
+            <section class="d-flex justify-content-around py-3">
+                <span class="newline n1">
+                    <label class="label drk w-4 w-35">SEARCH NAME</label>
+                    <input type="text" value="" class="input w-6 w-50 increase-height" />
+                </span>
+            </section>
+           
+            <section>
+                <div class="tableDiv1 v-scroll">
+                    <table class="">
+                        <thead>
+                            <tr>
+                                <th class="px-5">NAME</th>
+                                <th class="px-5">GROUPCODE</th>
+                                <th class="px-5">PATIENT_NO</th>
+                                <th class="px-5">TIME_SENT</th>
+                                <th class="px-5">REFERENCE</th>
+                                <th class="px-5">SENT_BY</th>
+                                <th class="px-5">CLINIC/SECTION</th>
+                                <th class="px-5">CUMM_BILL</th>
+                                <th class="px-5">FACILITY</th>
+                                <th class="px-5">RECID</th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="tbody2 text-center"></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+
+        <div class="djq-body3 deep-g d-flex justify-content-around">
+            <button type="button" class="btn clm">Select</button>
+            <button type="button" class="btn clm close-dataJQ">Close</button>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="refLookUp5" />
+<div id="5LkUp" class="djq-modal djq-hide custom">
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls drk">
+                    TAGGED SERVICE/REQUESTS FOR THIS REF -
+                    <span class="profileHead bg-light cred"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="djq-c">
+            <!--CUSTOM HTML CONTENT-->
+            <section>
+                <div class="tableDiv2 v-scroll">
+                    <table class="">
+                        <thead>
+                            <tr>
+                                <th class="px-5">PROCEDURE</th>
+                                <th class="px-5">AMOUNT</th>
+                                <th class="px-5">FACILITY</th>
+                                <th class="px-5">PROCESS</th>
+                                <th class="px-5">REQ_DATE</th>
+                                <th class="px-5">TAGGED</th>
+                                <th class="px-5">NOTES</th>
+                                <th class="px-5">BILLCODE</th>
+                                <th class="px-5">UNITCODE</th>
+                                <th class="px-5">GROUPED</th>
+                                <th class="px-5">GRPBILLBYTYPE</th>
+                                <th class="px-5">ITEM_NO</th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="tbody2 text-center"></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+
+        <div class="djq-body3 deep-g d-flex justify-content-around">
+            <scan>
+                <label class="label drk w-2 w-35">TAGGED</label>
+                <input type="number" placeholder="0" class="input w-3 alr" />
+            </scan>
+            <button type="button" class="btn clm">Tag/Untag Item</button>
+            <button type="button" class="btn clm close-dataJQ suspFormClose">Close</button>
+        </div>
+    </div>
+</div>
+
+
+<form method="post" action="@Url.Action("SampleCollectDetailsSubmit", "File")">
+
+    <section>
+        <section class="dif py-3">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="newline n1">
+                        <label class="label drk w-4 w-35">Service Center/Facility</label>
+                        @Html.DropDownListFor(v => v.SYSCODETABSvm.ServiceCentreCodes.name,
+                                new SelectList(@Model.SYSCODETABSvm.ServiceCentreCodess, "type_code", "NAME"), "",
+                                new { @class = "input w-9 w-50 increase-height facility" })
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="al-c line-height">
+                        <input type="checkbox" id="inpatient" name="REPORTS.chkADVCorporate" class="chkInPatient" />
+                        <label for="inpatient" class="label drk">In-Patient</label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="dif">
+            <div class="row">
+                <div class="col-md-6">
+                    <div>
+                        <div class="newline n1">
+                            <label class="label drk w-4 w-35">Transaction Date</label>
+                            <input type="date" name="REPORTS.REPORT_TYPE1" value="@String.Format("{0:yyyy-MM-dd}", DateTime.Now)" class="input w-5 w-50 increase-height transDate" />
+                        </div>
+                        <div class="newline n1">
+                            <label class="label drk w-4 w-35">Service Ref. #</label>
+                            <input type="text" name="REPORTS.txtreference" value="" class="input w-5 w-50 increase-height serviceRef" />
+                            <input type="button" name="btn" id="refLookUp" class="btn-small" />
+                        </div>
+                        <div class="newline n1">
+                            <label class="label drk w-4 w-35">Consultation/Cross Ref</label>
+                            <input type="text" name="REPORTS.REPORT_TYPE2" value="" class="input w-5 w-50 increase-height crossRef cData1" />
+                            <input type="button" name="btn" id="refLookUp1" class="btn-small" />
+                        </div>
+                        <div class="newline n1">
+                            <label class="label drk w-4 w-35">GroupCode</label>
+                            <input type="text" name="REPORTS.txtgroupcode" value="" class="input w-5 w-50 increase-height groupCode" />
+                        </div>
+                        <div class="newline n1">
+                            <label class="label drk w-4 w-35">Patient No</label>
+                            <input type="text" name="REPORTS.txtpatientno" value="" class="input w-5 w-50 increase-height patientNo" />
+                        </div>
+                        <div class="newline n1">
+                            <label class="label drk w-4 w-35">Name</label>
+                            <input type="text" name="REPORTS.TXTPATIENTNAME" value="" class="input w-8 w-50 increase-height name" />
+                        </div>
+                        <div class="newline n1">
+                            <label class="label drk w-4 w-35">Address</label>
+                            <input type="text" name="REPORTS.txtaddress1" value="" class="input w-8 w-50 increase-height address" />
+                        </div>
+                        <div class="newline n1">
+                            <label class="label drk w-4 w-35">Sex</label>
+                            <select name="REPORTS.cbogender" class="input w-5 w-50 increase-height sex">
+                                <option value=""></option>
+                                <option value="M">MALE</option>
+                                <option value="F">FEMALE</option>
+                            </select>
+                        </div>
+                        <div class="newline n1">
+                            <label class="label drk w-4 w-35">Age</label>
+                            <input type="text" name="REPORTS.cboAge" value="" class="input w-5 w-50 increase-height age" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div>
+                        <div>
+                            <label class="label drk w-3 w-35">Request Profile</label>
+                        </div>
+                        <div class="newline n1">
+                            <textarea name="REPORTS.REPORT_TYPE3" class="ww100 requestProfile" rows="7"> </textarea>
+                        </div>
+
+                        <div class="newline n1">
+                            <label class="label drk w-3 w-35">Bills Payable By</label>
+                            <input type="text" name="REPORTS.txtothername" value="" class="input w-5 w-50 increase-height billPayableBy" />
+                        </div>
+                        <div class="newline n1">
+                            <label class="label drk w-3 w-35">GHgroupCode</label>
+                            <input type="text" name="REPORTS.txtghgroupcode" value="" class="input w-5 w-50 increase-height ghGroupCode" />
+                        </div>
+                        <div class="newline n1">
+                            <label class="label drk w-3 w-35">Grouphead</label>
+                            <input type="text" name="REPORTS.txtgrouphead" value="" class="input w-5 w-50 increase-height groupHead" />
+                        </div>
+                        <div class="newline n1">
+                            <label class="label drk w-3 w-35">Referring Doctor</label>
+                            <input type="text" name="REPORTS.doctor" value="" class="input w-5 w-50 increase-height referringDoc" />
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="dif lme">
+            <div class="row py-3">
+                <div class="col-md-6">
+                    <div class="newline n1">
+                        <label class="label drk w-4 w-35">Sample Collected By</label>
+                        <input type="text" name="REPORTS.REPORT_TYPE4" value="" class="input w-8 w-50 increase-height sampleCollectedBy" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="newline n1">
+                        <label class="label drk w-3 w-35">Date / Time</label>
+                        <input type="date" name="REPORTS.REPORT_TYPE5" value="@String.Format("{0:yyyy-MM-dd}", DateTime.Now)" class="input w-5 w-50 increase-height collectionDateTime" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="bgColor sampleTypeBlock">
+                <div class="row py-3">
+                    <div class="col-md-2">
+                        <div class="pt-1">
+                            <span>
+                                <label class="label drk">Sample Type Collected</label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        <div class="d-flex justify-content-around flex-wrap">
+                            <span class="">
+                                <input type="checkbox" id="blood" name="chk" class="chkBlood chkSampTypes" />
+                                <label for="blood" class="label drk">Blood</label>
+                            </span>
+                            <span class="">
+                                <input type="checkbox" id="sputum" name="chk" class="chkSputum chkSampTypes" />
+                                <label for="sputum" class="label drk">Sputum</label>
+                            </span>
+                            <span class="">
+                                <input type="checkbox" id="Stool" name="chk" class="chkStool chkSampTypes" />
+                                <label for="Stool" class="label drk">Stool</label>
+                            </span>
+                            <span class="">
+                                <input type="checkbox" id="Urine" name="chk" class="chkUrine chkSampTypes" />
+                                <label for="Urine" class="label drk">Urine</label>
+                            </span>
+                            <span class="">
+                                <input type="checkbox" id="Swab" name="chk" class="chkSwab chkSampTypes" />
+                                <label for="Swab" class="label drk">Swab</label>
+                            </span>
+                            <span class="">
+                                <input type="checkbox" id="Semen" name="chk" class="chkSemen chkSampTypes" />
+                                <label for="Semen" class="label drk">Semen</label>
+                            </span>
+                            <span class="">
+                                <input type="checkbox" id="Hair" name="chk" class="chkHair chkSampTypes" />
+                                <label for="Hair" class="label drk">Hair</label>
+                            </span>
+                            <span>
+                                <label class="label drk">Others(specify)</label>
+                                <input type="text" value="" class="input w-5 w-50 otherText chkSampTypes" />
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+
+        <section class="dif">
+            <div class="row py-4">
+                <div class="col-md-4 d-flex align-items-center justify-content-center">
+                    <span class="title2">
+                        Notes for Patient Medical History:
+                    </span>
+                </div>
+                <div class="col-md-8">
+                    <div class="row py-3">
+                        <div class="col-md-1 text-center">
+                            <label class="label drk">Default:</label>
+                        </div>
+                        <div class="col-md-11">
+                            <input name="REPORTS.edtallergies" type="text" value="" class="input ww100 default" />
+                        </div>
+                    </div>
+
+                    <div class="row py-3">
+                        <div class="col-md-1 text-center">
+                            <label class="label drk">Others:</label>
+                        </div>
+                        <div class="col-md-11">
+                            <textarea name="REPORTS.edtspinstructions" class="ww100 othersNote" rows="7"> </textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="dif">
+            <div class="d-flex justify-content-around py-3">
+                <a href="@Url.Action("SampleLabelGenerator", "File")" target="_blank" class="recptLink">
+                    <button type="button" class="btn printLabelBtn">
+                        Print Label
+                    </button>
+                </a>
+                <input type="button" value="Submit" class="btn clm submitBtn" />
+                <input type="submit" value="Submit" class="btn clm hiddenSubmitBtn" />
+                <input type="button" value="Close" class="btn clm" />
+            </div>
+        </section>
+
+
+
+        <input type="hidden" value="" class="servicerecno" />
+        <input type="hidden" name="REPORTS.msection" value="@Model.REPORTS.msection" class="msection" />
+
+        <input type="hidden" value="" class="mreference" />
+        <input type="hidden" name="REPORTS.mgrouphtype" value="" class="mgrouphtype" />
+        <input type="hidden" name="REPORTS.mlastno" value="" class="mlastno" />
+        <input type="hidden" name="REPORTS.newrecString" value="" class="newrec" />
+        <input type="hidden" value="" class="mcanadd" />
+
+        <input type="hidden" value="@Model.REPORTS.alertMessage" class="alertMessage" />
+    </section>
+
+</form>
+
+
+
+
+@section scripts
+{
+    <script>
+        $(function () {
+            var dOM = $('body'); //must assign
+            var formFields = document.getElementById('mainForm'); //must assign, used for calling javaScript methods
+            appendTagInvalid1(dOM, "@ViewBag.iinvalid"); //must call
+            servErrorAlert("#eLkUp", "@ViewBag.Msg"); //must call
+
+
+            var dTHN1 = ['NAME', 'REFERENCE', 'TRANS_DATE', 'FACILITY', 'GROUPCODE', 'PATIENTNO', 'PHONE']; //for table header
+            var dBCN1 = ['NAME', 'REFERENCE', 'TRANS_DATE', 'FACILITY', 'GROUPCODE', 'PATIENTNO', 'PHONE']; //for database header
+            var jaxURL1 = "@Url.Action("RptSuspenseLookUp", "AJAX")";
+
+            //For cross ref
+            LoadDynamicDT1(jaxURL1, dTHN1, dBCN1, 'SUSPENSES', '#refLookUp1', '#1LkUp', '#regPTable1', '.cData', [3]);
+
+
+            function ClearControls() {
+                location.reload(true);
+                scrollToTop();
+            }
+
+
+            //onLoad
+            $(".hiddenSubmitBtn").hide();
+            $(".hiddenRecptLink").hide();
+            $(".chkSampTypes").prop({ disabled: true });
+            
+
+            $.ajax({
+                url: "/AJAX/sampleCollectionOnLoad",
+                method: "POST",
+                success: function (data) {
+                    if (data != null) {
+                        if (data.alertMessage != null) {
+                            alert(data.alertMessage);
+                        }
+
+                        $(".mcanadd").val(data.chkADVCorporate);
+                    }
+                }
+            }).then(() => {
+                let alertMessage = $(".alertMessage").val();
+
+                if (alertMessage.trim() != "") {
+                    alert(alertMessage);
+                }
+            })
+
+            $(".facility").focus();
+
+
+
+            ShowModal(dOM, '#refLookUp2', '#2LkUp', function aF() {
+                //dOM.find('#5LkUp #refLookUp5').on({
+                //});
+            });
+
+            ShowModal(dOM, '#refLookUp5', '#5LkUp', function aF() {
+                dOM.find('#5LkUp .suspFormClose').on({
+                    click: function () {
+                        $(".requestProfile").val("");
+
+                        let crossRef = $(".crossRef").val();
+
+                        $.ajax({
+                            url: "/AJAX/frmAcctfromSuspClosed",
+                            method: "POST",
+                            data: { crossRef: crossRef },
+                            success: function (data) {
+                                if (data != null) {
+                                    if (data.edtallergies != null) {
+                                        $(".requestProfile").val(data.edtallergies);
+                                    }
+                                }
+                            }
+                        })
+
+                    }
+                });
+
+            });
+
+
+
+            $(".serviceRef").on({
+                focus: function () {
+                    let serviceRef = $(this).val();
+                    let servicerecno = Number($(".servicerecno").val());
+                    let mlastno = Number($(".mlastno").val());
+                    let facility = $(".facility").val();
+
+                    if (facility == "" || facility == null) {
+                        $(".facility").focus();
+                        alert("Please Select Facility!!");
+                        return;
+                    }
+
+                    $(".newrec").val("true");
+
+                    if (serviceRef.trim() == "") {
+                        $.ajax({
+                            url: "/AJAX/serviceRefFocus",
+                            method: "POST",
+                            data: { servicerecno: servicerecno, mlastno: mlastno },
+                            success: function (data) {
+                                if (data != null) {
+                                    $(".mlastno").val(data.mlastno);
+                                    $(".serviceRef").val(data.mlastno);
+                                }
+                            }
+                        })
+                    }
+
+                },
+
+                focusout: function () {
+                    let serviceRef = $(this).val();
+                    let facility = $(".facility").val();
+                    let mlastno = Number($(".mlastno").val());
+
+                    if (serviceRef.trim() != "") {
+                        $(".newrec").val("true");
+
+                        if (serviceRef.trim() == "" || facility == "" || facility == null)
+                            return;
+
+                        if (Number(serviceRef) > mlastno) {
+                            alert("Service Reference is out of Seguence...");
+                            $(this).val("");
+                            return;
+                        }
+
+                        $.ajax({
+                            url: "/AJAX/serviceRefFocusout",
+                            method: "POST",
+                            data: { serviceRef: serviceRef, facility: facility },
+                            success: function (data) {
+                                if (data != null) {
+                                    if (data.txtreference != null) {
+                                        $(".serviceRef").val(data.txtreference);
+                                    }
+
+                                    $(".newrec").val("true");
+
+                                    if (data.cboAge != null)
+                                        $(".age").val(data.cboAge);
+
+                                    if (data.REPORT_TYPE1 != null)
+                                        $(".crossRef").val(data.REPORT_TYPE1);
+
+                                    if (data.edtallergies != null)
+                                        $(".default").val(data.edtallergies);
+
+                                    if (data.edtspinstructions != null)
+                                        $(".othersNote").val(data.edtspinstructions);
+
+                                    if (data.TXTPATIENTNAME != null)
+                                        $(".name").val(data.TXTPATIENTNAME);
+
+                                    if (data.txtpatientno != null)
+                                        $(".patientNo").val(data.txtpatientno);
+
+                                    if (data.txtgroupcode != null)
+                                        $(".groupCode").val(data.txtgroupcode);
+
+                                    if (data.REPORT_TYPE2 != null)
+                                        $(".referringDoc").val(data.REPORT_TYPE2);
+
+                                    if (data.cbogender != null)
+                                        $(".sex").val(data.cbogender);
+
+                                    if (data.txtaddress1 != null)
+                                        $(".address").val(data.txtaddress1);
+
+                                    if (data.REPORT_TYPE4 != null)
+                                        $(".sampleCollectedBy").val(data.REPORT_TYPE4);
+
+                                    if (data.REPORT_TYPE3 != null)
+                                        $(".collectionDateTime").val(data.REPORT_TYPE3);
+
+                                    if (data.alertMessage != null) {
+                                        alert("RECORD EXIST - Limited Update allowed!");
+                                        $(".submitBtn").prop({ disabled: false });
+                                    }
+
+
+                                }
+                            }
+                        })
+
+                    }
+                }
+
+            });
+
+            $(".sampleCollectedBy").on({
+                focusout: function () {
+                    let sampleCollectedBy = $(this).val();
+
+                    if (sampleCollectedBy.trim() != "") {
+                        $(".chkSampTypes").prop({ disabled: false });
+                    }
+                }
+            })
+
+            $(".sampleTypeBlock").on({
+                click: function () {
+                    let sampleCollectedBy = $(".sampleCollectedBy").val();
+
+                    if (sampleCollectedBy.trim() == "") {
+                        alert("Sample Collector ID and date/Time must be specified to use this segment...");
+                        return;
+                    } else {
+                        $(".chkSampTypes").prop({ disabled: false });
+                    }
+                },
+
+                focusout: function () {
+                    let chkBlood = $(".chkBlood").prop("checked");
+                    let chkSputum = $(".chkSputum").prop("checked");
+                    let chkStool = $(".chkStool").prop("checked");
+                    let chkUrine = $(".chkUrine").prop("checked");
+                    let chkSwab = $(".chkSwab").prop("checked");
+                    let chkSemen = $(".chkSemen").prop("checked");
+                    let chkHair = $(".chkHair").prop("checked");
+                    let otherText = $(".otherText").val();
+                    let sampleCollectedBy = $(".sampleCollectedBy").val().trim();
+                    let collectionDateTime = $(".collectionDateTime").val();
+
+
+                    $.ajax({
+                        url: "/AJAX/sampleTypeBlockFocusout",
+                        method: "POST",
+                        data: {
+                            chkBlood: chkBlood, chkSputum: chkSputum, chkStool: chkStool, chkUrine: chkUrine, chkSwab: chkSwab,
+                            chkSemen: chkSemen, chkHair: chkHair, otherText: otherText, sampleCollectedBy: sampleCollectedBy,
+                            collectionDateTime: collectionDateTime
+                        },
+                        success: function (data) {
+                            if (data != null) {
+                                if (data.edtallergies != null) {
+                                    $(".default").val(data.edtallergies);
+                                }
+
+                                if (data.edtspinstructions != null) {
+                                    $(".othersNote").val(data.edtspinstructions);
+                                }
+
+                                $(".submitBtn").prop({ disabled: false });
+                            }
+                        }
+                    })
+                }
+            })
+
+
+            $(".default").on({
+                click: function () {
+                    let chkBlood = $(".chkBlood").prop("checked");
+                    let chkSputum = $(".chkSputum").prop("checked");
+                    let chkStool = $(".chkStool").prop("checked");
+                    let chkUrine = $(".chkUrine").prop("checked");
+                    let chkSwab = $(".chkSwab").prop("checked");
+                    let chkSemen = $(".chkSemen").prop("checked");
+                    let chkHair = $(".chkHair").prop("checked");
+                    let otherText = $(".otherText").val();
+                    let othersNote = $(".othersNote").val();
+                    let sampleCollectedBy = $(".sampleCollectedBy").val().trim();
+                    let collectionDateTime = $(".collectionDateTime").val();
+
+
+                    $.ajax({
+                        url: "/AJAX/defaultClick",
+                        method: "POST",
+                        data: {
+                            chkBlood: chkBlood, chkSputum: chkSputum, chkStool: chkStool, chkUrine: chkUrine, chkSwab: chkSwab,
+                            chkSemen: chkSemen, chkHair: chkHair, otherText: otherText, sampleCollectedBy: sampleCollectedBy,
+                            collectionDateTime: collectionDateTime, othersNote: othersNote
+                        },
+                        success: function (data) {
+                            if (data != null) {
+                                if (data.edtallergies != null) {
+                                    $(".default").val(data.edtallergies);
+                                }
+
+                                if (data.edtspinstructions != null) {
+                                    $(".othersNote").val(data.edtspinstructions);
+                                }
+
+                                if (data.chkADVCorporate == true) {
+                                    $(".submitBtn").prop({ disabled: false });
+                                }
+
+                            }
+                        }
+                    })
+                }
+            })
+
+
+            $(".othersNote").on({
+                click: function () {
+                    let chkBlood = $(".chkBlood").prop("checked");
+                    let chkSputum = $(".chkSputum").prop("checked");
+                    let chkStool = $(".chkStool").prop("checked");
+                    let chkUrine = $(".chkUrine").prop("checked");
+                    let chkSwab = $(".chkSwab").prop("checked");
+                    let chkSemen = $(".chkSemen").prop("checked");
+                    let chkHair = $(".chkHair").prop("checked");
+                    let otherText = $(".otherText").val();
+                    let defaults = $(".default").val();
+                    let sampleCollectedBy = $(".sampleCollectedBy").val().trim();
+                    let collectionDateTime = $(".collectionDateTime").val();
+
+
+                    $.ajax({
+                        url: "/AJAX/othersNoteClick",
+                        method: "POST",
+                        data: {
+                            chkBlood: chkBlood, chkSputum: chkSputum, chkStool: chkStool, chkUrine: chkUrine, chkSwab: chkSwab,
+                            chkSemen: chkSemen, chkHair: chkHair, otherText: otherText, sampleCollectedBy: sampleCollectedBy,
+                            collectionDateTime: collectionDateTime, defaults: defaults
+                        },
+                        success: function (data) {
+                            if (data != null) {
+                                if (data.edtallergies != null) {
+                                    $(".default").val(data.edtallergies);
+                                }
+
+                                if (data.edtspinstructions != null) {
+                                    $(".othersNote").val(data.edtspinstructions);
+                                }
+
+                                if (data.chkADVCorporate == true) {
+                                    $(".submitBtn").prop({ disabled: false });
+                                }
+
+                            }
+                        }
+                    })
+                }
+            })
+
+
+            $('#refLookUp5').on({
+                click: function () {
+                    let crossRef = $(".crossRef").val();
+                    let patientNo = $(".patientNo").val();
+                    let groupCode = $(".groupCode").val();
+                    let name = $(".name").val();
+
+                    let profileName = `${crossRef} : ${name} : ${groupCode} - ${patientNo} `;
+                    $("#5LkUp .profileHead").text(profileName);
+
+                    $.ajax({
+                        url: "/AJAX/loadgrid",
+                        method: "POST",
+                        data: { consultRefNo: crossRef },
+                        success: function (data) {
+                            if (data != null) {
+                                let suspense = data;
+
+                                if (suspense.length > 0) {
+                                    let rows = "";
+                                    let xduration = 0;
+                                    let xDuration = "";
+
+                                    for (var i = 0; i < suspense.length; i++) {
+                                        xduration = Number(suspense[i].DURATION);
+                                        xDuration = xduration >= 1 ? "x" + xduration : "";
+
+                                        let description = `${suspense[i].DESCRIPTION} ${xDuration}`;
+                                        let transDate = formatDate1(suspense[i].TRANS_DATE);
+                                        let groupedItem = (suspense[i].GROUPEDITEM == "true") ? "YES" : "NO";
+                                        let groupedBill = (suspense[i].GRPBILLBYSERVTYPE == "true") ? "YES" : "NO";
+
+                                        rows += "<tr>" +
+                                                        "<td>" + description + "</td>" +
+                                                        "<td>" + suspense[i].AMOUNT + "</td>" +
+                                                        "<td>" + suspense[i].FACILITY + "</td>" +
+                                                        "<td>" + suspense[i].PROCESS + "</td>" +
+                                                        "<td>" + transDate + "</td>" +
+                                                        "<td> NO </td>" +
+                                                        "<td>" + suspense[i].NOTES + "</td>" +
+                                                        "<td>" + suspense[i].BILLPROCESS + "</td>" +
+                                                        "<td>" + suspense[i].NAME + "</td>" +
+                                                        "<td>" + groupedItem + "</td>" +
+                                                        "<td>" + groupedBill + "</td>" +
+                                                        "<td>" + suspense[i].ITEMNO + "</td>" +
+                                                "</tr>";
+                                    }
+
+                                    $(".tbody2").html(rows);
+
+                                    ////re-adjust the count values after adding rows
+                                    //let counter = 0;
+                                    //$(".tbody2").find("tr").each(function () {
+                                    //    $(this).find("td").eq(0).text(++counter);
+                                    //});
+
+                                }
+                            }
+                        }
+                    })
+
+                }
+            });
+
+
+            $(".facility").on({
+                focusout: function () {
+                    let facility = $(".facility").val();
+
+                    if (facility != "" && facility != null) {
+
+                        $.ajax({
+                            url: "/AJAX/facilityFocusout",
+                            method: "POST",
+                            data: { facility: facility },
+                            success: function (data) {
+                                if (data != null) {
+                                    if (data.alertMessage != null) {
+                                        alert(data.alertMessage);
+                                        $(".facility").val("");
+                                    }
+
+                                    $(".servicerecno").val(data.nmrAmountTo);
+
+                                }
+                            }
+                        })
+
+                    }
+
+                }
+            });
+
+
+            $(".transDate").on({
+                focusout: function () {
+                    let transDate = new Date($(".transDate").val());
+                    let todaysDate = new Date();
+
+                    if (transDate > todaysDate) {
+                        alert("Service Date cannot be greater than Today...");
+                        $(this).val("@String.Format("{0:yyyy-MM-dd}", DateTime.Now)");
+                    return;
+                }
+
+                $(".serviceRef").focus();
+            }
+        });
+
+
+        $(".crossRef").on({
+            focus: function () {
+                let facility = $(".facility").val().trim();
+                let msection = $(".msection").val().trim();
+
+                if (facility == "") {
+                    //alert("Facility Cannot be Empty...");
+                    return;
+                }
+
+                $.ajax({
+                    url: "/AJAX/crossRefFocus",
+                    method: "POST",
+                    data: { facility: facility, msection: msection },
+                    success: function (data) {
+                        if (data != null) {
+                            if (data.chkADVCorporate == true) {
+                                $("#refLookUp2").click();
+                            }
+                        }
+                    }
+                })
+
+            },
+
+            focusout: function () {
+                let crossRef = $(this).val().trim();
+                let sampleCollectedBy = $(".sampleCollectedBy").val();
+
+                if (crossRef != "") {
+                    let flag = false;
+
+                    $.ajax({
+                        url: "/AJAX/crossRefFocusout",
+                        method: "POST",
+                        data: { crossRef: crossRef, sampleCollectedBy: sampleCollectedBy },
+                        success: function (data) {
+                            if (data != null) {
+
+                                if (data.REPORT_TYPE1 != null) {
+                                    $(".crossRef").val(data.REPORT_TYPE1);
+                                    $(".crossRef").focus();
+                                }
+
+                                if (data.alertMessage != null) {
+                                    alert(data.alertMessage);
+                                    return;
+                                }
+
+                                if (data.ActRslt != null) {
+                                    alert(data.ActRslt);
+                                    return;
+                                }
+
+                                if (data.chkApplyFilter == true) {
+                                    $(".chkInPatient").prop({ checked: true });
+                                }
+
+                                if (data.mreference != null)
+                                    $(".mreference").val(data.mreference);
+
+                                if (data.mgrouphtype != null)
+                                    $(".mgrouphtype").val(data.mgrouphtype);
+
+                                if (data.TXTPATIENTNAME != null)
+                                    $(".name").val(data.TXTPATIENTNAME);
+
+                                if (data.txtpatientno != null)
+                                    $(".patientNo").val(data.txtpatientno);
+
+                                if (data.txtgroupcode != null)
+                                    $(".groupCode").val(data.txtgroupcode);
+
+                                if (data.txtothername != null)
+                                    $(".billPayableBy").val(data.txtothername);
+
+                                if (data.txtghgroupcode != null)
+                                    $(".ghGroupCode").val(data.txtghgroupcode);
+
+                                if (data.txtgrouphead != null)
+                                    $(".groupHead").val(data.txtgrouphead);
+
+                                if (data.REPORT_TYPE2 != null)
+                                    $(".referringDoc").val(data.REPORT_TYPE2);
+
+                                if (data.cbogender != null)
+                                    $(".sex").val(data.cbogender);
+
+                                if (data.txtaddress1 != null)
+                                    $(".address").val(data.txtaddress1);
+
+                                if (data.cboAge != null)
+                                    $(".age").val(data.cboAge);
+
+                                if (data.chkbyacctofficers == true) {
+                                    $(".patientNo").prop({disabled: true});
+                                    $(".groupCode").prop({ disabled: true });
+                                }
+
+                                if (data.REPORT_TYPE4 != null) {
+                                    $(".sampleCollectedBy").val(data.REPORT_TYPE4);
+                                    $(".collectionDateTime").val("@String.Format("{0:yyyy-MM-dd}", DateTime.Now)");
+                                }
+
+                                if (data.chkComparativereport) {
+                                    if (confirm("No Selected or Pending Service on this Reference..." + "\n" + "for This Service Centre... Pls Confirm to Continue... ")) {
+                                        flag = true;
+                                    } else {
+                                        $(".crossRef").val("");
+                                    }
+                                }
+
+                                if (data.chkLoyaltyCustomers) {
+                                    //display modal
+                                    $("#refLookUp5").click();
+                                }
+
+                            }
+                        }
+                    }).then(() => {
+
+                        if (flag) {
+
+                            let patientNo = $(".patientNo").val();
+
+                            $.ajax({
+                                url: "/AJAX/returnCrossRefFocusout",
+                                method: "POST",
+                                data: { crossRef: crossRef, sampleCollectedBy: sampleCollectedBy, patientNo: patientNo },
+                                success: function (data) {
+                                    if (data != null) {
+
+                                        if (data.cbogender != null)
+                                            $(".sex").val(data.cbogender);
+
+                                        if (data.txtaddress1 != null)
+                                            $(".address").val(data.txtaddress1);
+
+                                        if (data.cboAge != null)
+                                            $(".age").val(data.cboAge);
+
+                                        if (data.chkbyacctofficers == true) {
+                                            $(".patientNo").prop({ disabled: true });
+                                            $(".groupCode").prop({ disabled: true });
+                                        }
+
+                                        if (data.REPORT_TYPE4 != null) {
+                                            $(".sampleCollectedBy").val(data.REPORT_TYPE4);
+                                            $(".collectionDateTime").val("@String.Format("{0:yyyy-MM-dd}", DateTime.Now)");
+                                        }
+                                    }
+                                }
+                            })
+                        }
+                    })
+
+                }
+
+            }
+        })
+
+
+        $(".submitBtn").on({
+            click: function () {
+                let mcanadd = $(".mcanadd").val() == "true" ? true : false;
+                let newrec = $(".newrec").val() == "true" ? true : false;
+                let fullName = $(".name").val();
+                let billPayableBy = $(".billPayableBy").val();
+                let crossRef = $(".crossRef").val();
+                let facility = $(".facility").val();
+
+                if (newrec && !mcanadd)
+                {
+                    alert("ACCESS DENIED...To New Record Creation. \n See your Systems Administator!");
+                    return;
+                }
+
+                if(fullName.trim() == ""){
+                    alert("Name is Required");
+                    $(".name").focus();
+                } else if (billPayableBy.trim() == "") {
+                    alert("billPayableBy is Required");
+                    $(".billPayableBy").focus();
+                } else if (crossRef.trim() == "") {
+                    alert("CrossReference is Required");
+                    $(".crossRef").focus();
+                } else if (facility.trim() == "") {
+                    alert("Facility / Service Center is Required");
+                    $(".facility").focus();
+                } else {
+                    if (confirm("Confirm to Save...")) {
+                        $(".hiddenSubmitBtn").click();
+                    }
+                }
+
+
+            }
+        })
+
+
+        //$(".printLabelBtn1").on({
+        //    click: function () {
+        //        let facility = $(".facility").val();
+
+        //        if (facility == "" || facility == null) {
+        //            return;
+        //        }
+
+        //        $(".hiddenRecptLink").click();
+                
+        //    }
+        //})
+
+
+
+
+        function formatDate1(str) {
+            str = Number(str.slice(str.indexOf("(") + 1, str.indexOf(")")));
+            var d = new Date(str);
+            d = ('0' + d.getDate()).slice(-2) + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + d.getFullYear();
+            return d; //returns 01-01-1970
+        };
+
+        });
+    </script>
+}

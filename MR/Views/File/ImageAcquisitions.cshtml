@@ -1,0 +1,585 @@
+﻿@model OtherClasses.Models.MR_DATA.MR_DATAvm
+
+@{
+    ViewBag.Title = "ImageAcquisitions";
+    ViewBag.TitleBar = "MEDICAL HISTORY IMAGE ACQUISITIONS AND PROFILE";
+    Layout = "~/Views/Shared/_MRFormLayout.cshtml";
+}
+
+
+<style>
+    .imageBlock {
+        width: 130px;
+        height: 100px;
+        border: solid 1px;
+    }
+
+    .imageText {
+        width: 130px;
+        height: 20px;
+        border: solid 1px;
+    }
+
+    .borderLine {
+        border: solid 1px;
+    }
+
+    .imageBigBox{
+        width: 210px;
+        height: 225px;
+        border: solid 1px;
+    }
+
+    .borderRight{
+        border-right: solid 1px;
+    }
+
+    .uploadModal{
+        height: 200px !important;
+    }
+
+    .title{
+        font-size: 15px;
+        font-weight: bold;
+        padding-right: 10px
+    }
+
+    .contentDiv{
+        margin-top: 40px !important;
+    }
+
+</style>
+
+
+
+<!--Modal Start-->
+<div id="1LkUp" class="djq-modal djq-hide">
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR RECORDED DAILY ATTENDANCE</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable1">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+<!--Modal Start-->
+<div id="2LkUp" class="djq-modal djq-hide">
+
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR REGISTERED PATIENTS</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable2">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+@*Upload Modal*@
+<div id="3LkUp" class="djq-modal djq-hide custom">
+    <div class="djq-body uploadModal">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                @*<label class="label ls drk">STOCK ITEMS ON BILLING</label>*@
+            </div>
+        </div>
+
+        <div class="djq-c">
+            <!--CUSTOM HTML CONTENT-->
+            <div class="newline n1 d-flex justify-content-center contentDiv">
+                    <span class="title">SELECT FILE TO UPLOAD</span>
+                    <input type="file" name="" value="" class="file" accept=".jpg, .png, .jpeg"/>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g d-flex justify-content-around">
+            <button type="button" class="btn clm close-dataJQ okBtn">OK</button>
+            <button type="button" class="btn clm close-dataJQ">CANCEL</button>
+        </div>
+    </div>
+</div>
+
+
+
+<form method="post" action="@Url.Action("", "File")">
+    <section>
+        <section class="dif">
+            <div class="row py-3">
+                <div class="col-md-6">
+                    <div class="newline">
+                        <label class="label w-5 drk">Query Previous Definitions</label>
+                        @Html.DropDownListFor(m => m.MEDHPICPROP.PATIENTNO,
+                            new SelectList(Model.MEDHPICPROPS, "facility1", "facility1"), "",
+                            new { @id = "ivgFac", @class = "input w-8 increase-height PrevDefinition"})
+                    </div>
+                    <div class="newline n1">
+                        <label class="label drk w-5 w-35">Patient GroupCode</label>
+                        <input type="text" name="" value="" class="input w-6 w-50 increase-height groupCode cData2 dData2" />
+                        <input type="button" name="btn" id="refLookUp1" class="btn-small" />
+                    </div>
+                    <div class="newline n1">
+                        <label class="label drk w-5 w-35">Patient No</label>
+                        <input type="text" name="" value="" class="input w-6 w-50 increase-height patientNo cData1 dData1" />
+                        <input type="button" name="btn" id="refLookUp2" class="btn-small" />
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="newline n1">
+                        <label class="label drk w-3 w-35">Transaction Date</label>
+                        <input type="date" name="" value="@String.Format("{0:yyyy-MM-dd}", DateTime.Now)" class="input w-5 w-50 increase-height transDate" />
+                    </div>
+                    <div class="newline n1">
+                        <label class="label drk w-3 w-35"></label>
+                        <input type="text" name="" value="" class="input w-8 w-50 increase-height name1" />
+                    </div>
+                    <div class="newline n1">
+                        <label class="label drk w-3 w-35">Bills Payable By</label>
+                        <input type="text" name="" value="" class="input w-8 w-50 increase-height billPayableBy" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="dif">
+            <div class="row">
+                <div class="col-md-10 py-3 borderRight">
+                    <div class="d-flex justify-content-around flex-wrap mb-4">
+                        <div>
+                            <div class="imageBlock mb-3">
+                                <img src="" />
+                            </div>
+                            <div class="imageText"></div>
+                        </div>
+                        <div>
+                            <div class="imageBlock mb-3">
+                                <img src="" />
+                            </div>
+                            <div class="imageText"></div>
+                        </div>
+                        <div>
+                            <div class="imageBlock mb-3">
+                                <img src="" />
+                            </div>
+                            <div class="imageText"></div>
+                        </div>
+                        <div>
+                            <div class="imageBlock mb-3">
+                                <img src="" />
+                            </div>
+                            <div class="imageText"></div>
+                        </div>
+                        <div>
+                            <div class="imageBlock mb-3">
+                                <img src="" />
+                            </div>
+                            <div class="imageText"></div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-around flex-wrap">
+                        <div>
+                            <div class="imageBlock mb-3">
+                                <img src="" />
+                            </div>
+                            <div class="imageText"></div>
+                        </div>
+                        <div>
+                            <div class="imageBlock mb-3">
+                                <img src="" />
+                            </div>
+                            <div class="imageText"></div>
+                        </div>
+                        <div>
+                            <div class="imageBlock mb-3">
+                                <img src="" />
+                            </div>
+                            <div class="imageText"></div>
+                        </div>
+                        <div>
+                            <div class="imageBlock mb-3">
+                                <img src="" />
+                            </div>
+                            <div class="imageText"></div>
+                        </div>
+                        <div>
+                            <div class="imageBlock mb-3">
+                                <img src="" />
+                            </div>
+                            <div class="imageText"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 d-flex justify-content-center align-items-center flex-wrap">
+                    <input type="button" name="" value="Load" class="btn loadBtn" />
+                    <input type="button" name="" value="Clear" class="btn clearBtn" />
+                </div>
+            </div>
+        </section>
+
+        <section class="dif">
+            <div class="row py-2">
+                <div class="col-md-4">
+                    <div class="newline n1 text-center">
+                        <button type="button" class="btn">Get PDF Files For Specified Date</button>
+                    </div>
+                    <div class="newline n1">
+                        <label class="label drk w-1 w-35">FILE1</label>
+                        <input type="text" name="" value="" class="input w-7 w-50 increase-height" />
+                    </div>
+                    <div class="newline n1">
+                        <label class="label drk w-1 w-35">FILE2</label>
+                        <input type="text" name="" value="" class="input w-7 w-50 increase-height" />
+                    </div>
+                    <div class="newline n1">
+                        <label class="label drk w-1 w-35">FILE3</label>
+                        <input type="text" name="" value="" class="input w-7 w-50 increase-height" />
+                    </div>
+                    <div class="newline n1">
+                        <label class="label drk w-1 w-35">FILE4</label>
+                        <input type="text" name="" value="" class="input w-7 w-50 increase-height" />
+                    </div>
+                    <div class="newline n1">
+                        <label class="label drk w-1 w-35">FILE5</label>
+                        <input type="text" name="" value="" class="input w-7 w-50 increase-height" />
+                    </div>
+                    <div class="newline n1">
+                        <label class="label drk w-1 w-35">FILE6</label>
+                        <input type="text" name="" value="" class="input w-7 w-50 increase-height" />
+                    </div>
+                    <div class="newline n1">
+                        <label class="label drk w-1 w-35">FILE7</label>
+                        <input type="text" name="" value="" class="input w-7 w-50 increase-height" />
+                    </div>
+                    <div class="newline n1">
+                        <label class="label drk w-1 w-35">FILE8</label>
+                        <input type="text" name="" value="" class="input w-7 w-50 increase-height" />
+                    </div>
+                    <div class="newline n1">
+                        <label class="label drk w-1 w-35">FILE9</label>
+                        <input type="text" name="" value="" class="input w-7 w-50 increase-height" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="imageBigBox m-auto"></div>
+                    <div class="d-flex justify-content-between mt-4">
+                        <input type="number" name="" value="" placeholder="0" class="input w-2 increase-height" />
+                        <input type="number" name="" value="" placeholder="0" class="input w-2 increase-height" />
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div>
+                        <div class="newline n1">
+                            <label class="label drk w-2 w-35">Name</label>
+                            <input type="text" name="" value="" class="input w-8 w-50 increase-height" />
+                        </div>
+                        <div class="newline n1">
+                            <label class="label drk w-2 w-35">Facility</label>
+                            @Html.DropDownListFor(m => m.SYSCODETABSvm.ServiceCentreCodes.name,
+                            new SelectList(Model.SYSCODETABSvm.ServiceCentreCodess, "type_code", "name"), "",
+                            new { @id = "ivgFac", @class = "input w-8 increase-height facility" })
+                        </div>
+                        <div class="newline n1">
+                            <label class="label drk w-2 w-35">Date</label>
+                            <input type="text" name="" value="" class="input w-8 w-50 increase-height" />
+                        </div>
+                        <div class="newline n1">
+                            <label class="label drk w-2 w-35"></label>
+                            <input type="checkbox" id="fullScreen" class="" />
+                            <label for="fullScreen" class="label drk w-2 w-35">Full Screen</label>
+                        </div>
+                        <div class="newline n1">
+                            <label class="label drk w-2 w-35">Notes</label>
+                            <textarea class="w-8" rows="10"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="dif">
+            <div class="d-flex justify-content-around flex-wrap py-3">
+                <input type="button" name="" value="Submit" class="btn" />
+                <a href="~/Home/Index" title="Close"><input type="button" name="btnClose" value="Close" class="btn oraa" /></a>
+            </div>
+        </section>
+
+    </section>
+
+
+    <input type="hidden" id="refLookUp3" />
+    <input type="hidden" class="isPDF" />
+    <input type="hidden" class="fileName" />
+
+
+</form>
+
+
+
+
+
+@section scripts
+{
+    <script>
+        $(function () {
+            var dOM = $('body'); //must assign
+            var formFields = document.getElementById('mainForm'); //must assign, used for calling javaScript methods
+            appendTagInvalid1(dOM, "@ViewBag.iinvalid"); //must call
+            servErrorAlert("#eLkUp", "@ViewBag.Msg"); //must call
+
+            var dTHN1 = ['NAME', 'GROUPCODE', 'PATIENTNO', 'RESIDENCE', 'GROUPHEAD', 'SEX', 'PHONE']; //for table header
+            var dBCN1 = ['NAME', 'GROUPCODE', 'PATIENTNO', 'RESIDENCE', 'GROUPHEAD', 'SEX', 'PHONE']; //for database header
+            var jaxURL1 = "@Url.Action("RptBillChainLookUp", "AJAX")";
+
+
+            //For Patient No.
+            LoadDynamicDT1(jaxURL1, dTHN1, dBCN1, 'BILLCHAINS', '#refLookUp1', '#1LkUp', '#regPTable1', '.cData', [4, 3]);
+
+            //For Patient GroupCode
+            LoadDynamicDT1(jaxURL1, dTHN1, dBCN1, 'BILLCHAINS', '#refLookUp2', '#2LkUp', '#regPTable2', '.dData', [4, 3]);
+
+
+            function ClearControls() {
+                location.reload(true);
+                scrollToTop();
+            }
+
+
+            ShowModal(dOM, '#refLookUp3', '#3LkUp', function aF() {
+                dOM.find('#3LkUp .okBtn').on({
+                    click: function () {
+                        let isPDF = $(".isPDF").val() == "true" ? true : false;
+                        let files = $(".fileName").val();
+                        console.log(fileName)
+                        $.ajax({
+                            url: "/AJAX/imageOkBtnClicked",
+                            method: "POST",
+                            data: { isPDF: isPDF, files: files },
+                            success: function (data) {
+                                if (data != null) {
+                                }
+                            }
+                        });
+
+                    }
+                });
+
+                dOM.find('#3LkUp .file').on({
+                    change: function () {
+                        let files = $(".file").prop("files");
+                        let fileTypes = /jpg|jpeg|png/;
+                        let isFILE = fileTypes.test(files[0].type);
+                        let isPDF = isFILE ? false : true;
+
+                        $(".isPDF").val(isPDF);
+                        $(".fileName").val(files[0]);
+                    }
+                });
+
+            });
+
+
+
+
+            $(".PrevDefinition").on({
+                focusout: function () {
+                    let PrevDefinition = $(this).val();
+
+                    if (PrevDefinition == "" || PrevDefinition == null) {
+                        return;
+                    }
+
+                    let array = PrevDefinition.split(":");
+                    let groupCode = array[0].trim();
+                    let patientNo = array[1].trim();
+                    let transDate = array[2].trim();
+
+                    $(".groupCode").val(groupCode);
+                    $(".patientNo").val(patientNo);
+                    $(".transDate").val(transDate);
+
+                    //$.ajax({
+                    //    url: "/AJAX/PrevDefinitionFocusOut",
+                    //    method: "POST",
+                    //    data: { groupCode: groupCode, patientNo: patientNo, transDate: transDate },
+                    //    success: function (data) {
+                    //        if (data != null) {
+                              
+                    //        }
+                    //    }
+                    //})
+
+
+                }
+            })
+
+
+            $(".patientNo").on({
+                focusout: function () {
+                    let patientNo = $(this).val().trim();
+                    let groupCode = $(".groupCode").val().trim();
+
+                    if (patientNo != "") {
+                        $.ajax({
+                            url: "/AJAX/imageAcqPatientNoFocusOut",
+                            method: "POST",
+                            data: { groupCode: groupCode, patientNo: patientNo },
+                            success: function (data) {
+                                if (data != null) {
+                                    if (data.alertMessage != null) {
+                                        alert(data.alertMessage);
+                                        return;
+                                    }
+
+                                    $(".name1").val(data.TXTPATIENTNAME);
+                                    $(".billPayableBy").val(data.txtgrouphead);
+                                }
+                            }
+                        })
+                    }
+                }
+            })
+
+
+            $(".clearBtn").on({
+                click: function () {
+                    if (confirm("Confirm to Clear ALL Selections...")) {
+                        ClearControls();
+                    }
+                }
+            })
+
+
+            $(".loadBtn").on({
+                click: function () {
+                    let patientNo = $(".patientNo").val().trim();
+                    let groupCode = $(".groupCode").val().trim();
+                    let facility = $(".facility").val();
+
+                    if (facility == "" || facility == null) {
+                        alert("Facility must be identified...");
+                        $(".facility").focus();
+                        return;
+                    } else if (patientNo == "") {
+                        alert("patientNo must be identified...");
+                        $(".patientNo").focus();
+                        return;
+                    } else if (groupCode == "") {
+                        alert("groupCode must be identified...");
+                        $(".groupCode").focus();
+                        return;
+                    } else {
+                        $("#refLookUp3").click();
+                    }
+
+                }
+            })
+
+
+
+
+
+        })
+    </script>
+}

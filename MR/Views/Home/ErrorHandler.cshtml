@@ -1,0 +1,73 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Error Handler</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
+    <link href="~/Content/erp/bootstrap.css" rel="stylesheet" id="bootstrap-css">
+    <link href="~/Content/DataTables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+
+    <link href="~/Content/erp/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/erp/ERPStyles.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="renderbody-default rd-11" style="background-image: url('../../Content/Images/welcome.jpg') !important;">
+
+        <div id="myModal" class="hide hide2">
+
+            <div class="djq-error">
+                <div class="djq-ebdy1 alc">
+                    <label class="label ls">404 ERROR</label>
+                </div>
+
+                <div class="djq-ebdy22 all">
+                    <div>
+
+                        <p class="djq-ebdy3">
+                            <label class="djq-ebdy4">Not Found!</label>
+                        </p>
+                        <p>
+                            <label class="ll djq-ebdy5 hide2 all">An error has occured.
+                            </label>
+                            <label class="ll djq-ebdy5 hide2 all">Please contact your systems administrator.</label>
+                        </p>
+                        <p>
+                            <label class="ll all">Preferably, you can send us a mail:</label>
+                        </p>
+                        <p>
+                            <label class="ll all"><span class="glyphicon glyphicon-hand-right"></span> info@adisystems.com.ng</label>
+                        </p>
+
+                    </div>
+                </div>
+
+                <div class="djq-ebdy6 alc">
+                    <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- Footer -->
+    <!-- Scripts -->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.close-dataJQ').on({
+                click: function () {
+                    $('#myModal').removeClass('hide2');
+                    $('body').removeClass('djq-vo');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,400 @@
+﻿
+@{
+    ViewBag.Title = "PrescriptionsMgt";
+    ViewBag.TitleBar = "PRESCRIPTIONS MANAGEMENT";
+    Layout = "~/Views/Shared/_MRFormLayout.cshtml";
+}
+
+<section>
+    <form method="post" action="#">
+
+        <div class="dif">
+
+
+
+            <section class="w100 va-top">
+
+
+                <!--Top Section-->
+
+                <section class="bdr-f w100">
+
+
+                    <!--Top-Left Section-->
+
+                    <section class="inline-block va-top ww65">
+
+
+                        <div class="newline n1 ">
+                            <label class="label w-5 w-35 ">Consultation Ref.</label>
+                            <input type="text" name="txt" value="" class="input w-5 w-50" />
+                            <input type="button" name="btn" value="" class="btn-small" />
+
+
+                            <span class="span al-c">
+                                <input type="button" name="btnPrint" value="Load List" class="btn clm" />
+                            </span>
+
+                            <span class="span al-c">
+                                <input type="checkbox" id="chkSRA" name="chk" />
+                                <label for="chkSRA" class="label drk">Today's Consult Only</label>
+                            </span>
+                        </div>
+
+                        <div class="newline n1 ">
+                            <label class="label w-5 w-35 ">Patient's Group Code</label>
+                            <input type="text" name="txt" value="" class="input w-3 w-50" />
+                            <input type="button" name="btn" value="" class="btn-small" />
+                        </div>
+
+                        <div class="newline n1 ">
+                            <label class="label w-5 w-35 ">Patient's #</label>
+                            <input type="text" name="txt" value="" class="input w-3 w-50" />
+                            <input type="button" name="btn" value="" class="btn-small" />
+
+                            <span class="span al-c">
+                                <input type="button" name="btnPrint" value="In-Pat Presc." class="btn clm" />
+                                <label class="label w-1 w-35 ">Staff ID.</label>
+                            </span>
+                        </div>
+
+                        <div class="newline n1">
+                            <label class="label w-5 w-35">Name</label>
+                            <input type="text" name="txt" value="" class="input w-9 w-50" />
+                        </div>
+
+
+                    </section>
+
+                    <!--Top-Right Section-->
+
+                    <section class="inline-block va-top ww30 w100">
+
+                        <div class="bdr-f alr ww70">
+                            <div class="newline n1">
+                                <label class="label w-2 w-35">Acct. Info.</label>
+                                <input type="text" name="txt" value="0.00" class="input w-4 w-50 alr" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-2 w-35">Current Total</label>
+                                <input type="text" name="txt" value="0.00" class="input w-4 w-50 alr" />
+                            </div>
+                        </div>
+
+                        <div class="newline n1">
+                            <label class="label w-5 w-35 drk">Responsible for Bills</label>
+                            <input type="text" name="txt" value="" class="input w-5 w-50" />
+                        </div>
+
+                    </section>
+
+                </section>
+
+               
+                    <div class="diff deep">
+
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a data-toggle="tab" class="bold" href="#PrescMgt" style="background: #f9f9f9;">Prescriptions Management</a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" class="bold" href="#PatientProf" style="background: #f9f9f9;">Patient Profiles/Allergies/Sp. Instructions</a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" class="bold" href="#DrugInfo" style="background: #f9f9f9;">DRUG INFORMATION</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+
+                            <div id="PrescMgt" class="tab-pane fade in active">
+
+                                <section>
+                                    <section class="inline-block ww55 va-top">
+
+                                        <div class="newline n1">
+                                            <label class="label w-3 w-35">Treatment Date</label>
+                                            <input type="date" name="date" class="input w-4 w-50 increase-height design" />
+
+                                            <span class="span">
+                                                <label class="label w-1 w-35">Doctor</label>
+                                                <input type="text" list="cbo" class="input w-5 w-50 increase-height" />
+                                                <datalist id="cbo">
+                                                    <option value="">-Select VALUE-</option>
+                                                    <option value="VALUE">VALUE</option>
+                                                </datalist>
+                                            </span>
+                                        </div>
+
+                                        <div class="newline n1">
+                                            <label class="label w-3 w-35">SECTION</label>
+                                            <input type="text" list="cbo" class="input w-7 w-50 increase-height" />
+                                            <datalist id="cbo">
+                                                <option value="">-Select VALUE-</option>
+                                                <option value="VALUE">VALUE</option>
+                                            </datalist>
+                                        </div>
+
+                                        <div class="newline n1 lme">
+                                            <label class="label w-5 w-35">Store/Unit Identification</label>
+                                            <input type="radio" id="rdbSRA" name="rdb" />
+                                            <label for="rdbSRA" class="label">Store</label>
+
+
+                                            <span class="span al-c line-height">
+                                                <label class="label w-35">OR</label>
+                                                <input type="radio" id="rdbSRA1" name="rdb" />
+                                                <label for="rdbSRA1" class="label">Cost Centre</label>
+                                            </span>
+                                        </div>
+
+                                        <div class="newline n1">
+                                            <label class="label w-3 w-35">Dispensing Unit</label>
+                                            <input type="text" list="cbo" class="input w-5 w-50 increase-height" />
+                                            <datalist id="cbo">
+                                                <option value="">-Select VALUE-</option>
+                                                <option value="VALUE">VALUE</option>
+                                            </datalist>
+                                        </div>
+
+                                        <div class="newline n1">
+                                            <label class="label w-3 w-35">Dispensing Staff</label>
+                                            <input type="text" list="cbo" class="input w-5 w-50 increase-height" />
+                                            <datalist id="cbo">
+                                                <option value="">-Select VALUE-</option>
+                                                <option value="VALUE">VALUE</option>
+                                            </datalist>
+
+                                            <span class="span">
+                                                <label class="label w-3 w-35">Time Dispensed</label>
+                                                <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                            </span>
+                                        </div>
+
+                                    </section>
+
+
+                                    <section class="inline-block va-top">
+
+                                        <div class="newline n1 ">
+                                            <textarea name="txt" value="" rows="3" class="txtarea w-10 w-50"></textarea>
+                                        </div>
+
+                                        <div class="newline n1 ">
+                                            <input type="button" name="btnPrint" value="Patient's Presc. History" class="btn clm" />
+                                            <input type="button" name="btnPrint" value="CDM" class="btn clm" />
+
+                                            <span class="span">
+                                                <input type="number" name="range" value="1" class="input w-1 w-50 design" />
+                                                <input type="button" name="btnPrint" value="....." class="btn clm" />
+                                            </span>
+                                        </div>
+
+                                        <div class="newline n1 ">
+                                            <input type="checkbox" id="chkSRA1" name="chk" />
+                                            <label for="chkSRA1" class="label">CHECK</label>
+                                            <input type="button" name="btnPrint" value="Auto Dispensed" class="btn clm" />
+
+                                            <span class="span">
+                                                <input type="checkbox" id="chkSRA2" name="chk" />
+                                                <label for="chkSRA2" class="label">Installmental Dispense</label>
+                                            </span>
+                                        </div>
+
+
+                                    </section>
+                                </section>
+
+                                <section class="bdr-f">
+
+                                    <table>
+                                        <tr>
+                                            <th class="alc ">Item #</th>
+                                            <th class="alc ">Stock Item</th>
+                                            <th class="alc ">Unit Measure</th>
+                                            <th class="alc ">Qty. Available</th>
+                                            <th class="alc ">Qty Given</th>
+                                            <th class="alc ">Unit Cost</th>
+                                            <th class="alc ">Cost</th>
+                                            <th class="alc drk">Capitated</th>
+                                        </tr>
+
+                                        <tr>
+
+                                            <td class="alc ">
+                                                <input type="number" name="range" value="0" class="input w-1 w-50 design" />
+                                            </td>
+
+                                            <td class="alc ">
+                                                <input type="text" list="cbo" class="input w-4 w-50 increase-height" />
+                                                <datalist id="cbo">
+                                                    <option value="">-Select VALUE-</option>
+                                                    <option value="VALUE">VALUE</option>
+                                                </datalist>
+                                                <input type="button" name="btn" value="" class="btn-small" />
+                                            </td>
+
+                                            <td class="alc ">
+                                                <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                            </td>
+
+                                            <td class="alc ">
+                                                <input type="text" name="txt" value="0" class="input w-3 w-50 alr" />
+                                            </td>
+
+                                            <td class="alc ">
+                                                <input type="number" name="range" value="0.00" class="input w-2 w-50 design" />
+                                            </td>
+
+                                            <td class="alc ">
+                                                <input type="number" name="range" value="0" class="input w-2 w-50 design" />
+                                            </td>
+
+                                            <td class="alc ">
+                                                <input type="text" name="txt" value="0.00" class="input w-3 w-50 alr" />
+                                                <input type="button" name="btnPrint" value="..." class="btn clm" />
+                                            </td>
+
+                                            <td class="alc ">
+                                                <input type="text" name="txt" value="0.00" class="input w-3 w-50 alr" />
+                                            </td>
+
+                                        </tr>
+                                    </table>
+
+                                </section>
+
+                                <section>
+
+                                    <div class="scroll">
+                                        <table>
+                                            <tr>
+                                                <th class="alc ">S/N</th>
+                                                <th class="alc ">Stock Item</th>
+                                                <th class="alc ">Unit</th>
+                                                <th class="alc ">Qty_Prescd</th>
+                                                <th class="alc ">Cum. Given</th>
+                                                <th class="alc ">Cost</th>
+                                                <th class="alc ">Dose x Interval x Duration</th>
+                                                <th class="alc ">Unit Cost</th>
+                                                <th class="alc ">Stk. Bal.</th>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="alc ">.</td>
+                                                <td class="alc "></td>
+                                                <td class="alc ">.</td>
+                                                <td class="alc "></td>
+                                                <td class="alc ">.</td>
+                                                <td class="alc "></td>
+                                                <td class="alc ">.</td>
+                                                <td class="alc "></td>
+                                                <td class="alc ">.</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="alc ">.</td>
+                                                <td class="alc "></td>
+                                                <td class="alc ">.</td>
+                                                <td class="alc "></td>
+                                                <td class="alc ">.</td>
+                                                <td class="alc "></td>
+                                                <td class="alc ">.</td>
+                                                <td class="alc "></td>
+                                                <td class="alc ">.</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="alc ">.</td>
+                                                <td class="alc "></td>
+                                                <td class="alc ">.</td>
+                                                <td class="alc "></td>
+                                                <td class="alc ">.</td>
+                                                <td class="alc "></td>
+                                                <td class="alc ">.</td>
+                                                <td class="alc "></td>
+                                                <td class="alc ">.</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="alc ">.</td>
+                                                <td class="alc "></td>
+                                                <td class="alc ">.</td>
+                                                <td class="alc "></td>
+                                                <td class="alc ">.</td>
+                                                <td class="alc "></td>
+                                                <td class="alc ">.</td>
+                                                <td class="alc "></td>
+                                                <td class="alc ">.</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                </section>
+
+                                <div class="newline n1 alc">
+
+                                    <input type="button" name="btnPrint" value="Change" class="btn clm" />
+
+                                    <label class="label w-1"></label>
+                                    <input type="button" name="btnPrint" value="Raise Bill" class="btn clm" />
+                                    <input type="button" name="btnPrint" value="Update Med. History" class="btn clm" />
+
+                                    <label class="label w-1"></label>
+                                    <input type="button" name="btnPrint" value="...." class="btn clm" />
+
+                                    <label class="label w-1"></label>
+                                    <input type="button" name="btnPrint" value="......." class="btn clm" />
+                                    <input type="button" name="btnPrint" value="Close" class="btn clm" />
+
+                                </div>
+
+                            </div>
+
+                            <div id="PatientProf" class="tab-pane fade in">
+
+                                <div class="newline n1">
+                                    <label class="label w-2 w-35 drk red">ALLERGIES</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <textarea name="txt" value="" rows="4" class="txtarea ww70 w-50"></textarea>
+                                </div>
+
+                                <div class="newline n1">
+                                    <label class="label w-6 w-35 drk">SPECIAL INSTRUCTIONS</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <textarea name="txt" value="" rows="4" class="txtarea ww70 w-50"></textarea>
+                                </div>
+
+                                <div class="newline n1">
+                                    <label class="label w-5 w-35 drk">HMO/NHIS PLAN TYPE</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <textarea name="txt" value="" rows="4" class="txtarea ww100 w-50"></textarea>
+                                </div>
+
+                            </div>
+
+                            <div id="DrugInfo" class="tab-pane fade in">
+
+
+                            </div>
+
+
+
+                        </div>
+
+
+
+                    </div>
+           </section>
+
+        </div>
+
+    </form>
+</section>

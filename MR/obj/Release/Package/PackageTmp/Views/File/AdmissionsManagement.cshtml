@@ -1,0 +1,1796 @@
+﻿
+@{
+    ViewBag.Title = "AdmissionsManagement";
+    ViewBag.TitleBar = "ADMISSION MANAGEMENT";
+    Layout = "~/Views/Shared/_MRFormLayout.cshtml";
+}
+
+<section>
+    <form method="post" action="#">
+
+        <div class="diff deep">
+
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a data-toggle="tab" class="bold" href="#SpaceDefinition" style="background: #f9f9f9;">Space Definition</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" class="bold" href="#Registration" style="background: #f9f9f9;">Registration</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" class="bold" href="#ServiceUpdate" style="background: #f9f9f9;">Service Update</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" class="bold" href="#Reviews" style="background: #f9f9f9;">Reviews</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" class="bold" href="#ChangeBed_Room" style="background: #f9f9f9;">Change Bed/Room</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" class="bold" href="#Discharge" style="background: #f9f9f9;">Discharge</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" class="bold" href="#ServiceItems" style="background: #f9f9f9;">Service Items</a>
+                </li>
+
+            </ul>
+
+
+            <div class="tab-content">
+                <div id="SpaceDefinition" class="tab-pane fade in active">
+
+                    <div class="dif">
+
+                        <div>
+                        <!--Top-Left Section-->
+
+                        <section class="inline-block w-100 va-top bdr-f">
+
+
+                            <div class="newline n1">
+                                <label class="label w-6 w-35 ">Accomodation Facility</label>
+                                <input type="text" list="cbo" class="input w-5 w-50 increase-height" />
+                                <datalist id="cbo">
+                                    <option value="">-Select VALUE-</option>
+                                    <option value="VALUE">VALUE</option>
+                                </datalist>
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-6 w-35 ">Room / Ward ID</label>
+                                <input type="text" name="txt" value="" class="input w-3 w-50" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-6 w-35 ">Bed Number</label>
+                                <input type="text" name="txt" value="" class="input w-3 w-50" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-6 w-35 ">Description</label>
+                                <input type="text" name="txt" value="" class="input w-5 w-50" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-6 w-35 ">Daily Rate</label>
+                                <input type="text" name="txt" value="0.00" class="input w-3 w-50 alr" />
+
+                                <span class="span">
+                                    <label class="label w-4 w-35 ">Admission Deposit</label>
+                                    <input type="text" name="txt" value="0.00" class="input w-3 w-50 alr" />
+                                </span>
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-6 w-35 ">Daily Nursing Care Charge</label>
+                                <input type="text" name="txt" value="0.00" class="input w-3 w-50 alr" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-6 w-35 ">Date Registered</label>
+                                <input type="date" name="date" class="input w-4 w-50 increase-height design" />
+                                <input type="button" name="btnPrint" value="ADD" class="btn clm" />
+                            </div>
+
+
+                        </section>
+
+                        <!--Top_Right Button Section-->
+
+                        <label class="label w-8 w-35 "></label>
+
+                        <section class="inline-block bdr-f va-bot">
+                            <div class="newline n1">
+                                <input type="button" name="btnPrint" value="Submit" class="btn clm" />
+                                <br>
+                                <br>
+                                <input type="button" name="btnPrint" value="Delete" class="btn clm" />
+                            </div>
+                        </section>
+
+
+
+                        <!--Bottom-Table Section-->
+
+                        <section class="inline-block va-top">
+
+                            <div class="scroll">
+                                <table class="bdr-f">
+                                    <tr>
+                                        <th class="alc ">S/N</th>
+                                        <th class="alc ">Facility</th>
+                                        <th class="alc ">Room/Ward ID</th>
+                                        <th class="alc ">Bed</th>
+                                        <th class="alc ">DailyRate</th>
+                                        <th class="alc ">Occupant</th>
+                                        <th class="alc ">Description</th>
+                                        <th class="alc ">DNC</th>
+                                        <th class="alc ">Date_Reg</th>
+                                        <th class="alc ">NEWREC</th>
+                                        <th class="alc ">Posted</th>
+                                        <th class="alc ">Fac_Code</th>
+                                        <th class="alc ">RECID</th>
+                                        <th class="alc ">Deposit</th>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="alc ">.</td>
+                                        <td class="alc "></td>
+                                        <td class="alc ">.</td>
+                                        <td class="alc "></td>
+                                        <td class="alc ">.</td>
+                                        <td class="alc "></td>
+                                        <td class="alc ">.</td>
+                                        <td class="alc "></td>
+                                        <td class="alc ">.</td>
+                                        <td class="alc "></td>
+                                        <td class="alc ">.</td>
+                                        <td class="alc "></td>
+                                        <td class="alc ">.</td>
+                                        <td class="alc "></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="alc ">.</td>
+                                        <td class="alc "></td>
+                                        <td class="alc ">.</td>
+                                        <td class="alc "></td>
+                                        <td class="alc ">.</td>
+                                        <td class="alc "></td>
+                                        <td class="alc ">.</td>
+                                        <td class="alc "></td>
+                                        <td class="alc ">.</td>
+                                        <td class="alc "></td>
+                                        <td class="alc ">.</td>
+                                        <td class="alc "></td>
+                                        <td class="alc ">.</td>
+                                        <td class="alc "></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="alc ">.</td>
+                                        <td class="alc "></td>
+                                        <td class="alc ">.</td>
+                                        <td class="alc "></td>
+                                        <td class="alc ">.</td>
+                                        <td class="alc "></td>
+                                        <td class="alc ">.</td>
+                                        <td class="alc "></td>
+                                        <td class="alc ">.</td>
+                                        <td class="alc "></td>
+                                        <td class="alc ">.</td>
+                                        <td class="alc "></td>
+                                        <td class="alc ">.</td>
+                                        <td class="alc "></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="alc ">.</td>
+                                        <td class="alc "></td>
+                                        <td class="alc ">.</td>
+                                        <td class="alc "></td>
+                                        <td class="alc ">.</td>
+                                        <td class="alc "></td>
+                                        <td class="alc ">.</td>
+                                        <td class="alc "></td>
+                                        <td class="alc ">.</td>
+                                        <td class="alc "></td>
+                                        <td class="alc ">.</td>
+                                        <td class="alc "></td>
+                                        <td class="alc ">.</td>
+                                        <td class="alc "></td>
+                                    </tr>
+
+                                </table>
+                            </div>
+
+                        </section>
+                        </div>
+
+                        
+                    </div>
+
+                    
+              </div>
+
+                
+                    <div id="Registration" class="tab-pane fade in">
+
+                        <div class="dif">
+
+                            <div>
+                                <!--Top-Left Section-->
+
+                                <section class="inline-block ww40 w-100 va-top dif">
+
+
+                                    <div class="newline n1">
+                                        <label class="label w-5 w-35 ">Reference</label>
+                                        <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                        <input type="button" name="btn" value="" class="btn-small" />
+
+                                        <span class="span al-c line-height">
+                                            <input type="checkbox" id="chkSRA" name="chk" />
+                                            <label for="chkSRA" class="label">Current Admissions</label>
+                                        </span>
+                                    </div>
+
+                                    <div class="newline n1">
+                                        <label class="label w-5 w-35 ">Patients Group Code</label>
+                                        <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                        <input type="button" name="btn" value="" class="btn-small" />
+                                    </div>
+
+                                    <div class="newline n1">
+                                        <label class="label w-5 w-35 ">Patients No.</label>
+                                        <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                        <input type="button" name="btn" value="" class="btn-small" />
+                                    </div>
+
+                                    <div class="newline n1">
+                                        <label class="label w-5 w-35 ">Facility</label>
+                                        <input type="text" list="cbo" class="input w-5 w-50 increase-height" />
+                                        <datalist id="cbo">
+                                            <option value="">-Select VALUE-</option>
+                                            <option value="VALUE">VALUE</option>
+                                        </datalist>
+                                    </div>
+
+                                    <div class="newline n1">
+                                        <label class="label w-5 w-35 ">Room / Ward</label>
+                                        <input type="text" list="cbo" class="input w-3 w-50 increase-height" />
+                                        <datalist id="cbo">
+                                            <option value="">-Select VALUE-</option>
+                                            <option value="VALUE">VALUE</option>
+                                        </datalist>
+
+                                        <span class="sapn">
+                                            <label class="label w-35 ">Bed</label>
+                                            <input type="text" list="cbo" class="input w-1 w-50 increase-height" />
+                                            <datalist id="cbo">
+                                                <option value="">-Select VALUE-</option>
+                                                <option value="VALUE">VALUE</option>
+                                            </datalist>
+                                        </span>
+                                    </div>
+
+                                    <div class="newline n1">
+                                        <label class="label w-5 w-35 ">Admission Date</label>
+                                        <input type="date" name="date" class="input w-3 w-50 increase-height design" />
+                                    </div>
+
+                                    <div class="newline n1">
+                                        <label class="label w-5 w-35 ">Doctor</label>
+                                        <input type="text" list="cbo" class="input w-5 w-50 increase-height" />
+                                        <datalist id="cbo">
+                                            <option value="">-Select VALUE-</option>
+                                            <option value="VALUE">VALUE</option>
+                                        </datalist>
+                                    </div>
+
+                                    <div class="newline n1">
+                                        <label class="label w-5 w-35 ">Pri. Diagnosis</label>
+                                        <input type="text" list="cbo" class="input w-5 w-50 increase-height" />
+                                        <datalist id="cbo">
+                                            <option value="">-Select VALUE-</option>
+                                            <option value="VALUE">VALUE</option>
+                                        </datalist>
+                                        <label class="label w-50 "></label>
+                                        <input type="button" name="btnPrint" value="Diagnosis" class="btn clm" />
+                                    </div>
+
+                                    <div class="newline n1">
+                                        <label class="label w-5 w-35 ">Cost Centre/Branch</label>
+                                        <input type="text" list="cbo" class="input w-5 w-50 increase-height" />
+                                        <datalist id="cbo">
+                                            <option value="">-Select VALUE-</option>
+                                            <option value="VALUE">VALUE</option>
+                                        </datalist>
+                                    </div>
+
+                                    <div class="newline n1">
+                                        <label class="label w-5 w-35 "></label>
+                                        <input type="text" name="txt" value="" class="input w-8 w-50" />
+                                    </div>
+
+
+
+                                </section>
+
+                                <!--Top-Right Section-->
+                                <section class="inline-block ww55 dif">
+
+                                    <section class="inline-block w-100 va-top ">
+
+                                        <div class="newline n1">
+                                            <label class="label w-1 w-35"></label>
+                                            <input type="button" name="btnPrint" value="Load List" class="btn clm" />
+                                        </div>
+
+                                        <div class="newline n1">
+                                            <label class="label w-35"></label>
+                                            <textarea name="txt" value="" rows="3" class="txtarea w-7 w-50"></textarea>
+                                        </div>
+
+                                        <div class="newline n1">
+                                            <label class="label w-2 w-35 ">Time</label>
+                                            <input type="text" name="txt" value="" class="input w-2 w-50" />
+                                        </div>
+
+                                        <div class="newline n1">
+                                            <label class="label w-2 w-35 ">Daily Rate</label>
+                                            <input type="text" name="txt" value="0.00" class="input w-2 w-50 alr" />
+                                        </div>
+
+                                        <div class="newline n1">
+                                            <label class="label w-2 w-35 ">Feeding</label>
+                                            <input type="text" name="txt" value="0.00" class="input w-2 w-50 alr" />
+                                            <label class="label">/Day</label>
+                                        </div>
+
+                                        <div class="newline n1">
+                                            <label class="label w-2 w-35 ">PNC</label>
+                                            <input type="text" name="txt" value="0.00" class="input w-2 w-50 alr" />
+                                            <label class="label">Daily</label>
+                                        </div>
+
+                                    </section>
+
+
+                                    <!--Top-Right Section-->
+
+
+                                    <section class="inline-block w-100 va-top">
+
+                                        <div class="newline n1">
+                                            <label class="label w-3 w-35">Name</label>
+                                            <input type="text" name="txt" value="" class="input w-5 w-50 yell" />
+                                        </div>
+
+                                        <div class="newline n1">
+                                            <label class="label w-3 w-35">Bills Payable By</label>
+                                            <input type="text" name="txt" value="" class="input w-5 w-50 yell" />
+                                        </div>
+
+                                        <div class="newline n1">
+                                            <label class="label w-5 w-35">Account Bal.</label>
+                                            <input type="text" name="txt" value="" class="input w-3 w-50 " />
+                                            <label class="label">DB</label>
+                                        </div>
+
+                                        <div class="newline n1 alr al-c bdr-f">
+                                            <input type="button" name="btnPrint" value="Submit" class="btn clm" />
+                                            <br>
+                                            <br>
+                                            <input type="button" name="btnPrint" value="Delete" class="btn clm" />
+                                        </div>
+
+                                        <div class="newline n1 al-c">
+                                            <input type="button" name="btnPrint" value="Med. Notes/Allerg." class="btn clm" />
+                                            <input type="button" name="btnPrint" value="Spec. Instruct." class="btn clm" />
+                                        </div>
+
+                                    </section>
+
+                                </section>
+
+                                <!--Bottom-Table Section-->
+
+                                <section class="inline-block w-100 va-top">
+
+                                    <div class="scroll">
+                                        <table>
+                                            <tr>
+                                                <th class="alc ">S/N</th>
+                                                <th class="alc ">Facility</th>
+                                                <th class="alc ">Room/Ward ID</th>
+                                                <th class="alc ">Bed</th>
+                                                <th class="alc ">DailyRate</th>
+                                                <th class="alc ">Occupant</th>
+                                                <th class="alc ">Description</th>
+                                                <th class="alc ">DNC</th>
+                                                <th class="alc "></th>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="alc ">.</td>
+                                                <td class="alc "></td>
+                                                <td class="alc ">.</td>
+                                                <td class="alc "></td>
+                                                <td class="alc ">.</td>
+                                                <td class="alc "></td>
+                                                <td class="alc ">.</td>
+                                                <td class="alc "></td>
+                                                <td class="alc ">.</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="alc ">.</td>
+                                                <td class="alc "></td>
+                                                <td class="alc ">.</td>
+                                                <td class="alc "></td>
+                                                <td class="alc ">.</td>
+                                                <td class="alc "></td>
+                                                <td class="alc ">.</td>
+                                                <td class="alc "></td>
+                                                <td class="alc ">.</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="alc ">.</td>
+                                                <td class="alc "></td>
+                                                <td class="alc ">.</td>
+                                                <td class="alc "></td>
+                                                <td class="alc ">.</td>
+                                                <td class="alc "></td>
+                                                <td class="alc ">.</td>
+                                                <td class="alc "></td>
+                                                <td class="alc ">.</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="alc ">.</td>
+                                                <td class="alc "></td>
+                                                <td class="alc ">.</td>
+                                                <td class="alc "></td>
+                                                <td class="alc ">.</td>
+                                                <td class="alc "></td>
+                                                <td class="alc ">.</td>
+                                                <td class="alc "></td>
+                                                <td class="alc ">.</td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+
+                                </section>
+
+                               
+                            </div>
+                        </div>
+
+                    </div>
+                
+                
+                
+                    <div id="ServiceUpdate" class="tab-pane fade in">
+
+                        <div class="dif">
+
+
+                            <!--Top-Left Section-->
+
+                            <section class="inline-block ww53 w-100 va-top dif">
+
+
+                                <div class="newline n1">
+                                    <label class="label w-5 w-35 "> Admission Reference</label>
+                                    <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                    <input type="button" name="btn" value="" class="btn-small" />
+
+                                    <span class="span al-c line-height">
+                                        <input type="checkbox" id="chkSRA" name="chk" />
+                                        <label for="chkSRA" class="label">Current Admissions</label>
+                                    </span>
+                                </div>
+
+                                <div class="newline n1">
+                                    <label class="label w-5 w-35 ">Patients Group Code</label>
+                                    <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                </div>
+
+                                <div class="newline n1">
+                                    <label class="label w-5 w-35 ">Patients No.</label>
+                                    <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                </div>
+
+                                <div class="newline n1">
+                                    <label class="label w-5 w-35 ">Name</label>
+                                    <input type="text" name="txt" value="" class="input w-5 w-50" />
+                                </div>
+
+                                <div class="newline n1">
+                                    <label class="label w-5 w-35 ">Address</label>
+                                    <input type="text" name="txt" value="" class="input w-5 w-50" />
+                                </div>
+
+                                <div class="newline n1">
+                                    <label class="label w-5 w-35 ">Diagnosis</label>
+                                    <input type="text" name="txt" value="" class="input w-5 w-50" />
+                                </div>
+
+                                <div class="newline n1">
+                                    <label class="label w-5 w-35 ">Facility</label>
+                                    <input type="text" list="cbo" class="input w-5 w-50 increase-height" />
+                                    <datalist id="cbo">
+                                        <option value="">-Select VALUE-</option>
+                                        <option value="VALUE">VALUE</option>
+                                    </datalist>
+
+                                    <span class="span ">
+                                        <label class="label w-35 drk">Unit ID</label>
+                                        <input type="radio" id="rdbSRA" name="rdb" />
+                                        <label for="rdbSRA" class="label drk">Store</label>
+                                    </span>
+
+                                    <span class="span">
+                                        <label class="label w-35 drk"></label>
+                                        <input type="radio" id="rdbSRA1" name="rdb" />
+                                        <label for="rdbSRA1" class="label drk">Cost Centre</label>
+                                    </span>
+                                </div>
+
+                                <div class="newline n1">
+                                    <label class="label w-5 w-35 drk">Select Your Unit ID</label>
+                                    <input type="text" list="cbo" class="input w-5 w-50 increase-height" />
+                                    <datalist id="cbo">
+                                        <option value="">-Select VALUE-</option>
+                                        <option value="VALUE">VALUE</option>
+                                    </datalist>
+
+                                    <span class="span">
+                                        <label class="label w-35 drk">Service Time</label>
+                                        <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                    </span>
+                                </div>
+
+                            </section>
+
+                            <!--Top-Right Section 1-->
+                            <section class="inline-block w-100 dif">
+
+                                <section class="inline-block w-100 va-top ">
+
+                                    <div class="newline n1">
+                                        <label class="label w-35"></label>
+                                        <textarea name="txt" value="" rows="5" class="txtarea w-6 w-50"></textarea>
+                                    </div>
+
+                                    <div class="newline n1 al-c">
+                                        <input type="button" name="btnPrint" value="In-Patient Prescrip." class="btn clm" />
+                                    </div>
+
+                                    <div class="newline n1 al-c">
+                                        <input type="button" name="btnPrint" value="Med. Notes/Allergies" class="btn clm" />
+                                    </div>
+
+                                </section>
+
+
+                                <!--Top-Right Section 2-->
+
+
+                                <section class="inline-block w-100 va-top">
+
+                                    <div class="newline n1">
+                                        <label class="label w-4 w-35">Date of Admission</label>
+                                        <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                    </div>
+
+                                    <div class="newline n1">
+                                        <label class="label w-4 w-35">Date of Discharge</label>
+                                        <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                        <label class="label cred">...</label>
+                                    </div>
+
+                                    <div class="newline n1">
+                                        <label class="label w-4 w-35">Facility</label>
+                                        <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                    </div>
+
+                                    <div class="newline n1">
+                                        <label class="label w-4 w-35">Ward/Room</label>
+                                        <input type="text" name="txt" value="" class="input w-1 w-50" />
+
+                                        <span class="span">
+                                            <label class="label w-35">Bed</label>
+                                            <input type="text" name="txt" value="" class="input w-1 w-50" />
+                                        </span>
+                                    </div>
+
+                                        <div class="newline n1 bdr-f">
+                                            <label class="label w-4 w-35">Acct. Information</label>
+                                            <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                            <label class="label">DB</label>
+
+                                            <div class="newline n1">
+                                                <label class="label w-35"></label>
+                                                <input type="text" name="txt" value="" class="input w-7 w-50" />
+                                            </div>
+                                        </div>
+
+</section>
+
+                                <div class="newline n1 alr">
+                                    <input type="button" name="btnPrint" value="AUTO-GENERATE" class="btn clm" />
+                                    <label class="label drk"><i>Current Total</i></label>
+                                    <input type="text" name="txt" value="0.00" class="input w-3 w-30 alr" />
+                                </div>
+
+                            </section>
+
+                            <!--Centre Section-->
+
+                            <section class="bdr-f">
+
+                                <div class="newline n1">
+                                    <label class="label w-1 w-35 drk">PROCESS</label>
+
+                                    <span class="span">
+                                        <label class="label w-4 w-35 drk">DATE_GIVEN</label>
+                                    </span>
+
+                                    <span class="span">
+                                        <label class="label w-6 w-35 drk">SERVICE/PROCEDURE</label>
+                                    </span>
+
+                                    <span class="span">
+                                        <label class="label w-8 w-35 drk">DRG/INJ/STK_ITEM/DESC.OFSERV.</label>
+                                    </span>
+
+                                    <span class="span">
+                                        <label class="label w-2 w-35 drk">QtyGiven</label>
+                                    </span>
+
+                                    <span class="span">
+                                        <label class="label w-1 w-35 drk">u/M</label>
+                                    </span>
+
+                                    <span class="span">
+                                        <label class="label w-2 w-35 drk">Amount</label>
+                                    </span>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="text" list="cbo" class="input w-2 w-50 increase-height" />
+                                    <datalist id="cbo">
+                                        <option value="">-Select VALUE-</option>
+                                        <option value="VALUE">VALUE</option>
+                                    </datalist>
+
+                                    <span class="span">
+                                        <input type="date" name="date" class="input w-3 w-50 increase-height design" />
+                                    </span>
+
+                                    <span class="span">
+                                        <input type="text" list="cbo" class="input w-6 w-50 increase-height" />
+                                        <datalist id="cbo">
+                                            <option value="">-Select VALUE-</option>
+                                            <option value="VALUE">VALUE</option>
+                                        </datalist>
+                                        <input type="button" name="btn" value="" class="btn-small" />
+                                    </span>
+
+                                    <span class="span">
+                                        <input type="text" list="cbo" class="input w-7 w-50 increase-height" />
+                                        <datalist id="cbo">
+                                            <option value="">-Select VALUE-</option>
+                                            <option value="VALUE">VALUE</option>
+                                        </datalist>
+                                        <input type="button" name="btn" value="" class="btn-small" />
+                                    </span>
+
+                                    <span class="span">
+                                        <input type="number" name="range" value="0" class="input w-2 w-50 design" />
+                                    </span>
+
+                                    <span class="span">
+                                        <input type="text" list="cbo" class="input w-1 w-50 increase-height" />
+                                        <datalist id="cbo">
+                                            <option value="">-Select VALUE-</option>
+                                            <option value="VALUE">VALUE</option>
+                                        </datalist>
+                                    </span>
+
+                                    <span class="span">
+                                        <input type="text" name="txt" value="0.00" class="input w-2 w-50 alr" />
+                                    </span>
+
+                                    <input type="button" name="btnPrint" value="ADD" class="btn clm" />
+                                </div>
+
+
+                            </section>
+
+                            <!--Bottom-Table Section-->
+
+                            <section class="inline-block w-100 va-top">
+
+                                <div class="scroll">
+                                    <table>
+                                        <tr>
+                                            <th class="alc ">Date</th>
+                                            <th class="alc ">Time</th>
+                                            <th class="alc ">Facility</th>
+                                            <th class="alc ">Billing Code</th>
+                                            <th class="alc ">Description</th>
+                                            <th class="alc ">Quantity</th>
+                                            <th class="alc ">u/M</th>
+                                            <th class="alc ">Amount</th>
+                                            <th class="alc ">Status</th>
+                                            <th class="alc ">User</th>
+                                            <th class="alc ">Date_Time</th>
+                                            <th class="alc ">Process</th>
+                                            <th class="alc ">StkCode</th>
+                                            <th class="alc ">Doctor</th>
+                                            <th class="alc ">RECID</th>
+                                            <th class="alc ">Store</th>
+                                            <th class="alc ">Updated</th>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc "></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc "></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc "></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc "></td>
+                                        </tr>
+
+                                    </table>
+                                </div>
+
+                            </section>
+
+                        </div>
+
+                    </div>
+                
+
+                
+                    <div id="Reviews" class="tab-pane fade in">
+
+                        <div class="dif">
+
+
+                            <!--Top-Left Section-->
+
+                            <section class="inline-block ww53 w-100 va-top dif">
+
+
+                                <div class="newline n1">
+                                    <label class="label w-5 w-35 "> Admission Reference</label>
+                                    <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                    <input type="button" name="btn" value="" class="btn-small" />
+
+                                    <span class="span al-c line-height">
+                                        <input type="checkbox" id="chkSRA" name="chk" />
+                                        <label for="chkSRA" class="label">Current Admissions</label>
+                                    </span>
+                                </div>
+
+                                <div class="newline n1">
+                                    <label class="label w-5 w-35 ">Patients Group Code</label>
+                                    <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                </div>
+
+                                <div class="newline n1">
+                                    <label class="label w-5 w-35 ">Patients No.</label>
+                                    <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                </div>
+
+                                <div class="newline n1">
+                                    <label class="label w-5 w-35 ">Name</label>
+                                    <input type="text" name="txt" value="" class="input w-6 w-50" />
+
+                                    <span class="span">
+                                        <label class="label w-35 "></label>
+                                        <input type="text" name="txt" value="" class="input w-6 w-50" />
+                                    </span>
+                                </div>
+
+                                <div class="newline n1">
+                                    <label class="label w-5 w-35 ">Address</label>
+                                    <input type="text" name="txt" value="" class="input w-5 w-50" />
+                                </div>
+
+                                <div class="newline n1">
+                                    <label class="label w-5 w-35 ">Diagnosis</label>
+                                    <input type="text" name="txt" value="" class="input w-5 w-50" />
+                                </div>
+
+
+                            </section>
+
+                            <!--Top-Right Section 1-->
+                            <section class="inline-block w-100 dif">
+
+                                <section class="inline-block w-100 va-top ">
+
+                                    <div class="newline n1">
+                                        <label class="label w-35"></label>
+                                        <textarea name="txt" value="" rows="3" class="txtarea w-7 w-50"></textarea>
+                                    </div>
+
+                                    <div class="newline al-c n1">
+                                        <input type="button" name="btnPrint" value="Templates" class="btn clm" />
+                                    </div>
+
+
+
+
+
+                                </section>
+
+
+                                <!--Top-Right Section 2-->
+
+
+                                <section class="inline-block w-100 va-top">
+
+                                    <div class="newline n1">
+                                        <label class="label w-4 w-35">Date of Admission</label>
+                                        <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                    </div>
+
+                                    <div class="newline n1">
+                                        <label class="label w-4 w-35">Date of Discharge</label>
+                                        <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                    </div>
+
+                                    <label class="label w-6 w-35 cred">....</label>
+
+                                    <div class="newline n1">
+                                        <label class="label w-4 w-35">Facility</label>
+                                        <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                    </div>
+
+                                    <div class="newline n1">
+                                        <label class="label w-4 w-35">Ward/Room</label>
+                                        <input type="text" name="txt" value="" class="input w-1 w-50" />
+
+                                        <span class="span">
+                                            <label class="label w-35">Bed</label>
+                                            <input type="text" name="txt" value="" class="input w-1 w-50" />
+                                        </span>
+                                    </div>
+
+
+                                </section>
+
+                                <div class="newline al-c n1">
+                                    <input type="button" name="btnPrint" value="Observat. Chart" class="btn clm" />
+                                    <input type="button" name="btnPrint" value="Fluid Chart" class="btn clm" />
+                                    <input type="button" name="btnPrint" value="Diabetic Chart" class="btn clm" />
+                                </div>
+
+                            </section>
+
+                            <!--Centre Section-->
+
+                            <section class="bdr-f">
+
+                                <section class="inline-block w-100 va-top ">
+
+                                    <div class="newline n1">
+                                        <label class="label w-5 w-35">Treatment/Review Date</label>
+                                        <input type="date" name="date" class="input w-3 w-50 increase-height design" />
+
+                                        <span class="span">
+                                            <label class="label w-35">Time</label>
+                                            <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                        </span>
+
+                                        <span class="span line-height">
+                                            <label class="label w-35"></label>
+                                            <input type="checkbox" id="chkSRA1" name="chk" />
+                                            <label for="chkSRA1" class="label">Protect</label>
+                                        </span>
+
+                                        <span class="span line-height">
+                                            <label class="label w-35"></label>
+                                            <input type="checkbox" id="chkSRA2" name="chk" />
+                                            <label for="chkSRA2" class="label">Encrypt</label>
+                                        </span>
+
+                                        <span class="span al-c">
+                                            <input type="button" name="btnPrint" value="In-Patient Prescrip. Det." class="btn clm" />
+                                            <input type="button" name="btnPrint" value="Medical Notes/Allergies" class="btn clm" />
+                                        </span>
+
+                                    </div>
+
+
+                                </section>
+
+
+
+                            </section>
+
+                            <!--Bottom-Tab Section-->
+
+                            <section class="inline-block w-100 va-top">
+
+                                <div class="dif deep">
+
+                                    <ul class="nav nav-tabs">
+                                        <li class="active">
+                                            <a data-toggle="tab" class="bold" href="#CurrentRecords" style="background: #f9f9f9;">CURRENT RECORDS</a>
+                                        </li>
+                                        <li>
+                                            <a data-toggle="tab" class="bold" href="#PreviousRecords" style="background: #f9f9f9;">PREVIOUS RECORDS</a>
+                                        </li>
+                                        <li>
+                                            <a data-toggle="tab" class="bold" href="#Images" style="background: #f9f9f9;">IMAGES</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+
+                                        <div id="CurrentRecords" class="tab-pane fade in active">
+
+                                            <section class="inline-block  ww75 va-top">
+
+                                                <textarea name="txt" value="" rows="11" class="ww100"></textarea>
+
+                                            </section>
+
+                                            <section class="inline-block ww20 alc va-top">
+
+                                                <input type="button" name="btnPrint" value="Save" class="btn clm" />
+
+                                                <p class="btn-big">Investigations/Procedure Requests</p>
+
+                                                <input type="button" name="btnPrint" value="Prescriptions" class="btn clm" />
+                                                <input type="button" name="btnPrint" value="TTH" class="btn clm" />
+
+                                            </section>
+
+                                        </div>
+
+
+
+                                        <div id="PreviousRecords" class="tab-pane fade in">
+
+                                            <section class="inline-block  ww75 va-top">
+
+                                                <textarea name="txt" value="" rows="11" class="ww100"></textarea>
+
+                                            </section>
+
+                                            <section class="inline-block ww20 alc ">
+
+                                                <div class="newline n1">
+                                                    <label class="label w-1 w-35">FROM</label>
+                                                    <input type="date" name="date" class="input w-4 w-50 increase-height design" />
+                                                </div>
+
+                                                <div class="newline n1">
+                                                    <label class="label w-1 w-35">TO</label>
+                                                    <input type="date" name="date" class="input w-4 w-50 increase-height design" />
+                                                </div>
+
+                                                <input type="button" name="btnPrint" value="Get History" class="btn" />
+
+                                            </section>
+                                        </div>
+
+
+
+                                        <div id="Images" class="tab-pane fade in">
+
+                                            <div class="newline n1">
+                                                <label class="label w-35 drk cred">All Previous Medical Images for this Patient</label>
+                                            </div>
+
+
+                                            <div class="scroll inline-block ww40 va-top">
+                                                <table class="">
+                                                    <tr>
+                                                        <th class="alc ">Trans. Date</th>
+                                                        <th class="alc ">TotPic</th>
+                                                        <th class="alc ">Facility1</th>
+                                                        <th class="alc ">PIC1</th>
+                                                        <th class="alc ">NOTE1</th>
+                                                        <th class="alc ">Facility2</th>
+                                                        <th class="alc ">PIC2</th>
+                                                        <th class="alc ">NOTE2</th>
+                                                        <th class="alc ">Facility3</th>
+                                                        <th class="alc ">PIC3</th>
+                                                        <th class="alc ">NOTE3</th>
+                                                        <th class="alc ">Facility4</th>
+                                                        <th class="alc ">PIC4</th>
+                                                        <th class="alc ">NOTE4</th>
+                                                        <th class="alc ">Facility5</th>
+                                                        <th class="alc ">PIC5</th>
+                                                        <th class="alc ">NOTE5</th>
+
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="alc ">.</td>
+                                                        <td class="alc "></td>
+                                                        <td class="alc ">.</td>
+                                                        <td class="alc "></td>
+                                                        <td class="alc ">.</td>
+                                                        <td class="alc "></td>
+                                                        <td class="alc ">.</td>
+                                                        <td class="alc "></td>
+                                                        <td class="alc ">.</td>
+                                                        <td class="alc "></td>
+                                                        <td class="alc ">.</td>
+                                                        <td class="alc "></td>
+                                                        <td class="alc ">.</td>
+                                                        <td class="alc "></td>
+                                                        <td class="alc ">.</td>
+                                                        <td class="alc "></td>
+                                                        <td class="alc ">.</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="alc ">.</td>
+                                                        <td class="alc "></td>
+                                                        <td class="alc ">.</td>
+                                                        <td class="alc "></td>
+                                                        <td class="alc ">.</td>
+                                                        <td class="alc "></td>
+                                                        <td class="alc ">.</td>
+                                                        <td class="alc "></td>
+                                                        <td class="alc ">.</td>
+                                                        <td class="alc "></td>
+                                                        <td class="alc ">.</td>
+                                                        <td class="alc "></td>
+                                                        <td class="alc ">.</td>
+                                                        <td class="alc "></td>
+                                                        <td class="alc ">.</td>
+                                                        <td class="alc "></td>
+                                                        <td class="alc ">.</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="alc ">.</td>
+                                                        <td class="alc "></td>
+                                                        <td class="alc ">.</td>
+                                                        <td class="alc "></td>
+                                                        <td class="alc ">.</td>
+                                                        <td class="alc "></td>
+                                                        <td class="alc ">.</td>
+                                                        <td class="alc "></td>
+                                                        <td class="alc ">.</td>
+                                                        <td class="alc "></td>
+                                                        <td class="alc ">.</td>
+                                                        <td class="alc "></td>
+                                                        <td class="alc ">.</td>
+                                                        <td class="alc "></td>
+                                                        <td class="alc ">.</td>
+                                                        <td class="alc "></td>
+                                                        <td class="alc ">.</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="alc ">.</td>
+                                                        <td class="alc "></td>
+                                                        <td class="alc ">.</td>
+                                                        <td class="alc "></td>
+                                                        <td class="alc ">.</td>
+                                                        <td class="alc "></td>
+                                                        <td class="alc ">.</td>
+                                                        <td class="alc "></td>
+                                                        <td class="alc ">.</td>
+                                                        <td class="alc "></td>
+                                                        <td class="alc ">.</td>
+                                                        <td class="alc "></td>
+                                                        <td class="alc ">.</td>
+                                                        <td class="alc "></td>
+                                                        <td class="alc ">.</td>
+                                                        <td class="alc "></td>
+                                                        <td class="alc ">.</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
+                            </section>
+
+                        </div>
+
+                    </div>
+                
+               
+                    <div id="ChangeBed_Room" class="tab-pane fade in">
+
+                        <div class="dif">
+
+
+                            <!--Top-Left Section-->
+
+                            <section class="inline-block ww53 w-100 va-top dif">
+
+
+                                <div class="newline n1">
+                                    <label class="label w-5 w-35 "> Admission Reference</label>
+                                    <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                    <input type="button" name="btn" value="" class="btn-small" />
+
+                                    <span class="span al-c line-height">
+                                        <input type="checkbox" id="chkSRA" name="chk" />
+                                        <label for="chkSRA" class="label">Current Admissions</label>
+                                    </span>
+                                </div>
+
+                                <div class="newline n1">
+                                    <label class="label w-5 w-35 ">Patients Group Code</label>
+                                    <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                </div>
+
+                                <div class="newline n1">
+                                    <label class="label w-5 w-35 ">Patients No.</label>
+                                    <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                </div>
+
+                                <div class="newline n1">
+                                    <label class="label w-5 w-35 ">Name</label>
+                                    <input type="text" name="txt" value="" class="input w-6 w-50" />
+
+                                    <span class="span">
+                                        <label class="label w-35 "></label>
+                                        <input type="text" name="txt" value="" class="input w-6 w-50" />
+                                    </span>
+                                </div>
+
+                                <div class="newline n1">
+                                    <label class="label w-5 w-35 ">Address</label>
+                                    <input type="text" name="txt" value="" class="input w-5 w-50" />
+                                </div>
+
+                                <div class="newline n1">
+                                    <label class="label w-5 w-35 ">Diagnosis</label>
+                                    <input type="text" name="txt" value="" class="input w-5 w-50" />
+                                </div>
+
+
+                            </section>
+
+                            <!--Top-Right Section 1-->
+                            <section class="inline-block w-100 dif">
+
+                                <section class="inline-block w-100 va-top ">
+
+                                    <div class="newline n1">
+                                        <label class="label w-35"></label>
+                                        <textarea name="txt" value="" rows="3" class="txtarea w-7 w-50"></textarea>
+                                    </div>
+
+                                </section>
+
+
+                                <!--Top-Right Section 2-->
+
+
+                                <section class="inline-block w-100 va-top">
+
+                                    <div class="newline n1">
+                                        <label class="label w-4 w-35">Date of Admission</label>
+                                        <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                    </div>
+
+                                    <div class="newline n1">
+                                        <label class="label w-4 w-35">Date of Discharge</label>
+                                        <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                    </div>
+
+                                    <label class="label w-6 w-35 cred">....</label>
+
+                                    <div class="newline n1">
+                                        <label class="label w-4 w-35">Facility</label>
+                                        <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                    </div>
+
+                                    <div class="newline n1">
+                                        <label class="label w-4 w-35">Ward/Room</label>
+                                        <input type="text" name="txt" value="" class="input w-1 w-50" />
+
+                                        <span class="span">
+                                            <label class="label w-35">Bed</label>
+                                            <input type="text" name="txt" value="" class="input w-1 w-50" />
+                                        </span>
+                                    </div>
+
+                                    <div class="newline n1">
+                                        <label class="label w-4 w-35">Old Rate</label>
+                                        <input type="text" name="txt" value="" class="input w-2 w-50" />
+                                    </div>
+
+                                </section>
+
+                            </section>
+
+                            <!--Centre-Left Section-->
+
+                            <section class="bdr-f">
+
+                                <section class="inline-block w-100 va-top ">
+
+                                    <div class="newline n1">
+                                        <label class="label w-2 w-35">Facility</label>
+                                        <input type="text" list="cbo" class="input w-5 w-50 increase-height" />
+                                        <datalist id="cbo">
+                                            <option value="">-Select VALUE-</option>
+                                            <option value="VALUE">VALUE</option>
+                                        </datalist>
+                                    </div>
+
+                                    <div class="newline n1">
+                                        <label class="label w-2 w-35">Date</label>
+                                        <input type="date" name="date" class="input w-4 w-50 increase-height design" />
+
+                                        <span class="span">
+                                            <label class="label w-35">Time</label>
+                                            <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                        </span>
+
+                                        <span class="span">
+                                            <label class="label w-2 w-35">Room/Ward</label>
+                                            <input type="text" list="cbo" class="input w-3 w-50 increase-height" />
+                                            <datalist id="cbo">
+                                                <option value="">-Select VALUE-</option>
+                                                <option value="VALUE">VALUE</option>
+                                            </datalist>
+                                        </span>
+
+                                        <span class="span">
+                                            <label class="label w-35">Bed</label>
+                                            <input type="text" list="cbo" class="input w-2 w-50 increase-height" />
+                                            <datalist id="cbo">
+                                                <option value="">-Select VALUE-</option>
+                                                <option value="VALUE">VALUE</option>
+                                            </datalist>
+                                        </span>
+
+                                    </div>
+
+
+                                </section>
+
+
+                                <!--Centre-Right Section-->
+
+
+                                <section class="inline-block w-100 va-top">
+
+                                    <div class="newline n1">
+                                        <label class="label w-2 w-35">New PNC</label>
+                                        <input type="text" name="txt" value="0.00" class="input w-3 w-50 alr" />
+                                    </div>
+
+                                    <div class="newline n1">
+                                        <label class="label w-2 w-35">New Rate</label>
+                                        <input type="text" name="txt" value="0.00" class="input w-3 w-50 alr" />
+
+                                        <span class="span">
+                                            <label class="label w-1"></label>
+                                            <input type="button" name="btnPrint" value="Submit" class="btn clm" />
+                                        </span>
+                                    </div>
+
+
+                                </section>
+
+
+                            </section>
+
+                            <!--Bottom-Table Section-->
+
+                            <section class="inline-block w-100 va-top">
+
+                                <div class="scroll">
+                                    <table>
+                                        <tr>
+                                            <th class="alc ">S/N</th>
+                                            <th class="alc ">Facility</th>
+                                            <th class="alc ">Room/Ward ID</th>
+                                            <th class="alc ">Bed</th>
+                                            <th class="alc ">Daily Rate</th>
+                                            <th class="alc ">Occupant</th>
+                                            <th class="alc ">Description</th>
+                                            <th class="alc ">PNC</th>
+                                            <th class="alc "></th>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                            <td class="alc "></td>
+                                            <td class="alc ">.</td>
+                                        </tr>
+
+                                    </table>
+                                </div>
+
+                            </section>
+
+                        </div>
+
+                    </div>
+               
+
+               
+                    <div id="Discharge" class="tab-pane fade in">
+
+                        <div class="dif">
+
+
+                            <!--Top-Left Section-->
+
+                            <section class="inline-block ww53 w-100 va-top bdr-f">
+
+
+                                <div class="newline n1">
+                                    <label class="label w-5 w-35 "> Admission Reference</label>
+                                    <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                    <input type="button" name="btn" value="" class="btn-small" />
+
+                                    <span class="span al-c line-height">
+                                        <input type="checkbox" id="chkSRA" name="chk" />
+                                        <label for="chkSRA" class="label">Current Admissions</label>
+                                    </span>
+                                </div>
+
+                                <div class="newline n1">
+                                    <label class="label w-5 w-35 ">Patients Group Code</label>
+                                    <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                </div>
+
+                                <div class="newline n1">
+                                    <label class="label w-5 w-35 ">Patients No.</label>
+                                    <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                </div>
+
+                                <div class="newline n1">
+                                    <label class="label w-5 w-35 ">Name</label>
+                                    <input type="text" name="txt" value="" class="input w-5 w-50" />
+
+                                    <span class="span">
+                                        <label class="label w-35 "></label>
+                                        <input type="text" name="txt" value="" class="input w-5 w-50" />
+                                    </span>
+                                </div>
+
+                                <div class="newline n1">
+                                    <label class="label w-5 w-35 ">Address</label>
+                                    <input type="text" name="txt" value="" class="input w-5 w-50" />
+                                </div>
+
+                                <div class="newline n1">
+                                    <label class="label w-5 w-35 ">Diagnosis</label>
+                                    <input type="text" name="txt" value="" class="input w-9 w-50" />
+                                </div>
+
+
+                            </section>
+
+                            <!--Top-Right Section 1-->
+                            <section class="inline-block w-100 bdr-f">
+
+                                <section class="inline-block w-100 va-top ">
+
+                                    <div class="newline n1">
+                                        <label class="label w-35"></label>
+                                        <textarea name="txt" value="" rows="3" class="txtarea w-7 w-50"></textarea>
+                                    </div>
+
+                                </section>
+
+
+                                <!--Top-Right Section 2-->
+
+
+                                <section class="inline-block w-100 va-top ">
+
+                                    <div class="newline n1">
+                                        <label class="label w-4 w-35">Date of Admission</label>
+                                        <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                    </div>
+
+                                    <div class="newline n1">
+                                        <label class="label w-4 w-35">Date of Discharge</label>
+                                        <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                    </div>
+
+                                    <label class="label w-6 w-35 cred">....</label>
+
+                                    <div class="newline n1">
+                                        <label class="label w-4 w-35">Facility</label>
+                                        <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                    </div>
+
+                                    <div class="newline n1">
+                                        <label class="label w-4 w-35">Room/Ward</label>
+                                        <input type="text" name="txt" value="" class="input w-1 w-50" />
+
+                                        <span class="span">
+                                            <label class="label w-35">Bed</label>
+                                            <input type="text" name="txt" value="" class="input w-1 w-50" />
+                                        </span>
+                                    </div>
+
+                                    <div class="newline n1">
+                                        <label class="label w-4 w-35">Old Rate</label>
+                                        <input type="text" name="txt" value="" class="input w-2 w-50" />
+                                    </div>
+
+                                </section>
+
+                            </section>
+
+
+                            <!--Bottom-Left Section-->
+
+
+                            <section class=" ww95 w-100 bdr-f">
+
+                                <div class="newline n1 va-top alc ">
+
+                                    <div class="newline n1">
+                                        <label class="label w-3 w-35">Discharge Date</label>
+                                        <input type="date" name="date" class="input w-4 w-50 increase-height design" />
+
+                                        <span class="span">
+                                            <label class="label w-6 w-35">Accumulated Charge</label>
+                                            <input type="text" name="txt" value="0.00" class="input w-4 w-50 alr" />
+                                        </span>
+                                    </div>
+
+                                    <div class="newline n1">
+                                        <label class="label w-3 w-35">Time</label>
+                                        <input type="text" name="txt" value="" class="input w-4 w-50" />
+
+                                        <span class="span">
+                                            <label class="label w-7 w-35">Professional Charge To Be Added</label>
+                                            <input type="text" name="txt" value="0.00" class="input w-4 w-50 alr cred" />
+                                            <label class="label w-35 cred"></label>
+                                        </span>
+                                    </div>
+
+                                    <div class="newline n1">
+                                        <label class="label w-3 w-35">Doctor</label>
+                                        <input type="text" list="cbo" class="input w-5 w-50 increase-height" />
+                                        <datalist id="cbo">
+                                            <option value="">-Select VALUE-</option>
+                                            <option value="VALUE">VALUE</option>
+                                        </datalist>
+
+                                        <span class="span">
+                                            <label class="label w-6 w-35">Raise Bill...?</label>
+                                            <input type="text" list="cbo" class="input w-4 w-50 increase-height" />
+                                            <datalist id="cbo">
+                                                <option value="">-Select VALUE-</option>
+                                                <option value="VALUE">VALUE</option>
+                                            </datalist>
+                                        </span>
+                                    </div>
+
+                                    <div class="newline n1">
+                                        <label class="label w-3 w-35">Reason</label>
+                                        <input type="text" list="cbo" class="input w-5 w-50 increase-height" />
+                                        <datalist id="cbo">
+                                            <option value="">-Select VALUE-</option>
+                                            <option value="VALUE">VALUE</option>
+                                        </datalist>
+
+                                        <span class="span">
+                                            <label class="label w-6 w-35">Last Bill Date</label>
+                                            <input type="text" name="txt" value="" class="input w-4 w-50" />
+                                        </span>
+                                    </div>
+
+                                </div>
+
+                                <div class="newline n1 ">
+                                    <label class="label w-9 w-35">Comments</label>
+                                    <textarea name="txt" value="" rows="5" class="txtarea w-10 w-50"></textarea>
+                                </div>
+
+                                <div class="newline n1 ">
+                                    <label class="label w-9 w-35"></label>
+                                    <input type="checkbox" id="chkSRA1" name="chk" />
+                                    <label for="chkSRA1" class="label">Death Records</label>
+                                </div>
+
+                            </section>
+
+                            <div class="newline n1 alc">
+
+                                <input type="button" name="btnPrint" value="Print Bills" class="btn clm" />
+
+                                <label class="label w-6 "></label>
+                                <input type="button" name="btnPrint" value="Submit" class="btn clm" />
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+                
+
+                
+                    <div id="ServiceItems" class="tab-pane fade in">
+
+                        <div class="dif">
+
+
+                            <!--Top-Left Section-->
+
+                            <div class="newline n1 bdr-f alc w-100 ">
+                                <label class="label al-c"><h4>DEFINE / EDIT ADMISSION SERVICES GROUPING FOR BILLING SUMMARY</h4></label>
+                            </div>
+
+
+                            <section class="inline-block w-100 va-top">
+
+
+                                <div class="newline n1">
+                                    <label class="label w-4 w-35 ">Service/Tariff Item</label>
+                                    <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                    <input type="button" name="btn" value="" class="btn-small" />
+
+                                    <span class="span">
+                                        <label class="label w-4 w-35 ">Desired Description</label>
+                                        <input type="text" name="txt" value="" class="input w-3 w-50" />
+                                        <input type="button" name="btnPrint" value="ADD" class="btn clm" />
+                                    </span>
+
+                                </div>
+                            </section>
+
+                                <!--Bottom-Left Section-->
+
+                                <label class="label w-5"></label>
+
+                                <section class="bdr-f alc ww95 w-100">
+
+                                    <section class="inline-block w-100 ">
+
+                                        <div class="scroll">
+                                            <table class="alc">
+                                                <tr>
+                                                    <th class="alc drk">HEADER DESCRIPTION</th>
+                                                    <th class="alc drk">TARIFF CODE</th>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="alc ">.</td>
+                                                    <td class="alc "></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="alc ">.</td>
+                                                    <td class="alc "></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="alc ">.</td>
+                                                    <td class="alc "></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="alc ">.</td>
+                                                    <td class="alc "></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="alc ">.</td>
+                                                    <td class="alc "></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="alc ">.</td>
+                                                    <td class="alc "></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="alc ">.</td>
+                                                    <td class="alc "></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="alc ">.</td>
+                                                    <td class="alc "></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="alc ">.</td>
+                                                    <td class="alc "></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="alc ">.</td>
+                                                    <td class="alc "></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="alc ">.</td>
+                                                    <td class="alc "></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="alc ">.</td>
+                                                    <td class="alc "></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+
+
+
+                                    </section>
+
+                                    <section class="inline-block w-100 va-top ">
+
+                                        <div class="newline n1">
+
+                                            <input type="button" name="btnPrint" value="Delete" class="btn clm" />
+                                            <br>
+                                            <br>
+                                            <input type="button" name="btnPrint" value="Submit" class="btn clm" />
+                                        </div>
+
+
+                                    </section>
+
+                                </section>
+
+                        </div>
+
+                    </div>
+                
+
+                <!--Bottom Button-->
+                <div class="newline n1 alc">
+                    <div class="dif">
+
+                        <label class="label w-2"></label>
+                        <input type="button" name="btnPrint" value="Service Ledger" class="btn clm" />
+
+                        <label class="label w-6 "></label>
+                        <input type="button" name="btnPrint" value="Close" class="btn clm" />
+
+                    </div>
+                </div>
+
+                
+            </div>
+            
+          </div>
+        
+
+</form>
+</section>

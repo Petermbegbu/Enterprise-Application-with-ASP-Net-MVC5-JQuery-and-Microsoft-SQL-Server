@@ -1,0 +1,150 @@
+﻿
+@{
+    ViewBag.Title = "BillAdjustmentEntry";
+    ViewBag.TitleBar = "[BILL/PAY ADJUSTMENT ENTRY] - Debit/Credit Notes";
+    Layout = "~/Views/Shared/_MRFormLayout.cshtml";
+}
+
+
+<section>
+    <form method="post" action="#">
+    
+        <div class="dif">
+
+            <!--Left Section -->
+            <section>
+
+
+                <div class="newline n1 ">
+                    <label class="label  w-3 w-35 drk">Group Code</label>
+                    <input type="text" name="txt" value="" class="input w-4 w-50" />
+                    <input type="button" name="btn" value="" class="btn-small" />
+                </div>
+
+                <div class="newline n1 ">
+                    <label class="label w-3 w-35 drk">Clients Code</label>
+                    <input type="text" name="txt" value="" class="input w-4 w-50" />
+                    <input type="button" name="btn" value="" class="btn-small" />
+                </div>
+
+                <div class="newline n1 ">
+                    <label class="label w-3 w-35">Bill Reference</label>
+                    <input type="text" name="txt" value="" class="input w-4 w-50" />
+                    <input type="button" name="btn" value="" class="btn-small" />
+                </div>
+
+                <div class="newline n1 ">
+                    <label class="label w-3 w-35">% To Adjust</label>
+                    <input type="text" name="txt" value="" class="input w-4 w-50" />
+
+                    <span class="span">
+                        <label class="label w-2 w-35">Bill Value : </label>
+                        <input type="text" name="txt" value="" class="input w-4 w-50" />
+                    </span>
+                </div>
+
+                <div class="newline n1 ">
+                    <label class="label w-3 w-35 drk">NAME</label>
+                    <input type="text" name="txt" value="" class="input w-7 w-50" />
+                </div>
+
+                <div class="newline n1 ">
+                    <label class="label w-3 w-35 drk">Address</label>
+                    <input type="text" name="txt" value="" class="input w-7 w-50" />
+                </div>
+
+                <div class="newline n1">
+                    <label class="label w-3 w-35 drk">Currency</label>
+                    <input type="text" list="cbo" class="input w-4 w-50 increase-height" />
+                    <datalist id="cbo">
+                        <option value="">-Select VALUE-</option>
+                        <option value="VALUE">VALUE</option>
+                    </datalist>
+                </div>
+
+                <div class="newline n1">
+                    <label class="label w-3 w-35">Exchange Rate</label>
+                    <input type="text" name="txt" value="" class="input w-4 w-50" />
+                </div>
+
+
+
+
+            </section>
+
+
+
+            <!--Bottom Section -->
+
+            <section>
+
+                <div class="dif">
+
+                    <div class="newline n1 ">
+                        <label class="label  w-3 w-35">Reference</label>
+                        <input type="text" name="txt" value="" class="input w-4 w-50" />
+                        <input type="button" name="btn" value="" class="btn-small" />
+                    </div>
+
+                    <div class="newline n1">
+                        <label class="label w-3 w-35 drk">Select Adjust Type</label>
+                        <input type="text" list="cbo" class="input w-7 w-50 increase-height" />
+                        <datalist id="cbo">
+                            <option value="">-Select VALUE-</option>
+                            <option value="VALUE">VALUE</option>
+                        </datalist>
+                    </div>
+
+                    <div class="newline n1">
+                        <label class="label w-3 w-35 drk">Transaction Type</label>
+                        <input type="text" list="cbo" class="input w-4 w-50 increase-height" />
+                        <datalist id="cbo">
+                            <option value="">-Select VALUE-</option>
+                            <option value="VALUE">VALUE</option>
+                        </datalist>
+                    </div>
+
+                    <div class="newline n1 ">
+                        <label class="label  w-3 w-35">Amount</label>
+                        <input type="text" name="txt" value="" class="input w-4 w-50" />
+                    </div>
+
+                    <div class="newline n1 ">
+                        <label class="label  w-3 w-35">Effective Date</label>
+                        <input type="date" name="date" class="input w-4 w-50 increase-height design" />
+                    </div>
+
+                    <div class="newline n1 ">
+                        <label class="label  w-3 w-35">Comments</label>
+                        <textarea name="txt" value="" rows="3" class="txtarea w-7 w-50"></textarea>
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!--Button-Below Section -->
+            <section>
+
+
+                <div class="dif">
+                    <div class="newline n1 alc">
+
+                        <input type="button" name="btnPrint" value="Delete" class="btn clm" />
+                        <input type="button" name="btnPrint" value="Submit" class="btn clm" />
+                        <input type="button" name="btnPrint" value="Close" class="btn clm" />
+
+                    </div>
+                </div>
+            </section>
+
+
+        </div>   
+    
+    </form>
+</section>
+
+

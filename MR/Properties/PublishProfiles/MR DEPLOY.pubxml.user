@@ -1,0 +1,865 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>C:\DEPLOY\MR</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/Antlr3.Runtime.dll">
+      <publishTime>09/09/2020 12:48:46</publishTime>
+    </File>
+    <File Include="bin/ARS.dll">
+      <publishTime>01/31/2020 13:40:28</publishTime>
+    </File>
+    <File Include="bin/Gizmox.WebGUI.Common.dll">
+      <publishTime>04/29/2015 09:09:48</publishTime>
+    </File>
+    <File Include="bin/Gizmox.WebGUI.Forms.dll">
+      <publishTime>04/29/2015 09:06:52</publishTime>
+    </File>
+    <File Include="bin/GLS.dll">
+      <publishTime>10/01/2019 21:42:58</publishTime>
+    </File>
+    <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
+      <publishTime>09/09/2020 12:48:56</publishTime>
+    </File>
+    <File Include="bin/Microsoft.ReportViewer.Common.dll">
+      <publishTime>09/09/2020 12:59:10</publishTime>
+    </File>
+    <File Include="bin/Microsoft.ReportViewer.ProcessingObjectModel.DLL">
+      <publishTime>09/09/2020 12:59:10</publishTime>
+    </File>
+    <File Include="bin/Microsoft.ReportViewer.WebForms.DLL">
+      <publishTime>09/09/2020 12:59:10</publishTime>
+    </File>
+    <File Include="bin/Microsoft.SqlServer.Types.dll">
+      <publishTime>02/11/2012 17:55:10</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>09/09/2020 12:48:46</publishTime>
+    </File>
+    <File Include="bin/MR.dll">
+      <publishTime>03/18/2021 09:06:48</publishTime>
+    </File>
+    <File Include="bin/mradmin.dll">
+      <publishTime>09/09/2020 22:50:02</publishTime>
+    </File>
+    <File Include="bin/msfunc.dll">
+      <publishTime>09/27/2019 20:42:20</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>09/09/2020 12:48:50</publishTime>
+    </File>
+    <File Include="bin/ReportViewerForMvc.dll">
+      <publishTime>09/09/2020 12:59:12</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.exe">
+      <publishTime>09/09/2020 12:48:54</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll">
+      <publishTime>09/09/2020 12:48:54</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll">
+      <publishTime>09/09/2020 12:48:54</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.dll">
+      <publishTime>09/09/2020 12:48:54</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll">
+      <publishTime>09/09/2020 12:48:56</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CSharp.Core.targets">
+      <publishTime>09/09/2020 12:48:56</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.VisualBasic.Core.targets">
+      <publishTime>09/09/2020 12:48:56</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Collections.Immutable.dll">
+      <publishTime>09/09/2020 12:48:56</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Reflection.Metadata.dll">
+      <publishTime>09/09/2020 12:48:56</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.exe">
+      <publishTime>09/09/2020 12:48:56</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe">
+      <publishTime>09/09/2020 12:48:56</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe.config">
+      <publishTime>09/09/2020 12:48:56</publishTime>
+    </File>
+    <File Include="bin/SCS.dll">
+      <publishTime>10/08/2019 11:48:38</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>09/09/2020 12:48:42</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>09/09/2020 12:48:46</publishTime>
+    </File>
+    <File Include="bin/System.Web.Optimization.dll">
+      <publishTime>09/09/2020 12:48:42</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>09/09/2020 12:48:42</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>09/09/2020 12:48:44</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>09/09/2020 12:48:44</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>09/09/2020 12:48:44</publishTime>
+    </File>
+    <File Include="bin/WebGrease.dll">
+      <publishTime>09/09/2020 12:48:48</publishTime>
+    </File>
+    <File Include="Content/bootstrap.css">
+      <publishTime>05/11/2020 09:11:38</publishTime>
+    </File>
+    <File Include="Content/bootstrap.min.css">
+      <publishTime>05/11/2020 09:11:38</publishTime>
+    </File>
+    <File Include="Content/erp/bootstrap.css">
+      <publishTime>12/09/2019 14:24:30</publishTime>
+    </File>
+    <File Include="Content/erp/bootstrap2.css">
+      <publishTime>12/03/2019 11:33:36</publishTime>
+    </File>
+    <File Include="Content/erp/ERPmenu.css">
+      <publishTime>10/04/2018 14:30:10</publishTime>
+    </File>
+    <File Include="Content/erp/ERPmenuBootstrap.min.css">
+      <publishTime>06/26/2019 14:53:24</publishTime>
+    </File>
+    <File Include="Content/erp/ERPStyles.css">
+      <publishTime>12/14/2020 16:08:58</publishTime>
+    </File>
+    <File Include="Content/erp/font-awesome.min.css">
+      <publishTime>11/24/2018 18:04:56</publishTime>
+    </File>
+    <File Include="Content/erp/main.css">
+      <publishTime>08/03/2019 19:50:48</publishTime>
+    </File>
+    <File Include="Content/erp/noscript.css">
+      <publishTime>10/04/2018 14:30:12</publishTime>
+    </File>
+    <File Include="Content/erp/sidebar-menu.css">
+      <publishTime>06/25/2019 15:06:02</publishTime>
+    </File>
+    <File Include="Content/Images/backG.jpg">
+      <publishTime>05/13/2020 14:28:32</publishTime>
+    </File>
+    <File Include="Content/Images/BPHbtn.PNG">
+      <publishTime>01/07/2021 22:37:23</publishTime>
+    </File>
+    <File Include="Content/Images/homee.png">
+      <publishTime>05/11/2020 09:40:10</publishTime>
+    </File>
+    <File Include="Content/Images/imag.png">
+      <publishTime>05/11/2020 09:40:10</publishTime>
+    </File>
+    <File Include="Content/Images/intemedss.png">
+      <publishTime>05/13/2020 14:35:14</publishTime>
+    </File>
+    <File Include="Content/Images/LoadListBtn.PNG">
+      <publishTime>01/07/2021 21:55:53</publishTime>
+    </File>
+    <File Include="Content/Images/loginbg.jpg">
+      <publishTime>05/11/2020 09:40:10</publishTime>
+    </File>
+    <File Include="Content/Images/lookUp.png">
+      <publishTime>05/11/2020 09:40:10</publishTime>
+    </File>
+    <File Include="Content/Images/picture.png">
+      <publishTime>05/11/2020 09:40:10</publishTime>
+    </File>
+    <File Include="Content/Images/welcome.jpg">
+      <publishTime>05/11/2020 09:40:10</publishTime>
+    </File>
+    <File Include="Content/Site.css">
+      <publishTime>05/11/2020 09:11:28</publishTime>
+    </File>
+    <File Include="favicon.ico">
+      <publishTime>09/09/2020 12:48:32</publishTime>
+    </File>
+    <File Include="fonts/fontawesome-webfont.eot">
+      <publishTime>08/03/2019 19:49:50</publishTime>
+    </File>
+    <File Include="fonts/fontawesome-webfont.svg">
+      <publishTime>08/03/2019 19:49:50</publishTime>
+    </File>
+    <File Include="fonts/fontawesome-webfont.ttf">
+      <publishTime>08/03/2019 19:49:50</publishTime>
+    </File>
+    <File Include="fonts/fontawesome-webfont.woff">
+      <publishTime>08/03/2019 19:49:50</publishTime>
+    </File>
+    <File Include="fonts/fontawesome-webfont.woff2">
+      <publishTime>08/03/2019 19:49:50</publishTime>
+    </File>
+    <File Include="fonts/FontAwesome.otf">
+      <publishTime>08/03/2019 19:49:50</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.eot">
+      <publishTime>12/09/2019 10:16:50</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.svg">
+      <publishTime>12/09/2019 10:16:50</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.ttf">
+      <publishTime>12/09/2019 10:16:50</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.woff">
+      <publishTime>12/09/2019 10:16:50</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>09/09/2020 12:48:32</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>09/09/2020 12:59:12</publishTime>
+    </File>
+    <File Include="RDLCs/AdjustmentDtl.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/AdmDailyRpt.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/AdmRecs_Alpha.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/admspaceListing.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/AdmSummary.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/AdmSummaryRpt.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/AdmSummaryWGroup.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/ANCActiveRegistrations.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/ANCAppointments.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/ANCAttendance.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/ANCExpectedDeliveries.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/AnnualBillSummary.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/Attendance_ByClinic.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/Attendance_ByClinicGh.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/Attendance_ByDocs.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/Attendance_MiscDtl.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/Attendance_NHIS.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/Attendance_Serial.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/Attendance_VisitType.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/balancesdue_Alpha.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/BillingrptbyReference.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/BillingsChronological.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/BillingStatement.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/BillingStatementByDate.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/BillingStatementByDateNew.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/BirthListing_Alpha.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/BirthListing_Date.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/BPChart.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/clinicalstatistics.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/clStat_Disease5Summ.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/clStat_Disease60Summ.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/clStat_DiseaseDtl.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/ComparativeRpt.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/CustomerList.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/CustomersAgedAccount.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/DeathListing_Alpha.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/DeathListing_ByDate.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/Dispenary_DailySumStkItem.rdlc">
+      <publishTime>07/17/2020 16:22:14</publishTime>
+    </File>
+    <File Include="RDLCs/Dispenary_DailySumStkValue.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/Dispenary_DatePatient.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/Dispenary_StkItemPatient.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/DNCRNotes.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/DutyRoster_All.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/DutyRoster_Alpha.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/EncounterForm.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/EOMStatementWBDtlNEW.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/EOMStatementWBDtlNEWLH.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/EOMStatementWBopdinpCum.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/EOMStatement_Summary.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/EOMStatement_SummaryLH.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/EOMStatement_WBDtl.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/EOMStatement_WBopdinpDtl.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/EOMStatement_WBopdinpDtlLH.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/FFServiceClaims.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/GrpChainAudit.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/GrpChainByGpHead.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/GrpChainList.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/InvDetails.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/InvDetails_SubClass.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/Investigationresult.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/Investigationresult1TAB.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/Investigationresult2TAB.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/Investigationresult2vTAB.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/Investigationresult3TAB.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/InvestigationresultLH.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/InvestigationresultLH1TAB.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/InvestigationresultLH2TAB.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/InvestigationresultLH2vTAB.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/InvestigationresultLH3TAB.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/InvestigationresultPIC.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/InvestigationresultPIC1TAB.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/InvestigationresultPIC2TAB.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/InvestigationresultPIC2vTAB.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/InvestigationresultPIC3TAB.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/Investigationresult_Ha.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/InvMatDefinitionListing.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/InvSurgeryDetails.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/MedicalHistReport.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/MedicalReports.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/MedStaffListing.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/MonthlyBillSummOPDinpt.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/MonthlyBillSummOthers.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/MonthlyBillSummZenithFmt.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/opdAttendStatistics.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/OverrightProfiles.rdlc">
+      <publishTime>07/17/2020 16:22:16</publishTime>
+    </File>
+    <File Include="RDLCs/PAED_appmt.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/PAED_attnd.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/PAED_byprocedure.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/PatientDetails.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/PatientDetailsByNationality.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/PatientDetailsByNationSummary.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/PatientDetailsSummary.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/PatientPhoneNumbers.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/PaymtsChronological.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/POSReceiptnew.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/POSReceipt_new.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/POSStatement.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/PostDatedPayments.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/PrescriptionSlip.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/PrescriptionSlip_ln8.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/receipt_std_two.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/ReferrerListing.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/ReferrerListingGrpd.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/RevenueByFacilities.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/rptAttendanceMonitor.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/rptDailyAttendance.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/rptRecordList.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/rptSyscodesandTables.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/rptTransactionsDbCrBal.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/rptTransactionsDbCrBalNEW.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/rptTransactionsDCBNEW.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/SampleLabel.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/StockAvailability.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/StockHandOverprocess.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/StockUsageAnalysis.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/SummaryOfAcctsbyClients.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/SummaryOfAcctsbyClientsSgmtd.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/SummaryOfDailyActivities.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/SummaryOfDailyActivitiesDtl.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/SummaryOfFacility-Process.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/TariffListing.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="RDLCs/TariffList_Grp.rdlc">
+      <publishTime>07/17/2020 16:22:18</publishTime>
+    </File>
+    <File Include="ReportViewerWebForm.aspx">
+      <publishTime>09/09/2020 12:59:12</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.js">
+      <publishTime>05/14/2020 08:03:38</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.min.js">
+      <publishTime>05/14/2020 08:03:38</publishTime>
+    </File>
+    <File Include="Scripts/breakpoints.min.js">
+      <publishTime>07/31/2018 15:42:52</publishTime>
+    </File>
+    <File Include="Scripts/browser.min.js">
+      <publishTime>07/31/2018 15:42:52</publishTime>
+    </File>
+    <File Include="Scripts/ERPevents.js">
+      <publishTime>12/14/2020 16:10:02</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.js">
+      <publishTime>05/14/2020 08:03:40</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.min.js">
+      <publishTime>05/14/2020 08:03:40</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.min.map">
+      <publishTime>05/14/2020 08:03:40</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.4.1.js">
+      <publishTime>11/28/2019 10:41:12</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.4.1.min.js">
+      <publishTime>11/28/2019 10:41:12</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.4.1.min.map">
+      <publishTime>11/28/2019 10:41:12</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.4.1.slim.js">
+      <publishTime>11/28/2019 10:41:12</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.4.1.slim.min.js">
+      <publishTime>11/28/2019 10:41:12</publishTime>
+    </File>
+    <File Include="Scripts/jquery-3.4.1.slim.min.map">
+      <publishTime>11/28/2019 10:41:12</publishTime>
+    </File>
+    <File Include="Scripts/jquery-ui.min.js">
+      <publishTime>05/12/2020 15:36:52</publishTime>
+    </File>
+    <File Include="Scripts/jquery.min.js">
+      <publishTime>07/31/2018 15:42:52</publishTime>
+    </File>
+    <File Include="Scripts/jquery.scrollex.min.js">
+      <publishTime>07/31/2018 15:42:52</publishTime>
+    </File>
+    <File Include="Scripts/jquery.scrolly.min.js">
+      <publishTime>07/31/2018 15:42:52</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.js">
+      <publishTime>05/14/2020 08:03:50</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.min.js">
+      <publishTime>05/14/2020 08:03:50</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.unobtrusive.js">
+      <publishTime>05/14/2020 08:03:52</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.unobtrusive.min.js">
+      <publishTime>05/14/2020 08:03:52</publishTime>
+    </File>
+    <File Include="Scripts/main.js">
+      <publishTime>07/31/2018 15:42:52</publishTime>
+    </File>
+    <File Include="Scripts/modernizr-2.6.2.js">
+      <publishTime>05/14/2020 08:03:50</publishTime>
+    </File>
+    <File Include="Scripts/respond.js">
+      <publishTime>05/14/2020 08:03:50</publishTime>
+    </File>
+    <File Include="Scripts/respond.min.js">
+      <publishTime>05/14/2020 08:03:50</publishTime>
+    </File>
+    <File Include="Scripts/sidebar-menu.js">
+      <publishTime>06/25/2019 15:03:54</publishTime>
+    </File>
+    <File Include="Scripts/util.js">
+      <publishTime>07/31/2018 15:42:52</publishTime>
+    </File>
+    <File Include="Scripts/_references.js">
+      <publishTime>09/09/2020 12:56:56</publishTime>
+    </File>
+    <File Include="Views/File/a1.cshtml">
+      <publishTime>08/03/2020 08:58:16</publishTime>
+    </File>
+    <File Include="Views/File/AdmissionDeposit_PaymentRecord.cshtml">
+      <publishTime>05/13/2020 21:51:06</publishTime>
+    </File>
+    <File Include="Views/File/AdmissionsManagement.cshtml">
+      <publishTime>12/13/2018 16:41:12</publishTime>
+    </File>
+    <File Include="Views/File/AnteNatalBookings_Registration.cshtml">
+      <publishTime>02/10/2021 22:38:40</publishTime>
+    </File>
+    <File Include="Views/File/BillAdjustmentEntry.cshtml">
+      <publishTime>12/06/2018 08:40:44</publishTime>
+    </File>
+    <File Include="Views/File/Bill_PaymentAdjustCodeDef.cshtml">
+      <publishTime>12/07/2018 10:02:24</publishTime>
+    </File>
+    <File Include="Views/File/ChangeGroupHead.cshtml">
+      <publishTime>01/21/2019 09:34:40</publishTime>
+    </File>
+    <File Include="Views/File/ChangeStatusPvt_Corp.cshtml">
+      <publishTime>01/17/2019 15:44:08</publishTime>
+    </File>
+    <File Include="Views/File/CorpClients_RefDocDetails.cshtml">
+      <publishTime>12/10/2018 12:27:58</publishTime>
+    </File>
+    <File Include="Views/File/CostCentreCodeDefinition.cshtml">
+      <publishTime>12/07/2018 10:02:08</publishTime>
+    </File>
+    <File Include="Views/File/CustomerBillingClassDetails.cshtml">
+      <publishTime>12/07/2018 10:00:52</publishTime>
+    </File>
+    <File Include="Views/File/DailyAppointments_Schedule.cshtml">
+      <publishTime>12/03/2018 23:04:46</publishTime>
+    </File>
+    <File Include="Views/File/DailyAttendanceRecords.cshtml">
+      <publishTime>03/08/2021 15:29:18</publishTime>
+    </File>
+    <File Include="Views/File/DC_ATMBankTellerConfigForCashier.cshtml">
+      <publishTime>12/07/2018 10:14:36</publishTime>
+    </File>
+    <File Include="Views/File/Deaths_MorbidAnatomy.cshtml">
+      <publishTime>01/16/2019 10:51:30</publishTime>
+    </File>
+    <File Include="Views/File/DiagnosisCodeDefinition.cshtml">
+      <publishTime>12/07/2018 09:57:28</publishTime>
+    </File>
+    <File Include="Views/File/DoctorsConsultingRoomDef.cshtml">
+      <publishTime>12/07/2018 10:31:32</publishTime>
+    </File>
+    <File Include="Views/File/FamilyMembersGroupings.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/File/GroupMembersInformation.cshtml">
+      <publishTime>02/11/2021 23:28:27</publishTime>
+    </File>
+    <File Include="Views/File/Grpd_MultipleProcedureDef.cshtml">
+      <publishTime>12/11/2018 09:17:58</publishTime>
+    </File>
+    <File Include="Views/File/HMOAuthourizationCode.cshtml">
+      <publishTime>03/05/2021 11:03:02</publishTime>
+    </File>
+    <File Include="Views/File/HMODetails.cshtml">
+      <publishTime>12/11/2018 09:19:12</publishTime>
+    </File>
+    <File Include="Views/File/InvestigationsMgtReports.cshtml">
+      <publishTime>12/20/2018 16:16:54</publishTime>
+    </File>
+    <File Include="Views/File/MediaReportWriter.cshtml">
+      <publishTime>12/19/2018 09:36:46</publishTime>
+    </File>
+    <File Include="Views/File/MedicalStaffDutyRoaster.cshtml">
+      <publishTime>01/22/2019 09:34:24</publishTime>
+    </File>
+    <File Include="Views/File/MedStaffInfoMaintenance.cshtml">
+      <publishTime>12/06/2018 09:59:46</publishTime>
+    </File>
+    <File Include="Views/File/Move_ProcessHMO_NHISCapitatedBills.cshtml">
+      <publishTime>12/07/2018 09:52:28</publishTime>
+    </File>
+    <File Include="Views/File/NewPatientsGroupPrivate.cshtml">
+      <publishTime>02/04/2021 00:09:23</publishTime>
+    </File>
+    <File Include="Views/File/NursingNotes.cshtml">
+      <publishTime>01/16/2019 16:19:46</publishTime>
+    </File>
+    <File Include="Views/File/OPDvitalsNursesDesk.cshtml">
+      <publishTime>02/17/2021 13:44:59</publishTime>
+    </File>
+    <File Include="Views/File/OtherServicesIncome_Receivables.cshtml">
+      <publishTime>12/04/2018 16:19:28</publishTime>
+    </File>
+    <File Include="Views/File/PaediatricsClinic.cshtml">
+      <publishTime>12/14/2018 11:14:54</publishTime>
+    </File>
+    <File Include="Views/File/PaediatricsClinicMgt.cshtml">
+      <publishTime>12/17/2018 16:13:16</publishTime>
+    </File>
+    <File Include="Views/File/PaediatricsMilestones.cshtml">
+      <publishTime>12/18/2018 16:42:56</publishTime>
+    </File>
+    <File Include="Views/File/PatientAdmissionDischargeReasonCode.cshtml">
+      <publishTime>12/07/2018 10:01:20</publishTime>
+    </File>
+    <File Include="Views/File/PatientChargesMaintenance.cshtml">
+      <publishTime>03/18/2021 08:46:08</publishTime>
+    </File>
+    <File Include="Views/File/PatientInformation.cshtml">
+      <publishTime>09/14/2020 13:00:39</publishTime>
+    </File>
+    <File Include="Views/File/PatientPaymentMaintenance.cshtml">
+      <publishTime>12/04/2018 16:19:20</publishTime>
+    </File>
+    <File Include="Views/File/PendingPrescrDetails.cshtml">
+      <publishTime>01/16/2019 09:22:08</publishTime>
+    </File>
+    <File Include="Views/File/PharmacyStkMgt.cshtml">
+      <publishTime>01/14/2019 10:06:52</publishTime>
+    </File>
+    <File Include="Views/File/PrescriptionsMgt.cshtml">
+      <publishTime>01/09/2019 10:47:02</publishTime>
+    </File>
+    <File Include="Views/File/RoutineDrugsDefinition.cshtml">
+      <publishTime>12/07/2018 13:19:26</publishTime>
+    </File>
+    <File Include="Views/File/SampleCollectDetails.cshtml">
+      <publishTime>12/19/2018 02:47:06</publishTime>
+    </File>
+    <File Include="Views/File/ServCentreCodeDefinition.cshtml">
+      <publishTime>12/07/2018 09:55:08</publishTime>
+    </File>
+    <File Include="Views/File/SpecialConsultationChargeProfile.cshtml">
+      <publishTime>12/10/2018 08:45:52</publishTime>
+    </File>
+    <File Include="Views/File/Stock_DrugChargesMaintenance.cshtml">
+      <publishTime>12/07/2018 12:47:20</publishTime>
+    </File>
+    <File Include="Views/File/SyncPatientsName.cshtml">
+      <publishTime>01/17/2019 15:55:26</publishTime>
+    </File>
+    <File Include="Views/File/TagHMO_NHISBillsCapitation_Claims.cshtml">
+      <publishTime>12/11/2018 09:19:40</publishTime>
+    </File>
+    <File Include="Views/File/Tariff_ChargeMasterMaintenance.cshtml">
+      <publishTime>12/07/2018 12:26:44</publishTime>
+    </File>
+    <File Include="Views/File/Waiting_AttendanceListByClinic.cshtml">
+      <publishTime>02/23/2021 13:53:22</publishTime>
+    </File>
+    <File Include="Views/File/WoundDressingDetails.cshtml">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="Views/Home/ErrorHandler.cshtml">
+      <publishTime>05/11/2020 09:50:10</publishTime>
+    </File>
+    <File Include="Views/Home/Index.cshtml">
+      <publishTime>05/13/2020 14:08:28</publishTime>
+    </File>
+    <File Include="Views/Login/Index.cshtml">
+      <publishTime>06/23/2020 16:18:24</publishTime>
+    </File>
+    <File Include="Views/Shared/Error.cshtml">
+      <publishTime>05/11/2020 09:11:28</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout.cshtml">
+      <publishTime>05/11/2020 09:11:28</publishTime>
+    </File>
+    <File Include="Views/Shared/_MRFormLayout.cshtml">
+      <publishTime>01/07/2021 21:09:01</publishTime>
+    </File>
+    <File Include="Views/Web.config">
+      <publishTime>09/09/2020 12:48:32</publishTime>
+    </File>
+    <File Include="Views/_ViewStart.cshtml">
+      <publishTime>09/09/2020 12:48:32</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>01/21/2021 00:33:08</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

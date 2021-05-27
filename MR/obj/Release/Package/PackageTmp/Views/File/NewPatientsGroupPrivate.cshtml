@@ -1,0 +1,1769 @@
+﻿@model OtherClasses.Models.MR_DATA.MR_DATAvm
+
+@{
+    ViewBag.Title = "NewPatientsGroupPrivate";
+    ViewBag.TitleBar = "PATIENTS INFORMATION";
+    Layout = "~/Views/Shared/_MRFormLayout.cshtml";
+}
+
+<style>
+    .lblbillspayable {
+        color: red;
+        font-size: 14px;
+        font-weight: bold;
+        padding-left: 10px;
+    }
+
+    .modal-dialog {
+        width: 350px;
+        position: absolute;
+        left: 50%;
+        margin-left: -175px;
+    }
+
+    .new {
+        margin-top: 0.6rem
+    }
+    
+    
+    .title2 {
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .width {
+        width: 100%;
+    }
+
+    .borderLine {
+        border: solid 1px black;
+    }
+
+    .imgDiv {
+        width: 170px;
+        height: 150px;
+        border: solid 2px;
+        margin: auto;
+    }
+
+    .tableDiv {
+        height: 30rem;
+    }
+
+    .labelName {
+        font-size: 17px;
+        font-weight: bold;
+        color: red;
+    }
+
+
+</style>
+
+
+<section class="patInfoSection">
+
+    <!--Modal Start-->
+    <div id="1LkUp" class="djq-modal djq-hide">
+
+        <div class="djq-body">
+            <div>
+                <div class="djq-body1 deep-g alc">
+                    <label class="label ls">LOOKUP FOR REGISTERED PATIENTS</label>
+                </div>
+                <div class="numberOfRows djq-hide"></div>
+
+                <div class="djq-body11 alc">
+                    <label class="label">Search: </label>
+                    <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                    <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                    <label id="djq-result" class="label"></label>
+                    <label id="djq-aval" class="label hide">LOADING...</label>
+                    <label id="djq-curVal" class="djq-hide"></label>
+                    <label id="djq-max" class="djq-hide"></label>
+                </div>
+                <div class="loader djq-transp">.</div>
+
+            </div>
+            <div>
+                <div class="djq-body2" style="margin-top: 0px !important;">
+                    <table id="regPTable1">
+
+                        <thead>
+                        </thead>
+                        <tbody></tbody>
+
+                    </table>
+                </div>
+            </div>
+
+            <div class="djq-body3 deep-g alc">
+                <div class="inline-block ww50 all va-top">
+                    <button type="button" id="first"
+                            class="btn clm " style="background-color:#607d8b !important;">
+                        &lt;&lt;&lt;
+                    </button>
+                    <button type="button" id="previous"
+                            class="btn clm " style="background-color:#607d8b !important;">
+                        &lt;&lt;
+                    </button>
+                    <button type="button" id="next"
+                            class="btn clm " style="background-color:#607d8b !important;">
+                        &gt;&gt;
+                    </button>
+                    <button type="button" id="last"
+                            class="btn clm " style="background-color:#607d8b !important;">
+                        &gt;&gt;&gt;
+                    </button>
+                </div>
+                <div class="inline-block ww45 va-top">
+                    <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                    <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal End-->
+
+    <!--Modal Start-->
+    <div id="2LkUp" class="djq-modal djq-hide">
+
+        <div class="djq-body">
+            <div>
+                <div class="djq-body1 deep-g alc">
+                    <label class="label ls">LOOKUP FOR REGISTERED PATIENTS</label>
+                </div>
+                <div class="numberOfRows djq-hide"></div>
+
+                <div class="djq-body11 alc">
+                    <label class="label">Search: </label>
+                    <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                    <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                    <label id="djq-result" class="label"></label>
+                    <label id="djq-aval" class="label hide">LOADING...</label>
+                    <label id="djq-curVal" class="djq-hide"></label>
+                    <label id="djq-max" class="djq-hide"></label>
+                </div>
+                <div class="loader djq-transp">.</div>
+
+            </div>
+            <div>
+                <div class="djq-body2" style="margin-top: 0px !important;">
+                    <table id="regPTable2">
+
+                        <thead>
+                        </thead>
+                        <tbody></tbody>
+
+                    </table>
+                </div>
+            </div>
+
+            <div class="djq-body3 deep-g alc">
+                <div class="inline-block ww50 all va-top">
+                    <button type="button" id="first"
+                            class="btn clm " style="background-color:#607d8b !important;">
+                        &lt;&lt;&lt;
+                    </button>
+                    <button type="button" id="previous"
+                            class="btn clm " style="background-color:#607d8b !important;">
+                        &lt;&lt;
+                    </button>
+                    <button type="button" id="next"
+                            class="btn clm " style="background-color:#607d8b !important;">
+                        &gt;&gt;
+                    </button>
+                    <button type="button" id="last"
+                            class="btn clm " style="background-color:#607d8b !important;">
+                        &gt;&gt;&gt;
+                    </button>
+                </div>
+                <div class="inline-block ww45 va-top">
+                    <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                    <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal End-->
+
+    <!--Modal Start-->
+    <div id="3LkUp" class="djq-modal djq-hide">
+
+        <div class="djq-body">
+            <div>
+                <div class="djq-body1 deep-g alc">
+                    <label class="label ls">LOOKUP FOR REGISTERED GROUPHEADS</label>
+                </div>
+                <div class="numberOfRows djq-hide"></div>
+
+                <div class="djq-body11 alc">
+                    <label class="label">Search: </label>
+                    <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                    <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                    <label id="djq-result" class="label"></label>
+                    <label id="djq-aval" class="label hide">LOADING...</label>
+                    <label id="djq-curVal" class="djq-hide"></label>
+                    <label id="djq-max" class="djq-hide"></label>
+                </div>
+                <div class="loader djq-transp">.</div>
+
+            </div>
+            <div>
+                <div class="djq-body2" style="margin-top: 0px !important;">
+                    <table id="regPTable3">
+
+                        <thead>
+                        </thead>
+                        <tbody></tbody>
+
+                    </table>
+                </div>
+            </div>
+
+            <div class="djq-body3 deep-g alc">
+                <div class="inline-block ww50 all va-top">
+                    <button type="button" id="first"
+                            class="btn clm " style="background-color:#607d8b !important;">
+                        &lt;&lt;&lt;
+                    </button>
+                    <button type="button" id="previous"
+                            class="btn clm " style="background-color:#607d8b !important;">
+                        &lt;&lt;
+                    </button>
+                    <button type="button" id="next"
+                            class="btn clm " style="background-color:#607d8b !important;">
+                        &gt;&gt;
+                    </button>
+                    <button type="button" id="last"
+                            class="btn clm " style="background-color:#607d8b !important;">
+                        &gt;&gt;&gt;
+                    </button>
+                </div>
+                <div class="inline-block ww45 va-top">
+                    <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                    <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal End-->
+
+    <!--Modal Start-->
+    <div id="4LkUp" class="djq-modal djq-hide">
+
+        <div class="djq-body">
+            <div>
+                <div class="djq-body1 deep-g alc">
+                    <label class="label ls">LOOKUP FOR REGISTERED GROUPHEADS</label>
+                </div>
+                <div class="numberOfRows djq-hide"></div>
+
+                <div class="djq-body11 alc">
+                    <label class="label">Search: </label>
+                    <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                    <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                    <label id="djq-result" class="label"></label>
+                    <label id="djq-aval" class="label hide">LOADING...</label>
+                    <label id="djq-curVal" class="djq-hide"></label>
+                    <label id="djq-max" class="djq-hide"></label>
+                </div>
+                <div class="loader djq-transp">.</div>
+
+            </div>
+            <div>
+                <div class="djq-body2" style="margin-top: 0px !important;">
+                    <table id="regPTable4">
+
+                        <thead>
+                        </thead>
+                        <tbody></tbody>
+
+                    </table>
+                </div>
+            </div>
+
+            <div class="djq-body3 deep-g alc">
+                <div class="inline-block ww50 all va-top">
+                    <button type="button" id="first"
+                            class="btn clm " style="background-color:#607d8b !important;">
+                        &lt;&lt;&lt;
+                    </button>
+                    <button type="button" id="previous"
+                            class="btn clm " style="background-color:#607d8b !important;">
+                        &lt;&lt;
+                    </button>
+                    <button type="button" id="next"
+                            class="btn clm " style="background-color:#607d8b !important;">
+                        &gt;&gt;
+                    </button>
+                    <button type="button" id="last"
+                            class="btn clm " style="background-color:#607d8b !important;">
+                        &gt;&gt;&gt;
+                    </button>
+                </div>
+                <div class="inline-block ww45 va-top">
+                    <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                    <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal End-->
+
+
+    <form method="post" action="@Url.Action("PatientSave", "File")">
+        @Html.AntiForgeryToken()
+        <div class="diff deep">
+            <div id="groupCode" class="newline n1 lme" style="padding: 3px 2px 8px !important;">
+                <label class="label w-3 w-35 drk">GROUPCODE:</label>
+                <input type="text" name="REPORTS.txtgroupcode" value="" class="input w-4 w-50 cData1 groupCode" />
+                <input id="refLookUp1" type="button" value="" class="btn-small " />
+                
+                <span class="span">
+                    <label class="label w-3 w-35 drk">PATIENT #:</label>
+                    <input type="text" name="REPORTS.txtpatientno" value="" id="dData1" class="input w-4 w-50 cData2 patient" />
+                    <input type="button" id="refLookUp2" name="btn" value="" class="btn-small" />
+                </span>
+
+                <span class="span">
+                    <label class="label w-3 w-35 drk">FULL NAME:</label>
+                    <input type="text" name="REPORTS.TXTPATIENTNAME" value="" class="input w-9 w-50 fullName" />
+                </span>
+            </div>
+
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a data-toggle="tab" href="#personalInfo" class="bold" style="background: #f9f9f9;">PERSONAL INFORMATION</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" class="bold" href="#otherDetails">OTHER DETAILS</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" class="bold" href="#icisDetails" style="background: #f9f9f9;">ICIS DETAILS</a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="personalInfo" class="tab-pane fade in active">
+
+                        <section class="pb-3">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="new">
+                                        <label class="label w-3 w-35 drk">Type</label>
+                                        <select class="input w-5 w-50 increase-height type" name="REPORTS.cbotype">
+                                            <option value=""></option>
+                                            <option value="Private">Private</option>
+                                            <option value="Family">Family</option>
+                                            <option value="Coperate">Coperate</option>
+                                        </select>
+                                    </div>
+                                    <div class="new">
+                                        <label class="label w-3 w-35 drk">Title</label>
+                                        <select id="cbo" class="input w-5 w-50 increase-height title" name="REPORTS.cbotitle">
+                                            <option value=""></option>
+                                            <option value="Master">Master</option>
+                                            <option value="Mr.">Mr.</option>
+                                            <option value="Mrs.">Mrs.</option>
+                                            <option value="Miss.">Miss.</option>
+                                            <option value="Dr.">Dr.</option>
+                                            <option value="Prof.">Prof.</option>
+                                            <option value="Engr.">Engr.</option>
+                                            <option value="Pharm.">Pharm</option>
+                                            <option value="Arch.">Arch.</option>
+                                            <option value="Chief">Chief</option>
+                                            <option value="Evang.">Evang.</option>
+                                            <option value="Pastor">Pastor</option>
+                                            <option value="Imam">Imam</option>
+                                            <option value="Alhaji">Alhaji</option>
+                                            <option value="Citizen">Citizen</option>
+                                            <option value="Senator">Senator</option>
+                                            <option value="Hon.">Hon.</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="new">
+                                        <label class="label w-3 w-35 drk">Surname</label>
+                                        <input type="text" name="REPORTS.txtsurname" value="" class="input w-7 w-50 surname" />
+                                    </div>
+
+                                    <div class="new">
+                                        <label class="label w-3 w-35 drk">Other Names</label>
+                                        <input type="text" name="REPORTS.txtothername" value="" class="input w-7 w-50 othernames" />
+                                    </div>
+
+                                    <div class="new">
+                                        <label class="label w-3 w-35 drk">Address 1</label>
+                                        <input type="text" name="REPORTS.txtaddress1" value="" class="input w-7 w-50 address" />
+                                    </div>
+
+                                    <div class="new">
+                                        <label class="label w-3 w-35 drk">State</label>
+                                        @Html.DropDownListFor(v => v.SYSCODETABSvm.StateCodes.name,
+                                        new SelectList(@Model.SYSCODETABSvm.StateCodess, "type_code", "name"), "",
+                                        new { @class = "input w-5 w-50 increase-height state" })
+                                    </div>
+
+                                    <div class="new">
+                                        <label class="label w-3 w-35 drk">Date of Birth</label>
+                                        <input type="date" value="@String.Format("{0:yyyy-MM-dd}", DateTime.Now)" class="input w-5 w-50 dateOfBirth increase-height" name="REPORTS.dtbirthdate" />
+                                    </div>
+
+                                    <div class="new">
+                                        <label class="label w-3 w-35 drk">Sex</label>
+                                        <select class="input w-5 w-50 increase-height gender" name="REPORTS.cbogender">
+                                            <option value=""></option>
+                                            <option value="MALE">Male</option>
+                                            <option value="FEMALE">Female</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="new">
+                                        <label class="label w-3 w-35 drk">Marital Status</label>
+                                        <select class="input w-5 w-50 increase-height status" name="REPORTS.cbomaritalstatus">
+                                            <option value=""></option>
+                                            <option value="S">SINGLE</option>
+                                            <option value="M">MARRIED</option>
+                                            <option value="WD">WIDOWED</option>
+                                            <option value="WR">WIDOWER</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="new">
+                                        <label class="label w-3 w-35 drk">Blood Group</label>
+                                        <select class="input w-5 w-50 increase-height bloodGroup" name="REPORTS.cbobloodgroup">
+                                            <option value=""></option>
+                                            <option value="A+">A+</option>
+                                            <option value="A-">A-</option>
+                                            <option value="B+">B+</option>
+                                            <option value="B-">B-</option>
+                                            <option value="O+">O+</option>
+                                            <option value="O-">O-</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="new">
+                                        <label class="label w-3 w-35 drk">Genotype</label>
+                                        <select class="input w-5 w-50 increase-height genoType" name="REPORTS.cbogenotype">
+                                            <option value=""></option>
+                                            <option value="AA">AA</option>
+                                            <option value="AS">AS</option>
+                                            <option value="SS">SS</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-7">
+                                    
+                                    <div class="new">
+                                        <label class="label w-3 w-35 drk">Bills Payable by</label>
+                                        <select class="input w-5 w-50 increase-height billPayableBy">
+                                            <option value=""></option>
+                                            <option value="SELF">Self</option>
+                                            <option value="P\ANOTHER PATIENT">P\ANOTHER PATIENT</option>
+                                            <option value="CORPORATE CLIENT">CORPERATE CLIENT</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="new">
+                                        <label class="label w-3 w-35 drk">Group Code</label>
+                                        <input type="text" id="groupCode2" name="REPORTS.txtghgroupcode" value="" class="input w-5 w-50 groupCode2 eData1" />
+                                        <input type="button" id="refLookUp3" name="btn" value="" class="btn-small " />
+                                    </div>
+
+                                    <div class="new">
+                                        <label class="label w-3 w-35 drk">Code</label>
+                                        <input type="text" name="REPORTS.txtbillspayable" value="" class="input w-5 w-50 code eData2 fData1" />
+                                        <input type="button" id="refLookUp4" name="btn" value="" class="btn-small " />
+                                        <span class="lblbillspayable"></span>
+                                    </div>
+
+                                    <div class="new">
+                                        <label class="label w-3 w-35 drk">Date Registered</label>
+                                        <input type="date" value="@String.Format("{0:yyyy-MM-dd}", DateTime.Now)" class="input w-5 w-50 dateRegistered increase-height" name="REPORTS.dtregistered" />
+                                    </div>
+                                    <div class="new">
+                                        <label class="label w-3 w-35 drk">HMO Service Grp</label>
+                                        <input type="text" name="REPORTS.comhmoservgrp" class="input w-5 w-50 increase-height serviceGroup" />
+                                    </div>
+                                    <div class="new">
+                                        <scan>
+                                            <label class="label w-3 w-35 drk">Bill Category</label>
+                                            @Html.DropDownListFor(v => v.CUSTCLASS.NAME,
+                                            new SelectList(Model.CUSTCLASSS, "REFERENCE", "NAME"), "",
+                                            new { @class = "input w-5 w-50 increase-height billCategory" })
+                                        </scan>
+                                        <scan>
+                                            <label class="label w-3 w-35 drk">Bill Circle</label>
+                                            <select class="input w-3 w-50 increase-height billCircle" name="REPORTS.combillcycle">
+                                                <option value=""></option>
+                                                <option value="C">CASH</option>
+                                                <option value="M">MONTHLY</option>
+                                                <option value="H">H> ON HOLD</option>
+                                                <option value="Q">QUARTERLY</option>
+                                                <option value="S">S> ON PAYMENT</option>
+                                            </select>
+                                        </scan>
+                                    </div>
+
+                                    <div class="new">
+                                        <scan>
+                                            <label class="label w-3 w-35 drk">Balance B/F</label>
+                                            <input type="number" name="REPORTS.nmrBalbf" value="0.00" class="input w-4 w-50 design alr balanceBF" />
+                                            <label class="label balanceBFText">...</label>
+                                        </scan>
+                                        <scan>
+                                            <label class="label w-3 w-35 drk">Current Debit</label>
+                                            <input type="number" name="REPORTS.nmrcurdebit" value="0.00" class="input w-3 w-50 design alr currentDebit" />
+                                        </scan>
+                                    </div>
+                                    <div class="new">
+                                        <scan>
+                                            <label class="label w-3 w-35 drk">Credit Limit</label>
+                                            <input type="number" name="REPORTS.txtcreditlimit" value="0.00" class="input w-4 w-50 design alr creditLimit" />
+                                        </scan>
+                                        <scan>
+                                            <label class="label w-4 w-35 drk">Current Credit</label>
+                                            <input type="number" name="REPORTS.nmrcurcredit" value="0.00" class="input w-3 w-50 design alr currentCredit" />
+                                        </scan>
+                                    </div>
+
+                                    <div class="new">
+                                        <span class="">
+                                            <label class="label w-3 w-35 drk">Special Discount</label>
+                                            <input type="number" name="REPORTS.txtdiscount" value="0.00" class="input w-4 w-50 design alr specialDiscnt" />
+                                        </span>
+                                        <span class="">
+                                            <label class="label w-3 w-35 drk">Balance</label>
+                                            <input type="number" name="range" value="0.00" class="input w-4 w-50 balance" />
+                                            <label class="label w-35 balanceText">DB</label>
+                                        </span>
+                                    </div>
+
+                                    <div class="new">
+                                        <label class="label w-3 w-35 drk">Billing Currency</label>
+                                        @Html.DropDownListFor(v => v.SYSCODETABSvm.CurrencyCodes.name,
+                                            new SelectList(@Model.SYSCODETABSvm.CurrencyCodess, "type_code", "name"), "",
+                                            new { @class = "input w-5 w-50 increase-height billingCurrency" })
+                                    </div>
+
+                                    <div class="new">
+                                        <label class="label w-3 w-35 drk">Clinic</label>
+                                        @Html.DropDownListFor(v => v.SYSCODETABSvm.ServiceCentreCodes.name,
+                                            new SelectList(@Model.SYSCODETABSvm.ServiceCentreCodess, "type_code", "name"), "",
+                                            new { @class = "input w-5 w-50 increase-height clinic" })
+                                    </div>
+                                </div>
+                            </div>
+                                
+                        </section>
+
+
+                        <section class="py-3 lme">
+                            <div class="row">
+                                <div class="col-md-12 d-flex justify-content-around">
+                                    <span>
+                                        <input type="checkbox" class="getAcctInfo" id="acctInfor" />
+                                        <label for="acctInfor" class="drk">Get Acct Informattion</label>
+                                    </span>
+                                    <span>
+                                        <input type="button" name="btnPrint" value="Chained Medical History" class="btn chnMedclHistryBtn" />
+                                    </span>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <!--Bottom Block-->
+
+                        <section class="py-3">
+                           <div class="row">
+                                <div class="col-md-6 text-center">
+                                    <div class="title2 mb-2">[MEDICAL NOTES, ALLERGIES etc]</div>
+                                    <div class="newline">
+                                        <textarea name="REPORTS.edtallergies" value="" rows="5" class="allergies width"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 text-center">
+                                    <div class="title2 mb-2">[SPECIAL INSTRUCTION]</div>
+                                    <div class="newline">
+                                        <textarea name="REPORTS.edtspinstructions" value="" rows="5" class="instructions width"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                </div>
+
+
+                <div id="otherDetails" class="tab-pane fade in">
+
+                    <section class="py-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="new">
+                                    <label class="label w-5 w-35 drk">Referring Doctor</label>
+                                    @Html.DropDownListFor(v => v.CUSTOMER.NAME,
+                                        new SelectList(Model.CUSTOMERS, "CUSTNO", "NAME"), "",
+                                        new { @class = "input w-6 w-50 increase-height referringDoc" })
+                                </div>
+
+                                <div class="new">
+                                    <label class="label w-5 w-35 drk">Primary Doctor</label>
+                                    @Html.DropDownListFor(v => v.DOCTORS.NAME,
+                                        new SelectList(@Model.DOCTORSS, "reference", "name"), "",
+                                        new { @class = "input w-6 w-50 increase-height primaryDoc" })
+                                </div>
+
+                                <div class="new">
+                                    <label class="label w-5 w-35 drk">Nationality</label>
+                                    @Html.DropDownListFor(v => v.SYSCODETABSvm.CountryCodes.name,
+                                            new SelectList(@Model.SYSCODETABSvm.CountryCodess, "type_code", "name"), "",
+                                            new { @class = "input w-6 w-50 increase-height nationality" })
+                                </div>
+
+                                <div class="new">
+                                    <label class="label w-5 w-35 drk">Home Phone</label>
+                                    <input type="number" name="REPORTS.txthomephone" value="" class="input w-6 w-50 homePhone" />
+                                </div>
+
+                                <div class="new">
+                                    <label class="label w-5 w-35 drk">Work Phone</label>
+                                    <input type="number" name="REPORTS.txtworkphone" value="" class="input w-6 w-50 workPhone" />
+                                </div>
+
+                                <div class="new">
+                                    <label class="label w-5 w-35 drk">E-Mail</label>
+                                    <input type="email" name="REPORTS.txtemail" value="" class="input w-6 w-50 email" />
+                                </div>
+
+                                <div class="new">
+                                    <label class="label w-5 w-35 drk">Occupation</label>
+                                    @Html.DropDownListFor(v => v.SYSCODETABSvm.DesignationCodes.name,
+                                        new SelectList(@Model.SYSCODETABSvm.DesignationCodess, "type_code", "name"), "",
+                                        new { @class = "input w-6 w-50 increase-height occupation" })
+                                </div>
+
+                                <div class="new">
+                                    <label class="label w-5 w-35 drk">Religion</label>
+                                    <select class="input w-6 w-50 increase-height religion" name="REPORTS.cboReligion">
+                                        <option value=""></option>
+                                        <option value="CHRISTIANITY">CHRISTIANITY</option>
+                                        <option value="MUSLIM">MUSLIM</option>
+                                        <option value="OTHERS">OTHERS</option>
+                                    </select>
+                                </div>
+
+                                <div class="new">
+                                    <label for="chkSRA" class="label drk pl-3">Generate Registration Fee for Members of this Group</label>
+                                    <input type="checkbox" id="chkSRA" name="REPORTS.chkbillregistration" class="chkbillregistration" />
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <div class="new">
+                                    <label class="label w-4 w-35 drk">NEXT OF KIN</label>
+                                    <input type="text" name="REPORTS.txtnextofkin" value="" class="input w-6 w-50 nextOfKin" />
+                                </div>
+
+                                <div class="new">
+                                    <label class="label w-4 w-35 drk">Next of Kin Address 1</label>
+                                    <input type="text" name="REPORTS.txtkinaddress1" value="" class="input w-6 w-50 nextOfKinAddress" />
+                                </div>
+
+                                <div class="new">
+                                    <label class="label w-4 w-35 drk">State</label>
+                                    @Html.DropDownListFor(v => v.SYSCODETABSvm.StateCodes.name,
+                                            new SelectList(@Model.SYSCODETABSvm.StateCodess, "type_code", "name"), "",
+                                            new { @class = "input w-6 w-50 increase-height nextOfKinState" })
+                                </div>
+
+                                <div class="new">
+                                    <label class="label w-4 w-35 drk">Phone</label>
+                                    <input type="number" name="REPORTS.txtkinphone" value="" class="input w-6 w-50 nextOfKinPhone" />
+                                </div>
+
+                                <div class="new">
+                                    <label class="label w-4 w-35 drk">Relationship</label>
+                                    <input type="text" name="REPORTS.txtrelationship" value="" class="input w-6 w-50 nextOfKinRelationship" />
+                                </div>
+
+                                <div class="new">
+                                    <label class="label w-4 w-35 drk">EMPLOYER</label>
+                                    <input type="text" name="REPORTS.txtemployer" value="" class="input w-6 w-50 employer" />
+                                </div>
+
+                                <div class="new">
+                                    <label class="label w-4 w-35 drk">Address</label>
+                                    <input type="text" name="REPORTS.txtemployeraddress" value="" class="input w-6 w-50 employerAddress" />
+                                </div>
+
+                                <div class="new">
+                                    <label class="label w-4 w-35 drk">State</label>
+                                    @Html.DropDownListFor(v => v.SYSCODETABSvm.StateCodes.name,
+                                            new SelectList(@Model.SYSCODETABSvm.StateCodess, "type_code", "name"), "",
+                                            new { @class = "input w-6 w-50 increase-height employerState" })
+                                </div>
+
+                                <div class="new">
+                                    <label class="label w-4 w-35 drk">Contact Person</label>
+                                    <input type="number" name="REPORTS.txtcontactperson" value="" class="input w-6 w-50 contactPerson" />
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </section>
+
+                    <section class="py-3">
+                        <div class="text-center">
+                            <div class="imgDiv">
+
+                            </div>                            
+                            <div class="py-2">
+                                <input type="button" name="btnClose" value="Get Patient Picture" class="btn clm" />
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+
+                <div id="icisDetails" class="tab-pane fade in">
+
+                </div>
+
+            </div>
+
+            <div class="dif">
+                <div class="newline n1 alc">
+                    @*<a href="~/File/FamilyMembersGroupings" class="btn clm familyGrpingBtn">Family Groupings</a>*@
+                    @*<a href="~/File/GroupMembersInformation" class="btn grpMembersBtn text-decoration-none">Group Members</a>*@
+                    
+                    <button type="button" class="btn grpMembersBtn">
+                        @Html.ActionLink("Group Members", "GroupMembersInformation", "File", new { }, new { @class = "cwh" })
+                    </button>
+
+                    <button type="button" class="btn familyGrpingBtn">
+                        @Html.ActionLink("Family Groupings", "FamilyMembersGroupings", "File", new { }, new { @class = "cwh" })
+                    </button>
+                   
+                    <input type="button" name="" value="Save" class="btn clm cmbsave" />
+                    <input type="submit" name="" value="Submit" class="btn clm submit" />
+
+                    <input type="button" name="" value="Delete" class="btn clm delete" />
+                    <input type="button" name="" value="Close" class="btn clm" />
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+    <!--submit return value-->
+    <input type="hidden" value="@Model.REPORTS.REPORT_TYPE1" class="returnSubmitVal" />
+
+</section>
+
+
+
+
+
+@*-------------------------------------------------------Chained Medical History----------------------------------------------------------*@
+
+<!--Modal Start-->
+<div id="5LkUp" class="djq-modal djq-hide">
+
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR REGISTERED PATIENTS</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable5">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+<!--Modal Start-->
+<div id="6LkUp" class="djq-modal djq-hide">
+
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR REGISTERED PATIENTS</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable6">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+
+@*Chained Medical History*@
+
+<section class="chainedMedHistorySection">
+    <div class="py-2 text-center lme">
+        <h5 class="chnMedHistryHeader font-weight-bold"></h5>
+    </div>
+
+    <form>
+        <section class="py-5">
+            <div class="newline mb-1">
+                <span>
+                    <label class="label w-4 drk">Patients's GroupCode :</label>
+                    <input type="text" name="txt" value="" class="input w-5 gData2 hData2 chnMedGroupCode" />
+                    <input type="button" id="refLookUp5" name="btn" value="" class="btn-small clm" />
+                </span>
+            </div>
+
+            <div class="newline mb-1">
+                <span class="">
+                    <label class="label w-4 drk">Hospital Card Number :</label>
+                    <input type="text" name="txt" value="" id="" class="input w-5 hData1 gData1 chnMedPatientNo" />
+                    <input type="button" id="refLookUp6" name="btn" value="" class="btn-small clm" />
+                    <span class="labelName pl-5">...</span>
+                </span>
+            </div>
+        </section>
+
+        <section class="lme py-3">
+            <div class="row py-3 d-flex justify-content-around">
+                <span class="">
+                    <input type="button" name="btn" value="ADD" id="ivgADD" class="btn chnMedAddBtn" />
+                </span>
+                <span>
+                    <input type="button" name="btn" value="REMOVE" class="btn chnMedRemoveBtn" />
+                </span>
+            </div>
+        </section>
+
+        <section>
+            <div class="tableDiv v-scroll">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th style="padding: 0rem 1rem !important;">S/N</th>
+                            <th style="padding: 0rem 6rem !important;">GroupCode</th>
+                            <th style="padding: 0rem 6rem !important;">PatientNo</th>
+                            <th style="padding: 0rem 15rem !important;">Name</th>
+                            <th style="padding: 0rem 7rem !important;">RegDate</th>
+                            <th style="padding: 0rem 6rem !important;">Gender</th>
+                            <th style="padding: 0rem 6rem !important;">GroupType</th>
+                            <th style="padding: 0rem 6rem !important;">Status</th>
+                            <th style="padding: 0rem 6rem !important;">RECID</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="tbody1 text-center"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="">
+            <div class="gry py-3">
+                <div class="alc">
+                    <input type="button" value="Submit" id="ivgSubmit" class="btn chnMedSubmitBtn" />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="button" value="Close" class="btn drk chnMedCloseBtn" />
+                </div>
+            </div>
+        </section>
+    </form>
+</section>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var dOM = $('body'); //must assign
+            var formFields = document.getElementById('mainForm'); //must assign, used for calling javaScript methods
+            appendTagInvalid1(dOM, "@ViewBag.iinvalid"); //must call
+            servErrorAlert("#eLkUp", "@ViewBag.Msg"); //must call
+
+            var dTHN1 = ['NAME', 'GROUPCODE', 'PATIENTNO', 'RESIDENCE', 'GROUPHEAD', 'SEX', 'PHONE']; //for table header
+            var dBCN1 = ['NAME', 'GROUPCODE', 'PATIENTNO', 'RESIDENCE', 'GROUPHEAD', 'SEX', 'PHONE']; //for database header
+            var jaxURL1 = "@Url.Action("RptBillChainLookUp", "AJAX")";
+
+            //For group code
+            LoadDynamicDT1(jaxURL1, dTHN1, dBCN1, 'BILLCHAINS', '#refLookUp1', '#1LkUp', '#regPTable1', '.cData', [3, 4]);
+
+            //For patients
+            LoadDynamicDT1(jaxURL1, dTHN1, dBCN1, 'BILLCHAINS', '#refLookUp2', '#2LkUp', '#regPTable2', '#dData', [4]);
+
+            //For groupcode2
+            LoadDynamicDT1(jaxURL1, dTHN1, dBCN1, 'BILLCHAINS', '#refLookUp3', '#3LkUp', '#regPTable3', '.eData', [3, 4]);
+
+            //For code
+            LoadDynamicDT1(jaxURL1, dTHN1, dBCN1, 'BILLCHAINS', '#refLookUp4', '#4LkUp', '#regPTable4', '.fData', [4], '#groupCode2');
+
+            //For chained Medical History group code
+            LoadDynamicDT1(jaxURL1, dTHN1, dBCN1, 'BILLCHAINS', '#refLookUp5', '#5LkUp', '#regPTable5', '.gData', [4, 3]);
+
+            //For chained Medical History patients
+            LoadDynamicDT1(jaxURL1, dTHN1, dBCN1, 'BILLCHAINS', '#refLookUp6', '#6LkUp', '#regPTable6', '.hData', [4, 3]);
+
+            //clear control function
+            function ClearControls() {
+                location.reload(true);
+                scrollToTop();
+            }
+
+            
+
+
+            //disable necessary fields and buttons on form load.
+            $(".chnMedclHistryBtn").prop({ disabled: true });
+            $(".grpMembersBtn").prop({ disabled: true });
+            $(".familyGrpingBtn").prop({ disabled: true });
+            $(".delete").prop({ disabled: true });
+            $(".groupBtnHide").hide();
+            $(".familyBtnHide").hide();
+
+
+            //hide modal buttons
+            $(".openModalBtn").hide();
+            $(".openSaveModal").hide();
+
+            //hide submit button
+            $(".submit").hide();
+
+            //hide image file button
+            $(".imageFile").hide();
+
+            //change the value of name attribute of employerState and nextOfKinState
+            $(".employerState").prop({ name: "REPORTS.cboemploystate" });
+            $(".nextOfKinState").prop({ name: "REPORTS.cbokinstate" });
+
+
+            $(".othernames").on({
+                focusout: function () {
+                    var othernames = $(this).val();
+                    var surname = $(".surname").val();
+                    var title = $(".title").val();
+
+                    $(".fullName").val(`${surname}, ${othernames} (${title})`)
+                }
+            })
+
+            $(".groupCode").on({
+                focusout: function () {
+                    var groupCode = $(this).val().trim();
+
+                    if (groupCode == "PVT")
+                    {
+                        $(".type").val("Private");
+                    }
+                    else if (groupCode == "FC")
+                    {
+                        $(".type").val("Family");
+                    }
+                    else
+                    {
+                        $(".patient").focus();
+                        return;
+                    }
+
+                    $(".patient").focus();
+
+                }
+
+            })
+
+
+            $(".groupCode2").on({
+                focusout: function () {
+
+                    var groupCode2 = $(this).val().trim();
+
+                    if (groupCode2 != "")
+                    {
+                        $.ajax({
+                            url: "/AJAX/RptGrpCodeExists",
+                            method: "POST",
+                            data: { Id: groupCode2 },
+                            success: function (data) {
+
+                                if (data == "False")
+                                {
+                                    $(".groupCode2").val("");
+                                    alert("The specified group code does not exist!!!");
+                                }
+                            }
+                        })
+
+                    }
+
+
+                }
+            })
+
+
+            $(".title").on({
+                focusout: function () {
+                    var title = $(".title").val();
+
+                    if( (title == "Mrs.") || (title == "Miss.") )
+                    {
+                        $(".gender").val("FEMALE");
+                    }
+                    else if ( (title == "Mr.") || (title == "Master") || (title == "Alhaji") )
+                    {
+                        $(".gender").val("MALE");
+                    }
+                    else
+                    {
+                        $(".gender").val("");
+                    }
+                }
+            })
+
+
+
+            $(".patient").on({
+                focusout: function () {
+
+                    var patientNo = $(this).val();
+                    var groupCode = $(".groupCode").val();
+                    var getAcctInfo = $(".getAcctInfo").prop("checked");
+
+                    if (patientNo != "")
+                    {
+
+                        $.ajax({
+                            url: "/AJAX/patientFocusOut",
+                            method: "POST",
+                            data: { patientNo: patientNo, groupCode: groupCode, getAcctInfo: getAcctInfo },
+                            success: function (data) {
+
+                                if (data.REPORTS.ActRslt != null) {
+                                    alert(`${data.REPORTS.ActRslt}`);
+
+                                    if (data.REPORTS.ActRslt == "RECORD EXIST ...")
+                                    {
+                                        $(".billPayableBy").val(`${data.REPORTS.Combillspayable.trim()}`);
+                                        $(".groupCode2").val(`${data.REPORTS.txtghgroupcode.trim()}`);
+                                        $(".code").val(`${data.REPORTS.txtbillspayable.trim()}`);
+                                        $(".billCategory").val(data.REPORTS.categ_save);
+                                        $(".billCircle").val(`${data.REPORTS.combillcycle.trim()}`);
+                                        $(".surname").val(`${data.REPORTS.txtsurname.trim()}`);
+                                        $(".address").val(`${data.REPORTS.txtaddress1.trim()}`);
+                                        $(".state").val("F140 ");
+                                        $(".gender").val(`${data.REPORTS.cbogender.trim()}`);
+                                        $(".title").val(`${data.REPORTS.cbotitle.trim()}`);
+                                        $(".type").val(`${data.REPORTS.cbotype.trim()}`);
+                                        $(".status").val(`${data.REPORTS.cbomaritalstatus.trim()}`);
+                                        $(".occupation").val(`${data.REPORTS.cbooccupation.trim()}`);
+                                        $(".fullName").val(`${data.REPORTS.TXTPATIENTNAME.trim()}`);
+                                        $(".religion").val(`${data.REPORTS.cboReligion.trim()}`);
+                                        $(".bloodGroup").val(`${data.REPORTS.cbobloodgroup.trim()}`);
+                                        $(".employerState").val(`${data.REPORTS.cboemploystate.trim()}`);
+                                        $(".genoType").val(`${data.REPORTS.cbogenotype.trim()}`);
+                                        $(".nextOfKinState").val(`${data.REPORTS.cbokinstate.trim()}`);
+                                        $(".allergies").val(`${data.REPORTS.edtallergies.trim()}`);
+                                        $(".instructions").val(`${data.REPORTS.edtspinstructions.trim()}`);
+                                        $(".dateRegistered").val(`${data.REPORTS.REPORT_TYPE1.trim()}`);
+                                        $(".dateOfBirth").val(`${data.REPORTS.REPORT_TYPE2.trim()}`);
+                                        $(".serviceGroup").val(`${data.REPORTS.comhmoservgrp.trim()}`);
+                                        $(".balanceBF").val(`${data.REPORTS.nmrBalbf}`);
+                                        $(".balanceBFText").text(`${data.REPORTS.lblBalbfDbCr.trim()}`);
+                                        $(".balance").val(`${data.REPORTS.nmrbalance}`);
+                                        //$(".balanceText").text(`${data.REPORTS.lblDbCr}`);
+                                        $(".clinic").val(data.REPORTS.txtclinic.trim());
+                                        $(".contactPerson").val(`${data.REPORTS.txtcontactperson.trim()}`);
+                                        $(".creditLimit").val(`${data.REPORTS.txtcreditlimit.trim()}`);
+                                        $(".billingCurrency").val(`${data.REPORTS.txtcurrency.trim()}`);
+                                        $(".specialDiscnt").val(`${data.REPORTS.txtdiscount}`);
+                                        $(".email").val(`${data.REPORTS.txtemail.trim()}`);
+                                        $(".employer").val(`${data.REPORTS.txtemployer.trim()}`);
+                                        $(".employerAddress").val(`${data.REPORTS.txtemployeraddress.trim()}`);
+                                        $(".homePhone").val(`${data.REPORTS.txthomephone.trim()}`);
+                                        $(".nextOfKinAddress").val(`${data.REPORTS.txtkinaddress1.trim()}`);
+                                        $(".nextOfKinPhone").val(`${data.REPORTS.txtkinphone.trim()}`);
+                                        $(".nextOfKin").val(`${data.REPORTS.txtnextofkin.trim()}`);
+                                        $(".othernames").val(`${data.REPORTS.txtothername.trim()}`);
+                                        $(".nextOfKinRelationship").val(`${data.REPORTS.txtrelationship.trim()}`);
+                                        $(".workPhone").val(`${data.REPORTS.txtworkphone.trim()}`);
+
+
+                                        //Enable the necessary fields and buttons
+                                        if (data.REPORTS.btnchainedmedhistory)
+                                            $(".chnMedclHistryBtn").prop({ disabled: false });
+
+                                        if (data.REPORTS.btnFamilyGroup)
+                                            $(".familyGrpingBtn").prop({ disabled: false });
+
+                                        //if (data.REPORTS.cmbdelete)
+                                         $(".delete").prop({ disabled: false });
+
+                                        if (data.REPORTS.cmdgrpmember)
+                                            $(".grpMembersBtn").prop({ disabled: false });
+
+                                        if (data.REPORTS.chkbillregistration)
+                                            $(".chkbillregistration").prop({ checked: true });
+
+                                        if (data.REPORTS.cmbsave)
+                                            $(".cmbsave").prop({ disabled: false });
+
+                                        if (data.REPORTS.nmrBalbfReadOnly)
+                                        {
+                                            $(".balanceBF").prop({ disabled: true });
+                                        }
+                                    }
+                                    else
+                                    {
+                                        $(".patient").val("");
+                                    }
+
+                                    //disable groupCode and code field
+                                    var billPayableBy = $(".billPayableBy").val().slice(0, 1);
+
+                                    if (billPayableBy == "S") {
+                                        $(".groupCode2").prop({ disabled: true });
+                                        $(".code").prop({ disabled: true });
+                                    }
+
+                                }
+
+                                if (data.REPORTS.txtpatientno != null)
+                                {
+                                    $(".patient").val(data.REPORTS.txtpatientno);
+                                }
+                            }
+                        })
+                    }
+                    else if (patientNo.trim() == "" && groupCode.trim() == "")
+                    {
+                        if (confirm("Clear all fields?"))
+                        {
+                            ClearControls();
+                        }
+                    }
+                    else
+                    {
+                        return;
+                    }
+
+
+                },
+
+                focus: function () {
+
+                    var patientNo = $(this).val().trim();
+
+                    if (patientNo == "") {
+                        $.ajax({
+                            url: "/AJAX/patientOnFocus",
+                            method: "POST",
+                            success: function (data) {
+                                $(".patient").val(data);
+                            }
+                        })
+
+                    }
+
+                }
+
+            })
+
+
+            $(".billPayableBy").on({
+                focusout: function () {
+                    var mgrouphtype = $(this).val().slice(0, 1);
+                    var groupCode = $(".groupCode").val().trim();
+                    var patientNo = $(".patient").val().trim();
+
+                    if ($(this).val != "")
+                    {
+                        $(".groupCode2").prop({ readonly: false });
+                        $(".code").prop({ readonly: false });
+                        $(".serviceGroup").prop({ disabled: true });
+
+                        $(".groupCode2").val(groupCode);
+                        $(".code").val(patientNo);
+
+                        if (mgrouphtype == "S")
+                        {
+                            $(".groupCode2").prop({ readonly: true });
+                            $(".code").prop({ readonly: true });
+                            $(".billCategory").focus();
+                        }
+                        else if (mgrouphtype == "P"){
+                            $(".groupCode2").focus();
+                        }else{
+                            $(".serviceGroup").prop({ disabled: false });
+                            $(".code").focus();
+                        }
+
+
+                    }
+
+                }
+            });
+
+
+            $(".code").on({
+                focusout: function ()
+                {
+                    var code = $(this).val();
+                    var groupCode2 = $(".groupCode2").val();
+                    var mgrouphtype = $(".billPayableBy").val().slice(0, 1);
+
+                    $.ajax({
+                        url: "/AJAX/codeFocusOut",
+                        method: "POST",
+                        data: { groupCode2: groupCode2, code: code, mgrouphtype: mgrouphtype },
+                        success: function (data) {
+
+                            if (data.REPORTS.chkbyacctofficers == false)
+                            {
+                                if (data.REPORTS.ActRslt != null || data.REPORTS.alertMessage != null)
+                                {
+                                    if (data.REPORTS.ActRslt != null)
+                                    {
+                                        alert(data.REPORTS.ActRslt);
+                                        $(".groupCode2").val("");
+                                        $(".code").val("");
+                                    }
+
+                                    if (data.REPORTS.alertMessage != null)
+                                    {
+                                        alert(data.REPORTS.alertMessage);
+                                        $(".code").val("");
+                                    }
+
+                                }
+
+                                if (data.REPORTS.lblbillspayable != null)
+                                {
+                                    $(".lblbillspayable").text(data.REPORTS.lblbillspayable);
+                                }
+
+
+                            }
+                        }
+                    })
+                }
+            });
+
+
+            $(".delete").on({
+                click: function () {
+                    var patientNo = $(".patient").val().trim();
+                    var groupCode = $(".groupCode").val().trim();
+
+
+                    if (confirm("Confirm Delete...")) {
+                        $.ajax({
+                            url: "/AJAX/patientOnDelete",
+                            method: "POST",
+                            data: { patientNo: patientNo, groupCode: groupCode },
+                            success: function (data) {
+
+                                if (data.REPORTS.ActRslt != null)
+                                {
+                                    alert(data.REPORTS.ActRslt);
+                                } else {
+                                    if (data.REPORTS.alertMessage != null) {
+                                        alert(data.REPORTS.alertMessage)
+
+                                        ClearControls();
+                                    }
+
+                                }
+
+                            }
+                        })
+                    }
+
+                }
+            });
+
+
+            //Save button clicked
+            $(".cmbsave").on({
+                click: function () {
+                    //validate fields
+                    var billPayableBy = $(".billPayableBy").val().trim();
+                    var groupCode = $(".groupCode").val().trim();
+                    var code = $(".code").val().trim();
+                    var surname = $(".surname").val().trim();
+                    var type = $(".type").val().trim();
+                    var fullName = $(".fullName").val().trim();
+                    var dateRegistered = $(".dateRegistered").val().trim();
+                    var othernames = $(".othernames").val().trim();
+                    var patientNo = $(".patient").val().trim();
+                    var billCircle = $(".billCircle").val().trim();
+                    var billCategory = $(".billCategory").val().trim();
+                    var homePhone = $(".homePhone").val().trim();
+                    var workPhone = $(".workPhone").val().trim();
+                    var clinic = $(".clinic").val();
+                    //var imageFile = $(".imageFile").val();
+                    var dateRegistered = new Date($(".dateRegistered").val());
+                    var dateOfBirth = new Date($(".dateOfBirth").val().trim());
+                    var todaysDate = new Date();
+
+
+                    if (billPayableBy == ""){
+                        alert("Bills Payable By is Required")
+                        $(".billPayableBy").focus();
+                        return;
+                    }
+                    else if (dateRegistered < dateOfBirth || dateRegistered > todaysDate) {
+                        alert("Invalid Date - Must be between date of Birth and today...");
+                        $(".dateRegistered").focus();
+                        return;
+                    }
+                    else if (groupCode == "") {
+                        alert("Group code is Required")
+                        $(".groupCode").focus();
+                        return;
+                    }
+                    else if (code == "") {
+                        alert("Code field is Required")
+                        $(".code").focus();
+                        return;
+                    }
+                    else if (surname == "") {
+                        alert("Surname is Required")
+                        $(".surname").focus();
+                        return;
+                    }
+                    else if (type == "") {
+                        alert("Type field is Required")
+                        $(".type").focus();
+                        return;
+                    }
+                    else if (fullName == "") {
+                        alert("FullName field is Required")
+                        $(".fullName").focus();
+                        return;
+                    }
+                    else if (dateRegistered == "") {
+                        alert("Date Registered is Required")
+                        $(".dateRegistered").focus();
+                        return;
+                    }
+                    else if (othernames == "") {
+                        alert("Othernames field is Required")
+                        $(".othernames").focus();
+                        return;
+                    }
+                    //else if (clinic == "") {
+                    //    alert("Clinic field is Required")
+                    //    $(".clinic").focus();
+                    //    return;
+                    //}
+                    else if (patientNo == "") {
+                        alert("Patient No. is Required")
+                        $(".patientNo").focus();
+                        return;
+                    }
+                    else if (billCircle == "") {
+                        alert("Bill Circle is Required")
+                        $(".billCircle").focus();
+                        return;
+                    }
+                    else if (billCategory == "") {
+                        alert("Bill Category is Required")
+                        $(".billCategory").focus();
+                        return;
+                    }
+                    else if (homePhone == "" && workPhone == "") {
+                        alert("Patient's Home OR work Phone No. is Required")
+                        $(".homePhone").focus();
+                        return;
+                    }
+                    //else if (imageFile == "") {
+                    //    alert("Patient Photo Must be Captured and attached....RECORD NOT SAVED !")
+                    //    $(".imageFile").focus();
+                    //    return;
+                    //}
+                    else {
+
+                        if (confirm("Confirm to Save...")) {
+                            $(".submit").click();
+                        }
+
+                    }
+
+                }
+            })
+
+
+
+            var returnSubmitVal = $(".returnSubmitVal").val();
+            if (returnSubmitVal != "") {
+                alert(returnSubmitVal);
+
+                return;
+            }
+
+
+
+
+//----------------------------------------------------For Chained Medical History---------------------------------------------------------- 
+            
+            //Disable chained Medical Buttons
+            $(".chnMedAddBtn").prop({ disabled: true });
+            $(".chnMedRemoveBtn").prop({ disabled: true });
+            $(".chnMedSubmitBtn").prop({ disabled: true });
+            $(".chnMedRemoveBtn").prop({ disabled: true });
+
+            //hide and show the chained medical form and the patient information
+            $(".chainedMedHistorySection").hide();
+
+
+            $(".chnMedclHistryBtn").on({
+                click: function () {
+                    let patInfoPatientNo = $(".patient").val();
+                    let patInfoGroupCode = $(".groupCode").val();
+                    let patInfoFullName = $(".fullName").val();
+
+                    let title = `PATIENT NUMBERS CHAINED TO ${patInfoGroupCode.trim()} : ${patInfoPatientNo.trim()}  [ ${patInfoFullName.trim()} ]  Medical History`;
+                    $(".chnMedHistryHeader").html(title);
+
+                    $(".chainedMedHistorySection").show();
+                    $(".patInfoSection").hide();
+
+                    $.ajax({
+                        url: "/AJAX/chnMedclHistryBtnClicked",
+                        method: "POST",
+                        data: { patientNo: patInfoPatientNo, groupCode: patInfoGroupCode },
+                        success: function (data) {
+                            let length = data.MEDHISTCHAINS.length;
+                            let rows = "";
+
+                            if (length > 0) {
+
+                                for (let i = 0; i < length; i++) {
+
+                                    let regDate = data.MEDHISTCHAINS[i].reg_date;
+
+                                    rows += "<tr>" +
+                                                    "<td></td>" +
+                                                    "<td>" + data.MEDHISTCHAINS[i].groupcode + "</td>" +
+                                                    "<td>" + data.MEDHISTCHAINS[i].chainedpatno + "</td>" +
+                                                    "<td>" + data.MEDHISTCHAINS[i].name + "</td>" +
+                                                    "<td>" + formatDate1(regDate) + "</td>" +
+                                                    "<td>" + data.MEDHISTCHAINS[i].gender + "</td>" +
+                                                    "<td>" + data.MEDHISTCHAINS[i].grouphtype + "</td>" +
+                                                    "<td> OLDREC </td>" +
+                                                    "<td>" + data.MEDHISTCHAINS[i].RECID + "</td>" +
+                                            "</tr>";
+                                }
+
+                            }
+
+                            $(".tbody1").html(rows);
+
+                            //Add the count values after removing or adding rows
+                            let counter = 0;
+                            $(".tbody1").find("tr").each(function () {
+                                $(this).find("td").eq(0).text(++counter);
+                            });
+                            
+                            $(".chnMedPatientNo").val("");
+                            $(".chnMedGroupCode").val("");
+                            $(".labelName").text("...");
+
+                        }
+                    })
+
+
+                }
+            })
+
+            $(".chnMedCloseBtn").on({
+                click: function () {
+                    $(".chainedMedHistorySection").hide();
+                    $(".patInfoSection").show();
+                }
+            })
+
+            $(".chnMedPatientNo").on({
+                focusout: function () {
+                    let patInfoPatientNo = $(".patient").val();
+                    let patInfoGroupCode = $(".groupCode").val();
+                    let chnMedPatientNo = $(".chnMedPatientNo").val();
+                    let chnMedGroupCode = $(".chnMedGroupCode").val();
+                    
+                    //check if patient information patient is the same with the chainedMed patient
+                    if (chnMedPatientNo.trim() == patInfoPatientNo.trim()) {
+                        alert("You can't Chain Records for the same Patient Number...");
+
+                        $(".chnMedPatientNo").val("");
+                        $(".chnMedGroupCode").val("");
+                        $(".labelName").text("...");
+
+                    } else {
+                        //check if name is already on the List
+                        let totalRows = Number($(".tbody1").find("tr").last().find("td").eq(0).text());
+
+                        let flag = false;
+
+                        for (let i = 0; i < totalRows; i++) {
+                            let tableGroupCode = $(".tbody1").find("tr").eq(i).find("td").eq(1).text();
+                            let tablePatientNo = $(".tbody1").find("tr").eq(i).find("td").eq(2).text();
+
+                            if (tableGroupCode.trim() == chnMedGroupCode.trim() && tablePatientNo.trim() == chnMedPatientNo.trim()) {
+                                flag = true;
+                                break;
+                            }
+                        }
+
+                        if (flag == true) {
+                            alert("Record has been added once...");
+
+                            $(".chnMedPatientNo").val("");
+
+                            return;
+                        } else {
+
+                            if (chnMedPatientNo.trim() != "") {
+
+                                $.ajax({
+                                    url: "/AJAX/chnMedPatientNoFocusOut",
+                                    method: "POST",
+                                    data: { chnMedPatientNo: chnMedPatientNo, chnMedGroupCode: chnMedGroupCode },
+                                    success: function (data) {
+
+                                        if (data.REPORTS != null) {
+                                            if (data.REPORTS.alertMessage != null) {
+                                                alert(data.REPORTS.alertMessage);
+                                                $(".chnMedPatientNo").val(data.REPORTS.txtpatientno);
+                                                return;
+                                            } else {
+                                                $(".chnMedAddBtn").prop({ disabled: false });
+
+                                                if (data.REPORTS.txtothername != null) {
+                                                    $(".labelName").text(data.REPORTS.txtothername);
+                                                }
+                                            }
+
+                                        }
+
+                                    }
+                                })
+
+                            }
+
+                        }
+
+                    }
+
+                }
+            })
+
+            $(".chnMedAddBtn").on({
+                click: function () {
+                    let chnMedPatientNo = $(".chnMedPatientNo").val();
+                    let chnMedGroupCode = $(".chnMedGroupCode").val();
+
+                    if (chnMedPatientNo.trim() == "" || chnMedGroupCode.trim() == "") {
+                        return;
+                    } else {
+                        $.ajax({
+                            url: "/AJAX/chnMedAddBtnClicked",
+                            method: "POST",
+                            data: { chnMedPatientNo: chnMedPatientNo, chnMedGroupCode: chnMedGroupCode },
+                            success: function (data) {
+                                $(".chnMedSubmitBtn").prop({ disabled: false });
+
+                                let rows = "<tr>" +
+                                                    "<td></td>" +
+                                                    "<td>" + chnMedGroupCode + "</td>" +
+                                                    "<td>" + chnMedPatientNo + "</td>" +
+                                                    "<td>" + data.REPORTS.TXTPATIENTNAME + "</td>" +
+                                                    "<td>" + data.REPORTS.REPORT_TYPE1 + "</td>" +
+                                                    "<td>" + data.REPORTS.cbogender + "</td>" +
+                                                    "<td>" + data.REPORTS.cbotype + "</td>" +
+                                                    "<td> NEWREC </td>" +
+                                                    "<td></td>" +
+                                           "</tr>";
+
+                                $(".tbody1").append(rows);
+
+                                //Add the count values after removing or adding a row
+                                let counter = 0;
+                                $(".tbody1").find("tr").each(function () {
+                                    $(this).find("td").eq(0).text(++counter);
+                                });
+                            }
+                        })
+                    }
+
+                }
+            })
+
+
+
+            $(".chnMedSubmitBtn").on({
+                click: function () {
+                    let patInfoPatientNo = $(".patient").val();
+                    let patInfoGroupCode = $(".groupCode").val();
+                    let chnMedPatientNo = $(".chnMedPatientNo").val();
+                    let chnMedGroupCode = $(".chnMedGroupCode").val();
+
+                    //Check if no row is in the table
+                    let num = $(".tbody1").find("tr").last().find("td").eq(0).text();
+                    Number(num);
+
+                    if (num == 0) {
+                        alert("No Addition Made...");
+                        return;
+                    }
+
+                    //BILLCHAIN Class holds the table data 
+                    let tableList = [];
+
+                    $(".tbody1").find("tr").each(function () {
+                        let rowObject = {
+                            GROUPCODE: $(this).find("td").eq(1).text().trim(),  // for GROUPCODE
+                            PATIENTNO: $(this).find("td").eq(2).text().trim(),  // for PATIENTNO
+                            NAME: $(this).find("td").eq(3).text().trim(), // for NAME
+                            SECTION: $(this).find("td").eq(4).text().trim(), // for REG DATE
+                            SEX: $(this).find("td").eq(5).text().trim(), // for SEX
+                            GROUPHTYPE: $(this).find("td").eq(6).text().trim(), // for GROUPTYPE
+                            STATUS: $(this).find("td").eq(7).text().trim(), // for STATUS
+                            RECID: Number($(this).find("td").eq(8).text().trim()) // for RECID
+                        };
+
+                        tableList.push(rowObject)
+                    });
+
+
+                    if (confirm("Confirm to Submit Records...")) {
+                        $.ajax({
+                            url: "/AJAX/chnMedHistorySubmit",
+                            method: "POST",
+                            data: { patientNo: patInfoPatientNo, groupCode: patInfoGroupCode, tableList: tableList },
+                            success: function (data) {
+                                if (data.REPORTS != null) {
+                                    if (data.REPORTS.alertMessage != null) {
+                                        alert(data.REPORTS.alertMessage)
+                                    }
+                                }
+                            }
+                        })
+
+                    }
+                }
+            })
+
+
+
+
+
+
+
+
+
+            function formatDate1(str) {
+                str = Number(str.slice(str.indexOf("(") + 1, str.indexOf(")")));
+                var d = new Date(str);
+                d = ('0' + d.getDate()).slice(-2) + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + d.getFullYear();
+                return d; //returns 01-01-1970
+            };
+
+
+        });
+    </script>
+}

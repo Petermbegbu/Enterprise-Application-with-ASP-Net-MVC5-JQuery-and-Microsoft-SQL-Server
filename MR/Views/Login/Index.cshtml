@@ -1,0 +1,71 @@
+﻿@model OtherClasses.Models.MR_DATA.MRSTLEV
+
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Login</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link href="~/Content/DataTables/css/dataTables.bootstrap.css" rel="stylesheet" />
+
+    <noscript><link rel="stylesheet" href="~/Content/erp/noscript.css" /></noscript>
+    <link rel="stylesheet" href="~/Content/erp/main.css" />
+
+    <link href="~/Content/erp/ERPmenuBootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="~/Content/erp/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/erp/ERPStyles.css" rel="stylesheet" />
+</head>
+<body class="login-body">
+    <form method="post" action="@Url.Action("IndexLogin", "Login")" id="mainForm">
+        @Html.AntiForgeryToken()
+    <div>
+        <div class="login-div">
+
+            <div style="margin-bottom: 30px;">
+                <i class="fa fa-user-circle fa-4x cwh"></i>
+                <h5 class="cwh">ACCESS TO<br>MEDICAL RECORDS AND BILLING SYSTEM</h5>
+            </div>
+
+            <div style="margin: 15px 0 0 0;">
+                <input type="text" name="OPERATOR" value="" style="color: #fff;" placeholder="Username" required="required" />
+            </div>
+            <div style="margin: 15px 0 0 0;">
+                <input type="password" name="PASSWORD" value="" style="color: #fff;" placeholder="Password" required="required" />
+            </div>
+
+            <div class="">
+                <input type="submit" name="btn" value="Log In" class="btn-success ww50" style="margin: 15px 0px !important;" />
+                <a href="http://www.adisystems.com.ng"><input type="button" name="btn" value="Cancel" class="btn-primary ww45" style="margin: 15px 0px !important;" /></a>
+            </div>
+
+            <div style="margin-top: 15px;">
+                <label class="ll cwh">&copy; Since 1995<br>ADI Systems Ltd.</label>
+            </div>
+        </div>
+    </div>
+    </form>
+
+    <!-- Footer -->
+    <!-- Scripts -->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script src="@Url.Content("~/Scripts/DataTables/jquery.dataTables.js")"></script>
+    <script src="@Url.Content("~/Scripts/DataTables/dataTables.bootstrap.js")"></script>
+    <script src="@Url.Content("~/Scripts/ERPevents.js")"></script>
+    <script src="@Url.Content("~/Scripts/sidebar-menu.js")"></script>
+
+
+    <script type="text/javascript">
+	$(document).ready(function() {
+	    if ("@ViewBag.Wrong" != "") { alert("@ViewBag.Wrong");}
+	});
+    </script>
+
+</body>
+</html>

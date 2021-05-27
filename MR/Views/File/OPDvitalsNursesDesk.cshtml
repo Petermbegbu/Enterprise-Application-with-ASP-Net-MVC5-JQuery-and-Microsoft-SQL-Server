@@ -1,0 +1,2102 @@
+﻿@model OtherClasses.Models.MR_DATA.MR_DATAvm
+
+@{
+    ViewBag.Title = "OPDvitalsNursesDesk";
+    ViewBag.TitleBar = "PATIENT'S VITAL SIGNS (OPD)";
+    Layout = "~/Views/Shared/_MRFormLayout.cshtml";
+}
+
+<style>
+    .title {
+        font-size: 17px;
+        font-weight: bold;
+        color: red;
+        padding-right: 6px;
+    }
+
+    .title2 {
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+   
+    .bgColor {
+        background-color: #F0F4C3;
+    }
+
+   
+    .borderLine {
+        border: solid 1px black;
+    }
+
+    .loadList:hover {
+        cursor: pointer;
+    }
+
+    .BPHbtn:hover {
+        cursor: pointer
+    }
+
+    .vitalSignsBtn {
+        width: 200px;
+    }
+
+    .medHistoryBtn {
+        width: 200px;
+    }
+
+    .BPHtext {
+        width: 80%;
+        height: 50px;
+        background-color: #E3E3E3;
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .width1 {
+        width: 350px;
+    }
+
+    .noteTextArea {
+        width: 100%;
+        height: 42rem;
+        font-size: 17px;
+    }
+
+    .historyTextArea {
+        width: 100%;
+        height: 42rem;
+        font-size: 17px;
+    }
+
+    .others{
+        font-size: 15px;
+    }
+
+    .tableDiv {
+        height: 20rem;
+    }
+
+    .bphTableDiv {
+        height: 35rem;
+    }
+
+    .modal-dialog {
+        width: 700px;
+        position: absolute;
+        left: 50%;
+        margin-left: -320px;
+    }
+
+    .modal-content {
+        width: 650px;
+        height: 80px;
+    }
+
+    .injectionModal{
+        height: 32rem !important;
+    }
+
+    .injectTextArea{
+        width: 100%;
+        height: 10rem;
+        font-size: 15px;
+    }
+   
+</style>
+
+
+<!--Modal Start-->
+<div id="1LkUp" class="djq-modal djq-hide">
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR RECORDED DAILY ATTENDANCE</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable1">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+
+@*Note Modal*@
+<div id="9LkUp" class="djq-modal djq-hide custom">
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls noteHeader"></label>
+            </div>
+        </div>
+
+        <div class="djq-c">
+            <!--CUSTOM HTML CONTENT-->
+            <textarea class="noteTextArea" placeholder="Enter Text"></textarea>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <button type="button" class="btn clm close-dataJQ saveNote">SAVE</button>
+            <button type="button" class="btn clm close-dataJQ cancelNote">CANCEL</button>
+        </div>
+    </div>
+</div>
+
+
+@*Services Update Modal*@
+<button type="button" class="btn btn-primary serviceModalBtn" data-toggle="modal" data-target="#serviceModal">
+    Open Modal
+</button>
+
+<div class="modal" id="serviceModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal body -->
+            <div class="modal-body d-flex justify-content-around">
+                <button type="button" class="btn btn-primary modalAddBtn" data-dismiss="modal">Add (Give Again)</button>
+                <button type="button" class="btn btn-info modalAmendBtn" data-dismiss="modal">Amend Old Record</button>
+                <button type="button" class="btn btn-danger modalDeleteBtn" data-dismiss="modal">Delete Item</button>
+                <button type="button" class="btn btn-warning modalIgnoreBtn" data-dismiss="modal">Ignore Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*Injection Alert Modal*@
+<input type="hidden" id="refLookUp10" />
+<div id="10LkUp" class="djq-modal djq-hide custom">
+    <div class="djq-body injectionModal">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls drk injectAlertHeader">INJECTION/TREATMENT ALERT FROM OPD NURSES DESK!</label>
+            </div>
+        </div>
+
+        <div class="djq-c">
+            <!--CUSTOM HTML CONTENT-->
+            <section class="bg-warning">
+                <div class="row py-4">
+                    <div class="col-md-3 text-right">
+                        <span class="title2 cred">SEND ALERT FOR >:</span>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="d-flex justify-content-around">
+                            <span>
+                                <input type="radio" id="rdbSRA" name="rdb" class="chkInjection" checked="checked" />
+                                <label for="rdbSRA" class="label drk">Injection</label>
+                            </span>
+                            <span>
+                                <input type="radio" id="rdbSRA1" name="rdb" class="chkWoundDressing" />
+                                <label for="rdbSRA1" class="label drk">Wound Dressing</label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row py-4">
+                    <div class="col-md-3 text-right">
+                        <span class="title2 cred">TO:</span>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="d-flex justify-content-around">
+                            <span>
+                                <input type="checkbox" id="check1" name="rdb" class="chkOPDNurses" />
+                                <label for="check1" class="label drk">OPD/Treatment room Nurses</label>
+                            </span>
+                            <span>
+                                <input type="checkbox" id="check2" name="rdb" class="chkPharmacy" />
+                                <label for="check2" class="label drk">Pharmacy / Dispensary</label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="row py-4">
+                    <div class="col-md-3 text-right">
+                        <span class="title2 cred">Notes:</span>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="">
+                            <textarea class="injectTextArea"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <button type="button" class="btn clm close-dataJQ sendInjectAlert">SEND</button>
+            <button type="button" class="btn clm close-dataJQ cancelInjectAlert">CANCEL</button>
+        </div>
+    </div>
+</div>
+
+
+
+@*BPH Modal*@
+<input type="hidden" id="refLookUp11" />
+<div id="11LkUp" class="djq-modal djq-hide custom">
+    <div class="djq-body BPHModal">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls drk bphHeader"></label>
+            </div>
+        </div>
+
+        <div class="djq-c">
+            <!--CUSTOM HTML CONTENT-->
+            <section class="bg-warning pb-3">
+                <div class="py-4 d-flex justify-content-around">
+                    <span class="">
+                        <label class="label w-3 w-35 drk">Date Range:</label>
+                        <input type="date" value="@String.Format("{0:yyyy-MM-dd}", DateTime.Now)" class="input w-4 w-50 dateRangeBPH" name="" />
+                    </span>
+                    <span class="">
+                        <label class="label w-2 w-35 drk">To:</label>
+                        <input type="date" value="@String.Format("{0:yyyy-MM-dd}", DateTime.Now)" class="input w-4 w-50 dateToBPH" name="" />
+                    </span>
+                    <button class="btn BPHLoadBtn" >Load</button>
+                </div>
+
+                <div class="">
+                    <span class="title2 cred BPHalert pl-4"> </span>
+                </div>
+            </section>
+
+            <section>
+                <div class="bphTableDiv v-scroll">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="px-5">DATE TIME</th>
+                                <th class="px-5">BMI</th>
+                                <th class="px-5">BP</th>
+                                <th class="px-5">TEMP</th>
+                                <th class="px-5">PULSE</th>
+                                <th class="px-5">RESP</th>
+                                <th class="px-5">TAKEN BY</th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="tbody text-center"></tbody>
+                    </table>
+                </div>
+
+            </section>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <button type="button" class="btn clm close-dataJQ">GRAPH</button>
+            <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<section id="OPDform">
+    <form method="post" action="@Url.Action("VitalSignsSubmit", "File")">
+
+        <section class="bgColor">
+            <div class="row py-2">
+                <div class="col-md-6">
+                    <span class="title">CONSULTATION REFERENCE:</span>
+                    <span>
+                        <input type="text" name="REPORTS.txtreference" value="" class="input w-4 w-50 cData1 consultReference" />
+                        <input type="button" name="btn" value="" id="refLookUp1" class="btn-small consultRefBtn" />
+                    </span>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="d-flex justify-content-around">
+                        <span>
+                            <label for="chkTodaysConsult" class="label drk">Todays Consult Only</label>
+                            <input type="checkbox" id="chkTodaysConsult" name="" class="chkTodaysConsult" checked="checked" />
+                        </span>
+                        <span>
+                            <span class="loadList">
+                                <img src="~/content/images/loadlistbtn.png" />
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="py-2">
+                <div class="row">
+                    <div class="col-md-9">
+                        <strong class="title pr-4">NAME: </strong>
+                        <span class="title2 fullName"></span>
+                        <span class="title2 pl-5 pvtNo"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <span class="title2 date"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section>
+            <ul class="nav nav-tabs">
+                <li class="active vitalSignsBtn">
+                    <a data-toggle="tab" href="#vitalSigns" class="bold" style="background: #f9f9f9;">VITAL SIGNS</a>
+                </li>
+                <li class="medHistoryBtn">
+                    <a data-toggle="tab" href="#medicalHistory" class="bold" style="background: #f9f9f9;">MEDICAL HISTORY</a>
+                </li>
+            </ul>
+        </section>
+
+        <div class="tab-content">
+
+            <section id="vitalSigns" class="tab-pane fade in active">
+               <section class="mt-4">
+                   <div class="text-center mb-2">
+                       <input type="text" name="" value="" class="BPHtext" readonly />
+                   </div>
+                   <div class="text-center">
+                       <span class="BPHbtn">
+                           <img src="~/content/images/bphbtn.png" />                       
+                       </span>
+                   </div>
+               </section>
+
+                <section class="my-4">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="newline n1">
+                                <label class="label drk w-3 w-35">Height(m)</label>
+                                <input type="text" name="REPORTS.txthomephone" value="" class="input w-4 w-50 heightM" />
+                                <b>( </b>
+                                <input type="text" name="REPORTS.cbotitle" value="" class="input w-3 heightFT" />
+                                <b>ft )</b> 
+                            </div>
+                            <div class="newline n1">
+                                <label class="label drk w-3 w-35">BP Sitting</label>
+                                <input type="text" name="REPORTS.REPORT_TYPE3" value="" class="bpSitting input w-4 w-50" />
+                            </div>
+                            <div class="newline n1">
+                                <label class="label drk w-3 w-35">Temp</label>
+                                <input type="text" name="REPORTS.combillcycle" value="" class="input w-4 w-50 temp" />
+                                <b>Cent</b>
+                            </div>
+                            <div class="newline n1">
+                                <label class="label drk w-3 w-35">Respiration</label>
+                                <input type="text" name="REPORTS.categ_save" value="" class="input w-4 w-50 respiration" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-7">
+                            <div class="newline n1">
+                                <label class="label drk w-4 w-35">Weight(kg)</label>
+                                <input type="text" name="REPORTS.txtsurname" value="" class="input w-4 w-50 weightKG" />
+                                <b>( </b>
+                                <input type="text" name="REPORTS.txtghgroupcode" value="" class="input w-2 weightST" />
+                                <b>st </b>
+                                <input type="text" name="REPORTS.txtcontactperson" value="" class="input w-2 weightIBS" />
+                                <b>Ibs ) </b>
+                            </div>
+                            <div class="newline n1">
+                                <label class="label drk w-4 w-35">BP Standing</label>
+                                <input type="text" name="REPORTS.REPORT_TYPE4" value="" class="input w-4 w-50 bpStanding" />
+                            </div>
+                            <div class="newline n1">
+                                <label class="label drk w-4 w-35">Pulse</label>
+                                <input type="text" name="REPORTS.txtstaffno" value="" class="input w-4 w-50 pulse" />
+                            </div>
+                            <div class="newline n1">
+                                <label class="label drk w-4 w-35">BMI</label>
+                                <input type="text" name="REPORTS.lblBalbfDbCr" value="" class="input w-4 w-50 bmi drk" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-2">
+                        <div class="newline n1">
+                            <label class="label drk w-3 w-35">Chief Complaint</label>
+                            <input type="text" name="REPORTS.txtconsultamt" value="" class="input width1 chiefComplaint" />
+                        </div>
+                        <div class="newline n1">
+                            <label class="label drk w-3 w-35">Others</label>
+                            <textarea class="width1 others" name="REPORTS.REPORT_TYPE5"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="newline n1">
+                                <span>
+                                    <label class="label drk w-3 w-35">Clinic</label>
+                                    @Html.DropDownListFor(v => v.SYSCODETABSvm.ServiceCentreCodes.name,
+                                        new SelectList(@Model.SYSCODETABSvm.ServiceCentreCodess, "type_code", "name"), "",
+                                        new { @class = "input w-7 w-50 increase-height clinic" })
+                                </span>
+                            </div>
+                            <div class="newline n1">
+                                <label class="label w-3 w-35 drk">Doctor</label>
+                                @Html.DropDownListFor(v => v.DOCTORS.NAME,
+                                    new SelectList(@Model.DOCTORSS, "reference", "name"), "",
+                                    new { @class = "input w-7 w-50 increase-height doctor" })
+                            </div>
+                            <div class="newline n1">
+                                <label class="label w-3 w-35 drk cred">DOCS ALERT -></label>
+                                <select class="input w-7 w-50" name="REPORTS.txtpatientno">
+                                    <option></option>
+                                    <option>Emergency</option>
+                                    <option>High Priority</option>
+                                    <option>Routine</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="newline n1">
+                                <label class="label drk w-5 w-35">Head Circumference (cm)</label>
+                                <input type="number" name="REPORTS.txtdepartment" value="" class="input w-4 w-50 headCircumf" />
+                            </div>
+                            <div class="newline n1">
+                                <input type="checkbox" id="exToClinic" name="REPORTS.chkbyacctofficers" class="exclusToClinic" />
+                                <label for="exToClinic">Send Exclusive To Clinic</label>
+                            </div>
+                            <div class="newline n1">
+                                <input type="checkbox" id="exclusive" name="REPORTS.chkByBranch" class="exclusively"/>
+                                <label for="exclusive">Send Exclusively</label>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                </section>
+
+
+                <section class="borderLine">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="py-3 d-flex justify-content-around">
+                                <input type="button" value="Templates" class="btn clm" />
+                                <input type="button" value="Docs Patient Profile" class="btn patientProfileBtn" />
+                                <input type="button" value="Procedure Request" class="btn procedRequestBtn" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="py-3 d-flex justify-content-around">
+                                <input type="button" value="Submit" class="btn submitBtn" />
+                                <input type="submit" value="Submit" class="btn hiddenSubmit" />
+                                <input type="button" value="Close" class="btn" />
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </section>
+
+
+            <section id="medicalHistory" class="tab-pane fade in">
+                <section>
+                    <textarea class="historyTextArea" readonly></textarea>
+                </section>
+
+                <section class="py-5">
+                    <div class="d-flex justify-content-around">
+                        <div class="">
+                            <label class="label w-3 w-35 drk">From</label>
+                            <input type="date" value="@String.Format("{0:yyyy-MM-dd}", DateTime.Now)" class="input w-5 w-50 dateFrom" name="" />
+                        </div>
+                        <div class="">
+                            <label class="label w-3 w-35 drk">To</label>
+                            <input type="date" value="@String.Format("{0:yyyy-MM-dd}", DateTime.Now)" class="input w-5 w-50 dateTo" name="" />
+                        </div>
+                        <div>
+                            <button type="button" class="btn getHistoryBtn">Get History</button>
+                        </div>
+                    </div>
+                </section>
+
+            </section>
+        </div>
+
+        @*Hidden newrec*@
+        <input type="hidden" value="" name="REPORTS.newrecString" class="hiddenNewRecOPD" />
+    </form>
+
+    @*Hidden alertMessage*@
+    <input type="hidden" value="@Model.REPORTS.alertMessage" name="" class="hiddenAlertMessage" />
+    <a href="" class="hiddenReport" target="_blank">
+        <button class="hiddenReportBtn">REPORT</button>
+    </a>
+
+</section>
+
+
+@*=================================================For Procedure Request===================================================== *@
+
+<section id="procedRequestForm" class="">
+    <section class="">
+        <div class="text-center bgColor py-4">
+            <label class="title2 cred">SERVICES AT DESIGNATED CENTRES - Select Facility/Service Items</label>
+        </div>
+        <section />
+
+        <form method="post" action="@Url.Action("", "File")">
+
+            <section class="borderLine py-2">
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <div class="newline mb-1">
+                            <span>
+                                <label class="label w-4 drk">Patients's GroupCode :</label>
+                                <input type="text" name="txt" value="" class="input w-5 SSPpatGroupCode fData1 disable" />
+                                <input type="button" id="refLookUp4" name="btn" value="" class="btn-small disable" />
+                            </span>
+                        </div>
+                        <div class="newline mb-1">
+                            <span class="">
+                                <label class="label w-4 drk">Hospital Card Number :</label>
+                                <input type="text" name="txt" value="" class="input w-5 SSPhospitalNo fData2 gData1 disable" />
+                                <input type="button" id="refLookUp5" name="btn" value="" class="btn-small disable" />
+                            </span>
+                        </div>
+
+                        <div class="newline">
+                            <label class="label w-3 drk">Name :</label>
+                            <input type="text" name="txt" value="" class="input w-8 SSPfullName disable" />
+                        </div>
+                        <div class="newline">
+                            <label class="label w-3 drk">Address :</label>
+                            <input type="text" name="txt" value="" class="input w-8 SSPaddress disable" />
+                        </div>
+                        <div class="newline">
+                            <label class="label w-3 drk">E-Mail :</label>
+                            <input type="text" name="txt" value="" class="input w-8 SSPemail disable" />
+                        </div>
+                        <div class="newline">
+                            <label class="label w-3 drk">Phone :</label>
+                            <input type="text" name="txt" value="" class="input w-8 SSPphone disable" />
+                        </div>
+                        <div>
+                            <scan class="newline">
+                                <label class="label w-3 drk">SEX :</label>
+                                <select name="cbo" class="input w-3 w-50 increase-height SSPgender disable">
+                                    <option value=""></option>
+                                    <option value="MALE">MALE</option>
+                                    <option value="FEMALE">FEMALE</option>
+                                </select>
+                            </scan>
+                            <scan class="newline">
+                                <label class="label w-1 drk">AGE :</label>
+                                <input type="number" name="txt" value="" class="input w-3 SSPage disable" />
+                            </scan>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="newline n1">
+                            <label class="label w-4 drk">Bills Payable By :</label>
+                            <select name="cbo" class="input w-5 w-50 increase-height SSPbillsPayableBy disable">
+                                <option value=""></option>
+                                <option value="S">SELF</option>
+                                <option value="P">P\ANOTHER PATIENT</option>
+                                <option value="C">COPERATE CLIENT</option>
+                            </select>
+                        </div>
+                        <div class="newline n1">
+                            <label class="label w-4 drk">GroupCode :</label>
+                            <input type="text" name="txt" value="" class="input w-5 SSPghgroupcode hData1 disable" />
+                            <input type="button" id="refLookUp6" name="btn" value="" class="btn-small clm SSPghgroupcode disable" />
+                        </div>
+                        <div class="newline n1">
+                            <label class="label w-4 drk">Code :</label>
+                            <input type="text" name="txt" value="" class="input w-5 SSPgrouphead hData2 iData1 jData1 disable" />
+                            <input type="button" id="refLookUp7" name="btn" value="" class="btn-small clm disable" />
+                            <input type="button" id="refLookUp8" name="btn" value="" class="btn-small clm disable" />
+                        </div>
+                        <div class="newline n1">
+                            <label class="label w-4 drk">Referring Doc/Clinic :</label>
+                            @*<select name="cbo" class="input w-5 w-50 increase-height">
+                                    <option value=""></option>
+                                </select>*@
+                            @Html.DropDownListFor(m => m.CUSTOMER.NAME,
+                                new SelectList(Model.CUSTOMERS, "CUSTNO", "NAME"), "",
+                                new { @id = "", @class = "input w-5 w-50 increase-height SSPreferrer disable" })
+                        </div>
+                        <div class="newline n1">
+                            <label class="label w-4 drk">Transaction Date :</label>
+                            <input type="datetime-local" value="@String.Format("{0:yyyy-MM-ddThh:mm:ss}", DateTime.Now)"
+                                   class="input w-6 w-50 ivGG7 SSPtransDate disable" name="" />
+                        </div>
+                        <div class="newline">
+                            <label for="chkdep" class="drk w-3">Get Dependants</label>
+                            <input type="checkbox" id="chkdep" name="chk" class="chkgetdependants disable" />
+                        </div>
+                        <div>
+                            <span class="title SSPgroupHeadName"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <section class="borderLine py-3">
+                <div class="d-flex justify-content-around">
+                    <span class="">
+                        <label class="label drk" for="inPatientReq">In-Patient Request</label>
+                        <input type="checkbox" id="inPatientReq" name="txt" value="" class="inPatientReq" />
+                    </span>
+                    <span class="">
+                        <label class="label w-4 cred drk">REQUEST ALERT -></label>
+                        <select name="cbo" class="input w-4 increase-height SSPrequestAlert" id="ivgRqA">
+                            <option value=""></option>
+                            <option value="Urgent/Emergency">Urgent / Emergency</option>
+                            <option value="Routine">Routine</option>
+                        </select>
+                    </span>
+                    <span class="">
+                        <label class="label w-3 drk"><i>Capitated</i></label>
+                        <input type="text" name="txt" value="" class="input w-4 capitated" />
+                    </span>
+                </div>
+            </section>
+
+
+            <section class="borderLine py-3">
+
+                <div class="row ">
+                    <div class="col-md-8">
+                        <div class="newline">
+                            <span>
+                                <label class="label w-4 drk">Service Unit/Facility</label>
+                                @Html.DropDownListFor(m => m.SYSCODETABSvm.ServiceCentreCodes.name,
+                                                new SelectList(Model.SYSCODETABSvm.ServiceCentreCodess, "type_code", "name"), "",
+                                                new { @id = "ivgFac", @class = "input w-7 increase-height SSPfacility" })
+                                <label class="ll pr-5 drk labelSSPfacility">...</label>
+                            </span>
+                        </div>
+                        <div class="newline">
+                            <label class="label w-4 drk">Service Required</label>
+                            <select name="cbo" id="ivgServ" class="input w-7 increase-height SSPservRequired">
+                                <option value=""></option>
+                            </select>
+                            <input type="button" name="btn" value="" class="btn-small" />
+                            <span class="">
+                                <input type="hidden" id="refLookUp9" />
+                                <input type="checkbox" id="noteChk" />
+                                <label for="LookUp" class="drk notesLabel">NOTES</label>
+                            </span>
+                        </div>
+                        <div class="newline">
+                            <span>
+                                <label class="label w-4 drk drk">Grouped Procedures</label>
+                                @Html.DropDownListFor(m => m.GRPPROCEDURE.NAME,
+                                    new SelectList(Model.GRPPROCEDURES, "REFERENCE", "NAME"), "",
+                                    new { @id = "ivgGrpd", @class = "input w-7 increase-height grpProcedure" })
+                            </span>
+                            <span>
+                                <label class="ll pr-5 drk labelProcedure">...</label>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="newline">
+                            <label class="label w-3 drk">Duration</label>
+                            <input type="number" name="range" value="0" id="ivgDur" class="input w-3 design ivGG10 SSPduration" />
+                        </div>
+
+                        <div class="newline">
+                            <label class="label w-3 drk">AMOUNT</label>
+                            <input type="number" name="range" value="0" id="ivgAmt" class="input w-3 design ivGG3 SSPamount" />
+                        </div>
+
+                        <div class="newline">
+                            <label class="label w-3 drk">Current Total</label>
+                            <input type="number" name="range" value="0" id="ivgTot" class="input w-3 design SSPcurrentTotal" />
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <section class="borderLine">
+                <div class="row py-3 d-flex justify-content-around">
+                    <span class="">
+                        <input type="button" name="btn" value="ADD Selection" id="ivgADD" class="btn SSPaddBtn" />
+                    </span>
+                    <span>
+                        <input type="button" name="btn" value="Clear Selections" class="btn clearSelectn" />
+                    </span>
+                </div>
+            </section>
+
+            <section>
+
+                <div class="tableDiv v-scroll">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>S/N</th>
+                                <th style="padding: 0rem 6rem !important;">Facility</th>
+                                <th class="px-5">Procedure</th>
+                                <th class="px-5">Amount</th>
+                                <th class="px-5">Code</th>
+                                <th class="px-5">BillCode</th>
+                                <th style="padding: 0rem 10rem !important;">Notes</th>
+                                <th style="padding: 0rem 6rem !important;">ReqDate</th>
+                                <th class="px-5">Capitated</th>
+                                <th class="px-5">GrpItem</th>
+                                <th class="px-5">Duration</th>
+                                <th class="px-5">Done</th>
+                                <th class="px-5">NewReq</th>
+                                <th class="px-5">UnitCode</th>
+                                <th class="px-5">GroupBillByType</th>
+                                <th class="px-5">GroupBillDesc</th>
+                                <th class="px-5">RECID</th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="tbody text-center"></tbody>
+                    </table>
+                </div>
+
+            </section>
+
+            <section class="">
+                <div class="gry py-3">
+                    <div class="alc">
+                        <input type="button" value="Submit" id="ivgSubmit" class="btn SSPsubmitBtn" />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="button" name="btn" value="Close" id="ivgClose" class="btn drk SSPclose" />
+                    </div>
+                </div>
+            </section>
+        </form>
+
+        <input type="hidden" value="" class="amtsaveHiddenValue" />
+        <input type="hidden" value="" class="SSPhiddenBillCode" />
+        <input type="hidden" value="" class="hiddenSaveGroup" />
+        <input type="hidden" value="" class="hiddenNewRec" />
+        <input type="hidden" value="false" class="hiddenGroupItem" />
+        <input type="hidden" value="" class="hiddenIsPosted" />
+
+        <input type="hidden" value="" class="hiddenAmendFlag" />
+        <input type="hidden" value="" class="existingCode" />
+        <input type="hidden" value="false" class="hiddenCashPaying" />
+
+
+
+    </section>
+</section>
+
+
+
+
+
+
+@section scripts
+{
+    <script>
+        $(function () {
+            var dOM = $('body'); //must assign
+            var formFields = document.getElementById('mainForm'); //must assign, used for calling javaScript methods
+            appendTagInvalid1(dOM, "@ViewBag.iinvalid"); //must call
+            servErrorAlert("#eLkUp", "@ViewBag.Msg"); //must call
+
+            var dTHN1 = ['NAME', 'REFERENCE', 'DATE', 'CLINIC', 'GROUPCODE', 'PATIENTNO']; //for table header
+            var dBCN1 = ['NAME', 'REFERENCE', 'TRANS_DATE', 'CLINIC', 'GROUPCODE', 'PATIENTNO']; //for database header
+            var jaxURL1 = "@Url.Action("RptMRATTENDLookUp", "AJAX")";
+
+
+            //For Reference No
+            LoadDynamicDT1(jaxURL1, dTHN1, dBCN1, 'MRATTENDS', '#refLookUp1', '#1LkUp', '#regPTable1', '.cData', [3]);
+
+
+
+//**************************************** FOR VITAL SIGNS *************************************************************
+            //On load
+            $(".hiddenSubmit").hide();
+            $("#procedRequestForm").hide();
+            $(".hiddenReport").hide();
+            $(".consultRefBtn").prop({disabled: true});
+            
+            let calltype = "P";
+
+
+            @*console.log(`@Model.REPORTS.txtreference`);
+            console.log(`@Model.REPORTS.txtgroupcode`);
+            console.log(`@Model.REPORTS.txtpatientno`);
+            console.log(`@Model.REPORTS.REPORT_TYPE5`);*@
+
+
+            ShowModal(dOM, '#refLookUp10', '#10LkUp', function aF() {
+
+                $(".injectTextArea").val(`@Model.REPORTS.REPORT_TYPE5`);
+              
+            });
+
+            ShowModal(dOM, '#refLookUp11', '#11LkUp', function aF() {
+
+            });
+
+
+
+            $(".chkTodaysConsult").on({
+                click: function () {
+                    let chkTodaysConsult = $(".chkTodaysConsult").prop("checked");
+
+                    if (chkTodaysConsult) {
+                        $(".consultRefBtn").prop({ disabled: true });
+                    } else {
+                        $(".consultRefBtn").prop({ disabled: false });
+                    }
+                }
+            })
+
+
+            $(".procedRequestBtn").click(function () {
+
+                let consultReference = $(".consultReference").val();
+
+                $.ajax({
+                    url: "/AJAX/precedureReqClicked",
+                    method: "POST",
+                    data: { consultReference: consultReference, calltype: calltype },
+                    success: function (data) {
+                        if (data.REPORTS != null) {
+
+                            if (data.REPORTS.alertMessage != null) {
+                                alert(data.REPORTS.alertMessage);
+
+                                return;
+                            }
+
+                            $("#OPDform").hide();
+                            $("#procedRequestForm").show();
+
+                            $(".SSPpatGroupCode").val(data.REPORTS.txtgroupcode);
+                            $(".SSPhospitalNo").val(data.REPORTS.txtpatientno);
+                            $(".SSPfullName").val(data.REPORTS.TXTPATIENTNAME);
+                            $(".SSPbillsPayableBy").val(data.REPORTS.cbotype);
+                            $(".SSPghgroupcode").val(data.REPORTS.txtghgroupcode);
+                            $(".SSPgrouphead").val(data.REPORTS.txtgrouphead);
+                            $(".SSPgroupHeadName").text(data.REPORTS.txtothername);
+                            $(".hiddenCashPaying").val(data.REPORTS.mcanalter);
+
+                            
+                            
+                        }
+
+                    }
+
+                })
+
+            })
+
+
+            //function ClearControls() {
+            //    $(":text").val("");
+            //    $("[type='number']").val("");
+            //    $("textarea").val("");
+            //    $("select").val("");
+            //}
+
+            function ClearControls() {
+                location.reload(true);
+                scrollToTop();
+            }
+
+            $(".consultReference").on({
+                focus: function () {
+                    let consultReference = $(".consultReference").val();
+                    let fullName = $(".fullName").text();
+
+                    $(".hiddenNewRecOPD").val("true");
+
+                    if (fullName.trim() != "") {
+                        //if (confirm("CLEAR ALL FIELDS ?")) {
+                        //    ClearControls();
+                        //}
+
+                        //$(".height").focus();
+                        $(".consultReference").val(consultReference);
+                    }
+
+                },
+
+                focusout: function () {
+                    let consultReference = $(".consultReference").val().trim();
+                    let clinic = $(".clinic").val();
+
+                    if (consultReference != "") {
+                        $(".hiddenNewRecOPD").val("true");
+
+                        $.ajax({
+                            url: "/AJAX/consultReferenceFocusOut",
+                            method: "POST",
+                            data: { consultReference: consultReference, clinic: clinic },
+                            success: function (data) {
+
+                                if (data.REPORTS != null) {
+
+                                    if (data.REPORTS.alertMessage != null) {
+                                        alert(data.REPORTS.alertMessage)
+                                    } else {
+
+                                        $(".date").text(data.REPORTS.REPORT_TYPE1);
+                                        $(".pvtNo").text(data.REPORTS.REPORT_TYPE2);
+                                        $(".fullName").text(data.REPORTS.TXTPATIENTNAME);
+                                        $(".bpSitting").val(data.REPORTS.REPORT_TYPE3);
+                                        $(".bpStanding").val(data.REPORTS.REPORT_TYPE4);
+                                        $(".others").val(data.REPORTS.REPORT_TYPE5);
+                                        $(".respiration").val(data.REPORTS.categ_save);
+                                        $(".BPHtext").val(data.REPORTS.cbomaritalstatus);
+                                        $(".doctor").val(data.REPORTS.cboTribe);
+                                        $(".heightFT").val(data.REPORTS.cbotitle);
+                                        $(".temp").val(data.REPORTS.combillcycle);
+                                        $(".bmi").val(data.REPORTS.lblBalbfDbCr);
+                                        $(".clinic").val(data.REPORTS.txtclinic);
+                                        $(".chiefComplaint").val(data.REPORTS.txtconsultamt);
+                                        $(".weightIBS").val(data.REPORTS.txtcontactperson);
+                                        $(".headCircumf").val(data.REPORTS.txtdepartment);
+                                        $(".heightM").val(data.REPORTS.txtdiscount);
+                                        $(".weightST").val(data.REPORTS.txtghgroupcode);
+                                        $(".pulse").val(data.REPORTS.txtstaffno);
+                                        $(".weightKG").val(data.REPORTS.nmrbalance);
+                                        $(".hiddenNewRecOPD").val(data.REPORTS.newrec);
+
+                                        if (data.REPORTS.chkbyacctofficers) {
+                                            $(".exclusToClinic").prop({ checked: true });
+                                        } else {
+                                            $(".exclusToClinic").prop({ checked: false });
+                                        }
+
+                                        $(".dateFrom").val(data.REPORTS.edtallergies);
+                                        $(".dateTo").val(data.REPORTS.edtallergies);
+
+                                        $(".submitBtn").prop({ disabled: false });
+                                    }
+
+                                }
+
+                            }
+
+                        })
+
+                    }
+                }
+
+            })
+
+
+            $(".heightM").on({
+                focusout: function () {
+                    let heightM = Number($(this).val());
+                    let weightKG = Number($(".weightKG").val());
+                    let value = 0;
+
+                    if (heightM >= 1) {
+                        value = heightM * 3.28;
+
+                        $(".heightFT").val(value);
+                    }
+
+                    if (weightKG > 0 && heightM > 0) {
+                        let rndValue = (weightKG / (heightM * heightM));
+
+                        $(".bmi").val(rndValue.toFixed(2));
+                    }
+
+                    $(".weightKG").focus();
+                }
+            })
+
+
+            $(".weightKG").on({
+                focusout: function () {
+                    let weightKG = Number($(this).val());
+                    let heightM = Number($(".heightM").val());
+                    let x = 0;
+
+                    if (weightKG >= 1) {
+                        x = (weightKG * 2.20).toFixed(2);
+
+                        $(".weightST").val((x / 14).toFixed());
+                    }
+
+                    if (heightM >= 1) {
+                        let rndValue = (weightKG / (heightM * heightM));
+
+                        $(".bmi").val(rndValue.toFixed(2));
+                    }
+
+                }
+            })
+
+
+            $(".submitBtn").on({
+                click: function () {
+                    let consultReference = $(".consultReference").val().trim();
+                    let fullName = $(".fullName").text().trim();
+                    let labelDate = $(".date").text().trim();
+                    let clinic = $(".clinic").val();
+                    let doctor = $(".doctor").val();
+
+                    if (consultReference == "") {
+                        alert("consultReference is Required")
+                        $(".consultReference").focus();
+                        return;
+                    }
+                    else if (fullName == "") {
+                        alert("FullName label is Required")
+                        return;
+                    }
+                    else if (labelDate == "") {
+                        alert("Date label is Required")
+                        return;
+                    }
+                    else if (clinic == "" || clinic == null) {
+                        alert("Clinic is Required")
+                        $(".clinic").focus();
+                        return;
+                    }
+                    else if (doctor == "" || doctor == null) {
+                        alert("Doctor is Required")
+                        $(".doctor").focus();
+                        return;
+                    }
+                    else {
+                        if (confirm("Confirm to Save...")) {
+                            $(".hiddenSubmit").click();
+
+                            //$(".submitBtn").prop({ disabled: true });
+
+                        }
+
+                    }
+
+                }
+            })
+
+
+            let hiddenAlertMessage = $(".hiddenAlertMessage").val();
+            if (hiddenAlertMessage.trim() != "") {
+                alert(hiddenAlertMessage);
+            }
+
+            if (`@Model.REPORTS.chkBroughtForward` == "True") {
+                $("#refLookUp10").click();
+            }
+
+
+            $(".sendInjectAlert").on({
+                click: function () {
+                    let chkWoundDressing = $(".chkWoundDressing").prop("checked");
+                    let chkInjection = $(".chkInjection").prop("checked");
+                    let chkPharmacy = $(".chkPharmacy").prop("checked");
+                    let chkOPDNurses = $(".chkOPDNurses").prop("checked");
+                    let injectionNote = $(".injectTextArea").val();
+                    let txtgroupcode = `@Model.REPORTS.txtgroupcode`;
+                    let txtpatientno = `@Model.REPORTS.txtpatientno`;
+                    let TXTPATIENTNAME = `@Model.REPORTS.TXTPATIENTNAME`;
+                    let txtreference = `@Model.REPORTS.txtreference`;
+                    let woperator = `@Model.REPORTS.SessionOCP`;
+
+
+                    if (!chkWoundDressing && !chkInjection) {
+                        alert("Destination must be selected for your Alert !");
+                        return;
+                    }
+
+                    if (confirm("Confirm to Send Alert Notice...")) {
+
+                        $.ajax({
+                            url: "/AJAX/sendInjectionAlert",
+                            method: "POST",
+                            data: {
+                                injectionNote: injectionNote, txtgroupcode: txtgroupcode, txtpatientno: txtpatientno, TXTPATIENTNAME: TXTPATIENTNAME,
+                                txtreference: txtreference, woperator: woperator, chkPharmacy: chkPharmacy, chkInjection: chkInjection,
+                                chkOPDNurses: chkOPDNurses
+                            },
+                            success: function (data) {
+                                if (data.REPORTS != null) {
+                                    console.log(data.REPORTS);
+
+                                }
+
+                            }
+                            
+                        })
+
+                    }
+
+                }
+            });
+
+
+            $(".patientProfileBtn").on({
+                click: function () {
+                    $.ajax({
+                        url: "/AJAX/patientProfileBtnClicked",
+                        method: "POST",
+                        success: function (data) {
+                            if (data != null) {
+
+                                let value = data.split("**");
+
+                                if (value[0] == "False") {
+                                    console.log("value0", value[0]);
+                                    alert(value[1])
+                                    return;
+                                }
+                                console.log("value1",value[1]);
+                                $(".hiddenReport").prop({href: `${value[1]}`});
+                            }
+
+                        }
+
+                    }).then(() => {
+                        $(".hiddenReportBtn").click();
+                    })
+                }
+            })
+
+
+            $(".BPHbtn").on({
+                click: function () {
+                    let consultReference = $(".consultReference").val();
+
+                    if (consultReference.trim() == "") {
+                        return;
+                    }
+
+                    $.ajax({
+                        url: "/AJAX/BPHbtnClicked",
+                        method: "POST",
+                        data: { consultReference: consultReference },
+                        success: function (data) {
+                            if (data != null) {
+                                $("#refLookUp11").click();
+                                
+                                $(".bphHeader").text(data.txtothername);
+                                $(".dateRangeBPH").val(data.REPORT_TYPE1);
+
+                            }
+                        }
+                    })
+                }
+            })
+
+
+            $(".BPHLoadBtn").on({
+                click: function () {
+                    let consultReference = $(".consultReference").val();
+                    let dateRangeBPH = $(".dateRangeBPH").val();
+                    let dateToBPH = $(".dateToBPH").val();
+
+                    if (consultReference.trim() == "") {
+                        return;
+                    }
+
+                    $.ajax({
+                        url: "/AJAX/BPHLoadBtnClicked",
+                        method: "POST",
+                        data: { consultReference: consultReference, dateRangeBPH: dateRangeBPH, dateToBPH: dateToBPH },
+                        success: function (data) {
+                            if (data != null) {
+                                if (data.REPORTS.alertMessage != null) {
+                                    alert(data.REPORTS.alertMessage);
+
+                                    return;
+                                }
+
+                                if (data.VSTATAS != null) {
+                                    if (data.VSTATAS.length < 1) {
+                                        $(".BPHalert").text("No Record for specified Conditions...");
+                                        return;
+                                    }
+                                }
+                                
+                            }
+                        }
+                    })
+                }
+            })
+
+
+//************************************************** FOR MEDICAL HISTORY *********************************************************
+
+            $(".getHistoryBtn").on({
+                click: function () {
+                    let consultReference = $(".consultReference").val();
+                    let dateFrom = $(".dateFrom").val();
+                    let dateTo = $(".dateTo").val();
+
+                    if (consultReference.trim() == "") {
+                        alert("No Data");
+                        return;
+                    } 
+
+                    $.ajax({
+                        url: "/AJAX/getHistoryBtnClicked",
+                        method: "POST",
+                        data: { consultReference: consultReference, dateFrom: dateFrom, dateTo: dateTo },
+                        success: function (data) {
+                            if (data.REPORTS != null) {
+
+                                if (data.REPORTS != null) {
+                                    if (data.REPORTS.alertMessage != null) {
+                                        alert(data.REPORTS.alertMessage);
+                                        return;
+                                    }
+
+                                    $(".historyTextArea").val(data.REPORTS.edtspinstructions);
+
+                                }
+
+                            }
+
+                        }
+
+                    })
+
+                }
+            })
+
+
+
+
+
+
+
+//************************************ FOR PROCEDURE REQUEST *************************************************************
+            //On page Load
+            $(".SSPsubmitBtn").prop({ disabled: true });
+            $(".serviceModalBtn").hide();
+            $("#refLookUp8").hide();
+            $("#refLookUp7").show();
+
+            $(".disable").prop({ disabled: true });
+
+            $(".SSPclose").click(function () {
+                $("#procedRequestForm").hide();
+                $("#OPDform").show();
+            })
+
+
+            $(".SSPpatGroupCode").on({
+                focusout: function () {
+                    $(".SSPhospitalNo").focus();
+                }
+            })
+
+
+            $(".SSPhospitalNo").on({
+                focusout: function () {
+                    let SSPhospitalNo = $(this).val();
+                    let SSPpatGroupCode = $(".SSPpatGroupCode").val();
+
+                    if (SSPhospitalNo.trim() != "") {
+
+                        $.ajax({
+                            url: "/AJAX/SSPhospitalNoFocusOut",
+                            method: "POST",
+                            data: { SSPhospitalNo: SSPhospitalNo, SSPpatGroupCode: SSPpatGroupCode },
+                            success: function (data) {
+
+                                if (data.REPORTS != null) {
+                                    if (data.REPORTS.alertMessage != null) {
+                                        alert(data.REPORTS.alertMessage);
+
+                                        $(".SSPpatGroupCode").val("");
+                                        $(".SSPhospitalNo").val("");
+                                    }
+
+                                    $(".SSPfullName").val(data.REPORTS.TXTPATIENTNAME);
+                                    $(".SSPgender").val(data.REPORTS.cbogender);
+                                    $(".SSPage").val(data.REPORTS.cboAge);
+                                    $(".SSPaddress").val(data.REPORTS.txtaddress1);
+                                    $(".SSPemail").val(data.REPORTS.txtemail);
+                                    $(".SSPphone").val(data.REPORTS.txthomephone);
+                                    $(".SSPgroupHeadName").text(data.REPORTS.txtothername);
+
+                                    if (data.REPORTS.chkgetdependants) {
+                                        $(".chkgetdependants").prop({ checked: true });
+                                    }
+
+                                }
+
+
+                            }
+                        })
+
+                    }
+
+
+                }
+            })
+
+
+            $(".SSPbillsPayableBy").on({
+                focusout: function () {
+                    let SSPbillsPayableBy = $(this).val();
+                    let SSPhospitalNo = $(".SSPhospitalNo").val();
+                    let SSPpatGroupCode = $(".SSPpatGroupCode").val();
+
+                    //Show hidden lookUp
+                    if (SSPbillsPayableBy.slice(0, 1) == "C") {
+                        $("#refLookUp8").hide();
+                        $("#refLookUp7").show();
+                    } else {
+                        $("#refLookUp8").show();
+                        $("#refLookUp7").hide();
+                    }
+
+
+                    $.ajax({
+                        url: "/AJAX/SSPbillsPayableByFocusOut",
+                        method: "POST",
+                        data: { SSPbillsPayableBy: SSPbillsPayableBy, SSPhospitalNo: SSPhospitalNo, SSPpatGroupCode: SSPpatGroupCode },
+                        success: function (data) {
+
+                            if (data.REPORTS != null) {
+
+                                if (data.REPORTS.txtghgroupcode != null)
+                                    $(".SSPghgroupcode").val(data.REPORTS.txtghgroupcode);
+
+                                if (data.REPORTS.txtgrouphead != null)
+                                    $(".SSPgrouphead").val(data.REPORTS.txtgrouphead);
+
+                                if (data.REPORTS.txtothername != null)
+                                    $(".SSPgroupHeadName").text(data.REPORTS.txtothername);
+
+                                $(".hiddenCashPaying").val(data.REPORTS.mcanalter);
+
+                                $(".SSPgrouphead").focusout();
+                            }
+
+                        }
+                    })
+
+                }
+            })
+
+
+            //For code field
+            $(".SSPgrouphead").on({
+                focusout: function () {
+                    let SSPgrouphead = $(this).val();
+                    let SSPghgroupcode = $(".SSPghgroupcode").val();
+                    let SSPbillsPayableBy = $(".SSPbillsPayableBy").val();
+                    let mgrouphtype = SSPbillsPayableBy.slice(0, 1);
+
+                    if (SSPgrouphead.trim() == "" || mgrouphtype == "P" && SSPghgroupcode.trim() == "") {
+                        return;
+                    } else {
+
+                        $.ajax({
+                            url: "/AJAX/SSPgroupheadFocusOut",
+                            method: "POST",
+                            data: { SSPgrouphead: SSPgrouphead, SSPghgroupcode: SSPghgroupcode, mgrouphtype: mgrouphtype },
+                            success: function (data) {
+
+                                if (data.REPORTS != null) {
+                                    if (data.REPORTS.alertMessage != null) {
+                                        alert(data.REPORTS.alertMessage);
+
+                                        $(".SSPgrouphead").val("");
+                                    }
+
+                                    if (data.REPORTS.txtothername != null) {
+                                        $(".SSPgroupHeadName").text(data.REPORTS.txtothername);
+                                    }
+
+                                    $(".hiddenCashPaying").val(data.REPORTS.mcanalter);
+                                }
+
+                            }
+                        })
+
+                    }
+
+
+                }
+            })
+
+
+            $(".SSPtransDate").on({
+                focusout: function () {
+                    let transDate = new Date($(".SSPtransDate").val());
+                    let todaysDate = new Date();
+
+                    if (transDate > todaysDate) {
+                        alert("Invalid Date...!!  Specified Date can't be greater than Today's Date");
+
+                        $(".SSPtransDate").val("@String.Format("{0:yyyy-MM-ddThh:mm:ss}", DateTime.Now)");
+                    }
+
+                }
+            })
+
+
+            $(".SSPfacility").on({
+                focusout: function () {
+                    let SSPfacility = $(this).val();
+
+                    if (SSPfacility.trim() != "") {
+
+                        $.ajax({
+                            url: "/AJAX/SSPfacilityFocusOut",
+                            method: "POST",
+                            data: { SSPfacility: SSPfacility },
+                            success: function (data) {
+
+                                if (data.REPORTS != null) {
+                                    $(".labelSSPfacility").text(data.REPORTS.lblStaffNumber)
+
+                                    if (data.REPORTS.alertMessage != null) {
+                                        alert(data.REPORTS.alertMessage);
+
+                                        $(".SSPservRequired").html(`<option value=""></option>`);
+                                    }
+                                }
+
+                                if (data.TARIFFS != null) {
+                                    let tariffs = data.TARIFFS;
+                                    let options = "";
+
+                                    for (var i = 0; i < tariffs.length; i++) {
+                                        options += `<option value="${tariffs[i].REFERENCE}">${tariffs[i].NAME}</option>`;
+                                    }
+
+                                    $(".SSPservRequired").append(options);
+                                }
+
+                                if (data.MRSETUP != null) {
+                                    $(".SSPhiddenBillCode").val(data.MRSETUP.BILLCODE);  //hidden field for Billcode
+                                }
+
+                            }
+                        })
+
+                    }
+
+                    $(".SSPservRequired").focus();
+                }
+            })
+
+
+            $(".SSPservRequired").on({
+                focusout: function () {
+                    let SSPservRequired = $(this).val();
+                    let SSPfacility = $(".SSPfacility").val();
+                    let SSPhospitalNo = $(".SSPhospitalNo").val();
+                    let SSPpatGroupCode = $(".SSPpatGroupCode").val();
+                    let SSPbillsPayableBy = $(".SSPbillsPayableBy").val();
+                    let flag = false;
+
+                    if (SSPservRequired != "" && SSPfacility.trim() != "")
+                    {
+                        $(".hiddenIsPosted").val("false");
+                        $(".hiddenNewRec").val("true");
+                        $(".SSPaddBtn").prop({ disabled: false });
+
+                        $(".labelProcedure").text(SSPservRequired);
+
+                        //We first check the total rows in the table
+                        let totalRows = Number($(".tbody").find("tr").last().find("td").eq(0).text());
+
+                        //we must scan through listview to check if stock had been selected - we edit
+
+                        if (totalRows > 0) {
+
+                            for (let i = 0; i < totalRows; i++) {
+                                let code = $(".tbody").find("tr").eq(i).find("td").eq(4).text();
+
+                                if (code.trim() == SSPservRequired.trim()) {
+                                    flag = true;
+
+                                    let duration = Number($(".tbody").find("tr").eq(i).find("td").eq(10).text());
+                                    let amount = Number($(".tbody").find("tr").eq(i).find("td").eq(3).text());
+                                    let notes = $(".tbody").find("tr").eq(i).find("td").eq(6).text();
+                                    let isPosted = $(".tbody").find("tr").eq(i).find("td").eq(11).text() == "YES" ? true : false;
+
+                                    $(".SSPduration").val(duration);
+                                    $(".SSPamount").val(amount);
+                                    $(".hiddenIsPosted").val(isPosted);
+
+                                    //pass the code value of already existing data to a hidden field
+                                    $(".existingCode").val(code);
+                                    break;
+                                }
+                            }
+
+                            if (flag == true) {
+                                //click the modal button
+                                $(".serviceModalBtn").click();
+                            }
+                        }
+
+                        $.ajax({
+                            url: "/AJAX/SSPservRequiredFocusOut",
+                            method: "POST",
+                            data: {
+                                SSPservRequired: SSPservRequired, SSPfacility: SSPfacility, SSPhospitalNo: SSPhospitalNo,
+                                SSPpatGroupCode: SSPpatGroupCode, SSPbillsPayableBy: SSPbillsPayableBy
+                            },
+                            success: function (data) {
+
+                                if (data.REPORTS.nmrbalance != null)
+                                    $(".SSPamount").val(data.REPORTS.nmrbalance);
+
+                                if (data.REPORTS.nmrcurdebit != null)
+                                    $(".amtsaveHiddenValue").val(data.REPORTS.nmrcurdebit);
+
+                                let capitated = data.REPORTS.mcanalter ? "YES" : "NO";
+                                $(".capitated").val(capitated); //for capitated
+
+                                if (data.REPORTS.btnFamilyGroup == true)   //for addBtn
+                                    $(".SSPaddBtn").prop({ disabled: false });
+                            }
+                        })
+
+                    }
+                }
+            })
+
+
+            $(".SSPaddBtn").on({
+                click: function () {
+                    let SSPamount = Number($(".SSPamount").val());
+                    let SSPservRequired = $(".SSPservRequired").val();
+                    let amtsaveHiddenValue = Number($(".amtsaveHiddenValue").val());
+                    let SSPduration = Number($(".SSPduration").val());
+                    let SSPtransDate = $(".SSPtransDate").val();
+                    let SSPfacility = $(".SSPfacility").val();
+                    let SSPbillsPayableBy = $(".SSPbillsPayableBy").val();
+                    let SSPhiddenBillCode = $(".SSPhiddenBillCode").val();
+                    let capitated = $(".capitated").val();
+                    let hiddenGroupItem = ($(".hiddenGroupItem").val() == "true") ? "YES" : "NO";
+                    let hiddenNewRec = ($(".hiddenNewRec").val() == "true") ? true : false;
+                    let hiddenIsPosted = ($(".hiddenIsPosted").val() == "true") ? true : false;
+                    let labelSSPfacility = $(".labelSSPfacility").text().trim();
+                    let note = dOM.find('#9LkUp .noteTextArea').val();
+                    let grpBillByType = "NO";
+                    let grpBillDesc = "";
+                    let recID = "";
+
+                    if (SSPamount < 1 || SSPservRequired.trim() == "") {
+                        let xstr = SSPamount < 1 ? "Negative Charge ? " : "Request Description is Empty...";
+                        alert(xstr);
+                        $(".SSPservRequired").focus();
+                        return;
+                    } else if (SSPamount < amtsaveHiddenValue) {
+                        alert("Specified value is less than control value...");
+                        $(".SSPservRequired").focus();
+                        return;
+                    } else {
+                        if (SSPduration > 0)
+                            $(".SSPamount").val((SSPamount * SSPduration))
+
+                        let SSPcurrentTotal = SSPamount + Number($(".SSPcurrentTotal").val());
+                        $(".SSPcurrentTotal").val(SSPcurrentTotal);
+
+                        let done = (hiddenNewRec || hiddenIsPosted) ? "NO" : "YES";
+                        let newRec = (hiddenNewRec) ? "YES" : "NO";
+
+                        let servRequiredText = $(".SSPservRequired").find(`[value="${SSPservRequired}"]`).text();
+                        let SSPfacilityText = $(".SSPfacility").find(`[value="${SSPfacility}"]`).text();
+
+                        //let num = $(".tbody").find("tr").last().find("td").eq(0).text();
+                        //let count = Number(num) + 1;
+
+                        let hiddenAmendFlag = $(".hiddenAmendFlag").val();
+                        if (hiddenAmendFlag == "true") {
+                            let existingCode = $(".existingCode").val().trim();
+
+                            $(".tbody").find("tr").each(function () {
+                                let code = $(this).find("td").eq(4).text().trim();
+
+                                if (existingCode == code) {
+                                    $(this).remove(); //delete row
+                                }
+
+                            });
+                        }
+
+                        let rows = "<tr>" +
+                                        "<td></td>" +
+                                        "<td>" + SSPfacilityText + "</td>" +
+                                        "<td>" + servRequiredText + "</td>" +
+                                        "<td>" + SSPamount + "</td>" +
+                                        "<td>" + SSPservRequired + "</td>" +
+                                        "<td>" + SSPhiddenBillCode + "</td>" +
+                                        "<td>" + note + "</td>" +
+                                        "<td>" + SSPtransDate + "</td>" +
+                                        "<td>" + capitated + "</td>" +
+                                        "<td>" + hiddenGroupItem + "</td>" +
+                                        "<td>" + SSPduration + "</td>" +
+                                        "<td>" + done + "</td>" +
+                                        "<td>" + newRec + "</td>" +
+                                        "<td>" + labelSSPfacility + "</td>" +
+                                        "<td>" + "NO" + "</td>" +
+                                        "<td>" + "" + "</td>" +
+                                        "<td>" + recID + "</td>" +
+                                   "</tr>";
+
+                        $(".tbody").append(rows);
+
+                        //re-adjust the count values after deleting or adding a row
+                        let counter = 0;
+                        $(".tbody").find("tr").each(function () {
+                            $(this).find("td").eq(0).text(++counter);
+                        });
+
+                        $(".SSPduration").val("0");
+                        $(".SSPamount").val("0");
+                        $(".SSPservRequired").val("");
+                        $(".grpProcedure").val("");
+                        $(".note").val("");
+                        $(".SSPaddBtn").prop({disabled: true});
+                        $(".SSPsubmitBtn").prop({disabled: false});
+
+                    }
+
+                }
+            })
+
+
+            $(".grpProcedure").on({
+                focusout: function () {
+                    let grpProcedure = $(this).val();
+                    let saveGroup = $(".hiddenSaveGroup").val();
+                    let SSPcurrentTotal = Number($(".SSPcurrentTotal").val());
+                    let grpProcedureText = $(".grpProcedure").find(`[value="${grpProcedure}"]`).text();
+                    let flag = false;
+
+                    if (grpProcedure.trim() != "") {
+
+                        $.ajax({
+                            url: "/AJAX/grpProcedureFocusOut",
+                            method: "POST",
+                            data: { grpProcedure: grpProcedure, saveGroup: saveGroup, SSPcurrentTotal: SSPcurrentTotal, grpProcedureText: grpProcedureText },
+                            success: function (data) {
+
+                                if (data.REPORTS != null) {
+
+                                    $(".hiddenGroupItem").val(data.REPORTS.cmdgrpmember);
+                                    $(".hiddenNewRec").val(data.REPORTS.newrec);
+
+                                    if (data.REPORTS.alertMessage != null)
+                                        alert(data.REPORTS.alertMessage);
+
+                                    if (data.REPORTS.ActRslt != null)
+                                    {
+                                        if (confirm(data.REPORTS.ActRslt)) {
+                                            flag = true;
+                                        }
+                                    }
+
+                                }
+
+                            }
+
+                        }).then(function () {
+                            if (flag) {
+
+                                $.ajax({
+                                    url: "/AJAX/grpProcedSecondCall",
+                                    method: "POST",
+                                    data: { grpProcedure: grpProcedure },
+                                    success: function (data) {
+
+                                        let currentTotal = Number($(".SSPcurrentTotal").val());
+                                        $(".SSPcurrentTotal").val(currentTotal + data.REPORTS.nmrBalbf);
+
+                                        $(".hiddenSaveGroup").val(grpProcedure);
+
+                                        let foundIt = false;
+                                        let grpDetails = data.MRB15AS;
+
+                                        if (grpDetails.length != 0) {
+                                            for (var i = 0; i < grpDetails.length; i++) {
+                                                $(".tbody").find("tr").each(function () {
+                                                    let code = $(this).find("td").eq(4).text();
+                                                    if (code.trim() == grpDetails[i].process.trim()) {
+                                                        foundIt = true;
+                                                    }
+                                                });
+
+                                                if (!foundIt) {
+                                                    if (data.REPORTS.nmrBalbf == 0) {
+                                                        let SSPcurrentTotal = $(".SSPcurrentTotal").val();
+                                                        let SSPfacility = $(".SSPfacility").val();
+                                                        let servRequiredText = grpDetails[i].DESCRIPTION.trim();
+                                                        let SSPamount = grpDetails[i].amount.trim();
+                                                        let SSPservRequired = grpDetails[i].process.trim();
+                                                        let SSPhiddenBillCode = $(".SSPhiddenBillCode").val().trim() == "" ? grpDetails[i].process.trim() : $(".SSPhiddenBillCode").val().trim();
+                                                        let todaysDate = new Date();
+                                                        let grpbillbyservtype = (data.REPORTS.chkbillregistration) ? "YES" : "NO";
+                                                        let capitated = $(".capitated").val();
+
+                                                        $(".SSPcurrentTotal").val(SSPcurrentTotal + Number(grpDetails[i].amount));
+
+                                                        //let num = $(".tbody").find("tr").last().find("td").eq(0).text();
+                                                        //let count = Number(num) + 1;
+
+                                                        let rows = "<tr>" +
+                                                                        "<td></td>" +
+                                                                        "<td>" + SSPfacility + "</td>" +
+                                                                        "<td>" + servRequiredText + "</td>" +
+                                                                        "<td>" + SSPamount + "</td>" +
+                                                                        "<td>" + SSPservRequired + "</td>" +
+                                                                        "<td>" + SSPhiddenBillCode + "</td>" +
+                                                                        "<td>" + "" + "</td>" +
+                                                                        "<td>" + todaysDate + "</td>" +
+                                                                        "<td>" + capitated + "</td>" +
+                                                                        "<td>" + "NO" + "</td>" +
+                                                                        "<td>" + "YES" + "</td>" +
+                                                                        "<td>" + "0" + "</td>" +
+                                                                        "<td>" + "NO" + "</td>" +
+                                                                        "<td>" + "YES" + "</td>" +
+                                                                        "<td>" + SSPfacility + "</td>" +
+                                                                        "<td>" + grpbillbyservtype + "</td>" +
+                                                                        "<td>" + "0" + "</td>" +
+                                                                   "</tr>";
+
+                                                        $(".tbody").append(rows);
+
+                                                        //re-adjust the count values after deleting or adding a row
+                                                        let counter = 0;
+                                                        $(".tbody").find("tr").each(function () {
+                                                            $(this).find("td").eq(0).text(++counter);
+                                                        });
+                                                    }
+                                                }
+                                            }
+
+                                        }
+
+                                        $(".SSPsubmitBtn").prop({disabled: false});
+                                    }
+                                })
+                            } else {
+                                $(".grpProcedure").val("");
+                            }
+                        })
+
+                        $(".SSPaddBtn").focus();
+                    }
+
+
+                }
+            })
+
+
+            $(".modalAddBtn").on({
+                click: function () {
+                    //if modalAdd is clicked then modalAmend should be false and vice versa
+                    $(".hiddenNewRec").val("true");
+
+                    $(".hiddenAmendFlag").val("false");
+                }
+            })
+
+            $(".modalAmendBtn").on({
+                click: function () {
+                    $(".hiddenAmendFlag").val("true");
+
+                    $(".hiddenNewRec").val("false");
+                }
+            })
+
+            $(".modalDeleteBtn").on({
+                click: function () {
+                    //first set the values of newrec and amend to false since the add button and amend button were not clicked
+                    $(".hiddenAmendFlag").val("false");
+                    $(".hiddenNewRec").val("false");
+
+                    //Then implement the delete function
+                    let SSPservRequired = $(".SSPservRequired").val();
+                    let servRequiredText = $(".SSPservRequired").find(`[value="${SSPservRequired}"]`).text();
+
+                    if (confirm(`Confirm to delete this item... ${servRequiredText}`)) {
+                        let existingCode = $(".existingCode").val();
+
+                        let SSPamount = Number($(".SSPamount").val());
+                        let SSPcurrentTotal = Number($(".SSPcurrentTotal").val());
+                        $(".SSPcurrentTotal").val((SSPcurrentTotal - SSPamount));
+
+                        let counterFlag = 0;
+                        $(".tbody").find("tr").each(function () {
+                            let code = $(this).find("td").eq(4).text().trim();
+
+                            if (existingCode == code) {
+                                if (counterFlag < 1) { //We want to delete only one out of the number of occurrance
+                                    $(this).remove(); //delete row
+                                }
+
+                                ++counterFlag;
+                            }
+                        });
+
+                        //re-adjust the count values after deleting or adding a row
+                        let counter = 0;
+                        $(".tbody").find("tr").each(function () {
+                            $(this).find("td").eq(0).text(++counter);
+                        });
+
+                        $(".SSPduration").val("0");
+                        $(".SSPamount").val("0");
+                        $(".SSPservRequired").val("");
+                        $(".grpProcedure").val("");
+                        $(".note").val("");
+                        $(".SSPaddBtn").prop({ disabled: true });
+                        $(".SSPsubmitBtn").prop({ disabled: false });
+
+                    }
+                }
+            })
+
+            $(".modalIgnoreBtn").on({
+                click: function () {
+                    //first set the values of newrec and amend to false since the add button and amend button were not clicked
+                    $(".hiddenAmendFlag").val("false");
+                    $(".hiddenNewRec").val("false");
+
+                    //Then clear the values of the fields
+                    $(".SSPduration").val("0");
+                    $(".SSPamount").val("0");
+                    $(".SSPservRequired").val("");
+                    $(".grpProcedure").val("");
+                    $(".note").val("");
+                    $(".SSPaddBtn").prop({ disabled: true });
+                    $(".SSPsubmitBtn").prop({ disabled: false });
+                }
+            })
+
+            $("#noteChk").prop({ disabled: true });
+            $("#noteChk").prop({ checked: false });
+
+            $("#noteChk, .notesLabel").on({
+                click: function () {
+                    let SSPfullName = $(".SSPfullName").val().trim();
+                    let SSPfacility = $(".SSPfacility").val();
+                    let SSPfacilityText = $(".SSPfacility").find(`[value="${SSPfacility}"]`).text().trim();
+                    let SSPservRequired = $(".SSPservRequired").val();
+                    let servRequiredText = $(".SSPservRequired").find(`[value="${SSPservRequired}"]`).text().trim();
+
+                    if (SSPfacility.trim() == "" || SSPservRequired.trim() == "") {
+                        $("#noteChk").prop({ disabled: true });
+                        $("#noteChk").prop({ checked: false });
+
+                        alert("Enter facility and Service Required fields to Enable Note!!!");
+                    } else {
+                        $(".noteHeader").html(`SPECIAL NOTES / INSTRUCTIONS FOR <b>${SSPfullName}</b> ON: <b>${servRequiredText}</b> - <b>${SSPfacilityText}</b>`);
+
+                        $("#noteChk").prop({ disabled: false });
+                        $("#noteChk").prop({ checked: true });
+
+                        $("#refLookUp9").click();
+                    }
+                }
+            })
+
+
+            ShowModal(dOM, '#refLookUp9', '#9LkUp', function aF() {
+                dOM.find('#9LkUp .cancelNote').on({
+                    click: function () {
+                        $("#noteChk").prop({ checked: false });
+
+                        dOM.find('#9LkUp .noteTextArea').val("");
+                    }
+                });
+
+            });
+
+
+            $(".SSPsubmitBtn").on({
+                click: function () {
+                    let SSPhospitalNo = $(".SSPhospitalNo").val();
+                    let SSPpatGroupCode = $(".SSPpatGroupCode").val();
+                    let SSPfullName = $(".SSPfullName").val();
+                    let SSPage = $(".SSPage").val();
+                    let SSPgender = $(".SSPgender").val();
+                    let SSPaddress = $(".SSPaddress").val();
+                    let SSPemail = $(".SSPemail").val();
+                    let SSPphone = $(".SSPphone").val();
+                    let SSPtransDate = $(".SSPtransDate").val();
+                    let SSPbillsPayableBy = $(".SSPbillsPayableBy").val();
+                    let SSPfacility = $(".SSPfacility").val();
+                    let SSPghgroupcode = $(".SSPghgroupcode").val();
+                    let SSPgrouphead = $(".SSPgrouphead").val();
+                    let SSPreferrer = $(".SSPreferrer").val();
+                    let hiddenNewRec = $(".hiddenNewRec").val();
+                    let SSPrequestAlert = $(".SSPrequestAlert").val();
+                    let referenceNo = $(".referenceNo").val();  // from out patient record code
+                    let SSPcurrentTotal = Number($(".SSPcurrentTotal").val());
+                    let hiddenCashPaying = $(".hiddenCashPaying").val();
+
+                    //PPDRESSINGDTL Class holds the table data
+                    let tableList = [];
+                    $(".tbody").find("tr").each(function () {
+                        let rowObject = {
+                            DESCRIPTION: $(this).find("td").eq(0).text().trim(),  // for count
+                            FACILITY: $(this).find("td").eq(1).text().trim(),  // for facility
+                            BILLPROCESS: $(this).find("td").eq(2).text().trim(), // for procedure
+                            AMOUNT: Number($(this).find("td").eq(3).text().trim()), // for amount
+                            GROUPCODE: $(this).find("td").eq(4).text().trim(), // for code
+                            GHGROUPCODE: $(this).find("td").eq(5).text().trim(), // for billcode
+                            NOTES: $(this).find("td").eq(6).text().trim(), // for notes
+                            TRANS_DATE: $(this).find("td").eq(7).text().trim(), // for reg_Date
+                            CAPITATED: ($(this).find("td").eq(8).text().trim() == "YES") ? true : false, // for capitated
+                            GROUPEDITEM: ($(this).find("td").eq(9).text().trim() == "YES") ? true : false,  // for grp_Item
+                            DURATION: Number($(this).find("td").eq(10).text().trim()), // for duration
+                            POSTED: ($(this).find("td").eq(11).text().trim() == "YES") ? true : false,// for posted
+                            RECTYPE: $(this).find("td").eq(12).text().trim(), // for new request
+                            REFERENCE: $(this).find("td").eq(13).text().trim(), // for unitcode
+                            GRPBILLBYSERVTYPE: ($(this).find("td").eq(14).text().trim() == "YES") ? true : false, // for GrpBillByType
+                            TRANSTYPE: $(this).find("td").eq(15).text().trim(), //for GrpBillDesc
+                            RECID: Number($(this).find("td").eq(16).text().trim()) // for recId
+                        };
+
+                        tableList.push(rowObject)
+                    });
+
+                    //Check if no row is in the table
+                    let num = $(".tbody").find("tr").last().find("td").eq(0).text();
+                    Number(num);
+
+                    if (num == 0) {
+                        alert("No Selection Made...");
+                        return;
+                    }
+
+                    if (SSPbillsPayableBy.trim() == "") {
+                        alert("Who Pays the Bill is Required...");
+                        return;
+                    } else if (SSPfullName.trim() == "") {
+                        alert("Patient Name is Required...");
+                        return;
+                    }
+                    //else if (SSPaddress.trim() == "" && SSPemail.trim() == "" && SSPphone.trim() == "") {
+                    //    alert("Check Patient's Contact information - Phone/Email/Address");
+                    //}
+                    else {
+                        if (confirm("Confirm to Submit Selections to Service Centres...")) {
+                            $(this).prop({ disabled: true });
+
+                            $.ajax({
+                                url: "/AJAX/SSPsubmitBtnClicked",
+                                method: "POST",
+                                data: {
+                                    SSPtransDate: SSPtransDate, hiddenNewRec: hiddenNewRec, SSPhospitalNo: SSPhospitalNo, SSPpatGroupCode: SSPpatGroupCode,
+                                    SSPfullName: SSPfullName, SSPgrouphead: SSPgrouphead, SSPfacility: SSPfacility, SSPghgroupcode: SSPghgroupcode,
+                                    SSPreferrer: SSPreferrer, SSPbillsPayableBy: SSPbillsPayableBy, SSPrequestAlert: SSPrequestAlert, SSPaddress: SSPaddress,
+                                    SSPage: SSPage, SSPgender: SSPgender, SSPphone: SSPphone, SSPemail: SSPemail, referenceNo: referenceNo,
+                                    SSPcurrentTotal: SSPcurrentTotal, hiddenCashPaying: hiddenCashPaying, calltype: calltype, tableList: tableList
+                                },
+                                success: function () {
+                                    alert("SUBMIT SUCCESSFUL...");
+                                    ClearControls();
+                                }
+                            })
+
+
+                        }
+                    }
+
+                }
+            })
+
+
+            $(".clearSelectn").on({
+                click: function () {
+                    //Check if no row is in the table
+                    let num = $(".tbody").find("tr").last().find("td").eq(0).text();
+                    Number(num);
+
+                    if (num == 0) {
+                        alert("No Selection Made...");
+                        return;
+                    } else {
+                        if (confirm("Confirm to Remove Selections...")) {
+                            $(".tbody").html("");
+                            return;
+                        }
+                    }
+                }
+            })
+
+
+
+
+
+
+
+            function formatDate1(str) {
+                str = Number(str.slice(str.indexOf("(") + 1, str.indexOf(")")));
+                var d = new Date(str);
+                d = ('0' + d.getDate()).slice(-2) + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + d.getFullYear();
+                return d; //returns 01-01-1970
+            };
+
+        });
+    </script>
+}

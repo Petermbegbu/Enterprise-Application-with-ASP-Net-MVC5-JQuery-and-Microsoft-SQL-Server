@@ -1,0 +1,390 @@
+﻿@model OtherClasses.Models.MR_DATA.MR_DATAvm
+
+@{
+    ViewBag.Title = "PatientInformation";
+    ViewBag.TitleBar = "PATIENTS INFORMATION";
+    Layout = "~/Views/Shared/_MRFormLayout.cshtml";
+}
+
+<section>
+@using (Html.BeginForm("PatientInformation", "File"))
+{
+<div>
+
+    <div class="diff">
+        <div id="groupCode" class="newline n1 lme" style="padding: 3px 2px 8px !important;">
+            <label class="label w-3 w-35 drk">GROUPCODE:</label>
+            <input type="text" name="txt" value="" class="input w-2 w-50" />
+            <input id="getGC" type="button" name="btn" value="" class="btn-small" />
+
+            <span class="span">
+                <label class="label w-3 w-35 drk">PATIENT #:</label>
+                <input type="text" name="txt" value="" class="input w-2 w-50" />
+                <input type="button" name="btn" value="" class="btn-small" />
+            </span>
+
+            <span class="span">
+                <label class="label w-3 w-35 drk">FULL NAME:</label>
+                <input type="text" name="txt" value="" class="input w-2 w-50" />
+            </span>
+        </div>
+
+        <hr class="clm" />
+
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a data-toggle="tab" href="#personalInfo" class="bold" style="background: #f9f9f9;">PERSONAL INFORMATION</a>
+            </li>
+            <li>
+                <a data-toggle="tab" class="bold" href="#otherDetails">OTHER DETAILS</a>
+            </li>
+            <li>
+                <a data-toggle="tab" class="bold" href="#icisDetails" style="background: #f9f9f9;">ICIS DETAILS</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="personalInfo" class="tab-pane fade in active">
+                <div class="dif">
+
+                    <div>
+
+                        <!--Left Block-->
+
+                        <section class="inline-block bblock ww30 w-100 va-top">
+
+                            <div class="newline n1">
+                                <label class="label w-3 w-35">Type</label>
+                                <input type="text" name="txt" value="" class="input w-4 w-50 increase-height" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-3 w-35">Title</label>
+                                <input type="text" name="txt" value="" class="input w-4 w-50 increase-height" />
+                            </div>
+
+
+                            <div class="newline n1">
+                                <label class="label w-3 w-35">Surname</label>
+                                <input type="text" name="txt" value="" class="input w-5 w-50 increase-height" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-3 w-35">Other Names</label>
+                                <input type="text" name="txt" value="" class="input w-5 w-50 increase-height" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-3 w-35">Address 1</label>
+                                <input type="text" name="txt" value="" class="input w-5 w-50 increase-height" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-3 w-35">State</label>
+                                <input type="text" name="txt" value="" class="input w-4 w-50 increase-height" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-3 w-35">Date of Birth</label>
+                                <input type="date" name="date" class="input w-4 w-50 increase-height design" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-3 w-35">Sex</label>
+                                <input type="text" name="txt" value="" class="input w-4 w-50 increase-height" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-3 w-35">Marital Status</label>
+                                <input type="text" name="txt" value="" class="input w-4 w-50 increase-height" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-3 w-35">Blood Group</label>
+                                <input type="text" name="txt" value="" class="input w-4 w-50 increase-height" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-3 w-35">Genotype</label>
+                                <input type="text" name="txt" value="" class="input w-4 w-50 increase-height" />
+                            </div>
+
+                        </section>
+
+
+                        <!--Right Block-->
+
+                        <section class="inline-block bblock w-100 va-top">
+
+                            <div class="newline n1 alc">
+                                <input type="button" name="btnPrint" value="Chained Medical History" class="btn" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-5 w-35">Bills Payable by</label>
+                                <input type="text" name="txt" value="" class="input w-5 w-50 increase-height" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-5 w-35">Group Code</label>
+                                <input type="text" name="txt" value="" class="input w-2 w-50 increase-height" />
+                                <input type="button" name="btn" value="" class="btn-small" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-5 w-35">Code</label>
+                                <input type="text" name="txt" value="" class="input w-2 w-50 increase-height" />
+                                <input type="button" name="btn" value="" class="btn-small" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-5 w-35">Bill Category</label>
+                                <input type="text" name="txt" value="" class="input w-5 w-50 increase-height" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-5 w-35">Bill Circle</label>
+                                <input type="text" name="txt" value="" class="input w-5 w-50 increase-height" />
+                                <span class="span">
+
+                                    <label class="label w-4 w-35">Date Registered</label>
+                                    <input type="date" name="date" class="input w-4 w-50 increase-height design" />
+                                </span>
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-5 w-35">HMO Service Group</label>
+                                <input type="text" name="txt" value="" class="input w-5 w-50 increase-height" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-5 w-35">Credit Limit</label>
+                                <input type="number" name="range" value="0.00" class="input w-2 w-50 design alr" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-5 w-35">Current Debit</label>
+                                <input type="number" name="range" value="0.00" class="input w-2 w-50 design alr" style="background: #0ff !important;" />
+                                <span class="span">
+                                    <label class="label w-4 w-35 drk"><i>Special Discount</i></label>
+                                    <input type="number" name="range" value="0.00" class="input w-2 w-50 design alr" />
+                                </span>
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-5 w-35">Current Credit</label>
+                                <input type="number" name="range" value="0.00" class="input w-2 w-50 design alr" style="background: #0ff !important;" />
+                                <span class="span">
+                                    <label class="label w-2 w-35">Balance</label>
+                                    <input type="number" name="range" value="0.00" class="input w-2 w-50 design orange alr" />
+                                    <label class="label w-35">DB</label>
+                                </span>
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-5 w-35 drk">Billing Currency</label>
+                                <input type="text" name="txt" value="" class="input w-4 w-50 increase-height" />
+                                <span class="span">
+                                    <label class="label w-1 w-35">CLINIC</label>
+                                    <input type="text" name="txt" value="" class="input w-5 w-50 increase-height" />
+                                </span>
+                            </div>
+
+                        </section>
+
+
+
+                    </div>
+
+                    <!--Bottom Block-->
+
+                    <div>
+                        <section class="inline-block bblock ww45 w-100 va-top">
+                            <div class="newline n1">
+                                <label class="label w-35 drk">Medical Notes, Allergies, etc.</label>
+                                <textarea class="txtarea w-50">
+                                </textarea>
+                            </div>
+                        </section>
+
+                        <section class="inline-block bblock ww45 w-100 va-top">
+                            <div class="newline n1">
+                                <label class="label w-35 drk">Special Instructions</label>
+                                <textarea class="txtarea w-50"></textarea>                           
+                             </div>
+                        </section>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <div id="otherDetails" class="tab-pane fade in">
+                <div class="dif">
+
+                    <div>
+
+                        <!--Left Block-->
+
+                        <section class="inline-block bblock ww45 w-100 va-top">
+
+                            <div class="newline n1">
+                                <label class="label w-5 w-35">Referring Doctor</label>
+                                <input type="text" name="txt" value="" class="input w-5 w-50 increase-height" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-5 w-35">Primary Doctor</label>
+                                <input type="text" name="txt" value="" class="input w-5 w-50 increase-height" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-5 w-35">Nationality</label>
+                                <input type="text" name="txt" value="" class="input w-5 w-50 increase-height" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-5 w-35">Home Phone</label>
+                                <input type="text" name="txt" value="" class="input w-7 w-50 increase-height" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-5 w-35">Work Phone</label>
+                                <input type="text" name="txt" value="" class="input w-7 w-50 increase-height" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-5 w-35">E-Mail</label>
+                                <input type="text" name="txt" value="" class="input w-7 w-50 increase-height" />
+                            </div>
+
+
+                            <div class="newline n1">
+                                <label class="label w-5 w-35">Occupation</label>
+                                <input type="text" name="txt" value="" class="input w-5 w-50 increase-height" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-5 w-35 transp">:</label>
+                                <div class="inline-block va-mid">
+                                    <img src="~/Content/Images/picture.png">
+                                    <div>
+                                        <input type="button" name="btnClose" value="Get Patient Picture" class="btn clm" />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </section>
+
+
+                        <!--Right Block-->
+
+                        <section class="inline-block bblock w-100 va-top">
+
+                            <div class="newline n1">
+                                <label class="label w-5 w-35 drk">Next of Kin</label>
+                                <input type="text" name="txt" value="" class="input w-6 w-50" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-5 w-35">Next of Kin Address 1</label>
+                                <textarea class="txtarea w-6 w-50"></textarea>
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-5 w-35">State</label>
+                                <input type="text" name="txt" value="" class="input w-5 w-50" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-5 w-35">Phone</label>
+                                <input type="text" name="txt" value="" class="input w-6 w-50" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-5 w-35">Relationship</label>
+                                <input type="text" name="txt" value="" class="input w-6 w-50" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-5 w-35 drk">EMPLOYER</label>
+                                <input type="text" name="txt" value="" class="input w-6 w-50" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-5 w-35">Address</label>
+                                <input type="text" name="txt" value="" class="input w-6 w-50" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-5 w-35">State</label>
+                                <input type="text" name="txt" value="" class="input w-5 w-50 increase-height" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-5 w-35">Contact Person</label>
+                                <input type="text" name="txt" value="" class="input w-6 w-50" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-35 transp">:</label>
+                                <input type="checkbox" name="txt" value="" class="" />
+                                <label for="IsChkBox" class="label drk">Generate Registration Fee for Members of this Group</label>
+                            </div>
+                        </section>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <div id="icisDetails" class="tab-pane fade in">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="diff">
+        <div class="newline n1 alc">
+            <input type="button" name="btnPrint" value="....." class="btn" />
+            <input type="submit" name="btnClose" value="Group Members" class="btn" />
+            <input type="button" name="btnPrint" value="Save" class="btn" />
+            <input type="button" name="btnClose" value="Delete" class="btn" />
+            <input type="button" name="btnPrint" value="Close" class="btn" />
+        </div>
+    </div>
+</div>
+
+}
+</section>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            $("#groupCode #getGC").on("click", function () {
+
+                $.getJSON('/Customer/Ind/', function (data) {
+
+                    var items = '<table><tr><th>Name</th><th>Address</th></tr>';
+                    $.each(data, function (i, country) {
+                        items += "<tr><td>" + country.Name + "</td><td>" + country.MembershipType.Name + "</td></tr>";
+                    });
+                    items += "</table>";
+
+                    $('#me').html(items);
+                });
+            });
+
+
+        });
+    </script>
+}

@@ -1,0 +1,253 @@
+﻿
+@{
+    ViewBag.Title = "Tariff_ChargeMasterMaintenance";
+    ViewBag.TitleBar = "TARIFF/CHARGE MASTER MAINTENENCE";
+    Layout = "~/Views/Shared/_MRFormLayout.cshtml";
+}
+
+
+<section>
+    <form method="post" action="#">
+
+        <div class="dif">
+
+
+            <!--Top Section-->
+
+            <section class="">
+
+                <div class="dif">
+
+                    <div class="newline n1">
+                        <label class="label w-5 w-35">Reference</label>
+                        <input type="text" name="txt" value="" class="input w-3 w-50" />
+                        <input type="button" name="btn" value="" class="btn-small" />
+                    </div>
+
+                    <div class="newline n1">
+                        <label class="label w-5 w-35">Currency</label>
+                        <input type="text" list="cbo" class="input w-4 w-50 increase-height" />
+                        <datalist id="cbo">
+                            <option value="">-Select VALUE-</option>
+                            <option value="VALUE">VALUE</option>
+                        </datalist>
+                    </div>
+
+                    <div class="newline n1">
+                        <label class="label w-5 w-35">Description</label>
+                        <input type="text" name="txt" value="" class="input w-7 w-50" />
+                    </div>
+
+                    <div class="newline n1">
+                        <label class="label w-5 w-35">Statement Drecsription</label>
+                        <input type="text" name="txt" value="" class="input w-7 w-50" />
+                    </div>
+
+                    <div class="newline n1">
+                        <label class="label w-5 w-35">Category</label>
+                        <input type="text" list="cbo" class="input w-7 w-50 increase-height" />
+                        <datalist id="cbo">
+                            <option value="">-Select VALUE-</option>
+                            <option value="VALUE">VALUE</option>
+                        </datalist>
+
+                        <span class="span">
+                            <label class="label w-5 w-35">Sub_Classification</label>
+                            <input type="text" list="cbo" class="input w-5 w-50 increase-height" />
+                            <datalist id="cbo">
+                                <option value="">-Select VALUE-</option>
+                                <option value="VALUE">VALUE</option>
+                            </datalist>
+                        </span>
+                    </div>
+
+                    <div class="newline n1">
+                        <label class="label w-5 w-35">Amount To Charge</label>
+                        <input type="text" name="txt" value="0.00" class="input w-4 w-50 alr" />
+                    </div>
+
+                    <div class="newline n1">
+                        <label class="label w-5 w-35">Effective Date</label>
+                        <input type="date" name="date" class="input w-4 w-50 increase-height design" />
+
+                        <span class="span">
+                            <label class="label w-5 w-35">Differential Charge?</label>
+                            <input type="text" list="cbo" class="input w-2 w-50 increase-height" />
+                            <datalist id="cbo">
+                                <option value="">-Select VALUE-</option>
+                                <option value="VALUE">VALUE</option>
+                            </datalist>
+                        </span>
+                    </div>
+                </div>
+
+            </section>
+
+            <!--Centre-Row Section-->
+
+            <section>
+
+                <div class="dif">
+                    <div class="newline n1 al-c">
+
+                        <input type="number" name="range" value="0" class="input w-1 w-50 design" />
+
+                        <span class="span">
+                            <input type="text" list="cbo" class="input w-3 w-50 increase-height" />
+                            <datalist id="cbo">
+                                <option value="">-Select VALUE-</option>
+                                <option value="VALUE">VALUE</option>
+                            </datalist>
+                        </span>
+
+                        <span class="span">
+                            <input type="text" list="cbo" class="input w-3 w-50 increase-height" />
+                            <datalist id="cbo">
+                                <option value="">-Select VALUE-</option>
+                                <option value="VALUE">VALUE</option>
+                            </datalist>
+                        </span>
+
+                        <span class="span">
+                            <input type="text" list="cbo" class="input w-3 w-50 increase-height" />
+                            <datalist id="cbo">
+                                <option value="">-Select VALUE-</option>
+                                <option value="VALUE">VALUE</option>
+                            </datalist>
+                        </span>
+
+                        <span class="span">
+                            <input type="text" list="cbo" class="input w-6 w-50 increase-height" />
+                            <datalist id="cbo">
+                                <option value="">-Select VALUE-</option>
+                                <option value="VALUE">VALUE</option>
+                            </datalist>
+                        </span>
+
+                        <span class="span">
+                            <input type="text" list="cbo" class="input w-5 w-50 increase-height" />
+                            <datalist id="cbo">
+                                <option value="">-Select VALUE-</option>
+                                <option value="VALUE">VALUE</option>
+                            </datalist>
+                        </span>
+
+                        <span class="span">
+                            <input type="number" name="range" value="0.00" class="input w-1 w-50 design" />
+                        </span>
+
+                        <span class="span">
+                            <input type="text" name="txt" value="0.00" class="input w-2 w-50 alr" />
+                        </span>
+
+                        <input type="button" name="btnPrint" value="Add" class="btn clm" />
+                        <input type="button" name="btnPrint" value="Remove" class="btn clm" />
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+
+
+            <!--Bottom-Table-->
+
+            <section class="">
+
+                <div class="scroll">
+                    <table>
+                        <tr>
+                            <th class="alc ">Item</th>
+                            <th class="alc ">DayOfWeek</th>
+                            <th class="alc ">Start_Time</th>
+                            <th class="alc ">End_Time</th>
+                            <th class="alc ">Patient Billing Category</th>
+                            <th class="alc ">Diagnosis</th>
+                            <th class="alc ">% Mark-Up</th>
+                            <th class="alc ">Amount</th>
+                            <th class="alc ">Status</th>
+                        </tr>
+
+                        <tr>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                        </tr>
+
+                        <tr>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                        </tr>
+
+                        <tr>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                        </tr>
+
+                        <tr>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                        </tr>
+
+
+                    </table>
+                </div>
+
+            </section>
+
+
+            <!--Button Below-->
+
+            <div class="dif">
+                <div class="newline n1 alc">
+
+                    <label class="label"></label>
+                    <input type="button" name="btnPrint" value="....." class="btn clm" />
+                    <input type="button" name="btnPrint" value="auto-Add" class="btn clm" />
+
+                    <label class="label"></label>
+                    <input type="button" name="btnPrint" value="Submit" class="btn clm" />
+                    <input type="button" name="btnPrint" value="Delete" class="btn clm" />
+
+                    <label class="label w-1"></label>
+                    <input type="button" name="btnPrint" value="Close" class="btn clm" />
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </form>
+</section>
+

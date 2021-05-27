@@ -1,0 +1,206 @@
+﻿
+@{
+    ViewBag.Title = "PatientAdmissionDischargeReasonCode";
+    ViewBag.TitleBar = "PATIENT'S ADMISSION DISCHARGE REASON CODES";
+    Layout = "~/Views/Shared/_MRFormLayout.cshtml";
+}
+
+
+<section>
+    <form method="post" action="#">
+
+        <div class="dif">
+
+            <!--Top Section -->
+            <section>
+
+
+                <div class="dif alc ">
+                    <label class="label drk"><h2>CODE TYPE : ADMISSIONS DISCHARGE CODE DEFINITION</h2></label>
+                </div>
+
+                <div class="newline n1">
+                    <label class="label w-3 w-35">REFERENCE : </label>
+                    <input type="text" list="cbo" class="input w-4 w-50 increase-height" />
+                    <datalist id="cbo">
+                        <option value="">-Select VALUE-</option>
+                        <option value="VALUE">VALUE</option>
+                    </datalist>
+                </div>
+
+                <div class="newline n1">
+                    <label class="label w-3 w-35 ">DESCRIPTION : </label>
+                    <input type="text" list="cbo" class="input w-9 w-50 increase-height" />
+                    <datalist id="cbo">
+                        <option value="">-Select VALUE-</option>
+                        <option value="VALUE">VALUE</option>
+                    </datalist>
+                    <label class="label w-35 line-height "></label>
+                    <input type="button" name="btnPrint" value="Save" class="btn clm" />
+                    <input type="button" name="btnPrint" value="Remove" class="btn clm" />
+                </div>
+
+
+
+            </section>
+
+
+
+
+            <!--Bottomp-Left Table-->
+
+
+
+
+            <section class="inline-block bblock ww70 w-100">
+
+                <div class="scroll">
+                    <table>
+                        <tr>
+                            <th class="alc ">Code</th>
+                            <th class="alc ">Description</th>
+                            <th class="alc ">Exclusive Data</th>
+                            <th class="alc ">Status</th>
+                            <th class="alc ">Prefix</th>
+                            <th class="alc ">Counter</th>
+                        </tr>
+
+                        <tr>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                        </tr>
+
+                        <tr>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                        </tr>
+
+                        <tr>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                        </tr>
+
+                        <tr>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                        </tr>
+
+                        <tr>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                        </tr>
+
+                        <tr>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                        </tr>
+
+                        <tr>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                        </tr>
+
+                        <tr>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                        </tr>
+
+                        <tr>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                            <td class="alc "></td>
+                        </tr>
+
+                    </table>
+                </div>
+
+
+
+            </section>
+
+
+
+            <!--Bottom-Right-->
+
+
+
+
+
+            <section class="inline-block bblock ww25 w-100 va-top al-c">
+
+                <div class="newline n1">
+                    <label class="label ">Sort By : </label>
+                </div>
+
+                <div class="newline n1 line-height">
+                    <input type="radio" id="rdbSRA" name="rdb" />
+                    <label for="rdbSRA" class="label">Reference</label>
+                </div>
+
+                <div class="newline n1 line-height">
+                    <input type="radio" id="rdbSRA1" name="rdb" />
+                    <label for="rdbSRA1" class="label">Description-Alpha</label>
+                </div>
+
+                <div class="newline n1">
+                    <input type="button" name="btnPrint" value="Print" class="btn clm" />
+                </div>
+
+                <div class="newline n1">
+                    <input type="button" name="btnPrint" value="Preview" class="btn clm" />
+                </div>
+
+                <br>
+                <br>
+                <br>
+
+                <div class="newline n1">
+                    <input type="button" name="btnPrint" value="Close" class="btn clm" />
+                </div>
+
+
+
+            </section>
+
+
+        </div>
+
+    </form>
+</section>
+
+

@@ -1,0 +1,253 @@
+﻿
+@{
+    ViewBag.Title = "MedicalStaffDutyRoaster";
+    ViewBag.TitleBar = "MEDICAL STAFF DUTY ROASTER";
+    Layout = "~/Views/Shared/_MRFormLayout.cshtml";
+}
+
+
+<section>
+    <form method="post" action="#">
+
+        <div class="dif">
+
+
+
+            <!--Top Section-->
+
+            <section class="bdr-f w100 red">
+
+                <section class="inline-block ww35 va-top">
+
+                    <div class="newline n1 ">
+                        <label class="label w-1 w-35 drk">YEAR</label>
+                        <input type="number" name="range" value="" class="input w-1 w-50 design" />
+
+                        <span>
+                            <label class="label w-2 w-35 drk">MONTH</label>
+                            <input type="text" list="cbo" class="input w-3 w-50 increase-height" />
+                            <datalist id="cbo">
+                                <option value="">-Select VALUE-</option>
+                                <option value="VALUE">VALUE</option>
+                            </datalist>
+                        </span>
+
+                    </div>
+
+                </section>
+
+                <section class="inline-block ww40 va-top">
+
+                    <div class="newline n1">
+                        <label class="label w-5 w-35 drk">FACILITY/SECTION</label>
+                        <input type="text" list="cbo" class="input w-7 w-50 increase-height" />
+                        <datalist id="cbo">
+                            <option value="">-Select VALUE-</option>
+                            <option value="VALUE">VALUE</option>
+                        </datalist>
+                    </div>
+
+                    <div class="newline n1">
+                        <label class="label w-5 w-35 drk">GROUP</label>
+                        <input type="text" list="cbo" class="input w-5 w-50 increase-height" />
+                        <datalist id="cbo">
+                            <option value="">-Select VALUE-</option>
+                            <option value="VALUE">VALUE</option>
+                        </datalist>
+                    </div>
+
+                </section>
+
+                <section class="inline-block va-top">
+
+                    <div class="newline n1">
+                        <label class="label w-35"></label>
+                        <input type="button" name="btnPrint" value="Defin/Edit Group" class="btn clm" />
+                    </div>
+
+                </section>
+
+
+            </section>
+
+
+            <!--Bottom Section-->
+
+            <section class="bdr-f">
+
+                <div class="newline n1">
+                    <label class="label w-3 w-35"></label>
+                    <input type="button" name="btnPrint" value="Renumber" class="btn clm" />
+
+                    <span class="span">
+                        <label class="label w-5 w-35">Auto Counter</label>
+                        <input type="number" name="range" value="0" class="input w-3 w-50 design" />
+                    </span>
+
+                    <span class="span al-c">
+                        <input type="checkbox" id="chkSRA" name="chk" />
+                        <label for="chkSRA" class="label">Duplicate Previous Record</label>
+                    </span>
+                </div>
+
+            </section>
+
+            <section class="bdr-f">
+
+                <div class="scroll">
+                    <table>
+                        <tr>
+                            <th class="alc ">S/N</th>
+                            <th class="alc ">NAME</th>
+                            <th class="alc ">S/N</th>
+                            <th class="alc ">S/N</th>
+                            <th class="alc ">S/N</th>
+                            <th class="alc ">S/N</th>
+                            <th class="alc ">S/N</th>
+                            <th class="alc ">S/N</th>
+                            <th class="alc ">S/N</th>
+                            <th class="alc ">S/N</th>
+                            <th class="alc ">S/N</th>
+                            <th class="alc ">S/N</th>
+                            <th class="alc ">S/N</th>
+                            <th class="alc ">S/N</th>
+                            <th class="alc ">S/N</th>
+                            <th class="alc ">S/N</th>
+                        </tr>
+
+                        <tr>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                        </tr>
+
+                        <tr>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                        </tr>
+
+                        <tr>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                        </tr>
+
+                        <tr>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                        </tr>
+
+                        <tr>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                        </tr>
+                    </table>
+                </div>
+
+            </section>
+
+
+            <section>
+
+                <div class="bdr-f">
+
+                    <input type="button" name="btnPrint" value="Clear Definitions" class="btn clm" />
+
+                    <span class="span al-c">
+                    <input type="checkbox" id="chkSRA1" name="chk" />
+                    <label for="chkSRA1" class="label">Secure Definitions</label>
+                    </span>
+
+                    <input type="button" name="btnPrint" value="Copy" class="btn clm" />
+
+                    <input type="button" name="btnPrint" value="Print" class="btn clm" />
+
+                    <label class="label w-1 w-35"></label>
+                    <input type="button" name="btnPrint" value="Add" class="btn clm" />
+
+                    <input type="button" name="btnPrint" value="Submit" class="btn clm" />
+
+                    <label class="label w-1 w-35"></label>
+                    <input type="button" name="btnPrint" value="Delete" class="btn clm" />
+
+                    <label class="label w-1 w-35"></label>
+                    <input type="button" name="btnPrint" value="Close" class="btn clm" />
+
+                </div>
+
+            </section>
+
+
+
+        </div>
+
+    </form>
+</section>

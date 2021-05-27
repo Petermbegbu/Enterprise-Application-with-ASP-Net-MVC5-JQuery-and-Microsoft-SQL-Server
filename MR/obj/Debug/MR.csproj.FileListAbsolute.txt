@@ -1,0 +1,309 @@
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\obj\Debug\MR.csprojResolveAssemblyReference.cache
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\roslyn\csc.exe
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\roslyn\vbc.exe
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\roslyn\VBCSCompiler.exe
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\MR.dll.config
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\MR.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\MR.pdb
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\Antlr3.Runtime.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\ARS.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\GLS.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\Microsoft.ReportViewer.Common.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\Microsoft.ReportViewer.ProcessingObjectModel.DLL
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\Microsoft.ReportViewer.WebForms.DLL
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\msfunc.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\Newtonsoft.Json.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\ReportViewerForMvc.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\SCS.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\System.Web.Helpers.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\System.Web.Mvc.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\System.Web.Optimization.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\System.Web.Razor.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\System.Web.WebPages.Deployment.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\System.Web.WebPages.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\System.Web.WebPages.Razor.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\WebGrease.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\Gizmox.WebGUI.Forms.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\Gizmox.WebGUI.Reporting.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\Gizmox.WebGUI.Common.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\Microsoft.SqlServer.Types.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\Gizmox.WebGUI.Forms.Office.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\System.Web.Helpers.xml
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\System.Web.Mvc.xml
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\System.Web.Optimization.xml
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\System.Web.Razor.xml
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\System.Web.WebPages.xml
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\System.Web.WebPages.Deployment.xml
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\System.Web.WebPages.Razor.xml
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\Antlr3.Runtime.pdb
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\Newtonsoft.Json.xml
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\Gizmox.WebGUI.Forms.xml
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\Gizmox.WebGUI.Common.xml
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\de-AT\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\de-DE\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\es-GT\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\fa-IR\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\fr-CA\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\he-IL\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\is-IS\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\ja-JP\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\nl-NL\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\pl-PL\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\pt-BR\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\pt-PT\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\sv-SE\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\tr-TR\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\bin\zh-CHS\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\obj\Debug\MR.dll
+C:\Users\JOSHUA\Documents\Visual Studio 2015\Projects\MR\MR\obj\Debug\MR.pdb
+C:\Users\USER\Documents\MR\MR\MR\obj\Debug\MR.csprojResolveAssemblyReference.cache
+C:\Users\USER\Documents\MR\MR\MR\obj\Debug\MR.dll
+C:\Users\USER\Documents\MR\MR\MR\obj\Debug\MR.pdb
+C:\Users\USER\Documents\MR\MR\MR\bin\roslyn\csc.exe
+C:\Users\USER\Documents\MR\MR\MR\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\USER\Documents\MR\MR\MR\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\USER\Documents\MR\MR\MR\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\roslyn\vbc.exe
+C:\Users\USER\Documents\MR\MR\MR\bin\roslyn\VBCSCompiler.exe
+C:\Users\USER\Documents\MR\MR\MR\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\USER\Documents\MR\MR\MR\bin\MR.dll.config
+C:\Users\USER\Documents\MR\MR\MR\bin\MR.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\MR.pdb
+C:\Users\USER\Documents\MR\MR\MR\bin\Antlr3.Runtime.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\Microsoft.ReportViewer.Common.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\Microsoft.ReportViewer.ProcessingObjectModel.DLL
+C:\Users\USER\Documents\MR\MR\MR\bin\Microsoft.ReportViewer.WebForms.DLL
+C:\Users\USER\Documents\MR\MR\MR\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\mradmin.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\Newtonsoft.Json.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\ReportViewerForMvc.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\System.Web.Helpers.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\System.Web.Mvc.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\System.Web.Optimization.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\System.Web.Razor.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\System.Web.WebPages.Deployment.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\System.Web.WebPages.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\System.Web.WebPages.Razor.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\WebGrease.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\Gizmox.WebGUI.Reporting.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\Microsoft.SqlServer.Types.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\Gizmox.WebGUI.Forms.Office.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\USER\Documents\MR\MR\MR\bin\System.Web.Helpers.xml
+C:\Users\USER\Documents\MR\MR\MR\bin\System.Web.Mvc.xml
+C:\Users\USER\Documents\MR\MR\MR\bin\System.Web.Optimization.xml
+C:\Users\USER\Documents\MR\MR\MR\bin\System.Web.Razor.xml
+C:\Users\USER\Documents\MR\MR\MR\bin\System.Web.WebPages.xml
+C:\Users\USER\Documents\MR\MR\MR\bin\System.Web.WebPages.Deployment.xml
+C:\Users\USER\Documents\MR\MR\MR\bin\System.Web.WebPages.Razor.xml
+C:\Users\USER\Documents\MR\MR\MR\bin\Antlr3.Runtime.pdb
+C:\Users\USER\Documents\MR\MR\MR\bin\Newtonsoft.Json.xml
+C:\Users\USER\Documents\MR\MR\MR\bin\Gizmox.WebGUI.Forms.xml
+C:\Users\USER\Documents\MR\MR\MR\bin\Gizmox.WebGUI.Common.xml
+C:\Users\USER\Documents\MR\MR\MR\bin\de-AT\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\de-DE\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\es-GT\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\fa-IR\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\fr-CA\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\he-IL\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\is-IS\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\ja-JP\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\nl-NL\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\pl-PL\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\pt-BR\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\pt-PT\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\sv-SE\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\tr-TR\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\USER\Documents\MR\MR\MR\bin\zh-CHS\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\obj\Debug\MR.csprojResolveAssemblyReference.cache
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\obj\Debug\MR.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\obj\Debug\MR.pdb
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\roslyn\csc.exe
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\roslyn\vbc.exe
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\roslyn\VBCSCompiler.exe
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\MR.dll.config
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\MR.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\MR.pdb
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\Antlr3.Runtime.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\Microsoft.ReportViewer.Common.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\Microsoft.ReportViewer.ProcessingObjectModel.DLL
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\Microsoft.ReportViewer.WebForms.DLL
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\mradmin.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\Newtonsoft.Json.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\ReportViewerForMvc.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\System.Web.Helpers.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\System.Web.Mvc.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\System.Web.Optimization.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\System.Web.Razor.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\System.Web.WebPages.Deployment.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\System.Web.WebPages.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\System.Web.WebPages.Razor.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\WebGrease.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\Gizmox.WebGUI.Reporting.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\Microsoft.SqlServer.Types.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\Gizmox.WebGUI.Forms.Office.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\Gizmox.WebGUI.Common.xml
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\Gizmox.WebGUI.Forms.xml
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\System.Web.Helpers.xml
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\System.Web.Mvc.xml
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\System.Web.Optimization.xml
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\System.Web.Razor.xml
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\System.Web.WebPages.xml
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\System.Web.WebPages.Deployment.xml
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\System.Web.WebPages.Razor.xml
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\Antlr3.Runtime.pdb
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\Newtonsoft.Json.xml
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\de-AT\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\de-DE\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\es-GT\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\fa-IR\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\fr-CA\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\he-IL\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\is-IS\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\ja-JP\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\nl-NL\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\pl-PL\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\pt-BR\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\pt-PT\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\sv-SE\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\tr-TR\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\MY PC\Documents\Visual Studio Files\MR\MR\MR\bin\zh-CHS\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\roslyn\csc.exe
+C:\Users\MY PC\Desktop\MR\MR\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\MY PC\Desktop\MR\MR\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\MY PC\Desktop\MR\MR\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\roslyn\vbc.exe
+C:\Users\MY PC\Desktop\MR\MR\bin\roslyn\VBCSCompiler.exe
+C:\Users\MY PC\Desktop\MR\MR\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\MY PC\Desktop\MR\MR\bin\MR.dll.config
+C:\Users\MY PC\Desktop\MR\MR\bin\MR.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\MR.pdb
+C:\Users\MY PC\Desktop\MR\MR\bin\Antlr3.Runtime.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\Microsoft.ReportViewer.Common.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\Microsoft.ReportViewer.ProcessingObjectModel.DLL
+C:\Users\MY PC\Desktop\MR\MR\bin\Microsoft.ReportViewer.WebForms.DLL
+C:\Users\MY PC\Desktop\MR\MR\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\Newtonsoft.Json.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\ReportViewerForMvc.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\System.Web.Helpers.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\System.Web.Mvc.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\System.Web.Optimization.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\System.Web.Razor.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\System.Web.WebPages.Deployment.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\System.Web.WebPages.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\System.Web.WebPages.Razor.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\WebGrease.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\Gizmox.WebGUI.Reporting.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\Microsoft.SqlServer.Types.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\Gizmox.WebGUI.Forms.Office.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\Gizmox.WebGUI.Common.xml
+C:\Users\MY PC\Desktop\MR\MR\bin\Gizmox.WebGUI.Forms.xml
+C:\Users\MY PC\Desktop\MR\MR\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\MY PC\Desktop\MR\MR\bin\System.Web.Helpers.xml
+C:\Users\MY PC\Desktop\MR\MR\bin\System.Web.Mvc.xml
+C:\Users\MY PC\Desktop\MR\MR\bin\System.Web.Optimization.xml
+C:\Users\MY PC\Desktop\MR\MR\bin\System.Web.Razor.xml
+C:\Users\MY PC\Desktop\MR\MR\bin\System.Web.WebPages.xml
+C:\Users\MY PC\Desktop\MR\MR\bin\System.Web.WebPages.Deployment.xml
+C:\Users\MY PC\Desktop\MR\MR\bin\System.Web.WebPages.Razor.xml
+C:\Users\MY PC\Desktop\MR\MR\bin\Antlr3.Runtime.pdb
+C:\Users\MY PC\Desktop\MR\MR\bin\Newtonsoft.Json.xml
+C:\Users\MY PC\Desktop\MR\MR\bin\de-AT\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\de-DE\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\es-GT\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\fa-IR\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\fr-CA\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\he-IL\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\is-IS\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\ja-JP\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\nl-NL\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\pl-PL\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\pt-BR\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\pt-PT\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\sv-SE\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\tr-TR\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\MY PC\Desktop\MR\MR\bin\zh-CHS\Gizmox.WebGUI.Forms.resources.dll
+C:\Users\MY PC\Desktop\MR\MR\obj\Debug\MR.csprojResolveAssemblyReference.cache
+C:\Users\MY PC\Desktop\MR\MR\obj\Debug\MR.dll
+C:\Users\MY PC\Desktop\MR\MR\obj\Debug\MR.pdb
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\roslyn\csc.exe
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\roslyn\vbc.exe
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\roslyn\VBCSCompiler.exe
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\MR.dll.config
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\MR.dll
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\MR.pdb
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\Antlr3.Runtime.dll
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\Microsoft.ReportViewer.Common.dll
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\Microsoft.ReportViewer.ProcessingObjectModel.DLL
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\Microsoft.ReportViewer.WebForms.DLL
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\Newtonsoft.Json.dll
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\ReportViewerForMvc.dll
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\System.Web.Helpers.dll
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\System.Web.Mvc.dll
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\System.Web.Optimization.dll
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\System.Web.Razor.dll
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\System.Web.WebPages.Deployment.dll
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\System.Web.WebPages.dll
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\System.Web.WebPages.Razor.dll
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\WebGrease.dll
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\Microsoft.SqlServer.Types.dll
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\System.Web.Helpers.xml
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\System.Web.Mvc.xml
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\System.Web.Optimization.xml
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\System.Web.Razor.xml
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\System.Web.WebPages.xml
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\System.Web.WebPages.Deployment.xml
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\System.Web.WebPages.Razor.xml
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\Antlr3.Runtime.pdb
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\Newtonsoft.Json.xml
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\obj\Debug\MR.dll
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\obj\Debug\MR.pdb
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\obj\Debug\MR.csprojResolveAssemblyReference.cache

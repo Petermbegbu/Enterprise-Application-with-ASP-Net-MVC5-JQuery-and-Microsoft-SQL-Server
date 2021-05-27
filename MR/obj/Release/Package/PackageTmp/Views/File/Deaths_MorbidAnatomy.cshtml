@@ -1,0 +1,134 @@
+﻿
+@{
+    ViewBag.Title = "Deaths_MorbidAnatomy";
+    ViewBag.TitlBar = "DEATH/MORBID ANATOMY";
+    Layout = "~/Views/Shared/_MRFormLayout.cshtml";
+}
+
+<section>
+    <form method="post" action="#">
+
+        <div class="dif">
+
+
+
+            <!--Top Section-->
+
+            <section class="bdr-f w100">
+
+                <section class="inline-block ww80 va-top">
+
+                    <div class="newline n1 ">
+                        <label class="label w-5 w-35">Death Reference</label>
+                        <input type="text" name="txt" value="" class="input w-5 w-50" />
+                        <input type="button" name="btn" value="" class="btn-small" />
+                    </div>
+
+                    <div class="newline n1 ">
+                        <label class="label w-5 w-35">Patient's Group Code</label>
+                        <input type="text" name="txt" value="" class="input w-5 w-50" />
+                        <input type="button" name="btn" value="" class="btn-small" />
+                    </div>
+
+                    <div class="newline n1 ">
+                        <label class="label w-5 w-35">Hospital Number</label>
+                        <input type="text" name="txt" value="" class="input w-5 w-50" />
+                        <input type="button" name="btn" value="" class="btn-small" />
+                    </div>
+
+                    <div class="newline n1 ">
+                        <label class="label w-5 w-35">Patient's Name</label>
+                        <input type="text" name="txt" value="" class="input w-9 w-50" />
+                    </div>
+
+                </section>
+
+                <section class="inline-block va-top">
+
+                    <div class="newline n1">
+
+                        <label class="label w-35 transp">:</label>
+                        <div class="inline-block va-mid">
+                            <img src="~/Content/Images/picture.png">
+                            <div>
+
+                            </div>
+
+                </section>
+
+
+            </section>
+
+
+            <!--Bottom Section-->
+
+            <section class="bdr-f">
+
+                <div class="newline n1">
+                    <label class="label w-7 w-35">Death Date</label>
+                    <input type="date" name="date" class="input w-4 w-50 increase-height design" />
+                </div>
+
+                <div class="newline n1">
+                    <label class="label w-7 w-35">Time of Death</label>
+                    <input type="text" name="txt" value="" class="input w-5 w-50" />
+                </div>
+
+                <div class="newline n1">
+                    <label class="label w-7 w-35">Diagnosis/Cause of Death</label>
+                    <input type="text" list="cbo" class="input w-9 w-50 increase-height" />
+                    <datalist id="cbo">
+                        <option value="">-Select VALUE-</option>
+                        <option value="VALUE">VALUE</option>
+                    </datalist>
+                </div>
+
+                <div class="newline n1">
+                    <label class="label w-7 w-35">Nature of Illness/Comments</label>
+                    <textarea name="txt" value="" rows="4" class="txtarea w-9 w-50"></textarea>
+                </div>
+
+                <div class="newline n1">
+                    <label class="label w-7 w-35">Doctor</label>
+                    <input type="text" list="cbo" class="input w-9 w-50 increase-height" />
+                    <datalist id="cbo">
+                        <option value="">-Select VALUE-</option>
+                        <option value="VALUE">VALUE</option>
+                    </datalist>
+                </div>
+
+                <div class="newline n1">
+                    <label class="label w-7 w-35">Dept./Service Centre</label>
+                    <input type="text" list="cbo" class="input w-9 w-50 increase-height" />
+                    <datalist id="cbo">
+                        <option value="">-Select VALUE-</option>
+                        <option value="VALUE">VALUE</option>
+                    </datalist>
+                </div>
+
+            </section>
+
+
+            <section>
+
+                <div class="bdr-f">
+
+                    <label class="label w-3 w-35"></label>
+                    <input type="button" name="btnPrint" value="Print Death Certificate" class="btn clm" />
+
+                    <label class="label w-4 w-35"></label>
+                    <input type="button" name="btnPrint" value="Submit" class="btn clm" />
+
+                    <label class="label w-4 w-35"></label>
+                    <input type="button" name="btnPrint" value="Close" class="btn clm" />
+
+                </div>
+
+            </section>
+
+
+
+        </div>
+
+    </form>
+</section>

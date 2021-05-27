@@ -1,0 +1,399 @@
+﻿@model OtherClasses.Models.MR_DATA.MR_DATAvm
+
+@{
+    ViewBag.Title = "HMOAuthourizationCode";
+    ViewBag.TitleBar = "HMO TREATMENT AUTHORIZATION DETAILS";
+    Layout = "~/Views/Shared/_MRFormLayout.cshtml";
+}
+
+
+<style>
+
+    .borderLine {
+        border: solid 1px black;
+    }
+   
+    .textarea {
+        width: 400px !important;
+    }
+
+</style>
+
+
+
+<!--Modal Start-->
+<div id="1LkUp" class="djq-modal djq-hide">
+
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR RECORDED DAILY ATTENDANCE</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable1">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+
+
+<section>
+    <form method="post" action="@Url.Action("HMOauthSubmit", "File")">
+
+        <section class="borderLine">
+            <div class="row">
+                <div class="col-md-10">
+                    <section class="py-4 borderLine">
+                        <div class="newline">
+                            <scan>
+                                <label class="label w-7 w-35 drk">Attendance/Treatment Reference</label>
+                                <input type="text" name="REPORTS.txtreference" value="" class="input w-4 w-50 reference cData1" />
+                                <input type="button" id="refLookUp1" name="btn" value="" class="btn-small" />
+                            </scan>
+
+                            <span class="pl-5">
+                                <input type="checkbox" id="chkSRA" name="" checked="checked" class="chkTodaysConsult" />
+                                <label for="chkSRA" class="label drk">Today's Consult Only</label>
+                            </span>
+                        </div>
+
+                        <div class="newline">
+                            <label class="label w-7 w-35 drk">Patient's Group Code</label>
+                            <input type="text" name="REPORTS.txtgroupcode" value="" class="input w-4 w-50 groupCode" />
+                        </div>
+
+                        <div class="newline">
+                            <label class="label w-7 w-35 drk">Hospital Card Number</label>
+                            <input type="text" name="REPORTS.txtpatientno" value="" class="input w-4 w-50 hospitalNo" />
+                        </div>
+
+                        <div class="newline">
+                            <label class="label w-7 w-35 drk">Patient's Name</label>
+                            <input type="text" name="REPORTS.TXTPATIENTNAME" value="" class="input w-10 w-50 fullName" />
+                        </div>
+
+                        <div class="newline">
+                            <label class="label w-7 w-35 drk">Responsible for Bill</label>
+                            <input type="text" name="REPORTS.txtgrouphead" value="" class="input w-10 w-50 responsForBill" />
+                        </div>
+                    </section>
+
+
+                    <section class="py-4 borderLine">
+                        <div class="newline n1">
+                            <label class="label w-7 w-35 drk">Referring Clinic</label>
+                            @Html.DropDownListFor(v => v.SYSCODETABSvm.ServiceCentreCodes.name,
+                                    new SelectList(@Model.SYSCODETABSvm.ServiceCentreCodess, "type_code", "name"), "",
+                                    new { @class = "input w-5 w-50 increase-height referringClinic" })
+                            <span>
+                                <label class="label w-2 w-35 drk">DOC</label>
+                                @Html.DropDownListFor(v => v.DOCTORS.NAME,
+                                        new SelectList(@Model.DOCTORSS, "reference", "name"), "",
+                                        new { @class = "input w-5 w-50 increase-height Doc" })
+                            </span>
+                        </div>
+
+                        <div class="newline n1">
+                            <label class="label w-7 w-35 drk">Referred Clinic</label>
+                            @Html.DropDownListFor(v => v.SYSCODETABSvm.ServiceCentreCodes.name,
+                                    new SelectList(@Model.SYSCODETABSvm.ServiceCentreCodess, "type_code", "name"), "",
+                                    new { @class = "input w-5 w-50 increase-height referredClinic" })
+                        </div>
+
+                        <div class="newline n1">
+                            <label class="label w-7 w-35 drk">Referral Date</label>
+                            <input type="date" name="" value="@String.Format("{0:yyyy-MM-dd}", DateTime.Now)" class="input w-5 w-50 referralDate" />
+                        </div>
+
+                        <div class="newline n1">
+                            <label class="label w-7 w-35 drk">Referral Notes</label>
+                            <textarea value="" rows="5" name="" class="textarea w-7 w-50 referralNotes"></textarea>
+                        </div>
+                    </section>
+
+                    <section class="py-4 borderLine">
+                        <div class="newline n1">
+                            <label class="label w-7 w-35 drk">Date Received</label>
+                            <input type="date" name="REPORTS.TRANS_DATE2" value="@String.Format("{0:yyyy-MM-dd}", DateTime.Now)" class="input w-5 w-50 receivedDate" />
+                        </div>
+
+                        <div class="newline n1 ">
+                            <label class="label w-7 w-35 drk">HMO AUTHORIZATION CODE</label>
+                            <input type="text" name="REPORTS.REPORT_TYPE2" value="" class="input w-5 w-50 authorizCode" />
+                        </div>
+                    </section>
+                </div>
+
+
+                <div class="col-md-2 d-flex align-items-center justify-content-around">
+                    <div class="d-flex justify-content-around flex-wrap">
+                        <scan class="pb-4">
+                            <input type="button" value="List 1" class="btn" />
+                        </scan>
+                        <scan class="pb-4">
+                            <input type="button" value="List 2" class="btn" />
+                        </scan>
+                        <scan class="pb-4">
+                            <input type="button" value="List 3" class="btn" />
+                        </scan>
+                        <scan>
+                            <input type="button" value="List 4" class="btn" />
+                        </scan>
+                    </div>
+                </div>
+            </div>
+
+            <section class="py-3 borderLine">
+                <div class="d-flex justify-content-around">
+                    <input type="button" value="Submit" class="btn submitBtn" />
+                    <input type="button" value="Close" class="btn" />
+                </div>
+            </section>
+
+        </section>
+
+        <input type="hidden" name="REPORTS.newrecString" value="false" class="newRec" />
+    </form>
+    
+    
+</section>
+
+
+
+
+@section scripts 
+{
+    <script>
+        $(function () {
+            var dOM = $('body'); //must assign
+            var formFields = document.getElementById('mainForm'); //must assign, used for calling javaScript methods
+            appendTagInvalid1(dOM, "@ViewBag.iinvalid"); //must call
+            servErrorAlert("#eLkUp", "@ViewBag.Msg"); //must call
+
+            var dTHN1 = ['NAME', 'REFERENCE', 'DATE', 'CLINIC', 'GROUPCODE', 'PATIENTNO']; //for table header
+            var dBCN1 = ['NAME', 'REFERENCE', 'TRANS_DATE', 'CLINIC', 'GROUPCODE', 'PATIENTNO']; //for database header
+            var jaxURL1 = "@Url.Action("RptMRATTENDLookUp", "AJAX")";
+
+            //For patient group code
+            LoadDynamicDT1(jaxURL1, dTHN1, dBCN1, 'MRATTENDS', '#refLookUp1', '#1LkUp', '#regPTable1', '.cData', [3]);
+
+
+            //On Page Load
+            $(".hiddenSubmitBtn").hide();
+            $("#refLookUp1").prop({ disabled: true });
+
+
+            $(".chkTodaysConsult").on({
+                click: function () {
+                    let chkTodaysConsult = $(".chkTodaysConsult").prop("checked");
+
+                    if (chkTodaysConsult) {
+                        $("#refLookUp1").prop({ disabled: true });
+                    } else {
+                        $("#refLookUp1").prop({ disabled: false });
+                    }
+
+                }
+            })
+
+
+
+            $(".reference").on({
+                focusout: function () {
+                    let reference = $(this).val();
+
+                    if (reference.trim() != "") {
+
+                        $.ajax({
+                            url: "/AJAX/HMOreferenceFocusout",
+                            method: "POST",
+                            data: {reference: reference},
+                            success: function (data) {
+                                if (data != null) {
+
+                                    if (data.alertMessage != null) {
+                                        alert(data.alertMessage)
+
+                                        $(".reference").val("");
+                                    }
+
+                                    $(".fullName").val(data.TXTPATIENTNAME);
+                                    $(".hospitalNo").val(data.txtpatientno);
+                                    $(".groupCode").val(data.txtgroupcode);
+
+                                    $(".newRec").val(data.newrec);
+
+                                    if (data.REPORT_TYPE1 != null)
+                                        $(".authorizCode").val(data.REPORT_TYPE1);
+
+                                    if (data.REPORT_TYPE2 != null)
+                                        $(".referralDate").val(data.REPORT_TYPE2);
+
+                                    if (data.REPORT_TYPE3 != null)
+                                        $(".receivedDate").val(data.REPORT_TYPE3);
+
+                                    if (data.REPORT_TYPE4 != null)
+                                        $(".responsForBill").val(data.REPORT_TYPE4);
+
+                                    
+                                }
+                            }
+                        })
+
+
+                    }
+
+                }
+            })
+
+
+            $(".submitBtn").on({
+                click: function () {
+                    let groupCode = $(".groupCode").val();
+                    let hospitalNo = $(".hospitalNo").val();
+                    let reference = $(".reference").val();
+                    let patientName = $(".fullName").val();
+                    let responsForBill = $(".responsForBill").val();
+                    let referringClinic = $(".referringClinic").val();
+                    let referredClinic = $(".referredClinic").val();
+                    let Doc = $(".Doc").val();
+                    let chkTodaysConsult = $(".chkTodaysConsult").prop("checked");
+                    let referralDate = $(".referralDate").val();
+                    let receivedDate = $(".receivedDate").val();
+                    let referralNotes = $(".referralNotes").val();
+                    let authorizCode = $(".authorizCode").val();
+                    let newRec = $(".newRec").val();
+                    
+
+                    //The REPORTS Model holds the Object
+                    let dataObject = {
+                        txtreference: reference,
+                        txtgroupcode: groupCode,
+                        txtpatientno: hospitalNo,
+                        TXTPATIENTNAME: patientName,
+                        combillcycle: responsForBill,
+                        txtclinic: referringClinic,
+                        txtstaffno: referredClinic,
+                        cbotitle: Doc,
+                        cmbsave: chkTodaysConsult,
+                        REPORT_TYPE1: referralDate,
+                        REPORT_TYPE2: receivedDate,
+                        edtallergies: referralNotes,
+                        txtgrouphead: authorizCode,
+                        newrecString: newRec
+                    }
+
+
+                    if (groupCode.trim() == "") {
+                        alert("Group Code is Required");
+                        $(".groupCode").focus();
+                        return;
+                    } else if (hospitalNo.trim() == "") {
+                        alert("Hospital No is Required");
+                        $(".hospitalNo").focus();
+                        return;
+                    } else if (patientName.trim() == "") {
+                        alert("Patient Name is Required");
+                        $(".fullName").focus();
+                        return;
+                    } else if (responsForBill.trim() == "") {
+                        alert("Responsible For Bills is Required");
+                        $(".respForBills").focus();
+                        return;
+                    } else if (referringClinic.trim() == "") {
+                        alert("Referring Clinic is Required");
+                        $(".referringClinic").focus();
+                        return;
+                    } else if (referredClinic.trim() == "") {
+                        alert("Referred Clinic is Required");
+                        $(".referredClinic").focus();
+                        return;
+                    } else if (Doc.trim() == "") {
+                        alert("Doc is Required");
+                        $(".Doc").focus();
+                        return;
+                    } else if (reference.trim() == "") {
+                        alert("Reference is Required");
+                        $(".reference").focus();
+                        return;
+                    } else {
+                        if (confirm("Confirm to Submit Details...")) {
+
+                            $.ajax({
+                                url: "/AJAX/HMOauthSubmit",
+                                method: "POST",
+                                data: { dataObject: dataObject },
+                                success: function (data) {
+                                    if (data != null) {
+
+                                        if (data.alertMessage != null) {
+                                            alert(data.alertMessage);
+                                        }
+                                    }
+                                }
+                            })
+
+                        }
+                    }
+                    
+
+                }
+            })
+
+
+
+
+
+
+        })
+    </script>
+    
+}

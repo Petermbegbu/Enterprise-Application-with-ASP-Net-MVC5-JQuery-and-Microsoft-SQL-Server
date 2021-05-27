@@ -1,0 +1,332 @@
+﻿@using ReportViewerForMvc
+@model OtherClasses.Models.MR_DATA.MR_DATAvm
+
+@{
+    ViewBag.Title = "ReceiptGenerator";
+    ViewBag.TitleBar = "RECEIPT GENERATOR";
+    Layout = "~/Views/Shared/_MRFormLayout.cshtml";
+
+    bool hasData = false; string b = "in active";
+    if (Model.REPORTS != null && Model.REPORTS.GeneratedReport != null)
+    { hasData = true; }
+}
+
+<style>
+    .borderLine {
+        border: solid 1px black;
+    }
+
+    .title1 {
+        font-size: 17px;
+        font-weight: bold;
+    }
+
+    .title2 {
+        font-size: 14px;
+        font-weight: bold;
+    }
+</style>
+
+
+<!--Modal Start-->
+<div id="6LkUp" class="djq-modal djq-hide">
+
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR SAVED PAYMENT RECORDS</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable6">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+
+
+<form method="post" action="@Url.Action("ReportViewer", "File", new { formTitle= "ReceiptGenerator" })">
+    <div class="diff tab-content">
+
+        <div id="TAB1" class="tab-pane fade  @if (!hasData) { @b}">
+
+            <section class="receiptForm borderLine">
+
+                <section class="py-5">
+                    <scan>
+                        <label class="label drk w-10 w-35">Enter Payment / Receipt # to Print</label>
+                        <input type="text" name="REPORTS.txtreference" value="" class="input w-6 w-50 increase-height gData1 receiptRefNo" />
+                        <input type="button" name="btn" id="refLookUp6" class="btn-small receiptRefNo" />
+                    </scan>
+                </section>
+
+                <section class="lme py-4">
+                    <div class="row">
+                        <div class="col-md-4 text-right">
+                            <scan class="font-weight-bold title2">
+                                SELECT RECEIPT FORMAT
+                            </scan>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="d-flex justify-content-around">
+                                <scan class="">
+                                    <input type="radio" id="radio7" name="REPORTS.REPORT_TYPE1" value="chkRecptSMS" class="chkRecptSMS" />
+                                    <label for="radio7" class="label drk">SMS</label>
+                                </scan>
+                                <scan class="">
+                                    <input type="radio" id="radio8" name="REPORTS.REPORT_TYPE1" value="chkRecptPOS" class="chkRecptPOS" checked="checked" />
+                                    <label for="radio8" class="label drk">POS Receipt</label>
+                                </scan>
+                                <scan class="">
+                                    <input type="radio" id="radio9" name="REPORTS.REPORT_TYPE1" value="chkRecptStandard" class="chkRecptStandard" />
+                                    <label for="radio9" class="label drk">Standard</label>
+                                </scan>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="py-5">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="text-center mb-1">
+                                <input type="text" value="" name="REPORTS.TXTPATIENTNAME" class="input w-10 w-70 increase-height recptName" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="text-center">
+                                <input type="number" value="" name="REPORTS.nmrMinBalance" placeholder="0.00" class="input w-5 w-70 increase-height alr recptAmount" />
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+                @*<section class="borderLine">
+                    <div class="d-flex justify-content-around py-3">
+                        <input type="button" value="Print" class="btn clm" />
+                        <input type="button" value="Preview" class="btn clm receiptPreviewBtn" />
+                        <input type="button" value="Close" class="btn clm receiptCloseBtn" />
+                    </div>
+                </section>*@
+
+
+                <input type="hidden" value="" class="recptGroupCode" />
+                <input type="hidden" value="" class="recptPatientNo" />
+                <input type="hidden" value="" class="recptDescription" />
+                <input type="hidden" name="REPORTS.REPORT_TYPE4" value="" class="recptDateTo" />
+                <input type="hidden" name="REPORTS.REPORT_TYPE5" value="" class="recptDateFrom" />
+                <input type="hidden" value="REPORTS.chkAuditProfile" class="isdataset" />
+                <input type="hidden" name="REPORTS.txtaddress1" value="" class="dtpay" />
+                <input type="hidden" value="@Model.REPORTS.chkgetdependants" class="disallowbackdate" />
+
+                <input type="hidden" value="@Model.REPORTS.alertMessage" class="alertMessage" />
+
+            </section>
+
+        </div>
+
+        <div id="TAB2" class="rpt tab-pane fade  @if (hasData) { @b} alc">
+            @if (hasData)
+            { @Html.ReportViewer(Model.REPORTS.GeneratedReport as Microsoft.Reporting.WebForms.ReportViewer, new { @class = "" }) }
+            else
+            {
+            <div style="min-height:50%;"><label class="lbl">Report Unavailable.</label></div>
+            }
+        </div>
+
+    </div>
+
+    <div class="newline n1 alc dif">
+        <br />
+        <input type="button" value="BACK" id="back1" class="btn" title="HINT: DOUBLE CLICK TO SHOW CLOSED REPORT" />
+        <a data-toggle="tab" class="" id="back2" href="#TAB1"></a>
+        <a data-toggle="tab" id="back3" class="" href="@if (hasData) { @("#TAB2") } else { @("#") } "></a>
+
+        &nbsp;&nbsp;&nbsp;
+
+        <input type="button" name="" value="PRINT" id="print1" class="btn" />
+        <input type="hidden" id="pdfPath"
+               value="@if (hasData) { @(string.IsNullOrWhiteSpace(Model.REPORTS.PdfPath) ? "" : Model.REPORTS.PdfPath)} " />
+        <input type="hidden" value="False" name="REPORTS.PRINT" id="print2" />
+
+        &nbsp;&nbsp;&nbsp;
+
+        <input type="button" name="" value="PREVIEW" id="pre1" class="btn previewBtn" />
+        <input type="submit" name="" value="" id="send" class="djq-hide" />
+
+        <!--
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <a href="~/Home/Index" title="Close"><input type="button" name="btnClose" value="Close" class="btn oraa" /></a>
+
+        <br /><br />
+    </div>
+
+</form>
+
+
+
+@section scripts
+{
+    <script>
+        $(function () {
+            var dOM = $('body'); //must assign
+            var formFields = document.getElementById('mainForm'); //must assign, used for calling javaScript methods
+            appendTagInvalid1(dOM, "@ViewBag.iinvalid"); //must call
+            servErrorAlert("#eLkUp", "@ViewBag.Msg"); //must call
+
+            var dTHN2 = ['NAME', 'REFERENCE', 'TRANS_DATE', 'ITEMNO', 'AMOUNT', 'GROUPHEAD']; //for table header
+            var dBCN2 = ['NAME', 'REFERENCE', 'TRANS_DATE', 'ITEMNO', 'AMOUNT', 'GROUPHEAD']; //for database header
+            var jaxURL2 = "@Url.Action("RptPaydetailLookUp", "AJAX")";
+
+
+            //Receipt Generator Reference
+            LoadDynamicDT1(jaxURL2, dTHN2, dBCN2, 'PAYDETAILS', '#refLookUp6', '#6LkUp', '#regPTable6', '.gData', [3]);
+
+            //On Load
+            let alertMessage = $(".alertMessage").val().trim();
+            if (alertMessage != "") {
+                alert(alertMessage);
+            }
+
+
+            $(".chkRecptSMS").on({
+                click: function () {
+                    $(".previewBtn").prop({ value: "Send" });
+
+                }
+            })
+
+            $(".chkRecptPOS").on({
+                click: function () {
+                    $(".previewBtn").prop({ value: "Preview" });
+
+                }
+            })
+
+            $(".chkRecptStandard").on({
+                click: function () {
+                    $(".previewBtn").prop({ value: "Preview" });
+
+                }
+            })
+
+
+            $(".receiptRefNo").on({
+                focusout: function () {
+                    let receiptRefNo = $(this).val();
+
+                    if (receiptRefNo.trim() != "") {
+                        $.ajax({
+                            url: "/AJAX/receiptRefNoFocusout",
+                            method: "POST",
+                            data: { receiptRefNo: receiptRefNo },
+                            success: function (data) {
+                                if (data != null) {
+                                    if (data.alertMessage != null) {
+                                        alert(data.alertMessage);
+                                        $(".receiptRefNo").val("").focus();
+                                        return;
+                                    }
+
+                                    $(".recptGroupCode").val(data.txtgroupcode);
+                                    $(".recptPatientNo").val(data.txtpatientno);
+                                    $(".recptDescription").val(data.REPORT_TYPE1);
+                                    $(".recptName").val(data.TXTPATIENTNAME);
+                                    $(".recptAmount").val(data.txtdiscount);
+                                    $(".recptDateFrom").val(data.REPORT_TYPE2);
+                                    $(".recptDateTo").val(data.REPORT_TYPE2);
+                                    $(".isdataset").val(data.chkADVCorporate);
+                                    $(".dtpay").val(data.chkbillregistration);
+
+                                }
+                            }
+                        })
+                    }
+                }
+            })
+
+
+
+
+
+            RptBtns(dOM, '@(hasData?(Model.REPORTS.PRINT?"True":""):"")');
+
+            dOM.find('#pre1').on({
+                click: function () {
+                    let recptName = $(".recptName").val();
+                    let disallowbackdate = $(".disallowbackdate").val();
+                    let recptDateFrom = $(".recptDateFrom").val();
+                    let dateFrom = new Date(recptDateFrom);
+                    let todaysDate = new Date();
+
+                    if (recptName.trim() == "") {
+                        alert("Payment Record/Customer must be Retrieved...");
+                        $(".recptName").focus();
+                        return;
+                    } else if (disallowbackdate && dateFrom < todaysDate) {
+                        alert("Can't print Receipt for Transaction Date Less Than Today...");
+                        return;
+                    } else {
+                        dOM.find('#send').click();
+                    }
+                }
+            });
+
+        });
+
+
+
+    </script>
+}

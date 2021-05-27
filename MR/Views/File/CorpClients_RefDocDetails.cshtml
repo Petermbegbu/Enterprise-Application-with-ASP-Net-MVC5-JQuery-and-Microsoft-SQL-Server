@@ -1,0 +1,302 @@
+﻿
+@{
+    ViewBag.Title = "CorpClients_RefDocDetails";
+    ViewBag.Title = "CORPORATE CLIENTS/REFERRING DOCTORS DETAILS";
+    Layout = "~/Views/Shared/_MRFormLayout.cshtml";
+}
+
+
+<section>
+    <form method="post" action="#">
+
+        <div class="dif">
+
+
+            <!--Top-Left Section-->
+
+            <section class="inline-block ww50 va-top dif">
+
+
+                <div class="newline n1">
+                    <label class="label w-3 w-35 drk">Reference</label>
+                    <input type="text" name="txt" value="" class="input w-4 w-50" />
+                    <input type="button" name="btn" value="" class="btn-small" />
+                </div>
+
+                <div class="newline n1">
+                    <label class="label w-3 w-35 drk">Full Name</label>
+                    <input type="text" name="txt" value="" class="input w-7 w-50" />
+
+                    <span class="span al-c">
+                        <label class="label w-35"></label>
+                        <input type="checkbox" id="chkSRA" name="chk" />
+                        <label for="chkSRA" class="label">Referring Doctor/Clinic</label>
+                    </span>
+                </div>
+
+                <div class="newline n1">
+                    <label class="label w-3 w-35 drk">Classification</label>
+                    <input type="text" list="cbo" class="input w-7 w-50 increase-height" />
+                    <datalist id="cbo">
+                        <option value="">-Select VALUE-</option>
+                        <option value="VALUE">VALUE</option>
+                    </datalist>
+                </div>
+
+                <div class="newline n1">
+                    <label class="label w-3 w-35 drk">Address1</label>
+                    <input type="text" name="txt" value="" class="input w-9 w-50" />
+                </div>
+
+                <div class="newline n1">
+                    <label class="label w-3 w-35 drk">State</label>
+                    <input type="text" list="cbo" class="input w-5 w-50 increase-height" />
+                    <datalist id="cbo">
+                        <option value="">-Select VALUE-</option>
+                        <option value="VALUE">VALUE</option>
+                    </datalist>
+                </div>
+
+                <div class="newline n1">
+                    <label class="label w-3 w-35 drk">Country</label>
+                    <input type="text" list="cbo" class="input w-5 w-50 increase-height" />
+                    <datalist id="cbo">
+                        <option value="">-Select VALUE-</option>
+                        <option value="VALUE">VALUE</option>
+                    </datalist>
+                </div>
+
+                <div class="newline n1">
+                    <label class="label w-3 w-35 drk">Phone</label>
+                    <input type="text" name="txt" value="" class="input w-7 w-50" />
+                </div>
+
+                <div class="newline n1">
+                    <label class="label w-3 w-35 drk">E-mail Address</label>
+                    <input type="text" name="txt" value="" class="input w-9 w-50" />
+                </div>
+
+                <div class="newline n1">
+                    <label class="label w-3 w-35 drk">Contact Person</label>
+                    <input type="text" name="txt" value="" class="input w-7 w-50" />
+                </div>
+
+                <div class="newline n1">
+                    <label class="label w-3 w-35 drk">Date Registered</label>
+                    <input type="date" name="date" class="input w-4 w-50 increase-height design" />
+
+                    <span class="span">
+                        <label class="label w-3 w-35 drk">HMO Reference</label>
+                        <input type="text" list="cbo" class="input w-5 w-50 increase-height" />
+                        <datalist id="cbo">
+                            <option value="">-Select VALUE-</option>
+                            <option value="VALUE">VALUE</option>
+                        </datalist>
+                    </span>
+                </div>
+
+
+            </section>
+
+            
+            <!--Top-Right Section-->
+
+
+            <section class="inline-block va-top dif">
+
+                <div class="newline n1">
+                    <label class="label w-7 w-35 drk">Account Number for Direct Credit</label>
+                    <input type="text" name="txt" value="" class="input w-4 w-50" />
+                </div>
+
+                <div class="newline n1">
+                    <label class="label w-7 w-35 drk">Bank / Branch</label>
+                    <input type="text" name="txt" value="" class="input w-4 w-50" />
+                </div>
+
+                <div class="newline n1">
+                    <label class="label w-6 w-35 drk">Current Debit</label>
+                    <input type="text" name="txt" value="0.00" class="input w-4 w-50 alr" />
+                </div>
+
+                <div class="newline n1">
+                    <label class="label w-6 w-35 drk">Current Credit</label>
+                    <input type="text" name="txt" value="0.00" class="input w-4 w-50 alr" />
+                </div>
+
+                <div class="newline n1">
+                    <label class="label w-6 w-35 drk">Balance</label>
+                    <input type="text" name="txt" value="0.00" class="input w-4 w-50 alr cred" />
+                    <label class="label drk">...</label>
+                </div>
+
+                <div class="newline n1">
+                    <label class="label w-6 w-35 drk">Credit Limit</label>
+                    <input type="text" name="txt" value="0.00" class="input w-4 w-50 alr" />
+                </div>
+
+                <div class="newline n1">
+                    <label class="label w-6 w-35 drk">Last Patient #</label>
+                    <input type="number" name="range" value="0" class="input w-4 w-50 design" />
+                </div>
+
+                <div class="newline n1">
+                    <label class="label w-6 w-35 drk">Default Billing Currency</label>
+                    <input type="text" list="cbo" class="input w-4 w-50 increase-height" />
+                    <datalist id="cbo">
+                        <option value="">-Select VALUE-</option>
+                        <option value="VALUE">VALUE</option>
+                    </datalist>
+                </div>
+
+                <div class="newline n1">
+                    <label class="label w-6 w-35 drk">Bill Category</label>
+                    <input type="text" list="cbo" class="input w-4 w-50 increase-height" />
+                    <datalist id="cbo">
+                        <option value="">-Select VALUE-</option>
+                        <option value="VALUE">VALUE</option>
+                    </datalist>
+                </div>
+
+                <div class="newline n1">
+                    <label class="label w-6 w-35 drk">Bill Cycle</label>
+                    <input type="text" list="cbo" class="input w-4 w-50 increase-height" />
+                    <datalist id="cbo">
+                        <option value="">-Select VALUE-</option>
+                        <option value="VALUE">VALUE</option>
+                    </datalist>
+                </div>
+                
+
+            </section>
+
+
+            <!--Centre Section-->
+
+
+            <section>
+                <fieldset class="inline-block">
+                    <legend class="ll cred drk alc">DEFAULT SETTINGS</legend>
+
+                    <div class="inline-block ww48 va-top ">
+                        <div class="newline n1">
+                            <input type="checkbox" id="chkSRA1" name="chk" />
+                            <label for="chkSRA1" class="label">Auto Track Monthly Referral Form</label>
+                        </div>
+
+                        <div class="newline n1">
+                            <input type="checkbox" id="chkSRA2" name="chk" />
+                            <label for="chkSRA2" class="label">Enforce Insurance/Attendance Form at Front Desk</label>
+                        </div>
+
+                        <div class="newline n1">
+                            <input type="checkbox" id="chkSRA3" name="chk" />
+                            <label for="chkSRA3" class="label">Link Defined Admission Space to this Client</label>
+                        </div>
+
+                        <div class="newline n1">
+                            <input type="checkbox" id="chkSRA4" name="chk" />
+                            <label for="chkSRA4" class="label">Send Alert to Customer Service for Visit Approval</label>
+                        </div>
+
+                        <div class="newline n1">
+                            <input type="checkbox" id="chkSRA5" name="chk" />
+                            <label for="chkSRA5" class="label">Generate Registration Fees for Members of this Group</label>
+                        </div>
+
+                        <div class="newline n1">
+                            <input type="checkbox" id="chkSRA6" name="chk" />
+                            <label for="chkSRA6" class="label">Patient must Sign Generated Bill for Every Visit</label>
+                        </div>
+
+
+                    </div>
+
+                    <div class="inline-block ww48 w-100 va-top">
+
+                        <div class="newline n1">
+                            <input type="checkbox" id="chkSRA7" name="chk" />
+                            <label for="chkSRA7" class="label">Link Dependants Records to Principal During Registration</label>
+                        </div>
+
+                        <div class="newline n1">
+                            <label class="label w-4 w-35 drk">Gen. Consultation</label>
+                            <input type="text" name="txt" value="0.00" class="input w-3 w-50 alr" />
+                        </div>
+
+                        <div class="newline n1">
+                            <label class="label w-4 w-35 drk">Bed Space Tariff</label>
+                            <input type="text" name="txt" value="0.00" class="input w-3 w-50 alr" />
+
+                            <span class="span">
+                                <label class="label w-35 drk">Feeding...</label>
+                                <input type="text" name="txt" value="0.00" class="input w-3 w-50 alr" />
+                            </span>
+                        </div>
+
+                        <div class="newline n1">
+                            <label class="label w-8 w-35 drk">Restricted Total Drug Cost per Visit</label>
+                            <input type="text" name="txt" value="0.00" class="input w-3 w-50 alr" />
+                        </div>
+
+                        <div class="newline n1">
+                            <label class="label w-11 w-35 drk">% of Total Admission Bill to Add on Discharge</label>
+                            <input type="text" name="txt" value="0.00" class="input w-3 w-50 alr" />
+                        </div>
+
+
+                    </div>
+                    
+                </fieldset>
+                
+             </section>
+
+            
+            <!--Bottom Section-->
+
+            <section>
+
+                <div class="dif">
+                    <fieldset class="inline-block">
+                        <legend class="ll drk alc al-c">Special Discount Table</legend>
+
+                        <div class="newline n1">
+                            <label class="label w-4 w-35 drk">% Discount</label>
+                            <input type="text" name="txt" value="0.00" class="input w-3 w-50" />
+                        </div>
+                    </fieldset>
+
+                    <span class="span">
+                        <label class="label w-5 w-35 drk">Enter/Edit Special Instructions Here</label>
+                        <textarea name="txt" value="" rows="4" class="txtarea w-10 w-50"></textarea>
+                    </span>
+
+                </div>
+            </section>
+
+            <!--Button Below-->
+
+            <section>
+
+
+                <div class="dif">
+                    <div class="newline n1 alc">
+
+                        <label class="label w-2"></label>
+                        <input type="button" name="btnPrint" value="Submit" class="btn clm" />
+
+                        <label class="label w-2 "></label>
+                        <input type="button" name="btnPrint" value="Delete" class="btn clm" />
+
+                        <label class="label w-2 "></label>
+                        <input type="button" name="btnPrint" value="Close" class="btn clm" />
+
+                    </div>
+                </div>
+            </section>
+
+
+        </div>
+
+    </form>
+</section>

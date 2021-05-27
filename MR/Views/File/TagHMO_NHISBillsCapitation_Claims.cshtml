@@ -1,0 +1,148 @@
+﻿
+@{
+    ViewBag.Title = "TagHMO_NHISBillsCapitation_Claims";
+    ViewBag.TitleBar = "TAG HOM/NHIS BILLS - CAPITATTION/CLAIMS";
+    Layout = "~/Views/Shared/_MRFormLayout.cshtml";
+}
+
+
+<section>
+    <form method="post" action="#">
+
+        <div class="dif">
+
+
+            <!--Top Section-->
+
+            <section class="inline-block w-100 va-top bdr-f">
+
+
+                <div class="newline n1">
+                    <label class="label w-8 w-35 drk">Select Transaction Date Range</label>
+                    <input type="date" name="date" class="input w-4 w-50 increase-height design" />
+
+                    <span class="span">
+                        <label class="label w-1 w-35 drk">TO:</label>
+                        <input type="date" name="date" class="input w-4 w-50 increase-height design" />
+                    </span>
+
+                    <span class="span">
+                        <label class="label w-3 w-35 drk"><i>Search Name</i></label>
+                        <input type="text" name="txt" value="" class="input w-5 w-50" />
+                        <input type="button" name="btnPrint" value="GO" class="btn clm" />
+                    </span>
+                </div>
+
+                <div class="newline n1">
+                    <label class="label w-8 w-35 drk">Select HMO Client for Bills Tagging</label>
+                    <input type="text" name="txt" value="" class="input w-5 w-50" />
+                    <input type="button" name="btn" value="" class="btn-small" />
+                    <input type="text" name="txt" value="" class="input w-7 w-50" />
+                    <input type="button" name="btnPrint" value="Load Bills" class="btn clm" />
+                    <input type="button" name="btnPrint" value="Submit" class="btn clm" />
+                    <label class="label w-1 w-35"></label>
+                    <input type="button" name="btnPrint" value="Close" class="btn clm" />
+
+                </div>
+
+
+
+
+            </section>
+
+
+
+
+
+            <!--Bottom-Table Section-->
+
+            <section class="inline-block va-top">
+
+                <div class="scroll">
+                    <table>
+                        <tr>
+                            <th class="alc ">Reference</th>
+                            <th class="alc ">No.</th>
+                            <th class="alc ">TAG</th>
+                            <th class="alc ">Group Code</th>
+                            <th class="alc ">Patient No.</th>
+                            <th class="alc ">Name</th>
+                            <th class="alc ">Diagnosis</th>
+                            <th class="alc ">Facility</th>
+                            <th class="alc ">Service Description</th>
+                            <th class="alc ">Amount</th>
+                            <th class="alc ">Updated</th>
+                            <th class="alc ">RECID</th>
+                        </tr>
+
+                        <tr>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                        </tr>
+
+                        <tr>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                        </tr>
+
+                        <tr>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                        </tr>
+
+                        <tr>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                            <td class="alc ">.</td>
+                            <td class="alc "></td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </section>
+
+
+        </div>
+
+    </form>
+</section>
+

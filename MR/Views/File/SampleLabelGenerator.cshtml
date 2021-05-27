@@ -1,0 +1,262 @@
+﻿@using ReportViewerForMvc
+@model OtherClasses.Models.MR_DATA.MR_DATAvm
+
+@{
+    ViewBag.Title = "SampleLabelGenerator";
+    ViewBag.TitleBar = "SAMPLE LABEL GENERATOR";
+    Layout = "~/Views/Shared/_MRFormLayout.cshtml";
+
+    bool hasData = false; string b = "in active";
+    if (Model.REPORTS != null && Model.REPORTS.GeneratedReport != null)
+    { hasData = true; }
+}
+
+<style>
+    .borderLine {
+        border: solid 1px black;
+    }
+
+    .title1 {
+        font-size: 17px;
+        font-weight: bold;
+    }
+
+    .title2 {
+        font-size: 14px;
+        font-weight: bold;
+    }
+</style>
+
+
+<!--Modal Start-->
+<div id="1LkUp" class="djq-modal djq-hide">
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR RECORDED DAILY ATTENDANCE</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable1">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+
+<form method="post" action="@Url.Action("ReportViewer", "File", new { formTitle= "SampleLabelGenerator" })">
+    <div class="diff tab-content">
+
+        <div id="TAB1" class="tab-pane fade  @if (!hasData) { @b}">
+
+            <section class="receiptForm borderLine">
+
+                <section class="py-5">
+                    <div class="newline n1">
+                        <label class="label drk w-10 w-35">Service Center/Facility</label>
+                        @Html.DropDownListFor(v => v.SYSCODETABSvm.ServiceCentreCodes.name,
+                                new SelectList(@Model.SYSCODETABSvm.ServiceCentreCodess, "type_code", "NAME"), "",
+                                new { @class = "input w-8 w-50 increase-height facility" })
+                    </div>
+
+                    <div class="newline n1">
+                        <label class="label drk w-10 w-35">Enter Request Sample Reference</label>
+                        <input type="text" name="REPORTS.txtreference" value="" class="input w-8 w-50 increase-height sampleReference cData1" />
+                        <input type="button" name="btn" id="refLookUp1" class="btn-small" />
+                    </div>
+
+                    <div class="newline n1">
+                        <label class="label drk w-10 w-35">Select Test for Sample Label</label>
+                        <select class="input w-8 w-50 increase-height">
+                        </select>
+                    </div>
+
+                    <div class="newline n1">
+                        <label class="label drk w-10 w-35"></label>
+                        <input type="text" name="" value="" class="input w-8 w-50 increase-height name" />
+                    </div>
+                </section>
+
+
+
+                <input type="hidden" value="REPORTS.chkAuditProfile" class="isdataset" />
+                <input type="hidden" name="REPORTS.REPORT_TYPE4" value="" class="dateTo" />
+                <input type="hidden" name="REPORTS.REPORT_TYPE5" value="" class="dateFrom" />
+            </section>
+
+        </div>
+
+        <div id="TAB2" class="rpt tab-pane fade  @if (hasData) { @b} alc">
+            @if (hasData)
+            { @Html.ReportViewer(Model.REPORTS.GeneratedReport as Microsoft.Reporting.WebForms.ReportViewer, new { @class = "" }) }
+            else
+            {
+                <div style="min-height:50%;"><label class="lbl">Report Unavailable.</label></div>
+            }
+        </div>
+
+    </div>
+
+    <div class="newline n1 alc dif">
+        <br />
+        <input type="button" value="BACK" id="back1" class="btn" title="HINT: DOUBLE CLICK TO SHOW CLOSED REPORT" />
+        <a data-toggle="tab" class="" id="back2" href="#TAB1"></a>
+        <a data-toggle="tab" id="back3" class="" href="@if (hasData) { @("#TAB2") } else { @("#") } "></a>
+
+        &nbsp;&nbsp;&nbsp;
+
+        <input type="button" name="" value="PRINT" id="print1" class="btn" />
+        <input type="hidden" id="pdfPath"
+               value="@if (hasData) { @(string.IsNullOrWhiteSpace(Model.REPORTS.PdfPath) ? "" : Model.REPORTS.PdfPath)} " />
+        <input type="hidden" value="False" name="REPORTS.PRINT" id="print2" />
+
+        &nbsp;&nbsp;&nbsp;
+
+        <input type="button" name="" value="PREVIEW" id="pre1" class="btn" />
+        <input type="submit" name="" value="" id="send" class="djq-hide" />
+
+        <!--
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <a href="~/Home/Index" title="Close"><input type="button" name="btnClose" value="Close" class="btn oraa" /></a>
+
+        <br /><br />
+    </div>
+
+</form>
+
+
+
+@section scripts
+{
+    <script>
+        $(function () {
+            var dOM = $('body'); //must assign
+            var formFields = document.getElementById('mainForm'); //must assign, used for calling javaScript methods
+            appendTagInvalid1(dOM, "@ViewBag.iinvalid"); //must call
+            servErrorAlert("#eLkUp", "@ViewBag.Msg"); //must call
+
+            
+            var dTHN1 = ['NAME', 'REFERENCE', 'FACILITY', 'GROUPCODE', 'PATIENTNO', 'ADDRESS']; //for table header
+            var dBCN1 = ['NAME', 'REFERENCE', 'FACILITY', 'GROUPCODE', 'PATIENTNO', 'ADDRESS1']; //for database header
+            var jaxURL1 = "@Url.Action("RptPhl01LookUp", "AJAX")";
+
+            //For reference
+            LoadDynamicDT1(jaxURL1, dTHN1, dBCN1, 'PHL01S', '#refLookUp1', '#1LkUp', '#regPTable1', '.cData', [3]);
+
+
+
+            $(".sampleReference").on({
+                focusout: function () {
+                    let facility = $(".facility").val();
+                    let sampleReference = $(".sampleReference").val();
+
+                    if (facility == "" || facility == null) {
+                        return;
+                    }
+
+                    if (sampleReference.trim() != "") {
+                        $.ajax({
+                            url: "/AJAX/sampleReferenceFocusout",
+                            method: "POST",
+                            data: { facility: facility, sampleReference: sampleReference, },
+                            success: function (data) {
+                                if (data != null) {
+                                    if (data.alertMessage != null) {
+                                        alert(data.alertMessage);
+                                        $(".sampleReference").val("").focus();
+                                        return;
+                                    }
+
+                                    $(".dateFrom").val(data.REPORT_TYPE2);
+                                    $(".dateTo").val(data.REPORT_TYPE2);
+                                    $(".isdataset").val(data.chkADVCorporate);
+                                    $(".name").val(data.TXTPATIENTNAME);
+                                }
+                            }
+                        })
+
+                    }
+                },
+
+                focus: function () {
+                    let facility = $(".facility").val();
+
+                    if (facility == "" || facility == null) {
+                        alert("Service Centre must be selected...");
+                        $(".facility").focus();
+                    }
+                }
+
+            })
+
+
+
+
+
+
+
+
+            RptBtns(dOM, '@(hasData?(Model.REPORTS.PRINT?"True":""):"")');
+
+            dOM.find('#pre1').on({
+                click: function () {
+                    dOM.find('#send').click();
+                }
+            });
+
+        });
+
+
+
+    </script>
+}

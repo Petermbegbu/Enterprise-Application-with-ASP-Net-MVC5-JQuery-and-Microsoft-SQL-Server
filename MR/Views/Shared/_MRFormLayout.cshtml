@@ -1,0 +1,484 @@
+﻿@{
+    if (HttpContext.Current.Request.Cookies["mrCooks"] != null)
+    {
+        ViewBag.Name = HttpContext.Current.Request.Cookies["mrName"].Value;
+        ViewBag.Time = HttpContext.Current.Request.Cookies["mrTime"].Value;
+    }
+}
+<!DOCTYPE HTML>
+
+<html>
+<head>
+    <title>@ViewBag.Title </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
+    <link href="~/Content/erp/bootstrap2.css" rel="stylesheet" id="bootstrap-css">
+    <link href="~/Content/erp/bootstrap.css" rel="stylesheet" id="bootstrap-css">
+
+    <link href="~/Content/erp/sidebar-menu.css" rel="stylesheet" />
+    <link href="~/Content/erp/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/erp/ERPStyles.css" rel="stylesheet" />
+
+</head>
+<body class="bbody">
+
+    <!-- Main -->
+    <div class="header">
+        <div class="wh brand-1">
+            <section class="inline-block va-top">
+                <label class="ll drk cblu">
+                    <i class="fa fa-arrow-circle-down"></i>
+                    <br />
+                    <i class="fa fa-arrow-circle-down"></i>
+                    <br /><br />
+                    <i class="fa fa-bars"></i>
+                </label>
+            </section>
+            <section class="inline-block va-top logo">
+                <a href="~/Home/Index">
+                    <img style="" src="~/Content/Images/intemedss.png" width="290" height="70" />
+                </a>
+            </section>
+        </div>
+
+        <div class="brand-2">
+            <p class="lbl">
+                <a href="#">
+                    <i class="fa fa-bell fa-lg"></i>
+                    <span class="alert1">6</span>
+                </a>
+                <a href="#">
+                    <i class="fa fa-envelope fa-lg alertt"></i>
+                    <span class="alert1">15</span>
+                </a>
+                <a href="#"><i class="fa fa-asterisk fa-lg alertt"></i></a>
+                <br /><br />
+                <div class="user"><i>User: </i>@ViewBag.Name</div>
+                <div class="user"><i>Time-In: </i>@ViewBag.Time</div>
+                <br />
+                <div>
+                    <a href="~/Login/Index">
+                        <span class="log">LOGOUT</span>
+                    </a>
+                </div>
+            </p>
+        </div>
+
+
+        <section style="width: 310px">
+            <ul class="sidebar-menu">
+                <li>
+                    <a href="#">
+                        <i class="fa fa-folder-open"></i> <span>FILE</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="sidebar-submenu">
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Patient Registeration <i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li><a href="~/File/NewPatientsGroupPrivate"><i class="fa fa-circle-o"></i> New Patients (Group Heads/Private Cash)</a></li>
+                                <li><a href="~/File/GroupMembersInformation"><i class="fa fa-circle-o"></i> Group Members Information</a></li>
+                                <li><a href="~/File/FamilyMembersGroupings"><i class="fa fa-circle-o"></i> Family Members Groupings</a></li>
+                                <li><a href="~/File/DailyAttendanceRecords"><i class="fa fa-circle-o"></i> Daily Attendance Records</a></li>
+                                <li><a href="~/File/AnteNatalBookings_Registration"><i class="fa fa-circle-o"></i> Ante-Natal Bookings/Registration</a></li>
+                                <li><a href="~/File/OPDvitalsNursesDesk"><i class="fa fa-circle-o"></i> OPD VITALS (Nurses Desk)</a></li>
+                                <li><a href="~/File/HMOAuthourizationCode"><i class="fa fa-circle-o"></i> HMO Authorization Code</a></li>
+                                <li><a href="~/File/Waiting_AttendanceListByClinic"><i class="fa fa-circle-o"></i> Attendance/Waiting List</a></li>
+                                <li><a href="~/File/DailyAppointments_Schedule"><i class="fa fa-circle-o"></i> Daily Appointments</a></li>
+                            </ul>
+                        </li>
+
+                        <li><a href="~/File/PatientChargesMaintenance"><i class="fa fa-circle-o"></i> Billings</a></li>
+                        
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Payments&nbsp;<i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li><a href="~/File/PatientPaymentMaintenance"><i class="fa fa-circle-o"></i> Transactions Payment</a></li>
+                                <li><a href="~/File/AdmissionDeposit_PaymentRecord"><i class="fa fa-circle-o"></i> Admissions Deposits/Payments</a></li>
+                                <li><a href="~/File/OtherServicesIncome_Receivables"><i class="fa fa-circle-o"></i> Other Services Receivables</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li><a href="~/File/BillAdjustmentEntry"><i class="fa fa-circle-o"></i> Adjustments (Debit/Credit Notes)</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Bills/Payment Verification</a></li>
+                        <li><a href="~/File/Move_ProcessHMO_NHISCapitatedBills"><i class="fa fa-circle-o"></i> Process/Move HMO-NHIS Capitated Bills</a></li>
+                        <li><a href="~/File/MedStaffInfoMaintenance"><i class="fa fa-circle-o"></i> Medical Staff Records</a></li>
+                        
+                        <li>
+                            <a href="#"><i class="fa fa-circle-o"></i> System Codes/Tables&nbsp;<i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li><a href="~/File/DiagnosisCodeDefinition"><i class="fa fa-circle-o"></i> Diagnosis Codes</a></li>
+                                <li><a href="~/File/ServCentreCodeDefinition"><i class="fa fa-circle-o"></i> Service Centre Definitions</a></li>
+                                <li><a href="~/File/CustomerBillingClassDetails"><i class="fa fa-circle-o"></i> Customer Billing Classification</a></li>
+                                <li><a href="~/File/CostCentreCodeDefinition"><i class="fa fa-circle-o"></i> Cost Centres Definitions</a></li>
+                                <li><a href="~/File/PatientAdmissionDischargeReasonCode"><i class="fa fa-circle-o"></i> Admissions Discharge Reasons</a></li>
+                                <li><a href="~/File/Bill_PaymentAdjustCodeDef"><i class="fa fa-circle-o"></i> Adjustment Codes</a></li>
+                                <li><a href="~/File/ServCentreCodeDefinition"><i class="fa fa-circle-o"></i> Budget/Service Centre Groupings</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> ATM/Direct Credit Profile</a></li>
+                                <li><a href="~/File/DoctorsConsultingRoomDef"><i class="fa fa-circle-o"></i> Consulting Rooms Definition</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Tarrif of Charges&nbsp;<i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li><a href="~/File/Tariff_ChargeMasterMaintenance"><i class="fa fa-circle-o"></i> Medical Services and Procedures</a></li>
+                                <li><a href="~/File/Stock_DrugChargesMaintenance"><i class="fa fa-circle-o"></i> Stock Item/Drugs Differential Charges</a></li>
+                                <li><a href="~/File/RoutineDrugsDefinition"><i class="fa fa-circle-o"></i> Routine Drugs Details</a></li>
+                                <li><a href="~/File/SpecialConsultationChargeProfile"><i class="fa fa-circle-o"></i> Specialist Consultation Charge Profile</a></li>
+                                <li><a href="~/File/Grpd_MultipleProcedureDef"><i class="fa fa-circle-o"></i> Multiple Service Profile (Screenings)</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#"><i class="fa fa-circle-o"></i> Corporate Clients Details&nbsp;<i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li><a href="~/File/CorpClients_RefDocDetails"><i class="fa fa-circle-o"></i> Corporate Clients</a></li>
+                                <li><a href="~/File/HMODetails"><i class="fa fa-circle-o"></i> HMO (Health Management Organisations)</a></li>
+                                <li><a href="~/File/TagHMO_NHISBillsCapitation_Claims"><i class="fa fa-circle-o"></i> Tag HMO/NHIS Capitated Bills</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#"><i class="fa fa-circle-o"></i> Medical History&nbsp;<i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li><a href="#"><i class="fa fa-circle-o"></i> Medical History/Doctors Consult</a></li>
+                                <li><a href="~/File/AdmissionsManagement"><i class="fa fa-circle-o"></i> Admissions Management</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> Ante-Natal Records/Maternity Notes</a></li>
+                                <li><a href="~/File/PaediatricsClinic"><i class="fa fa-circle-o"></i> Paediatrics Clinic</a></li>
+                                <li><a href="~/File/MediaReportWriter"><i class="fa fa-circle-o"></i> Medical Report Writer/Platform</a></li>
+                                <li><a href="~/File/MedicalStaffDutyRoaster"><i class="fa fa-circle-o"></i> MS Duty Roaster</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#"><i class="fa fa-circle-o"></i> Investigations/Procedures&nbsp;<i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li><a href="~/File/SampleCollectDetails"><i class="fa fa-circle-o"></i> Phlebotomy</a></li>
+                                <li><a href="~/File/InvestigationsMgtReports"><i class="fa fa-circle-o"></i> Investigations/Procedure Details</a></li>
+                                <li><a href="~/File/ImageAcquisitions"><i class="fa fa-circle-o"></i> Image Acquisitions</a></li>
+                                <li><a href="~/File/MaterialCostDefinition"><i class="fa fa-circle-o"></i> Define Material Costing Interface</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> Batched Investigation Results Details</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#"><i class="fa fa-circle-o"></i> Pharmacy/Dispensary&nbsp;<i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li><a href="#"><i class="fa fa-circle-o"></i> Dispensary Management</a></li>
+                                <li><a href="~/File/PendingPrescrDetails"><i class="fa fa-circle-o"></i> Pending Prescriptions</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> Refill/CDM Details</a></li>
+                                <li><a href="~/File/PharmacyStkMgt"><i class="fa fa-circle-o"></i> Pharmacy Stock Management</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#"><i class="fa fa-circle-o"></i> Clinical Administration&nbsp;<i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li><a href="~/File/AdmissionsManagement"><i class="fa fa-circle-o"></i> Admissions Management</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> Wounds Dressing/Injectionss&nbsp;<i class="fa fa-angle-left pull-right"></i></a>
+                                    <ul class="sidebar-submenu">
+                                        <li><a href="~/File/WoundDressingDetails"><i class="fa fa-circle-o"></i> Wound Dressing Details</a></li>
+                                        <li><a href="#"><i class="fa fa-circle-o"></i> Injections</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> Ante-Natal Records/Maternity Notes</a></li>
+                                <li><a href="~/File/PaediatricsClinic"><i class="fa fa-circle-o"></i> Paediatrics Clinic</a></li>
+                                <li><a href="~/File/Deaths_MorbidAnatomy"><i class="fa fa-circle-o"></i> Deaths/Morbid Anatomy</a></li>
+                                <li><a href="~/File/MedicalStaffDutyRoaster"><i class="fa fa-circle-o"></i> MS Duty Roaster</a></li>
+                                <li><a href="~/File/NursingNotes"><i class="fa fa-circle-o"></i> Nursinig Notes</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#"><i class="fa fa-circle-o"></i> Miscellaneous Updates&nbsp;<i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li><a href="~/File/ChangeGroupHead"><i class="fa fa-circle-o"></i> Change Head of Family or Group Head</a></li>
+                                <li><a href="~/File/ChangeStatusPvt_Corp"><i class="fa fa-circle-o"></i> Change Status - PVT/Corp.</a></li>
+                                <li><a href="~/File/SyncPatientsName"><i class="fa fa-circle-o"></i> Synchronize Patient's Name</a></li>
+                            </ul>
+                        </li>
+
+                        <li><a href="#"><i class="fa fa-circle-o"></i> GL Interface Definitions</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> End-of-Month Process</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> End-of-Year Routine</a></li>
+                        <li><a href="~/Home/Index"><i class="fa fa-circle-o"></i> EXIT (Close)</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <i class="fa fa-share"></i> <span>REPORTS</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="sidebar-submenu">
+                        <li>
+                            <a href="#"><i class="fa fa-circle-o"></i> Billings Report&nbsp;<i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li><a href="~/Reports/MedBillingReports_CashPymnt"><i class="fa fa-circle-o"></i> Cash Payment</a></li>
+                                <li><a href="~/Reports/MedBillingReports_Cheq_BnkPymnt"><i class="fa fa-circle-o"></i> Cheque Payments</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> All Payments</a></li>
+                                <li><a href="~/Reports/MedBillingReports_BillsOnly"><i class="fa fa-circle-o"></i> Bills Only</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> All Bills and Payments</a></li>
+                                <li><a href="~/Reports/In_PatientStatement"><i class="fa fa-circle-o"></i> In-PAtient Statement</a></li>
+                                <li><a href="~/Reports/OPDAttendance_BillingStats"><i class="fa fa-circle-o"></i> OPD Attendance/Bill Statistics</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> Horizontal Billing Summary</a></li>
+                                <li><a href="~/Reports/End_Of_MonthStatements"><i class="fa fa-circle-o"></i> End-of-Month Statement</a></li>
+                                <li><a href="~/Reports/MonthlyBillingSummary"><i class="fa fa-circle-o"></i> Monthly Billing Summary</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> Bill Signing Details</a></li>
+                                <li><a href="~/Reports/HMO_NHISClaims_FeeForServBills"><i class="fa fa-circle-o"></i> HMO/NHIS Claims/Fee for Service</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> Processed HMO/NHIS Capitation Bills</a></li>
+                                <li><a href="~/Reports/PostDatedChequeDetails"><i class="fa fa-circle-o"></i> Post-Dated Cheque Details</a></li>
+                            </ul>
+                        </li>
+
+                        <li><a href="~/Reports/CustomerAgedAcctAnalysis"><i class="fa fa-circle-o"></i> Aged Accounts Receivable</a></li>
+                        <li><a href="~/Reports/CustomerBalDueReport"><i class="fa fa-circle-o"></i> Customers Balances Due Report</a></li>
+
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Revenue From Facilities&nbsp;<i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li><a href="~/Reports/RevenueByFacilities_ServCentres"><i class="fa fa-circle-o"></i> Revenue from Facility/Service Centre</a></li>
+                                <li><a href="~/Reports/ReqProfByRefDoc_Clinic"><i class="fa fa-circle-o"></i> Revenue from Referrers (Docs/Clinics)</a></li>
+                            </ul>
+                        </li>
+
+                        <li><a href="~/Reports/Bill_PayAdjustEntry_Debit_CreditNotes"><i class="fa fa-circle-o"></i> Adjustments/Cr_Dr Notes</a></li>
+
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Summary of Accounts&nbsp;<i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li><a href="~/Reports/AcctsSummaryByProcedure_TariffItem"><i class="fa fa-circle-o"></i> Summary by Process (Tariff)</a></li>
+                                <li><a href="~/Reports/MonthlyAcctsSummaryByClients"><i class="fa fa-circle-o"></i> Monthly Summary by Clients</a></li>
+                                <li><a href="~/Reports/MonthlyBillingSummary"><i class="fa fa-circle-o"></i> Monthly Bills/Pay/Bal. Summary Annual</a></li>
+                                <li><a href="~/Reports/SummaryofDailyActivites"><i class="fa fa-circle-o"></i> Summary of Daily Activities Report</a></li>
+                                <li><a href="~/Reports/RevenueByFacilities_ServCentres"><i class="fa fa-circle-o"></i> Revenue by Doctors/Consultants Services</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#"><i class="fa fa-circle-o"></i> Clinical Administrations Report&nbsp;<i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li><a href="~/Reports/AdmissionSpaceAvailable"><i class="fa fa-circle-o"></i> Admission Space Availability</a></li>
+                                <li><a href="~/Reports/PatientsAdmissionRecords"><i class="fa fa-circle-o"></i> Admissions Record</a></li>
+                                <li><a href="~/Reports/PatientsDischargeRecords"><i class="fa fa-circle-o"></i> Discharge Record</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> Bed Occupancy Rate</a></li>
+                                <li><a href="~/Reports/BirthListing"><i class="fa fa-circle-o"></i> Birth Listing</a></li>
+                                <li><a href="~/Reports/DeathRecords"><i class="fa fa-circle-o"></i> Death Listing</a></li>
+                                <li><a href="~/Reports/Pharmacy_DispReport"><i class="fa fa-circle-o"></i> Dispensary Report</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> Dispensary Stock Availability Report</a></li>
+                                <li><a href="~/Reports/MedicalStaffDutyRoaster"><i class="fa fa-circle-o"></i> MS Duty Roaster</a></li>
+                                <li><a href="~/Reports/ClinicalStatistics"><i class="fa fa-circle-o"></i> Clinical Statistics</a></li>
+                                <li><a href="~/Reports/AttendanceMonitor"><i class="fa fa-circle-o"></i> Patient's Attendance Monitor</a></li>
+                                <li><a href="~/Reports/AnteNatalClinicReport"><i class="fa fa-circle-o"></i> Ante-Natal Clinic Reports</a></li>
+                                <li><a href="~/Reports/RptFrmPaediatrics"><i class="fa fa-circle-o"></i> Paediatrics Clinic Reports</a></li>
+                                <li><a href="~/Reports/RecordsOverRightProfiles"><i class="fa fa-circle-o"></i> Overwrite Profiles</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> Doctors Login Profiles</a></li>
+                            </ul>
+                        </li>
+
+                        <li><a href="~/Reports/PatientsMedHistory"><i class="fa fa-circle-o"></i> Medical History</a></li>
+                        <li><a href="~/Reports/CorporateClients"><i class="fa fa-circle-o"></i> Corporate Clients Detail</a></li>
+                        <li><a href="~/Reports/GrpChnAccListing"><i class="fa fa-circle-o"></i> Group/Chain Account Listing</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Systems Codes/Tables</a></li>
+                        <li><a href="~/Reports/TariffListing"><i class="fa fa-circle-o"></i> Tariff Listing</a></li>
+                        <li><a href="~/Reports/PatientsRecords"><i class="fa fa-circle-o"></i> Patients Records</a></li>
+
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Misc. Reports&nbsp;<i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li><a href="~/Reports/HmoNhisAttReport"><i class="fa fa-circle-o"></i> HMO/NHIS Attendance Report</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <i class="fa fa-cogs"></i> <span>UTILITIES</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="sidebar-submenu">
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Global Systems Codes&nbsp;<i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="sidebar-submenu">
+                                <li><a href="#"><i class="fa fa-circle-o"></i> A Classification Codes</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> B Assets Codes</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> C Payroll Deduction Codes</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> D Loan Codes</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> E Payroll Earnings Codes</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> F State Codes</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> G Leave Codes</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> L Designation Codes</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> M Status Codes</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> N HR-Reasons Codes</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> R Branch Codes</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> S Country Codes</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> T Non-Taxable Payroll Codes</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> Q Qualification Codes</a></li>
+                            </ul>
+                        </li>
+
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Change User Password</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Change Master Password</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Create New Users</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Systems Setup Parameters</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Auto Adjust Unposted Balances</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Restructure Patients Reistration</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Users Log/Profile</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Check Client Print Function</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Backup Service</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> House Keeping/Clean-Up</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Convert System Codes/Tables</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Convert Databases Tables</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <i class="fa fa-paragraph"></i> <span>EDIT</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="sidebar-submenu">
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Cut</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Copy</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Paste</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Cancel</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Close All</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Find</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Query</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="#"><i class="fa fa-th"></i> <span>WINDOWS</span></a></li>
+
+                <li>
+                    <a href="#">
+                        <i class="fa fa-book"></i> <span>HELP</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="sidebar-submenu">
+                        <li><a href="#"><i class="fa fa-circle-o"></i> FA Help Topics</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Content</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Index</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Search</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Troubleshoot</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> About . . .</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+
+        </section>
+
+        <div class="sbf1 alc">
+            <label class="sbf2 hide" id="sbf2">&copy; SINCE 1995<br /> <a href="http://adisystems.com.ng">A D I &nbsp; S Y S T E M S &nbsp; L T D. </a></label>
+        </div>
+
+    </div>
+    <div class="headerr">
+    </div>
+
+    <!-- Main -->
+    <div class="renderbody-default rd-11">
+
+        <div class="hide @ViewBag.Hide2">
+
+            <div class="djq-error">
+                <div class="djq-ebdy1 alc">
+                    <label class="label ls">404 ERROR</label>
+                </div>
+
+                <div class="djq-ebdy22 all">
+                    <div>
+
+                        <p class="djq-ebdy3">
+                            <label class="djq-ebdy4">Not Found!</label>
+                        </p>
+                        <p>
+                            <label class="label djq-ebdy5">Please contact your systems administrator.</label>
+                        </p>
+                        <p>
+                            <label class="ll all">Preferably, you can send us a mail:</label>
+                        </p>
+                        <p>
+                            <label class="ll all"><span class="glyphicon glyphicon-hand-right"></span> info@adisystems.com.ng</label>
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="fchLkUp" class="djq-modal djq-hide" style="z-index:100001!important;
+                            background-color: rgba(255, 255, 255, 0.0) !important; ">
+
+            <div class="djq-body" style="max-width:201px!important; height:35px!important;
+                        margin-top:0%!important; border:0!important; background-color:#000!important;">
+
+                <div class="alc" style="padding: 1px;">
+                    <div class="drk inline-block cwh" style="vertical-align:super;">
+                        P R O C E S S I N G . . &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <div class="inline-block" style="margin-top: 8px!important;">
+                        <span class="spinner-border cora"></span>
+                        <span class="spinner-border cora"></span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="rd-1 @ViewBag.Hide ">
+            <section class="section-default">
+                <p class="titlebar-default al-c">
+                    <span class="inline-block ww65" style="text-transform:uppercase;"> @ViewBag.TitleBar </span>
+                    <span class="inline-block alr ww30">
+                        <a href="~/Home/Index" title="Close">
+                            <i class="fa fa-window-close tdc"></i>
+                        </a>
+                    </span>
+                </p>
+
+
+                <div id="eLkUp" class="djq-modal djq-hide">
+                    <div class="djq-error">
+                        <div class="djq-ebdy1 alc">
+                            <label class="label ls">ERROR</label>
+                        </div>
+
+                        <div class="djq-ebdy2 all">
+                            <div>
+
+                                <p class="djq-ebdy3">
+                                    <label class="djq-ebdy4">Oops!</label>
+                                </p>
+                                <p>
+                                    <label class="ll djq-ebdy5 all">@ViewBag.Msg</label>
+                                </p>
+                                <p>
+                                    <label class="ll all">@ViewBag.Src</label>
+                                </p>
+                                <p>
+                                    <label class="ll all">@ViewBag.Trc</label>
+                                </p>
+
+                            </div>
+                        </div>
+
+                        <div class="djq-ebdy6 alc">
+                            <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+
+                @RenderBody()
+
+            </section>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    
+    <!-- Scripts -->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script src="@Url.Content("~/Scripts/sidebar-menu.js")"></script>
+    <script src="@Url.Content("~/Scripts/ERPevents.js")"></script>
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

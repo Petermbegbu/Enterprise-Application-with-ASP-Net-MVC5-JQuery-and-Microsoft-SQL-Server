@@ -1,0 +1,268 @@
+﻿
+@{
+    ViewBag.Title = "DailyAppointments_Schedule";
+    ViewBag.TitleBar = "DAILY APPOINTMENTS/SCHEDULE - Register, Report, Query, etc.";
+    Layout = "~/Views/Shared/_MRFormLayout.cshtml";
+}
+
+<section>
+    <form method="post" action="#">
+        
+            <div class="dif">
+
+                <!--Left-Top Section -->
+                <section class="inline-block bblock ww30 w-100 va-top">
+
+                    <section class="blu">
+
+                        <fieldset class="">
+                            <legend class="ll al-c">Input Data</legend>
+
+                            <div class="newline n1 ">
+                                <label class="label w-1 w-35">ID</label>
+                                <input type="text" list="cbo" class="input w-7 w-50 increase-height" />
+                                <datalist id="cbo">
+                                    <option value="">-Select VALUE-</option>
+                                    <option value="VALUE">VALUE</option>
+                                </datalist>
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-1 w-35">Note</label>
+                                <textarea name="txt" value="" rows="3" class="txtarea w-7 w-50"></textarea>
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-1 w-35">Tag</label>
+                                <input type="text" name="txt" value="" class="input w-7 w-50" />
+                            </div>
+
+                            <div class="newline n1 alc">
+                                <input type="button" name="btn" value="Contact Information" class="btn clm" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-1 w-35">Start</label>
+                                <input type="datetime-local" name="date" class="input w-6 w-50 increase-height design" />
+                            </div>
+
+                        </fieldset>
+
+
+                    </section>
+
+
+
+
+                    <!--Left-Middle Section -->
+
+                    <section class=" oraa ">
+
+                        <fieldset class="">
+                            <legend class="ll al-c">Recurring Event</legend>
+
+                            <div class="newline n1 ">
+                                <label class="label w-1 w-35"></label>
+                                <input type="checkbox" id="chkSRA" name="chk" />
+                                <label for="chkSRA" class="label">Recurring Event</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-1 w-35">End</label>
+                                <input type="datetime-local" name="date" class="input w-6 w-50 increase-height design" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-1 w-35"></label>
+                                <input type="radio" id="rdbSRA" name="rdb" />
+                                <label for="rdbSRA" class="label">Every Day within the Range</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-1 w-35"></label>
+                                <input type="radio" id="rdbSRA1" name="rdb" />
+                                <label for="rdbSRA1" class="label">Every Same Day of the Week</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-1 w-35"></label>
+                                <input type="radio" id="rdbSRA2" name="rdb" />
+                                <label for="rdbSRA2" class="label">Every Same Day of the Month</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-1 w-35"></label>
+                                <input type="radio" id="rdbSRA3" name="rdb" />
+                                <label for="rdbSRA3" class="label">Every Same Day of the year</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-1 w-35"></label>
+                                <input type="button" name="btn" value="Add Event" class="btn clm" />
+                            </div>
+
+                        </fieldset>
+
+
+                    </section>
+
+                    <!--Left-Bottom Section -->
+
+                    <section class="blu">
+
+                        <fieldset class="">
+                            <legend class="ll al-c">Search Event</legend>
+
+                            <div class="newline n1 ">
+                                <label class="label w-1 w-35">By Date</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-1 w-35">Start</label>
+                                <input type="datetime-local" name="date" class="input w-6 w-50 increase-height design" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-1 w-35">End</label>
+                                <input type="datetime-local" name="date" class="input w-6 w-50 increase-height design" />
+                            </div>
+
+                            <div class="newline n1 ">
+                                <label class="label w-1 w-35">By</label>
+
+                                <div class="inline-block va-mid">
+                                    <input type="radio" id="rdbSRA4" name="rdb" />
+                                    <label for="rdbSRA4" class="label">ID</label>
+
+                                    <span class="span">
+                                        <input type="radio" id="rdbSRA5" name="rdb" />
+                                        <label for="rdbSRA5" class="label">Content of Note</label>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-1 w-35"></label>
+                                <input type="text" name="txt" value="" class="input w-7 w-50" />
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-1 w-35"></label>
+                                <input type="radio" id="rdbSRA6" name="rdb" />
+                                <label for="rdbSRA6" class="label">Retrieve for All Records</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-1 w-35"></label>
+                                <input type="button" name="btn" value="Find Event" class="btn clm" />
+                            </div>
+
+                        </fieldset>
+
+
+                    </section>
+
+                </section>
+
+                <!--Right Section -->
+
+                <section class="inline-block bblock ww65 w-100 va-top blu">
+
+                    <div class="newline n1">
+                        <div class="dif">
+
+                            <div class="newline n1 alc">
+
+                                <label class="label drk">HOURS</label>
+                                <input type="button" name="btn" value="Today" class="btn clm" />
+                                <input type="button" name="btnPrint" value="Day" class="btn clm" />
+                                <input type="button" name="btnClose" value="Week" class="btn clm" />
+                                <input type="button" name="btn" value="Month" class="btn clm" />
+                                <input type="button" name="btnPrint" value="List" class="btn clm" />
+
+                                <input type="button" name="btnClose" value="<" class="btn clm" />
+                                <input type="button" name="btn" value=">" class="btn clm" />
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="newline n1 alc">
+                        <label class="label drk">28 November 2018</label>
+                    </div>
+
+
+                    <div class="scroll">
+                        <table>
+                            <tr>
+                                <th class="alc all">User ID</th>
+                                <th class="alc all">Date</th>
+                                <th class="alc all">Time</th>
+                                <th class="alc all">End Time</th>
+                                <th class="alc all">Details</th>
+                                <th class="alc all">RECID</th>
+                            </tr>
+
+                            <tr>
+                                <td class="alc all">.</td>
+                                <td class="alc all"></td>
+                                <td class="alc all"></td>
+                                <td class="alc all"></td>
+                                <td class="alc all"></td>
+                                <td class="alc all"></td>
+                            </tr>
+
+                            <tr>
+                                <td class="alc all">.</td>
+                                <td class="alc all"></td>
+                                <td class="alc all"></td>
+                                <td class="alc all"></td>
+                                <td class="alc all"></td>
+                                <td class="alc all"></td>
+                            </tr>
+
+
+                            <tr>
+                                <td class="alc all">.</td>
+                                <td class="alc all"></td>
+                                <td class="alc all"></td>
+                                <td class="alc all"></td>
+                                <td class="alc all"></td>
+                                <td class="alc all"></td>
+                            </tr>
+
+
+                            <tr>
+                                <td class="alc all">.</td>
+                                <td class="alc all"></td>
+                                <td class="alc all"></td>
+                                <td class="alc all"></td>
+                                <td class="alc all"></td>
+                                <td class="alc all"></td>
+                            </tr>
+
+                        </table>
+                    </div>
+
+                    <div class="dif">
+                        <div class="newline n1 alc">
+                            <input type="button" name="btnClose" value="Remove Event" class="btn clm" />
+                            <input type="button" name="btn" value="Clear All Events" class="btn clm" />
+
+
+                            <label class="label w-1"></label>
+                            <input type="button" name="btnPrint" value="Close" class="btn clm" />
+
+                        </div>
+                    </div>
+                </section>
+
+
+            </div>
+
+    </form>
+</section>
+
+
+	
+

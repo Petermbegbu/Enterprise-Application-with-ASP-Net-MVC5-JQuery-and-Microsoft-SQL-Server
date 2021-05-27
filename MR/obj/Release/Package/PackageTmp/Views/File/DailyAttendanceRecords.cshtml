@@ -1,0 +1,2291 @@
+﻿@model OtherClasses.Models.MR_DATA.MR_DATAvm
+
+@{
+    ViewBag.Title = "DailyAttendanceRecords";
+    ViewBag.TitleBar = "PATIENT'S DAILY ATTENDANCE/CARD MONITOR";
+    Layout = "~/Views/Shared/_MRFormLayout.cshtml";
+}
+
+<style>
+
+    .title {
+        font-size: 17px;
+        font-weight: bold;
+        color: red;
+    }
+
+    .title2 {
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .bgColor {
+        background-color: #F0F4C3;
+    }
+
+    fieldset {
+        border: solid 2px black;
+    }
+
+    .width {
+        width: 99%;
+    }
+
+    .borderLine {
+        border: solid 1px black;
+    }
+
+    .imgDiv {
+        width: 150px;
+        height: 120px;
+        border: solid 3px;
+    }
+
+    .tableDiv {
+        height: 20rem;
+    }
+
+    .modal-dialog {
+        width: 700px;
+        position: absolute;
+        left: 50%;
+        margin-left: -320px;
+    }
+
+    .modal-content {
+        width: 650px;
+        height: 80px;
+    }
+
+    .noteTextArea{
+        width: 100%;
+        height: 42rem;
+        font-size: 17px;
+    }
+   
+</style>
+
+
+
+@*For Out Patient Record*@
+
+<!--Modal Start-->
+<div id="1LkUp" class="djq-modal djq-hide">
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR RECORDED DAILY ATTENDANCE</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable1">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+<!--Modal Start-->
+<div id="2LkUp" class="djq-modal djq-hide">
+
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR REGISTERED PATIENTS</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable2">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+<!--Modal Start-->
+<div id="3LkUp" class="djq-modal djq-hide">
+
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR REGISTERED PATIENTS</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable3">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+
+@*For Special Service Patient*@
+
+<!--Modal Start-->
+<div id="4LkUp" class="djq-modal djq-hide">
+
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR REGISTERED PATIENTS</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable4">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+<!--Modal Start-->
+<div id="5LkUp" class="djq-modal djq-hide">
+
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR REGISTERED PATIENTS</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable5">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+<!--Modal Start-->
+<div id="6LkUp" class="djq-modal djq-hide">
+
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR REGISTERED PATIENTS</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable6">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+<!--Modal Start-->
+<div id="7LkUp" class="djq-modal djq-hide">
+
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR REGISTERED PATIENTS</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable7">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+<!--Modal Start-->
+<div id="8LkUp" class="djq-modal djq-hide">
+
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR REGISTERED PATIENTS</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable8">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+
+@*Services Update Modal*@ 
+<button type="button" class="btn btn-primary serviceModalBtn" data-toggle="modal" data-target="#serviceModal">
+    Open Modal
+</button>
+
+<div class="modal" id="serviceModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal body -->
+            <div class="modal-body d-flex justify-content-around">
+                <button type="button" class="btn btn-primary modalAddBtn" data-dismiss="modal">Add (Give Again)</button>
+                <button type="button" class="btn btn-info modalAmendBtn" data-dismiss="modal">Amend Old Record</button>
+                <button type="button" class="btn btn-danger modalDeleteBtn" data-dismiss="modal">Delete Item</button>
+                <button type="button" class="btn btn-warning modalIgnoreBtn" data-dismiss="modal">Ignore Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*Note Modal*@
+<div id="9LkUp" class="djq-modal djq-hide custom">
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls noteHeader"></label>
+            </div>
+        </div>
+
+        <div class="djq-c">
+            <!--CUSTOM HTML CONTENT-->
+            <textarea class="noteTextArea" placeholder="Enter Text"></textarea>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <button type="button" class="btn clm close-dataJQ saveNote">SAVE</button>
+            <button type="button" class="btn clm close-dataJQ cancelNote">CANCEL</button>
+        </div>
+    </div>
+</div>
+
+
+
+<section>
+
+        <section>
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a data-toggle="tab" href="#outPatientRec" class="bold outPatientRecBtn" style="background: #f9f9f9;">OUT PATIENTS RECORDS</a>
+                </li>
+                <li class="">
+                    <a data-toggle="tab" href="#specServPatients" class="bold specServPatientsBtn" style="background: #f9f9f9;">SPECIAL SERVICE PATIENTS</a>
+                </li>
+            </ul>
+        </section>
+
+        <div class="tab-content">
+
+            <section id="outPatientRec" class="tab-pane fade in active">
+
+                <form method="post" action="@Url.Action("DailyAttendanceSubmit", "File")">
+
+                    <section class="bgColor">
+                        <div class="row py-4">
+                            <div class="col-md-3">
+                                <span class="title">SERVICE TYPE:</span>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="d-flex justify-content-around">
+                                    <span>
+                                        <input type="radio" id="rdbSRA" name="rdb" class="chkOutPatRec" />
+                                        <label for="rdbSRA" class="label drk">Out-Patients Records</label>
+                                    </span>
+                                    <span>
+                                        <input type="radio" id="rdbSRA1" name="rdb" class="chkSpecServPat" />
+                                        <label for="rdbSRA1" class="label drk">Special Service Patients</label>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="py-1">
+                        <div class="row">
+                            <div class="col-md-4 pt-4">
+                                <div class="newline n1">
+                                    <label class="label drk w-4 w-35">Reference No.</label>
+                                    <input type="text" name="REPORTS.txtreference" value="" class="input w-3 w-50 referenceNo cData1" />
+                                    <input type="button" name="btn" value="" id="refLookUp1" class="btn-small" />
+                                </div>
+                                <div class="newline n1">
+                                    <label class="label drk w-4 w-35">Patient's Group Code</label>
+                                    <input type="text" name="REPORTS.txtgroupcode" value="" class="input w-3 w-50 text PatGroupCode dData1 eData2" />
+                                    <input type="button" name="btn" value="" id="refLookUp2" class="btn-small" />
+                                </div>
+                                <div class="newline n1">
+                                    <label class="label drk w-4 w-35">Hospital Card Number</label>
+                                    <input type="text" name="REPORTS.txtpatientno" value="" class="input w-3 w-50 text hospitalCardNo dData2 eData1" />
+                                    <input type="button" name="btn" value="" id="refLookUp3" class="btn-small" />
+                                </div>
+                            </div>
+                            <div class="col-md-5 pt-4">
+                                <div class="py-3">
+                                    <label for="chkSRA" class="label drk w-4">Get Dependants</label>
+                                    <input type="checkbox" id="chkSRA" name="chk" />
+                                </div>
+                                <div class="pt-3 pb-2">
+                                    <label class="label drk w-4 w-35">Date/Time Attendance</label>
+                                    <input type="datetime-local" value="@String.Format("{0:yyyy-MM-ddThh:mm:ss}", DateTime.Now)"
+                                           class="input w-7 w-50 dateAttend" name="REPORTS.dtregistered" />
+                                </div>
+                            </div>
+                            <div class="col-md-3 d-flex justify-content-center align-items-center">
+                                <div class="imgDiv">
+
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+
+                    <section class="bgColor py-4">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <span class="title">OPTIONS:</span>
+                            </div>
+                            <div class="col-md-3">
+                                <div>
+                                    <input type="radio" id="rdbSRA2" value="chkMedicalTreatment" name="REPORTS.REPORT_TYPE1" class="chkMedTreatment" />
+                                    <label for="rdbSRA2" class="label drk">Medical Treatment</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="rdbSRA3" value="chkMedicalExams" name="REPORTS.REPORT_TYPE1" class="chkMedicalExams" />
+                                    <label for="rdbSRA3" class="label drk">Medical Exams</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="">
+                                    <input type="radio" id="rdbSRA4" value="chkDressing" name="REPORTS.REPORT_TYPE1" class="chkDressing" />
+                                    <label for="rdbSRA4" class="label drk">Dressing</label>
+                                </div>
+                                <div class="">
+                                    <input type="radio" id="rdbSRA5" value="chkInjections" name="REPORTS.REPORT_TYPE1" class="chkInjections" />
+                                    <label for="rdbSRA5" class="label drk">Injections</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div>
+                                    <input type="radio" id="rdbSRA6" value="chkSpecialistConsult" name="REPORTS.REPORT_TYPE1" class="chkSpecConsult" />
+                                    <label for="rdbSRA6" class="label drk">Specialist Consult</label>
+                                </div>
+                                <div class="">
+                                    <input type="radio" id="rdbSRA7" value="chkEmergency" name="REPORTS.REPORT_TYPE1" class="chkEmergency" />
+                                    <label for="rdbSRA7" class="label drk">Emergency</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="">
+                                    <input type="radio" id="rdbSRA8" value="chkFollowup" name="REPORTS.REPORT_TYPE1" class="chkFollowUp" />
+                                    <label for="rdbSRA8" class="label drk">On Follow-Up</label>
+                                </div>
+                                <div class="">
+                                    <input type="radio" id="rdbSRA9" value="chkDrugRefill" name="REPORTS.REPORT_TYPE1" class="chkDrugRefill" />
+                                    <label for="rdbSRA9" class="label drk">Drug Refill/Collection</label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </section>
+
+
+                    <section class="py-5">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="label drk w-4 w-35">CLINIC</label>
+                                    @Html.DropDownListFor(v => v.SYSCODETABSvm.ServiceCentreCodes.name,
+                                    new SelectList(@Model.SYSCODETABSvm.ServiceCentreCodess, "type_code", "name"), "",
+                                    new { @class = "input w-8 w-50 increase-height clinic" })
+                                </div>
+                                <div class="mb-3">
+                                    <label class="label drk w-4 w-35">Patient's Name</label>
+                                    <input type="text" name="REPORTS.TXTPATIENTNAME" value="" class="input w-8 w-50 text fullName" />
+                                    <b class="age pl-2 title2"></b>
+                                </div>
+                                <div class="">
+                                    <label class="label drk w-4 w-35">Address</label>
+                                    <textarea name="txt" value="" rows="3" class="address w-8 w-50 text"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="label drk w-5 w-35">Responsible for Bill</label>
+                                    <input type="text" name="txt" value="" class="input w-5 w-50 text respForBill" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="label drk w-5 w-35">Billing Currency</label>
+                                    <input type="text" name="txt" value="" class="input w-5 w-50 text" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="label drk w-5 w-35">Last Attendance Date</label>
+                                    <input type="text" name="txt" value="" class="input w-5 w-50 orange text lastAttendDate" />
+                                </div>
+                                <div class="">
+                                    <label class="label drk w-5 w-35">Attendance Today</label>
+                                    <input type="text" name="REPORTS.nmrattendancetoday" value="@Model.REPORTS.nmrattendancetoday" class="input w-5 w-50 alr cred attendanceToday" />
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section>
+                        <div class="row mb-2">
+                            <div class="col-md-6 text-center">
+                                <div class="title2 mb-2">[SPECIAL INSTRUCTION]</div>
+                                <div class="newline n1">
+                                    <textarea name="txt" value="" rows="6" class="specInstructn width text"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="title2 text-center">[ACCOUNT INFORMATION]</div>
+                                <fieldset class="py-3">
+                                    <div class="mb-2">
+                                        <label class="label drk w-3 w-35">DEBIT</label>
+                                        <input type="number" name="txt" value="0.00" class="input w-4 w-50 alr decNum" />
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="label drk w-3 w-35">CREDIT</label>
+                                        <input type="number" name="txt" value="0.00" class="input w-4 w-50 alr decNum" />
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="label drk w-3 w-35">BALANCE</label>
+                                        <input type="number" name="txt" value="0.00" class="input w-4 w-50 alr decNum" />
+                                        <span class="drk labelCrDb">DB</span>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="borderLine">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="py-3 d-flex justify-content-around">
+                                    <input type="button" value="Ledger" class="btn clm ledgerBtn" />
+                                    <input type="button" value="Delete" class="btn clm deleteBtn" />
+                                    <input type="button" value="Submit" class="btn clm submitBtn" />
+                                    <input type="submit" value="Submit" class="btn clm hiddenSubmitBtn" />
+                                    <input type="button" value="Close" class="btn clm closeBtn" />
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Hidden field for txtconsultamt -->
+                    <input type="hidden" value="0" name="REPORTS.txtconsultamt" class="txtconsultamt" />
+                    <input type="hidden" value="false" name="REPORTS.REPORT_TYPE5" class="topaycons" />
+
+
+                </form>
+
+                <!-- Hidden field for submit return values -->
+                <input type="hidden" value="@Model.REPORTS.alertMessage" class="submitReturnValue1" />
+                <input type="hidden" value="@Model.REPORTS.ActRslt" class="submitReturnValue2" />
+                <input type="hidden" value="@Model.REPORTS.REPORT_TYPE2" class="submitReturnValue3" />
+
+            </section>
+
+
+            <section id="specServPatients" class="tab-pane fade in">
+                <section class="">
+                    <div class="dif text-center red">
+                        <label class="la1 cwh drk">SERVICES AT DESIGNATED CENTRES - Select Facility/Service Items</label>
+                    </div>
+                <section/>
+
+                <form method="post" action="@Url.Action("", "File")">
+
+                        <section class="borderLine py-2">
+                            <div class="row mt-2">
+                                <div class="col-md-6">
+                                    <div class="newline mb-1">
+                                        <span>
+                                            <label class="label w-4 drk">Patients's GroupCode :</label>
+                                            <input type="text" name="txt" value="" class="input w-5 SSPpatGroupCode fData1" />
+                                            <input type="button" id="refLookUp4" name="btn" value="" class="btn-small clm" />
+                                        </span>
+                                    </div>
+                                    <div class="newline mb-1">
+                                        <span class="">
+                                            <label class="label w-4 drk">Hospital Card Number :</label>
+                                            <input type="text" name="txt" value="" class="input w-5 SSPhospitalNo fData2 gData1" />
+                                            <input type="button" id="refLookUp5" name="btn" value="" class="btn-small clm" />
+                                        </span>
+                                    </div>
+
+                                    <div class="newline">
+                                        <label class="label w-3 drk">Name :</label>
+                                        <input type="text" name="txt" value="" class="input w-8 SSPfullName" />
+                                    </div>
+                                    <div class="newline">
+                                        <label class="label w-3 drk">Address :</label>
+                                        <input type="text" name="txt" value="" class="input w-8 SSPaddress" />
+                                    </div>
+                                    <div class="newline">
+                                        <label class="label w-3 drk">E-Mail :</label>
+                                        <input type="text" name="txt" value="" class="input w-8 SSPemail" />
+                                    </div>
+                                    <div class="newline">
+                                        <label class="label w-3 drk">Phone :</label>
+                                        <input type="text" name="txt" value="" class="input w-8 SSPphone" />
+                                    </div>
+                                    <div>
+                                        <scan class="newline">
+                                            <label class="label w-3 drk">SEX :</label>
+                                            <select name="cbo" class="input w-3 w-50 increase-height SSPgender">
+                                                <option value=""></option>
+                                                <option value="MALE">MALE</option>
+                                                <option value="FEMALE">FEMALE</option>
+                                            </select>
+                                        </scan>
+                                        <scan class="newline">
+                                            <label class="label w-1 drk">AGE :</label>
+                                            <input type="text" name="txt" value="" class="input w-3 SSPage" />
+
+                                            @*<select name="cbo" class="input w-3 w-50 increase-height SSPage">
+                                                <option value=""></option>
+                                                <option value="Adult">Adult</option>
+                                                <option value="1Year">1 Year</option>
+                                                <option value="2Years">2 Years</option>
+                                                <option value="3Years">3 Years</option>
+                                                <option value="4Years">4 Years</option>
+                                                <option value="5Years">5 Years</option>
+                                                <option value="6Years">6 Years</option>
+                                            </select>*@
+                                        </scan>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="newline n1">
+                                        <label class="label w-4 drk">Bills Payable By :</label>
+                                        <select name="cbo" class="input w-5 w-50 increase-height SSPbillsPayableBy">
+                                            <option value=""></option>
+                                            <option value="S">SELF</option>
+                                            <option value="P">P\ANOTHER PATIENT</option>
+                                            <option value="C">COPERATE CLIENT</option>
+                                        </select>
+                                    </div>
+                                    <div class="newline n1">
+                                        <label class="label w-4 drk">GroupCode :</label>
+                                        <input type="text" name="txt" value="" class="input w-5 SSPghgroupcode hData1" />
+                                        <input type="button" id="refLookUp6" name="btn" value="" class="btn-small clm SSPghgroupcode" />
+                                    </div>
+                                    <div class="newline n1">
+                                        <label class="label w-4 drk">Code :</label>
+                                        <input type="text" name="txt" value="" class="input w-5 SSPgrouphead hData2 iData1 jData1" />
+                                        <input type="button" id="refLookUp7" name="btn" value="" class="btn-small clm" />
+                                        <input type="button" id="refLookUp8" name="btn" value="" class="btn-small clm" />
+                                    </div>
+                                    <div class="newline n1">
+                                        <label class="label w-4 drk">Referring Doc/Clinic :</label>
+                                        @*<select name="cbo" class="input w-5 w-50 increase-height">
+                                            <option value=""></option>
+                                        </select>*@
+                                        @Html.DropDownListFor(m => m.CUSTOMER.NAME,
+                                            new SelectList(Model.CUSTOMERS, "CUSTNO", "NAME"), "",
+                                            new { @id = "", @class = "input w-5 w-50 increase-height SSPreferrer" })
+                                    </div>
+                                    <div class="newline n1">
+                                        <label class="label w-4 drk">Transaction Date :</label>
+                                        <input type="datetime-local" value="@String.Format("{0:yyyy-MM-ddThh:mm:ss}", DateTime.Now)"
+                                                class="input w-6 w-50 ivGG7 SSPtransDate" name="" />
+                                    </div>
+                                    <div class="newline">
+                                        <label for="chkdep" class="drk w-3">Get Dependants</label>
+                                        <input type="checkbox" id="chkdep" name="chk" class="chkgetdependants" />
+                                    </div>
+                                    <div>
+                                        <span class="title SSPgroupHeadName"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </section>
+
+
+                        <section class="borderLine py-3">
+                            <div class="d-flex justify-content-around">
+                                <span class="">
+                                    <label class="label w-4 cred drk">REQUEST ALERT -></label>
+                                    <select name="cbo" class="input w-4 increase-height SSPrequestAlert" id="ivgRqA">
+                                        <option value=""></option>
+                                        <option value="Urgent/Emergency">Urgent / Emergency</option>
+                                        <option value="Routine">Routine</option>
+                                    </select>
+                                </span>
+                                <span class="">
+                                    <label class="label w-3 drk"><i>Capitated</i></label>
+                                    <input type="text" name="txt" value="" class="input w-4 capitated" />
+                                </span>
+                            </div>
+                        </section>
+
+
+                        <section class="borderLine py-3">
+
+                            <div class="row ">
+                                <div class="col-md-8">
+                                    <div class="newline">
+                                        <span>
+                                            <label class="label w-4 drk">Service Unit/Facility</label>
+                                            @Html.DropDownListFor(m => m.SYSCODETABSvm.ServiceCentreCodes.name,
+                                                new SelectList(Model.SYSCODETABSvm.ServiceCentreCodess, "type_code", "name"), "",
+                                                new { @id = "ivgFac", @class = "input w-7 increase-height SSPfacility" })
+                                            <label class="ll pr-5 drk labelSSPfacility">...</label>
+                                        </span>
+                                    </div>
+                                    <div class="newline">
+                                        <label class="label w-4 drk">Service Required</label>
+                                        <select name="cbo" id="ivgServ" class="input w-7 increase-height SSPservRequired">
+                                            <option value=""></option>
+                                        </select>
+                                        <input type="button" name="btn" value="" class="btn-small" />
+
+                                        <span class="">
+                                            <input type="hidden" id="refLookUp9" />
+                                            <input type="checkbox" id="noteChk" />
+                                            <label for="LookUp" class="drk notesLabel">NOTES</label>
+                                        </span>
+                                    </div>
+                                    <div class="newline">
+                                        <span>
+                                            <label class="label w-4 drk drk">Grouped Procedures</label>
+                                            @Html.DropDownListFor(m => m.GRPPROCEDURE.NAME,
+                                                new SelectList(Model.GRPPROCEDURES, "REFERENCE", "NAME"), "",
+                                                new { @id = "ivgGrpd", @class = "input w-7 increase-height grpProcedure" })
+                                        </span>
+                                        <span>
+                                            <label class="ll pr-5 drk labelProcedure">...</label>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="newline">
+                                        <label class="label w-3 drk">Duration</label>
+                                        <input type="number" name="range" value="0" id="ivgDur" class="input w-3 design ivGG10 SSPduration" />
+                                    </div>
+
+                                    <div class="newline">
+                                        <label class="label w-3 drk">AMOUNT</label>
+                                        <input type="number" name="range" value="0" id="ivgAmt" class="input w-3 design ivGG3 SSPamount" />
+                                    </div>
+
+                                    <div class="newline">
+                                        <label class="label w-3 drk">Current Total</label>
+                                        <input type="number" name="range" value="0" id="ivgTot" class="input w-3 design SSPcurrentTotal" />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </section>
+
+                        <section class="borderLine">
+                            <div class="row py-3 d-flex justify-content-around">
+                                <span class="">
+                                    <input type="button" name="btn" value="ADD Selection" id="ivgADD" class="btn SSPaddBtn" />
+                                </span>
+                                <span>
+                                    <input type="button" name="btn" value="Clear Selections" class="btn clearSelectn" />
+                                </span>
+                            </div>
+                        </section>
+
+                        <section>
+
+                            <div class="tableDiv v-scroll">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>S/N</th>
+                                            <th style="padding: 0rem 6rem !important;">Facility</th>
+                                            <th class="px-5">Procedure</th>
+                                            <th class="px-5">Amount</th>
+                                            <th class="px-5">Code</th>
+                                            <th class="px-5">BillCode</th>
+                                            <th style="padding: 0rem 10rem !important;">Notes</th>
+                                            <th style="padding: 0rem 6rem !important;">ReqDate</th>
+                                            <th class="px-5">Capitated</th>
+                                            <th class="px-5">GrpItem</th>
+                                            <th class="px-5">Duration</th>
+                                            <th class="px-5">Done</th>
+                                            <th class="px-5">NewReq</th>
+                                            <th class="px-5">UnitCode</th>
+                                            <th class="px-5">GroupBillByType</th>
+                                            <th class="px-5">GroupBillDesc</th>
+                                            <th class="px-5">RECID</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody class="tbody text-center"></tbody>
+                                </table>
+                            </div>
+
+                        </section>
+
+                        <section class="">
+                            <div class="gry py-3">
+                                <div class="alc">
+                                    <input type="button" value="Submit" id="ivgSubmit" class="btn SSPsubmitBtn" />
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="button" name="btn" value="Close" id="ivgClose" class="btn drk" />
+                                </div>
+                            </div>
+                        </section>
+
+
+                  </form>
+
+                  <input type="hidden" value="" class="amtsaveHiddenValue" />
+                  <input type="hidden" value="" class="SSPhiddenBillCode" />
+                  <input type="hidden" value="" class="hiddenSaveGroup" />
+                  <input type="hidden" value="" class="hiddenNewRec" />
+                  <input type="hidden" value="false" class="hiddenGroupItem" />
+                  <input type="hidden" value="" class="hiddenIsPosted" />
+
+                  <input type="hidden" value="" class="hiddenAmendFlag" />
+                  <input type="hidden" value="" class="existingCode" />
+                  <input type="hidden" value="false" class="hiddenCashPaying" />
+
+                    
+            </section>
+        </section>
+    </div>
+</section>
+
+
+@section scripts
+{
+    <script>
+        $(function () {
+            var dOM = $('body'); //must assign
+            var formFields = document.getElementById('mainForm'); //must assign, used for calling javaScript methods
+            appendTagInvalid1(dOM, "@ViewBag.iinvalid"); //must call
+            servErrorAlert("#eLkUp", "@ViewBag.Msg"); //must call
+
+            var dTHN1 = ['NAME', 'REFERENCE', 'DATE', 'CLINIC', 'GROUPCODE', 'PATIENTNO']; //for table header
+            var dBCN1 = ['NAME', 'REFERENCE', 'TRANS_DATE', 'CLINIC', 'GROUPCODE', 'PATIENTNO']; //for database header
+            var jaxURL1 = "@Url.Action("RptMRATTENDLookUp", "AJAX")";
+
+            var dTHN2 = ['NAME', 'GROUPCODE', 'PATIENTNO', 'RESIDENCE', 'GROUPHEAD', 'SEX', 'PHONE']; //for table header
+            var dBCN2 = ['NAME', 'GROUPCODE', 'PATIENTNO', 'RESIDENCE', 'GROUPHEAD', 'SEX', 'PHONE']; //for database header
+            var jaxURL2 = "@Url.Action("RptBillChainLookUp", "AJAX")";
+
+            var dTHN3 = ['NAME', 'REFERENCE', 'ADDRESS']; //for table header
+            var dBCN3 = ['NAME', 'CUSTNO', 'ADDRESS1']; //for database header
+            var jaxURL3 = "@Url.Action("RptCustomerLookUp", "AJAX")";
+
+
+            //For Reference No
+            LoadDynamicDT1(jaxURL1, dTHN1, dBCN1, 'MRATTENDS', '#refLookUp1', '#1LkUp', '#regPTable1', '.cData', [3]);
+
+            //For Patient No.
+            LoadDynamicDT1(jaxURL2, dTHN2, dBCN2, 'BILLCHAINS', '#refLookUp2', '#2LkUp', '#regPTable2', '.dData', [3, 4]);
+
+            //For Patient GroupCode
+            LoadDynamicDT1(jaxURL2, dTHN2, dBCN2, 'BILLCHAINS', '#refLookUp3', '#3LkUp', '#regPTable3', '.eData', [3, 4]);
+
+
+            //For SSPpatientGroupCode
+            LoadDynamicDT1(jaxURL2, dTHN2, dBCN2, 'BILLCHAINS', '#refLookUp4', '#4LkUp', '#regPTable4', '.fData', [3, 4]);
+
+            //For SSPhospitalNo
+            LoadDynamicDT1(jaxURL2, dTHN2, dBCN2, 'BILLCHAINS', '#refLookUp5', '#5LkUp', '#regPTable5', '.gData', [4]);
+
+            //For SSPGroupCode
+            LoadDynamicDT1(jaxURL2, dTHN2, dBCN2, 'BILLCHAINS', '#refLookUp6', '#6LkUp', '#regPTable6', '.hData', [3, 4]);
+
+            //For SSPcode
+            LoadDynamicDT1(jaxURL3, dTHN3, dBCN3, 'CUSTOMERS', '#refLookUp7', '#7LkUp', '#regPTable7', '.iData', [3]);
+
+            //For SSPcodeHidden
+            LoadDynamicDT1(jaxURL2, dTHN2, dBCN2, 'BILLCHAINS', '#refLookUp8', '#8LkUp', '#regPTable8', '.jData', [3]);
+
+//**************************************** FOR OUT PATIENT RECORD *************************************************************
+
+            //On Page Load
+            $(".chkOutPatRec").prop({ checked: true });
+            $(".chkMedTreatment").prop({ checked: true });
+            $(".clinic").prop({ disabled: true });
+            $(".ledgerBtn").prop({ disabled: true });
+            $(".deleteBtn").prop({ disabled: true });
+            $(".hiddenSubmitBtn").hide();
+            $("#refLookUp8").hide();
+            $("#refLookUp7").show();
+            let calltype = "S";
+
+
+            function ClearControls() {
+                location.reload(true);
+                scrollToTop();
+            }
+
+            function clear() {
+                $(".text").val("");
+                $(".age").text("");
+                $(".decNum").val(0);
+                $(".labelCrDb").text("Db");
+
+            }
+
+
+            setTimeout(function () {
+                $(".referenceNo").focus();
+            }, 500);
+
+    
+            $(".chkOutPatRec").on({
+                click: function () {
+                    $(".referenceNo").focus();
+                }
+            })
+
+
+            $(".chkSpecServPat").on({
+                click: function () {
+                    $(".referenceNo").focus();
+                }
+            })
+
+            $(".outPatientRecBtn").on({
+                click: function () {
+                    $(".chkOutPatRec").click();
+                    $(".referenceNo").focus();
+                }
+            })
+
+            $(".specServPatientsBtn").on({
+                click: function () {
+                    $(".chkSpecServPat").click();
+                    $(".referenceNo").focus();
+                }
+            })
+            
+
+            $(".referenceNo").on({
+                focus: function () {
+                    let referenceNo = $(this).val().trim();
+                    let chkOutPatRec = $(".chkOutPatRec").prop("checked");
+                    let chkSpecServPat = $(".chkSpecServPat").prop("checked");
+                    let PatGroupCode = $(".PatGroupCode").val();
+
+                    if (!chkOutPatRec && !chkSpecServPat) {
+                        alert("Service Type must be Selected... Out-Patient or Special Service Records !");
+                        return;
+                    } else {
+                        let serviceType = (chkOutPatRec == true) ? "O" : "S";
+
+                        if (PatGroupCode.trim() == "") {
+                            $(this).val("");
+
+                            $.ajax({
+                                url: "/AJAX/ReferenceFocused",
+                                method: "POST",
+                                data: { serviceType: serviceType, referenceNo: referenceNo },
+                                success: function (data) {
+                                    $(".referenceNo").val(data);
+                                }
+                            })
+
+                        }
+
+                    }
+
+                },
+
+                focusout: function () {
+                    let referenceNo = $(this).val().trim();
+                    let PatGroupCode = $(".PatGroupCode").val();
+                    let chkOutPatRec = $(".chkOutPatRec").prop("checked");
+                    let chkSpecServPat = $(".chkSpecServPat").prop("checked");
+                    let serviceType = (chkOutPatRec == true) ? "O" : "S";
+                    
+                    if (referenceNo.trim() != "") {
+                       
+                        $.ajax({
+                            url: "/AJAX/ReferenceFocusOut",
+                            method: "POST",
+                            data: { referenceNo: referenceNo, serviceType: serviceType, PatGroupCode: PatGroupCode },
+                            success: function (data) {
+
+                                if (data.REPORTS) {
+
+                                    if (data.REPORTS.cmbdelete) {
+                                        $(".deleteBtn").prop({ disabled: false });
+                                    }
+
+                                    if (data.REPORTS.alertMessage != null) {
+                                        alert(data.REPORTS.alertMessage);
+                                    }
+
+                                    if (data.REPORTS.ActRslt != null) {
+                                        alert(data.REPORTS.ActRslt);
+                                    }
+
+                                    if (data.REPORTS.categ_save != null) {
+                                        alert(data.REPORTS.categ_save);
+                                    }
+
+                                    $(".referenceNo").val(data.REPORTS.txtreference);
+                                    $(".labelCrDb").text(data.REPORTS.lblBalbfDbCr);
+                                    $(".PatGroupCode").val(data.REPORTS.txtgroupcode);
+                                    $(".hospitalCardNo").val(data.REPORTS.txtpatientno);
+                                    $(".lastAttendDate").val(data.REPORTS.REPORT_TYPE1);
+                                    $(".fullName").val(data.REPORTS.TXTPATIENTNAME);
+                                    $(".specInstructn").val(data.REPORTS.edtspinstructions);
+                                    $(".respForBill").val(data.REPORTS.txtothername);
+                                    $(".address").val(data.REPORTS.txtaddress1);
+                                    $(".age").text(data.REPORTS.REPORT_TYPE4);
+
+                                }
+
+
+                            }
+                        })
+                        //}
+                    }
+
+                    $(".PatGroupCode").focus();
+                }
+            })
+
+
+            $(".PatGroupCode").on({
+                focusout: function () {
+                    if ($(this).val() != "") {
+                        $(".hospitalCardNo").focus();
+                    }
+                }
+            })
+
+
+            $(".hospitalCardNo").on({
+                focusout: function () {
+                    let hospitalCardNo = $(this).val();
+                    let PatGroupCode = $(".PatGroupCode").val();
+
+                    if (hospitalCardNo.trim() == "") {
+                        //$(".PatGroupCode").focus();
+                    } else {
+                        $.ajax({
+                            url: "/AJAX/DailyAttendHospitalNoFocusOut",
+                            method: "POST",
+                            data: { hospitalCardNo: hospitalCardNo, PatGroupCode: PatGroupCode },
+                            success: function (data) {
+
+                                if(data)
+                                {
+                                    if (data.REPORTS != null) {
+                                        if(data.REPORTS.alertMessage != null || data.REPORTS.ActRslt != null) {
+                                            if(data.REPORTS.alertMessage != null){
+                                                alert(data.REPORTS.alertMessage);
+                                            }
+
+                                            if(data.REPORTS.ActRslt != null ) {
+                                                alert(data.REPORTS.ActRslt)
+                                            }
+
+                                            if(data.REPORTS.REPORT_TYPE5 == "empty" ){
+                                                ClearControls();
+                                            }
+
+                                        } else {
+                                            $(".lastAttendDate").val(data.REPORTS.REPORT_TYPE1);
+                                            $(".fullName").val(data.REPORTS.TXTPATIENTNAME);
+
+                                            $(".clinic").prop({ disabled: false });
+                                            $(".ledgerBtn").prop({ disabled: false });
+
+                                            if (data.REPORTS.REPORT_TYPE2 != null) {
+                                                if (!confirm(data.REPORTS.REPORT_TYPE2)) {
+                                                    ClearControls();
+                                                    return;
+                                                }
+                                                else {
+                                                    if (!confirm("ARE YOU REALLY SURE YOU WANT TO DISTORT CLINIC VISIT STATISTICS FOR TODAY...?")) {
+                                                        ClearControls()
+                                                        return;
+                                                    }
+                                                }
+
+                                                $(".clinic").focus();
+                                            }
+
+                                            //if (data.REPORTS.REPORT_TYPE3 != null) {
+                                            //    if (!confirm(data.REPORTS.REPORT_TYPE3)) {
+                                            //        ClearControls()
+                                            //    }
+                                            //}
+
+                                            $(".specInstructn").val(data.REPORTS.edtspinstructions);
+                                            $(".respForBill").val(data.REPORTS.txtothername);
+                                            $(".address").val(data.REPORTS.txtaddress1);
+                                            $(".age").text(data.REPORTS.REPORT_TYPE4);
+
+                                        }
+
+
+                                    }
+
+                                }
+
+                            }
+                        })
+                    }
+
+
+                }
+            })
+
+
+            $(".deleteBtn").on({
+                click: function () {
+                    let referenceNo = $(".referenceNo").val();
+
+                    if (confirm("Confirm Delete!!")) {
+
+                        $.ajax({
+                            url: "/AJAX/DailyAttendDeleteClicked",
+                            method: "POST",
+                            data: { referenceNo: referenceNo },
+                            success: function (data) {
+                                if (data) {
+                                    if (data.REPORTS != null) {
+                                        if (data.REPORTS.alertMessage != null) {
+                                            alert(data.REPORTS.alertMessage);
+
+                                            ClearControls();
+                                        }
+
+                                        if (data.REPORTS.ActRslt != null) {
+                                            alert(data.REPORTS.ActRslt);
+                                        }
+
+                                    }
+                                }
+
+                            }
+                        })
+
+                    }
+                }
+            })
+
+
+            $(".clinic").on({
+                focusout: function () {
+                    let clinic = $(this).val();
+                    let chkMedicalExams = $(".chkMedicalExams").prop("checked");
+                    let chkDressing = $(".chkDressing").prop("checked");
+                    let chkInjections = $(".chkInjections").prop("checked");
+                    let chkSpecConsult = $(".chkSpecConsult").prop("checked");
+                    let chkEmergency = $(".chkEmergency").prop("checked");
+                    let chkFollowUp = $(".chkFollowUp").prop("checked");
+                    let chkDrugRefill = $(".chkDrugRefill").prop("checked");
+                    let hospitalCardNo = $(".hospitalCardNo").val();
+                    let PatGroupCode = $(".PatGroupCode").val();
+
+                    if (clinic.trim() != "") {
+                        $.ajax({
+                            url: "/AJAX/ClinicFocusOut",
+                            method: "POST",
+                            data: { clinic: clinic, chkMedicalExams: chkMedicalExams, chkDressing: chkDressing, chkInjections: chkInjections, chkFollowUp: chkFollowUp, chkEmergency: chkEmergency, chkSpecConsult: chkSpecConsult, chkDrugRefill: chkDrugRefill, hospitalCardNo: hospitalCardNo, PatGroupCode: PatGroupCode },
+                            success: function (data) {
+
+                                if (data) {
+                                    if (data.REPORTS != null) {
+                                        if (data.REPORTS.cmbsave == true) {
+                                            $(".submitBtn").prop({ disabled: false });
+                                        }
+
+                                        if (data.REPORTS.alertMessage != null) {
+                                            alert(data.REPORTS.alertMessage);
+
+                                            ClearControls();
+                                        }
+
+                                        if (data.REPORTS.txtconsultamt != null) {
+                                            $(".txtconsultamt").val(data.REPORTS.txtconsultamt);
+                                        }
+
+                                        $(".topaycons").val(data.REPORTS.cmdgrpmember);
+
+                                    }
+                                }
+                            }
+                        })
+
+                    }
+
+                }
+            })
+
+
+            $(".submitBtn").on({
+                click: function () {
+                    let PatGroupCode = $(".PatGroupCode").val();
+                    let hospitalCardNo = $(".hospitalCardNo").val();
+                    let referenceNo = $(".referenceNo").val();
+                    let fullName = $(".fullName").val();
+                    let clinic = $(".clinic").val();
+
+                    if (PatGroupCode.trim() == "") {
+                        alert("Patient GroupCode is Required!!");
+                        $(".PatGroupCode").focus();
+                    } else if (hospitalCardNo.trim() == "") {
+                        alert("hospital CardNo is Required!!");
+                        $(".hospitalCardNo").focus();
+                    } else if (referenceNo.trim() == "") {
+                        alert("ReferenceNo is Required!!");
+                        $(".referenceNo").focus();
+                    } else if (fullName.trim() == "") {
+                        alert("fullName is Required!!");
+                        $(".fullName").focus();
+                    } else if (clinic.trim() == "") {
+                        alert("clinic is Required!!");
+                        $(".clinic").focus();
+                    } else {
+                        if (confirm("Confirm to Save...")) {
+                            $(".hiddenSubmitBtn").click();
+                        }
+                    }
+
+                }
+            });
+
+
+
+            let submitReturnValue1 = $(".submitReturnValue1").val();
+            let submitReturnValue2 = $(".submitReturnValue2").val();
+            let submitReturnValue3 = $(".submitReturnValue3").val();
+
+
+            if (submitReturnValue1.trim() != "") {
+                alert(submitReturnValue1);
+            }
+
+            if (submitReturnValue2.trim() != "") {
+                alert(submitReturnValue2);
+            }
+
+            if (submitReturnValue3.trim() != "") {
+                alert(submitReturnValue3);
+            }
+            
+
+//************************************ FOR SPECIAL SERVICE PATIENT *************************************************************
+            //On page Load
+            $(".SSPsubmitBtn").prop({ disabled: true });
+            $(".serviceModalBtn").hide();
+
+
+            $(".SSPpatGroupCode").on({
+                focusout: function () {
+                    $(".SSPhospitalNo").focus();
+                }
+            })
+
+
+            $(".SSPhospitalNo").on({
+                focusout: function () {
+                    let SSPhospitalNo = $(this).val();
+                    let SSPpatGroupCode = $(".SSPpatGroupCode").val();
+
+                    if (SSPhospitalNo.trim() != "") {
+
+                        $.ajax({
+                            url: "/AJAX/SSPhospitalNoFocusOut",
+                            method: "POST",
+                            data: { SSPhospitalNo: SSPhospitalNo, SSPpatGroupCode: SSPpatGroupCode },
+                            success: function (data) {
+
+                                if (data.REPORTS != null) {
+                                    if (data.REPORTS.alertMessage != null) {
+                                        alert(data.REPORTS.alertMessage);
+
+                                        $(".SSPpatGroupCode").val("");
+                                        $(".SSPhospitalNo").val("");
+                                    }
+
+                                    $(".SSPfullName").val(data.REPORTS.TXTPATIENTNAME);
+                                    $(".SSPgender").val(data.REPORTS.cbogender);
+                                    $(".SSPage").val(data.REPORTS.cboAge);
+                                    $(".SSPaddress").val(data.REPORTS.txtaddress1);
+                                    $(".SSPemail").val(data.REPORTS.txtemail);
+                                    $(".SSPphone").val(data.REPORTS.txthomephone);
+                                    $(".SSPgroupHeadName").text(data.REPORTS.txtothername);
+
+                                    if (data.REPORTS.chkgetdependants) {
+                                        $(".chkgetdependants").prop({ checked: true });
+                                    }
+
+                                }
+
+
+                            }
+                        })
+
+                    }
+
+
+                }
+            })
+
+
+            $(".SSPbillsPayableBy").on({
+                focusout: function () {
+                    let SSPbillsPayableBy = $(this).val();
+                    let SSPhospitalNo = $(".SSPhospitalNo").val();
+                    let SSPpatGroupCode = $(".SSPpatGroupCode").val();
+
+                    //Show hidden lookUp
+                    if (SSPbillsPayableBy.slice(0, 1) == "C") {
+                        $("#refLookUp8").hide();
+                        $("#refLookUp7").show();
+                    } else {
+                        $("#refLookUp8").show();
+                        $("#refLookUp7").hide();
+                    }
+
+
+                    $.ajax({
+                        url: "/AJAX/SSPbillsPayableByFocusOut",
+                        method: "POST",
+                        data: { SSPbillsPayableBy: SSPbillsPayableBy, SSPhospitalNo: SSPhospitalNo, SSPpatGroupCode: SSPpatGroupCode },
+                        success: function (data) {
+
+                            if (data.REPORTS != null) {
+
+                                if (data.REPORTS.txtghgroupcode != null)
+                                    $(".SSPghgroupcode").val(data.REPORTS.txtghgroupcode);
+
+                                if (data.REPORTS.txtgrouphead != null)
+                                    $(".SSPgrouphead").val(data.REPORTS.txtgrouphead);
+
+                                if (data.REPORTS.txtothername != null)
+                                    $(".SSPgroupHeadName").text(data.REPORTS.txtothername);
+
+                                $(".hiddenCashPaying").val(data.REPORTS.mcanalter);
+
+                                $(".SSPgrouphead").focusout();
+                            }
+
+                        }
+                    })
+
+                }
+            })
+
+
+            //For code field
+            $(".SSPgrouphead").on({     
+                focusout: function () {
+                    let SSPgrouphead = $(this).val();
+                    let SSPghgroupcode = $(".SSPghgroupcode").val();
+                    let SSPbillsPayableBy = $(".SSPbillsPayableBy").val();
+                    let mgrouphtype = SSPbillsPayableBy.slice(0, 1);
+
+                    if (SSPgrouphead.trim() == "" || mgrouphtype == "P" && SSPghgroupcode.trim() == "") {
+                        return;
+                    } else {
+
+                        $.ajax({
+                            url: "/AJAX/SSPgroupheadFocusOut",
+                            method: "POST",
+                            data: { SSPgrouphead: SSPgrouphead, SSPghgroupcode: SSPghgroupcode, mgrouphtype: mgrouphtype },
+                            success: function (data) {
+
+                                if (data.REPORTS != null) {
+                                    if (data.REPORTS.alertMessage != null) {
+                                        alert(data.REPORTS.alertMessage);
+
+                                        $(".SSPgrouphead").val("");
+                                    }
+
+                                    if (data.REPORTS.txtothername != null) {
+                                        $(".SSPgroupHeadName").text(data.REPORTS.txtothername);
+                                    }
+
+                                    $(".hiddenCashPaying").val(data.REPORTS.mcanalter);
+                                }
+
+                            }
+                        })
+
+                    }
+
+
+                }
+            })
+
+
+            $(".SSPtransDate").on({
+                focusout: function () {
+                    let transDate = new Date($(".SSPtransDate").val());
+                    let todaysDate = new Date();
+
+                    if (transDate > todaysDate) {
+                        alert("Invalid Date...!!  Specified Date can't be greater than Today's Date");
+
+                        $(".SSPtransDate").val("@String.Format("{0:yyyy-MM-ddThh:mm:ss}", DateTime.Now)");
+                    }
+
+                }
+            })
+
+
+            $(".SSPfacility").on({
+                focusout: function () {
+                    let SSPfacility = $(this).val();
+
+                    if (SSPfacility.trim() != "") {
+
+                        $.ajax({
+                            url: "/AJAX/SSPfacilityFocusOut",
+                            method: "POST",
+                            data: { SSPfacility: SSPfacility },
+                            success: function (data) {
+
+                                if (data.REPORTS != null) {
+                                    $(".labelSSPfacility").text(data.REPORTS.lblStaffNumber)
+
+                                    if (data.REPORTS.alertMessage != null) {
+                                        alert(data.REPORTS.alertMessage);
+
+                                        $(".SSPservRequired").html(`<option value=""></option>`);
+                                    }
+                                }
+
+                                if (data.TARIFFS != null) {
+                                    let tariffs = data.TARIFFS;
+                                    let options = "";
+
+                                    for (var i = 0; i < tariffs.length; i++) {
+                                        options += `<option value="${tariffs[i].REFERENCE}">${tariffs[i].NAME}</option>`;
+                                    }
+
+                                    $(".SSPservRequired").append(options);
+                                }
+
+                                if (data.MRSETUP != null) {
+                                    $(".SSPhiddenBillCode").val(data.MRSETUP.BILLCODE);  //hidden field for Billcode
+                                }
+
+                            }
+                        })
+
+                    }
+
+                    $(".SSPservRequired").focus();
+                }
+            })
+            
+
+            $(".SSPservRequired").on({
+                focusout: function () {
+                    let SSPservRequired = $(this).val();
+                    let SSPfacility = $(".SSPfacility").val();
+                    let SSPhospitalNo = $(".SSPhospitalNo").val();
+                    let SSPpatGroupCode = $(".SSPpatGroupCode").val();
+                    let SSPbillsPayableBy = $(".SSPbillsPayableBy").val();
+                    let flag = false;
+
+                    if (SSPservRequired != "" && SSPfacility.trim() != "")
+                    {
+                        $(".hiddenIsPosted").val("false");
+                        $(".hiddenNewRec").val("true");
+                        $(".SSPaddBtn").prop({ disabled: false });
+
+                        $(".labelProcedure").text(SSPservRequired);
+
+                        //We first check the total rows in the table
+                        let totalRows = Number($(".tbody").find("tr").last().find("td").eq(0).text());
+
+                        //we must scan through listview to check if stock had been selected - we edit
+
+                        if (totalRows > 0) {
+
+                            for (let i = 0; i < totalRows; i++) {
+                                let code = $(".tbody").find("tr").eq(i).find("td").eq(4).text();
+
+                                if (code.trim() == SSPservRequired.trim()) {
+                                    flag = true;
+
+                                    let duration = Number($(".tbody").find("tr").eq(i).find("td").eq(10).text());
+                                    let amount = Number($(".tbody").find("tr").eq(i).find("td").eq(3).text());
+                                    let notes = $(".tbody").find("tr").eq(i).find("td").eq(6).text();
+                                    let isPosted = $(".tbody").find("tr").eq(i).find("td").eq(11).text() == "YES" ? true : false;
+
+                                    $(".SSPduration").val(duration);
+                                    $(".SSPamount").val(amount);
+                                    $(".hiddenIsPosted").val(isPosted);
+
+                                    //pass the code value of already existing data to a hidden field
+                                    $(".existingCode").val(code);
+                                    break;
+                                }
+                            }
+
+                            if (flag == true) {
+                                //click the modal button
+                                $(".serviceModalBtn").click();
+                            }
+                        }
+
+                        $.ajax({
+                            url: "/AJAX/SSPservRequiredFocusOut",
+                            method: "POST",
+                            data: {
+                                SSPservRequired: SSPservRequired, SSPfacility: SSPfacility, SSPhospitalNo: SSPhospitalNo,
+                                SSPpatGroupCode: SSPpatGroupCode, SSPbillsPayableBy: SSPbillsPayableBy
+                            },
+                            success: function (data) {
+
+                                if (data.REPORTS.nmrbalance != null)
+                                    $(".SSPamount").val(data.REPORTS.nmrbalance);
+
+                                if (data.REPORTS.nmrcurdebit != null)
+                                    $(".amtsaveHiddenValue").val(data.REPORTS.nmrcurdebit);
+
+                                let capitated = data.REPORTS.mcanalter ? "YES" : "NO";
+                                $(".capitated").val(capitated); //for capitated
+
+                                if (data.REPORTS.btnFamilyGroup == true)   //for addBtn
+                                    $(".SSPaddBtn").prop({ disabled: false });
+                            }
+                        })
+
+                    }
+                }
+            })
+
+
+            $(".SSPaddBtn").on({
+                click: function () {
+                    let SSPamount = Number($(".SSPamount").val());
+                    let SSPservRequired = $(".SSPservRequired").val();
+                    let amtsaveHiddenValue = Number($(".amtsaveHiddenValue").val());
+                    let SSPduration = Number($(".SSPduration").val());
+                    let SSPtransDate = $(".SSPtransDate").val();
+                    let SSPfacility = $(".SSPfacility").val();
+                    let SSPbillsPayableBy = $(".SSPbillsPayableBy").val();
+                    let SSPhiddenBillCode = $(".SSPhiddenBillCode").val();
+                    let capitated = $(".capitated").val();
+                    let hiddenGroupItem = ($(".hiddenGroupItem").val() == "true") ? "YES" : "NO";
+                    let hiddenNewRec = ($(".hiddenNewRec").val() == "true") ? true : false;
+                    let hiddenIsPosted = ($(".hiddenIsPosted").val() == "true") ? true : false;
+                    let labelSSPfacility = $(".labelSSPfacility").text().trim();
+                    let note = dOM.find('#9LkUp .noteTextArea').val();
+                    let grpBillByType = "NO";
+                    let grpBillDesc = "";
+                    let recID = "";
+
+                    if (SSPamount < 1 || SSPservRequired.trim() == "") {
+                        let xstr = SSPamount < 1 ? "Negative Charge ? " : "Request Description is Empty...";
+                        alert(xstr);
+                        $(".SSPservRequired").focus();
+                        return;
+                    } else if (SSPamount < amtsaveHiddenValue) {
+                        alert("Specified value is less than control value...");
+                        $(".SSPservRequired").focus();
+                        return;
+                    } else {
+                        if (SSPduration > 0)
+                            $(".SSPamount").val((SSPamount * SSPduration))
+
+                        let SSPcurrentTotal = SSPamount + Number($(".SSPcurrentTotal").val());
+                        $(".SSPcurrentTotal").val(SSPcurrentTotal);
+
+                        let done = (hiddenNewRec || hiddenIsPosted) ? "NO" : "YES";
+                        let newRec = (hiddenNewRec) ? "YES" : "NO";
+                        
+                        let servRequiredText = $(".SSPservRequired").find(`[value="${SSPservRequired}"]`).text();
+                        let SSPfacilityText = $(".SSPfacility").find(`[value="${SSPfacility}"]`).text();
+
+                        //let num = $(".tbody").find("tr").last().find("td").eq(0).text();
+                        //let count = Number(num) + 1;
+
+                        let hiddenAmendFlag = $(".hiddenAmendFlag").val();
+                        if (hiddenAmendFlag == "true") {
+                            let existingCode = $(".existingCode").val().trim();
+
+                            $(".tbody").find("tr").each(function () {
+                                let code = $(this).find("td").eq(4).text().trim();
+                                  
+                                if (existingCode == code) {
+                                    $(this).remove(); //delete row
+                                }
+
+                            });
+                        }
+
+                        let rows = "<tr>" +
+                                        "<td></td>" +
+                                        "<td>" + SSPfacilityText + "</td>" +
+                                        "<td>" + servRequiredText + "</td>" +
+                                        "<td>" + SSPamount + "</td>" +
+                                        "<td>" + SSPservRequired + "</td>" +
+                                        "<td>" + SSPhiddenBillCode + "</td>" +
+                                        "<td>" + note + "</td>" +
+                                        "<td>" + SSPtransDate + "</td>" +
+                                        "<td>" + capitated + "</td>" +
+                                        "<td>" + hiddenGroupItem + "</td>" +
+                                        "<td>" + SSPduration + "</td>" +
+                                        "<td>" + done + "</td>" +
+                                        "<td>" + newRec + "</td>" +
+                                        "<td>" + labelSSPfacility + "</td>" +
+                                        "<td>" + "NO" + "</td>" +
+                                        "<td>" + "" + "</td>" +
+                                        "<td>" + recID + "</td>" +
+                                   "</tr>";
+
+                        $(".tbody").append(rows);
+
+                        //re-adjust the count values after deleting or adding a row
+                        let counter = 0;
+                        $(".tbody").find("tr").each(function () {
+                            $(this).find("td").eq(0).text(++counter);
+                        });
+
+                        $(".SSPduration").val("0");
+                        $(".SSPamount").val("0");
+                        $(".SSPservRequired").val("");
+                        $(".grpProcedure").val("");
+                        $(".note").val("");
+                        $(".SSPaddBtn").prop({disabled: true});
+                        $(".SSPsubmitBtn").prop({disabled: false});
+
+                    }
+                    
+                }
+            })
+
+
+            $(".grpProcedure").on({
+                focusout: function () {
+                    let grpProcedure = $(this).val();
+                    let saveGroup = $(".hiddenSaveGroup").val();
+                    let SSPcurrentTotal = Number($(".SSPcurrentTotal").val());
+                    let grpProcedureText = $(".grpProcedure").find(`[value="${grpProcedure}"]`).text();
+                    let flag = false;
+
+                    if (grpProcedure.trim() != "") {
+
+                        $.ajax({
+                            url: "/AJAX/grpProcedureFocusOut",
+                            method: "POST",
+                            data: { grpProcedure: grpProcedure, saveGroup: saveGroup, SSPcurrentTotal: SSPcurrentTotal, grpProcedureText: grpProcedureText },
+                            success: function (data) {
+
+                                if (data.REPORTS != null) {
+
+                                    $(".hiddenGroupItem").val(data.REPORTS.cmdgrpmember);
+                                    $(".hiddenNewRec").val(data.REPORTS.newrec);
+
+                                    if (data.REPORTS.alertMessage != null)
+                                        alert(data.REPORTS.alertMessage);
+
+                                    if (data.REPORTS.ActRslt != null)
+                                    {
+                                        if (confirm(data.REPORTS.ActRslt)) {
+                                            flag = true;
+                                        }
+                                    }
+
+                                }
+
+                            }
+
+                        }).then(function () {   
+                            if (flag) {
+                                
+                                $.ajax({
+                                    url: "/AJAX/grpProcedSecondCall",
+                                    method: "POST",
+                                    data: { grpProcedure: grpProcedure },
+                                    success: function (data) {
+
+                                        let currentTotal = Number($(".SSPcurrentTotal").val());
+                                        $(".SSPcurrentTotal").val(currentTotal + data.REPORTS.nmrBalbf);
+
+                                        $(".hiddenSaveGroup").val(grpProcedure);
+
+                                        let foundIt = false;
+                                        let grpDetails = data.MRB15AS;
+
+                                        if (grpDetails.length != 0) {
+                                            for (var i = 0; i < grpDetails.length; i++) {
+                                                $(".tbody").find("tr").each(function () {
+                                                    let code = $(this).find("td").eq(4).text();
+                                                    if (code.trim() == grpDetails[i].process.trim()) {
+                                                        foundIt = true;
+                                                    }
+                                                });
+
+                                                if (!foundIt) {
+                                                    if (data.REPORTS.nmrBalbf == 0) {
+                                                        let SSPcurrentTotal = $(".SSPcurrentTotal").val();
+                                                        let SSPfacility = $(".SSPfacility").val();
+                                                        let servRequiredText = grpDetails[i].DESCRIPTION.trim();
+                                                        let SSPamount = grpDetails[i].amount.trim();
+                                                        let SSPservRequired = grpDetails[i].process.trim();
+                                                        let SSPhiddenBillCode = $(".SSPhiddenBillCode").val().trim() == "" ? grpDetails[i].process.trim() : $(".SSPhiddenBillCode").val().trim();
+                                                        let todaysDate = new Date();
+                                                        let grpbillbyservtype = (data.REPORTS.chkbillregistration) ? "YES" : "NO";
+                                                        let capitated = $(".capitated").val();
+
+                                                        $(".SSPcurrentTotal").val(SSPcurrentTotal + Number(grpDetails[i].amount));
+
+                                                        //let num = $(".tbody").find("tr").last().find("td").eq(0).text();
+                                                        //let count = Number(num) + 1;
+
+                                                        let rows = "<tr>" +
+                                                                        "<td></td>" +
+                                                                        "<td>" + SSPfacility + "</td>" +
+                                                                        "<td>" + servRequiredText + "</td>" +
+                                                                        "<td>" + SSPamount + "</td>" +
+                                                                        "<td>" + SSPservRequired + "</td>" +
+                                                                        "<td>" + SSPhiddenBillCode + "</td>" +
+                                                                        "<td>" + "" + "</td>" +
+                                                                        "<td>" + todaysDate + "</td>" +
+                                                                        "<td>" + capitated + "</td>" +
+                                                                        "<td>" + "NO" + "</td>" +
+                                                                        "<td>" + "YES" + "</td>" +
+                                                                        "<td>" + "0" + "</td>" +
+                                                                        "<td>" + "NO" + "</td>" +
+                                                                        "<td>" + "YES" + "</td>" +
+                                                                        "<td>" + SSPfacility + "</td>" +
+                                                                        "<td>" + grpbillbyservtype + "</td>" +
+                                                                        "<td>" + "0" + "</td>" +
+                                                                   "</tr>";
+
+                                                        $(".tbody").append(rows);
+
+                                                        //re-adjust the count values after deleting or adding a row
+                                                        let counter = 0;
+                                                        $(".tbody").find("tr").each(function () {
+                                                            $(this).find("td").eq(0).text(++counter);
+                                                        });
+                                                    }
+                                                }
+                                            }
+
+                                        }
+                                       
+                                        $(".SSPsubmitBtn").prop({disabled: false});
+                                    }
+                                })
+                            } else {
+                                $(".grpProcedure").val("");
+                            }
+                        })
+
+                        $(".SSPaddBtn").focus();
+                    }
+
+
+                }
+            })
+
+
+            $(".modalAddBtn").on({
+                click: function () {
+                    //if modalAdd is clicked then modalAmend should be false and vice versa
+                    $(".hiddenNewRec").val("true");
+
+                    $(".hiddenAmendFlag").val("false");
+                }
+            })
+
+            $(".modalAmendBtn").on({
+                click: function () {
+                    $(".hiddenAmendFlag").val("true");
+
+                    $(".hiddenNewRec").val("false");
+                }
+            })
+
+            $(".modalDeleteBtn").on({
+                click: function () {
+                    //first set the values of newrec and amend to false since the add button and amend button were not clicked
+                    $(".hiddenAmendFlag").val("false");
+                    $(".hiddenNewRec").val("false");
+
+                    //Then implement the delete function
+                    let SSPservRequired = $(".SSPservRequired").val();
+                    let servRequiredText = $(".SSPservRequired").find(`[value="${SSPservRequired}"]`).text();
+
+                    if (confirm(`Confirm to delete this item... ${servRequiredText}`)) {
+                        let existingCode = $(".existingCode").val();
+
+                        let SSPamount = Number($(".SSPamount").val());
+                        let SSPcurrentTotal = Number($(".SSPcurrentTotal").val());
+                        $(".SSPcurrentTotal").val((SSPcurrentTotal - SSPamount));
+
+                        let counterFlag = 0;
+                        $(".tbody").find("tr").each(function () {
+                            let code = $(this).find("td").eq(4).text().trim();
+
+                            if (existingCode == code) {
+                                if (counterFlag < 1) { //We want to delete only one out of the number of occurrance
+                                    $(this).remove(); //delete row
+                                }
+
+                                ++counterFlag;
+                            }
+                        });
+
+                        //re-adjust the count values after deleting or adding a row
+                        let counter = 0;
+                        $(".tbody").find("tr").each(function () {
+                            $(this).find("td").eq(0).text(++counter);
+                        });
+
+                        $(".SSPduration").val("0");
+                        $(".SSPamount").val("0");
+                        $(".SSPservRequired").val("");
+                        $(".grpProcedure").val("");
+                        $(".note").val("");
+                        $(".SSPaddBtn").prop({ disabled: true });
+                        $(".SSPsubmitBtn").prop({ disabled: false });
+
+                    }
+                }
+            })
+
+            $(".modalIgnoreBtn").on({
+                click: function () {
+                    //first set the values of newrec and amend to false since the add button and amend button were not clicked
+                    $(".hiddenAmendFlag").val("false");
+                    $(".hiddenNewRec").val("false");
+
+                    //Then clear the values of the fields
+                    $(".SSPduration").val("0");
+                    $(".SSPamount").val("0");
+                    $(".SSPservRequired").val("");
+                    $(".grpProcedure").val("");
+                    $(".note").val("");
+                    $(".SSPaddBtn").prop({ disabled: true });
+                    $(".SSPsubmitBtn").prop({ disabled: false });
+                }
+            })
+
+            $("#noteChk").prop({ disabled: true });
+            $("#noteChk").prop({ checked: false });
+
+            $("#noteChk, .notesLabel").on({
+                click: function () {
+                    let SSPfullName = $(".SSPfullName").val().trim();   
+                    let SSPfacility = $(".SSPfacility").val();
+                    let SSPfacilityText = $(".SSPfacility").find(`[value="${SSPfacility}"]`).text().trim();
+                    let SSPservRequired = $(".SSPservRequired").val();
+                    let servRequiredText = $(".SSPservRequired").find(`[value="${SSPservRequired}"]`).text().trim();
+
+                    if (SSPfacility.trim() == "" || SSPservRequired.trim() == "") {
+                        $("#noteChk").prop({ disabled: true });
+                        $("#noteChk").prop({ checked: false });
+
+                        alert("Enter facility and Service Required fields to Enable Note!!!");
+                    } else {
+                        $(".noteHeader").html(`SPECIAL NOTES / INSTRUCTIONS FOR <b>${SSPfullName}</b> ON: <b>${servRequiredText}</b> - <b>${SSPfacilityText}</b>`);
+
+                        $("#noteChk").prop({ disabled: false });
+                        $("#noteChk").prop({ checked: true });
+
+                        $("#refLookUp9").click();
+                    }
+                }
+            })
+
+            ShowModal(dOM, '#refLookUp9', '#9LkUp', function aF() {
+                dOM.find('#9LkUp .cancelNote').on({
+                    click: function () {
+                        $("#noteChk").prop({ checked: false });
+
+                        dOM.find('#9LkUp .noteTextArea').val("");
+                    }
+                });
+                
+            });
+
+
+            $(".SSPsubmitBtn").on({
+                click: function () {
+                    let SSPhospitalNo = $(".SSPhospitalNo").val();
+                    let SSPpatGroupCode = $(".SSPpatGroupCode").val();
+                    let SSPfullName = $(".SSPfullName").val();
+                    let SSPage = $(".SSPage").val();
+                    let SSPgender = $(".SSPgender").val();
+                    let SSPaddress = $(".SSPaddress").val();                    
+                    let SSPemail = $(".SSPemail").val();  
+                    let SSPphone = $(".SSPphone").val();                    
+                    let SSPtransDate = $(".SSPtransDate").val();
+                    let SSPbillsPayableBy = $(".SSPbillsPayableBy").val();
+                    let SSPfacility = $(".SSPfacility").val();
+                    let SSPghgroupcode = $(".SSPghgroupcode").val();
+                    let SSPgrouphead = $(".SSPgrouphead").val();
+                    let SSPreferrer = $(".SSPreferrer").val();
+                    let hiddenNewRec = $(".hiddenNewRec").val();
+                    let SSPrequestAlert = $(".SSPrequestAlert").val();
+                    let referenceNo = $(".referenceNo").val();  // from out patient record code
+                    let SSPcurrentTotal = Number($(".SSPcurrentTotal").val());
+                    let hiddenCashPaying = $(".hiddenCashPaying").val();
+                    
+                    //PPDRESSINGDTL Class holds the table data 
+                    let tableList = [];
+                    $(".tbody").find("tr").each(function () {
+                        let rowObject = {
+                            DESCRIPTION: $(this).find("td").eq(0).text().trim(),  // for count
+                            FACILITY: $(this).find("td").eq(1).text().trim(),  // for facility
+                            BILLPROCESS: $(this).find("td").eq(2).text().trim(), // for procedure
+                            AMOUNT: Number($(this).find("td").eq(3).text().trim()), // for amount
+                            GROUPCODE: $(this).find("td").eq(4).text().trim(), // for code
+                            GHGROUPCODE: $(this).find("td").eq(5).text().trim(), // for billcode
+                            NOTES: $(this).find("td").eq(6).text().trim(), // for notes
+                            TRANS_DATE: $(this).find("td").eq(7).text().trim(), // for reg_Date
+                            CAPITATED: ($(this).find("td").eq(8).text().trim() == "YES") ? true : false, // for capitated
+                            GROUPEDITEM: ($(this).find("td").eq(9).text().trim() == "YES") ? true : false,  // for grp_Item
+                            DURATION: Number($(this).find("td").eq(10).text().trim()), // for duration
+                            POSTED: ($(this).find("td").eq(11).text().trim() == "YES") ? true : false,// for posted
+                            RECTYPE: $(this).find("td").eq(12).text().trim(), // for new request
+                            REFERENCE: $(this).find("td").eq(13).text().trim(), // for unitcode
+                            GRPBILLBYSERVTYPE: ($(this).find("td").eq(14).text().trim() == "YES") ? true : false, // for GrpBillByType
+                            TRANSTYPE: $(this).find("td").eq(15).text().trim(), //for GrpBillDesc
+                            RECID: Number($(this).find("td").eq(16).text().trim()) // for recId
+                        };
+
+                        tableList.push(rowObject)
+                    });
+
+                    //Check if no row is in the table
+                    let num = $(".tbody").find("tr").last().find("td").eq(0).text();
+                    Number(num);
+
+                    if (num == 0) {
+                        alert("No Selection Made...");
+                        return;
+                    }
+
+                    if (SSPbillsPayableBy.trim() == "") {
+                        alert("Who Pays the Bill is Required...");
+                        return;
+                    } else if (SSPfullName.trim() == "") {
+                        alert("Patient Name is Required...");
+                        return;
+                    } else if (SSPaddress.trim() == "" && SSPemail.trim() == "" && SSPphone.trim() == "") {
+                        alert("Check Patient's Contact information - Phone/Email/Address");
+                    } else {
+                        if (confirm("Confirm to Submit Selections to Service Centres...")) {
+                            $(this).prop({ disabled: true });
+
+                            $.ajax({
+                                url: "/AJAX/SSPsubmitBtnClicked",
+                                method: "POST",
+                                data: {
+                                    SSPtransDate: SSPtransDate, hiddenNewRec: hiddenNewRec, SSPhospitalNo: SSPhospitalNo, SSPpatGroupCode: SSPpatGroupCode, 
+                                    SSPfullName: SSPfullName, SSPgrouphead: SSPgrouphead, SSPfacility: SSPfacility, SSPghgroupcode: SSPghgroupcode, 
+                                    SSPreferrer: SSPreferrer, SSPbillsPayableBy: SSPbillsPayableBy, SSPrequestAlert: SSPrequestAlert, SSPaddress: SSPaddress,
+                                    SSPage: SSPage, SSPgender: SSPgender, SSPphone: SSPphone, SSPemail: SSPemail, referenceNo: referenceNo,
+                                    SSPcurrentTotal: SSPcurrentTotal, hiddenCashPaying: hiddenCashPaying, calltype: calltype, tableList: tableList
+                                },
+                                success: function () {
+                                    alert("SUBMIT SUCCESSFUL...");
+                                    ClearControls();
+                                }
+                            })
+
+
+                        }
+                    }
+
+
+                }
+            })
+
+
+            $(".clearSelectn").on({
+                click: function () {
+                    //Check if no row is in the table
+                    let num = $(".tbody").find("tr").last().find("td").eq(0).text();
+                    Number(num);
+
+                    if (num == 0) {
+                        alert("No Selection Made...");
+                        return;
+                    } else {
+                        if (confirm("Confirm to Remove Selections...")) {
+                            $(".tbody").html("");
+                            return;
+                        }
+                    }
+                }
+            })
+
+
+
+
+
+            function formatDate1(str) {
+                str = Number(str.slice(str.indexOf("(") + 1, str.indexOf(")")));
+                var d = new Date(str);
+                d = ('0' + d.getDate()).slice(-2) + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + d.getFullYear();
+                return d; //returns 01-01-1970
+            };
+
+        });
+    </script>    
+}

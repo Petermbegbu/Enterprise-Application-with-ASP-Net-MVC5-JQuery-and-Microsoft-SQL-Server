@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewBag.Title = "SyncPatientsName";
+    ViewBag.TitleBar = "SYNCHRONIZE PATIENT NAMES IN MASTER FILE AND TRANSACTIONS";
+    Layout = "~/Views/Shared/_MRFormLayout.cshtml";
+}
+
+
+<section>
+    <form method="post" action="#">
+
+        <div class="dif">
+
+
+
+            <section class="bdr-f w100">
+
+                <div class="newline n1 ">
+                    <label class="label w-8 w-35">Enter Patient's Group Code Hospital #</label>
+                    <input type="text" name="txt" value="" class="input w-4 w-50" />
+                    <input type="button" name="btn" value="" class="btn-small" />
+                    <input type="text" name="txt" value="" class="input w-4 w-50" />
+                    <input type="button" name="btn" value="" class="btn-small" />
+                </div>
+
+                <div class="newline n1 ">
+                    <label class="label w-10 w-35 cred">....</label>
+                </div>
+
+                <div class="newline n1 ">
+                    <label class="label w-8 w-35">TITLE</label>
+                    <input type="text" list="cbo" class="input w-5 w-50 increase-height" />
+                    <datalist id="cbo">
+                        <option value="">-Select VALUE-</option>
+                        <option value="VALUE">VALUE</option>
+                    </datalist>
+                    <input type="button" name="btn" value="" class="btn-small" />
+                </div>
+
+                <div class="newline n1 ">
+                    <label class="label w-8 w-35">SURNAME</label>
+                    <input type="text" name="txt" value="" class="input w-8 w-50" />
+                </div>
+
+                <div class="newline n1 ">
+                    <label class="label w-8 w-35">OTHER NAMES</label>
+                    <input type="text" name="txt" value="" class="input w-8 w-50" />
+                </div>
+
+                <div class="newline n1 ">
+                    <label class="label w-8 w-35 transp"></label>
+                </div>
+
+                <div class="newline n1 ">
+                    <label class="label w-8 w-35">Enter NEW/CURRENT NAME</label>
+                    <input type="text" name="txt" value="" class="input w-10 w-50" />
+                </div>
+
+            </section>
+
+
+            <div class="newline n1 alc">
+
+                <label class="label w-5 w-35"></label>
+                <input type="button" name="btnPrint" value="Apply" class="btn clm" />
+
+                <label class="label w-8 w-35"></label>
+                <input type="button" name="btnPrint" value="Close" class="btn clm" />
+
+            </div>
+
+
+
+        </div>
+
+
+    </form>
+</section>
+

@@ -1,0 +1,124 @@
+﻿
+@{
+    ViewBag.Title = "NursingNotes";
+    ViewBag.TitleBar = "NURSING NOTES";
+    Layout = "~/Views/Shared/_MRFormLayout.cshtml";
+}
+
+
+<section>
+    <form method="post" action="#">
+
+        <div class="dif">
+
+
+
+            <!--Top Section-->
+
+            <section class="bdr-f w100 red">
+
+                <div class="newline n1 ">
+                    <label class="label w-1 w-35">Unit ID</label>
+                    <input type="text" list="cbo" class="input w-9 w-50 increase-height" />
+                    <datalist id="cbo">
+                        <option value="">-Select VALUE-</option>
+                        <option value="VALUE">VALUE</option>
+                    </datalist>
+
+                    <span>
+                        <label class="label w-2 w-35">Staff ID</label>
+                        <input type="text" list="cbo" class="input w-9 w-50 increase-height" />
+                        <datalist id="cbo">
+                            <option value="">-Select VALUE-</option>
+                            <option value="VALUE">VALUE</option>
+                        </datalist>
+                    </span>
+
+                </div>
+
+            </section>
+
+
+            <!--Bottom Section-->
+
+            <div class="diff deep">
+
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a data-toggle="tab" class="bold" href="#CurrNotes" style="background: #f9f9f9;">CURRENT NOTES</a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" class="bold" href="#PrevNotes" style="background: #f9f9f9;">PREVIOUS NOTES</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+
+                    <div id="CurrNotes" class="tab-pane fade in active">
+
+                        <div class="newline n1 ">
+                            <label class="label w-1 w-35">DATE</label>
+                            <input type="date" name="date" class="input w-5 w-50 increase-height design" />
+                        </div>
+
+                        <div class="newline n1 ">
+                            <textarea name="txt" value="" rows="20" class="txtarea ww100 w-50"></textarea>
+                        </div>
+
+                    </div>
+
+                    <div id="PrevNotes" class="tab-pane fade in">
+
+                        <div class="newline n1 ">
+                            <label class="label w-2 w-35">QUERY FOR</label>
+                            <input type="date" name="date" class="input w-5 w-50 increase-height design" />
+
+                            <span class="span">
+                                <label class="label w-35">TO</label>
+                                <input type="date" name="date" class="input w-5 w-50 increase-height design" />
+                                <input type="button" name="btnPrint" value="Load" class="btn clm" />
+                            </span>
+
+                            <span class="span">
+                                <label class="label w-2 w-35">Search</label>
+                                <input type="text" name="txt" value="" class="input w-7 w-50" />
+                                <input type="button" name="btnPrint" value="GO" class="btn clm" />
+                            </span>
+                        </div>
+
+                        <div class="newline n1 ">
+                            <textarea name="txt" value="" rows="20" class="txtarea ww100 w-50"></textarea>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <section>
+
+                <div class="dif">
+
+                    <input type="checkbox" id="chkSRA" name="chk" />
+                    <label for="chkSRA" class="label">Protect</label>
+
+                    <label class="label w-9 w-35"></label>
+                    <input type="button" name="btnPrint" value="Submit" class="btn clm" />
+
+                    <label class="label w-9 w-35"></label>
+                    <input type="button" name="btnPrint" value="Close" class="btn clm" />
+
+                </div>
+
+            </section>
+
+
+
+        </div>
+
+    </form>
+</section>
+

@@ -1,0 +1,1833 @@
+﻿
+@{
+    ViewBag.Title = "PaediatricsMilestones";
+    ViewBag.TitleBar = "PAEDIATRICS MILESTONES";
+    Layout = "~/Views/Shared/_MRFormLayout.cshtml";
+}
+
+
+<section>
+    <form method="post" action="#">
+
+       
+        <div class="diff deep">
+
+            <div class="newline n1 bdr-f">
+                <div class="newline n1">
+                    <input type="button" name="btnPrint" value="Prev. Milestones" class="btn clm" />
+
+                    <span class="span">
+                        <label class="label w-35">Hospital Number</label>
+                        <input type="text" list="cbo" class="input w-4 w-50 increase-height" />
+                        <datalist id="cbo">
+                            <option value="">-Select VALUE-</option>
+                            <option value="VALUE">VALUE</option>
+                        </datalist>
+                    </span>
+
+
+                    <span class="span">
+                        <input type="text" list="cbo" class="input w-4 w-50 increase-height" />
+                        <datalist id="cbo">
+                            <option value="">-Select VALUE-</option>
+                            <option value="VALUE">VALUE</option>
+                        </datalist>
+                    </span>
+
+
+                    <span class="span">
+                        <label class="label w-35">Name</label>
+                        <input type="text" name="txt" value="" class="input w-6 w-50" />
+                    </span>
+
+                    <span class="span">
+                        <label class="label w-35">D.O.B</label>
+                        <input type="date" name="date" class="input w-4 w-50 increase-height design" />
+                    </span>
+
+                    <span class="span">
+                        <label class="label w-35">Age</label>
+                        <input type="text" name="txt" value="" class="input w-1 w-50" />
+                    </span>
+
+                </div>
+
+            </div>
+
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a data-toggle="tab" class="bold" href="#Endof3Mnts" style="background: #f9f9f9;">End of 3 Months</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" class="bold" href="#Endof7Mnts" style="background: #f9f9f9;">End of 7 Months</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" class="bold" href="#Endof1Yr" style="background: #f9f9f9;">End of 1 Year</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" class="bold" href="#Endof2Yrs" style="background: #f9f9f9;">End of 2 Years</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" class="bold" href="#Endof3Yrs" style="background: #f9f9f9;">End of 3 Years</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" class="bold" href="#Endof4Yrs" style="background: #f9f9f9;">End of 4 Years</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" class="bold" href="#Endof5Yrs" style="background: #f9f9f9;">End of 5 Years</a>
+                </li>
+
+            </ul>
+
+            <div class="tab-content">
+
+                <div id="Endof3Mnts" class="tab-pane fade in active">
+
+                    <div class="newline n1 bdr-f blu alc">
+                        <label class="label w-35"><h4>Important Milestones By The End of 3 Months</h4></label>
+                    </div>
+
+                    <div class="newline n1">
+                        <label class="label w-5 w-35 drk">Assessment Date</label>
+                        <input type="date" name="date" class="input w-4 w-50 increase-height design" />
+
+                        <span class="span">
+                            <label class="label w-1 w-35 drk">Age</label>
+                            <input type="text" name="txt" value="" class="input w-2 w-50" />
+                        </span>
+                    </div>
+
+                    <div class="dif">
+
+
+                        <section class="inline-block ww35 w-100 va-top">
+
+
+                            <!--Top-Left Section-->
+
+
+                            <section class="bdr-f va-top">
+
+                                <div class="newline n1">
+                                    <label class="label w-7 w-35"><h5 class="drk">Social and Emotional</h5></label>
+                                </div>
+
+                                <div class="newline n1 line-height">
+                                    <input type="checkbox" id="chkSRA" name="chk" />
+                                    <label for="chkSRA" class="label">Begins to develop a social smile</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA1" name="chk" />
+                                    <label for="chkSRA1" class="label">Enjoys playing with other people and may cry when playing stops</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA2" name="chk" />
+                                    <label for="chkSRA2" class="label">Becomes more expressive and communicates more with face and body</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA3" name="chk" />
+                                    <label for="chkSRA3" class="label">Imitates some movements and facial expressions</label>
+                                </div>
+
+                            </section>
+
+                            <!--Bottom-Left Section-->
+
+
+                            <section class=" bdr-f">
+
+                                <div class="newline n1">
+                                    <label class="label w-3 w-35"><h5 class="drk">Movement</h5></label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA4" name="chk" />
+                                    <label for="chkSRA4" class="label">Raises head and chest when lying on stomach</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA5" name="chk" />
+                                    <label for="chkSRA5" class="label">Support upper body with arms when lying on stomach</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA6" name="chk" />
+                                    <label for="chkSRA6" class="label">Stretches legs out and kicks when lying on stomach or back</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA7" name="chk" />
+                                    <label for="chkSRA7" class="label">Opens and shuts hand</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA8" name="chk" />
+                                    <label for="chkSRA8" class="label">Pushes down on leg when feets are placed</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA9" name="chk" />
+                                    <label for="chkSRA9" class="label">Brings hand to mouth</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA10" name="chk" />
+                                    <label for="chkSRA10" class="label">Takes swipes at dangling objects with hands</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA11" name="chk" />
+                                    <label for="chkSRA11" class="label">Grasps and shakes hand toys</label>
+                                </div>
+
+                            </section>
+
+                        </section>
+
+                        <!--Top-Right Section-->
+
+
+                        <section class="inline-block ww35 w-100 va-top">
+
+                            <section class="bdr-f va-top">
+
+                                <div class="newline n1">
+                                    <label class="label w-2 w-35"><h5 class="drk">Vision</h5></label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA12" name="chk" />
+                                    <label for="chkSRA12" class="label">Watches face intently</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA13" name="chk" />
+                                    <label for="chkSRA13" class="label">Follows moving objects</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA14" name="chk" />
+                                    <label for="chkSRA14" class="label">Recognises familiar objects and people at a distance</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA15" name="chk" />
+                                    <label for="chkSRA15" class="label">Starts using hands and eyes in coordination</label>
+                                </div>
+
+                            </section>
+                            
+                            <section class="bdr-f va-top">
+
+                                <div class="newline n1">
+                                    <label class="label w-7 w-35"><h5 class="drk">Hearing and Speech</h5></label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA16" name="chk" />
+                                    <label for="chkSRA16" class="label">Smiles at the sound of your voice</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA17" name="chk" />
+                                    <label for="chkSRA17" class="label">Begins to babble</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA18" name="chk" />
+                                    <label for="chkSRA18" class="label">Begins to imitate some sounds</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA19" name="chk" />
+                                    <label for="chkSRA19" class="label">Turns head towards the direction of sound</label>
+                                </div>
+                            </section>
+
+                            </section>
+
+                        <!--Far-Right Section-->
+
+                        <section class="inline-block w-100 ww25">
+
+                            <div class="newline n1">
+                                <label class="label w-4 w-35">Doctors' Comments</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <textarea name="txt" value="" rows="10" class="txtarea w-7 w-50"></textarea>
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-2 w-35"></label>
+                                <input type="button" name="btnPrint" value="Save" class="btn clm" />
+                            </div>
+
+                        </section>
+
+
+
+                    </div>
+
+
+                </div>
+
+                <div id="Endof7Mnts" class="tab-pane fade in">
+
+                    <div class="newline n1 bdr-f blu alc">
+                        <label class="label w-35"><h4>Important Milestones By The End of 7 Months</h4></label>
+                    </div>
+
+                    <div class="newline n1">
+                        <label class="label w-5 w-35 drk">Assessment Date</label>
+                        <input type="date" name="date" class="input w-4 w-50 increase-height design" />
+
+                        <span class="span">
+                            <label class="label w-1 w-35 drk">Age</label>
+                            <input type="text" name="txt" value="" class="input w-2 w-50" />
+                        </span>
+                    </div>
+
+                    <div class="dif">
+
+
+                        <section class="inline-block ww35 w-100 va-top">
+
+                            <!--Top-Left Section-->
+
+                            <section class="bdr-f va-top">
+
+                                <div class="newline n1">
+                                    <label class="label w-7 w-35"><h5 class="drk">Social and Emotional</h5></label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA" name="chk" />
+                                    <label for="chkSRA" class="label">Enjoys social play</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA1" name="chk" />
+                                    <label for="chkSRA1" class="label">Interested in mirror images</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA2" name="chk" />
+                                    <label for="chkSRA2" class="label">Responds to other people's expressions of emotion and appears joyful often</label>
+                                </div>
+
+
+                        </section>
+
+                            <!--Centre-Left Section-->
+
+
+                            <section class=" bdr-f">
+
+                                <div class="newline n1">
+                                    <label class="label w-3 w-35"><h5 class="drk">Cognitive</h5></label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA3" name="chk" />
+                                    <label for="chkSRA3" class="label">Finds partially hidden objects</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA4" name="chk" />
+                                    <label for="chkSRA4" class="label">Explores with hands and mouth</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA5" name="chk" />
+                                    <label for="chkSRA5" class="label">Struggles to get objects that are out of reach</label>
+                                </div>
+
+
+                            </section>
+
+
+
+                            <!--Bottom-Left Section-->
+
+
+                            <section class=" bdr-f">
+
+                                <div class="newline n1">
+                                    <label class="label w-3 w-35"><h5 class="drk">Language</h5></label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA6" name="chk" />
+                                    <label for="chkSRA6" class="label">Responds to owns name</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA7" name="chk" />
+                                    <label for="chkSRA7" class="label">Begins to respond to "No"</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA8" name="chk" />
+                                    <label for="chkSRA8" class="label">Can tell emotions by tone of voice</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA9" name="chk" />
+                                    <label for="chkSRA9" class="label">Respond to sound by making sound</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA10" name="chk" />
+                                    <label for="chkSRA10" class="label">Use voice to express joy and displeasure</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA11" name="chk" />
+                                    <label for="chkSRA11" class="label">Babbles chain of sounds</label>
+                                </div>
+
+                            </section>
+
+                        </section>
+
+                        <!--Top-Right Section-->
+
+
+                        <section class="inline-block ww35 w-100 va-top">
+
+
+                            <section class="bdr-f">
+
+                                <div class="newline n1">
+                                    <label class="label w-3 w-35"><h5 class="drk">Movement</h5></label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA12" name="chk" />
+                                    <label for="chkSRA12" class="label">Rolls both ways (front to back and back to front)</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA13" name="chk" />
+                                    <label for="chkSRA13" class="label">Sits with and then without support on hands</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA14" name="chk" />
+                                    <label for="chkSRA14" class="label">Supports whole weight on legs</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA15" name="chk" />
+                                    <label for="chkSRA15" class="label">Reaches with one hand</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA16" name="chk" />
+                                    <label for="chkSRA16" class="label">Transfer objects from hand to hand</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA17" name="chk" />
+                                    <label for="chkSRA17" class="label">Uses hands to rake objects</label>
+                                </div>
+
+
+                            </section>
+
+
+                            <section class="bdr-f">
+
+                                <div class="newline n1">
+                                    <label class="label w-2 w-35"><h5 class="drk">Vision</h5></label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA18" name="chk" />
+                                    <label for="chkSRA18" class="label">Develops full color vision</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA19" name="chk" />
+                                    <label for="chkSRA19" class="label">Distance visio matures</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA20" name="chk" />
+                                    <label for="chkSRA20" class="label">Ability to track moving objecs improve</label>
+                                </div>
+
+                            </section>
+
+                        </section>
+
+                        <!--Far-Right Section-->
+
+                        <section class="inline-block w-100 ww25">
+
+                            <div class="newline n1">
+                                <label class="label w-4 w-35">Doctors' Comments</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <textarea name="txt" value="" rows="10" class="txtarea w-7 w-50"></textarea>
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-2 w-35"></label>
+                                <input type="button" name="btnPrint" value="Save" class="btn clm" />
+                            </div>
+
+                        </section>
+
+
+
+                    </div>
+
+
+                </div>
+
+                <div id="Endof1Yr" class="tab-pane fade in">
+
+                    <div class="newline n1 bdr-f blu alc">
+                        <label class="label w-35"><h4>Important Milestones By The End of 1 Year(12 Months)</h4></label>
+                    </div>
+
+                    <div class="newline n1">
+                        <label class="label w-5 w-35 drk">Assessment Date</label>
+                        <input type="date" name="date" class="input w-4 w-50 increase-height design" />
+
+                        <span class="span">
+                            <label class="label w-1 w-35 drk">Age</label>
+                            <input type="text" name="txt" value="" class="input w-2 w-50" />
+                        </span>
+                    </div>
+
+                    <div class="dif">
+
+
+                        <!--Top-Left Section-->
+
+                        <section class="inline-block bdr-f va-top">
+
+                            <div class="newline n1">
+                                <label class="label w-7 w-35"><h5 class="drk">Social and Emotional</h5></label>
+                            </div>
+
+                            <div class="newline n1">
+                                <input type="checkbox" id="chkSRA" name="chk" />
+                                <label for="chkSRA" class="label">Shy or anxious with strangers</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <input type="checkbox" id="chkSRA1" name="chk" />
+                                <label for="chkSRA1" class="label">Cries when father or mother leaves</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <input type="checkbox" id="chkSRA2" name="chk" />
+                                <label for="chkSRA2" class="label">Enjoys imitating people in his play</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <input type="checkbox" id="chkSRA3" name="chk" />
+                                <label for="chkSRA3" class="label">Shows specific preferences for certain people and toy</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <input type="checkbox" id="chkSRA4" name="chk" />
+                                <label for="chkSRA4" class="label">Tests parental responses to his actions during feeding</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <input type="checkbox" id="chkSRA5" name="chk" />
+                                <label for="chkSRA5" class="label">Tests parental responses to his behaviour</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <input type="checkbox" id="chkSRA6" name="chk" />
+                                <label for="chkSRA6" class="label">May be fearful in some situations</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <input type="checkbox" id="chkSRA7" name="chk" />
+                                <label for="chkSRA7" class="label">Prefers mother and/or regular care giver over all others</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <input type="checkbox" id="chkSRA8" name="chk" />
+                                <label for="chkSRA8" class="label">Repeats sounds or gestures for attention</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <input type="checkbox" id="chkSRA9" name="chk" />
+                                <label for="chkSRA9" class="label">Finger feeds himself</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <input type="checkbox" id="chkSRA10" name="chk" />
+                                <label for="chkSRA10" class="label">Extends arms or legs to help when dressed</label>
+                            </div>
+
+                        </section>
+
+                        <!--Top-Right Section-->
+
+
+                        <section class="inline-block ww35 bdr-f">
+
+                            <div class="newline n1">
+                                <label class="label w-3 w-35"><h5 class="drk">Language</h5></label>
+                            </div>
+
+                            <div class="newline n1">
+                                <input type="checkbox" id="chkSRA11" name="chk" />
+                                <label for="chkSRA11" class="label">Pays increasing attention to speech</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <input type="checkbox" id="chkSRA12" name="chk" />
+                                <label for="chkSRA12" class="label">Responds to simple verbal requests</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <input type="checkbox" id="chkSRA13" name="chk" />
+                                <label for="chkSRA13" class="label">Responds to "No"</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <input type="checkbox" id="chkSRA14" name="chk" />
+                                <label for="chkSRA14" class="label">Uses simple gestures, such as shaking head for "No"</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <input type="checkbox" id="chkSRA15" name="chk" />
+                                <label for="chkSRA15" class="label">Babbles with inflection (changes in tone)</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <input type="checkbox" id="chkSRA16" name="chk" />
+                                <label for="chkSRA16" class="label">Says "dada" and "mama"</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <input type="checkbox" id="chkSRA17" name="chk" />
+                                <label for="chkSRA17" class="label">Uses exclamations, such as "Oh-Oh!"</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <input type="checkbox" id="chkSRA18" name="chk" />
+                                <label for="chkSRA18" class="label">Tries to imitate words</label>
+                            </div>
+
+                        </section>
+
+
+                        <!--Far-Right Section-->
+
+                        <section class="inline-block w-100 ww20 va-top">
+
+                            <div class="newline n1">
+                                <label class="label w-4 w-35">Doctors' Comments</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <textarea name="txt" value="" rows="10" class="txtarea w-7 w-50"></textarea>
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-2 w-35"></label>
+                                <input type="button" name="btnPrint" value="Save" class="btn clm" />
+                            </div>
+
+                        </section>
+
+
+                        <!--Bottom Section-->
+
+
+                        <section class="bdr-f ww65 w-100">
+
+                            <div class="newline n1">
+                                <label class="label w-3 w-35"><h5 class="drk">Cognitive</h5></label>
+                            </div>
+
+                            <div class="newline n1">
+                                <input type="checkbox" id="chkSRA19" name="chk" />
+                                <label for="chkSRA19" class="label">Explores objects iin many different ways (shaking, banging, throwing, dropping)</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <input type="checkbox" id="chkSRA20" name="chk" />
+                                <label for="chkSRA20" class="label">Finds hidden objects easily</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <input type="checkbox" id="chkSRA21" name="chk" />
+                                <label for="chkSRA21" class="label">Looks at correct picture when the image is named</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <input type="checkbox" id="chkSRA22" name="chk" />
+                                <label for="chkSRA22" class="label">Imitates gestures</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <input type="checkbox" id="chkSRA23" name="chk" />
+                                <label for="chkSRA23" class="label">Begins to use objects correctly (drinking from cup, brushing hair, dailing phone, listening to receiver)</label>
+                            </div>
+
+
+
+                        </section>
+
+
+
+
+                    </div>
+
+
+                </div>
+
+                <div id="Endof2Yrs" class="tab-pane fade in">
+
+                    <div class="newline n1 bdr-f blu alc">
+                        <label class="label w-35"><h4>Important Milestones By The End of 2 Years(24 Months)</h4></label>
+                    </div>
+
+                    <div class="newline n1">
+                        <label class="label w-5 w-35 drk">Assessment Date</label>
+                        <input type="date" name="date" class="input w-4 w-50 increase-height design" />
+
+                        <span class="span">
+                            <label class="label w-1 w-35 drk">Age</label>
+                            <input type="text" name="txt" value="" class="input w-2 w-50" />
+                        </span>
+                    </div>
+
+                    <div class="dif">
+
+                        <section class="inline-block ww35 w-100 va-top">
+
+                            <!--Top-Left Section-->
+
+                            <section class="bdr-f va-top">
+
+                                <div class="newline n1">
+                                    <label class="label w-7 w-35"><h5 class="drk">Social and Emotional</h5></label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA" name="chk" />
+                                    <label for="chkSRA" class="label">Imitates behaviour of others, especially adults and other children</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA1" name="chk" />
+                                    <label for="chkSRA1" class="label">More aware of him/herself as seperate from others</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA2" name="chk" />
+                                    <label for="chkSRA2" class="label">More excited about the company of other children</label>
+                                </div>
+
+
+                            </section>
+
+                            <!--Centre-Left Section-->
+
+
+                            <section class=" bdr-f">
+
+                                <div class="newline n1">
+                                    <label class="label w-3 w-35"><h5 class="drk">Emotional</h5></label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA3" name="chk" />
+                                    <label for="chkSRA3" class="label">Demonstarates increasing independence</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA4" name="chk" />
+                                    <label for="chkSRA4" class="label">Begins to show infant behaviour</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA5" name="chk" />
+                                    <label for="chkSRA5" class="label">Separation anxiety increases towards mid-year then fades</label>
+                                </div>
+
+
+                            </section>
+
+
+
+                            <!--Bottom-Left Section-->
+
+
+                            <section class=" bdr-f">
+
+                                <div class="newline n1">
+                                    <label class="label w-3 w-35"><h5 class="drk">Language</h5></label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA6" name="chk" />
+                                    <label for="chkSRA6" class="label">Points to objects or pictures when it's named for him</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA7" name="chk" />
+                                    <label for="chkSRA7" class="label">Recognises names of familiar people, objects and body parts</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA8" name="chk" />
+                                    <label for="chkSRA8" class="label">Says several single words (by 15 to 18 months)</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA9" name="chk" />
+                                    <label for="chkSRA9" class="label">Uses simple phrases (by 18 to 24 months)</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA10" name="chk" />
+                                    <label for="chkSRA10" class="label">Uses 2 to 4 word sentences</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA11" name="chk" />
+                                    <label for="chkSRA11" class="label">Follows simple instructions</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA12" name="chk" />
+                                    <label for="chkSRA12" class="label">Repeats words overhead in conversations</label>
+                                </div>
+
+                            </section>
+
+                        </section>
+
+                        <!--Top-Right Section-->
+
+
+                        <section class="inline-block ww35 w-100 va-top">
+
+
+                            <section class="bdr-f">
+
+                                <div class="newline n1">
+                                    <label class="label w-3 w-35"><h5 class="drk">Movement</h5></label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA13" name="chk" />
+                                    <label for="chkSRA13" class="label">Walks alone</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA14" name="chk" />
+                                    <label for="chkSRA14" class="label">Pulls toys behind her while walking</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA15" name="chk" />
+                                    <label for="chkSRA15" class="label">Carries large toys or several toys while walking</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA16" name="chk" />
+                                    <label for="chkSRA16" class="label">Begins to run</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA17" name="chk" />
+                                    <label for="chkSRA17" class="label">Stands on tiptoe</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA18" name="chk" />
+                                    <label for="chkSRA18" class="label">Kicks a ball</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA19" name="chk" />
+                                    <label for="chkSRA19" class="label">Climbs unto an ddown from furniture unassisted</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA20" name="chk" />
+                                    <label for="chkSRA20" class="label">Walks up and down stairs holding on to support</label>
+                                </div>
+
+                            </section>
+
+
+                            <!--Centre-Right Section-->
+
+
+                            <section class=" bdr-f">
+
+                                <div class="newline n1">
+                                    <label class="label w-3 w-35"><h5 class="drk">Cognitive</h5></label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA21" name="chk" />
+                                    <label for="chkSRA21" class="label">Finds objects even when hidden under 2 or 3 covers</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA22" name="chk" />
+                                    <label for="chkSRA22" class="label">Begins to sort by shapes and colors</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA23" name="chk" />
+                                    <label for="chkSRA23" class="label">Begins make-beleive play</label>
+                                </div>
+
+
+
+
+                            </section>
+
+                            <!--Bottom-Right Section-->
+
+
+                            <section class="bdr-f">
+
+                                <div class="newline n1">
+                                    <label class="label w-8 w-35"><h5 class="drk">Hands and Finger Skills</h5></label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA24" name="chk" />
+                                    <label for="chkSRA24" class="label">Scribbles on his/her own</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA25" name="chk" />
+                                    <label for="chkSRA25" class="label">Turns over container to pour out contents</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA26" name="chk" />
+                                    <label for="chkSRA26" class="label">Builds tower of 4 blocks or more</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA27" name="chk" />
+                                    <label for="chkSRA27" class="label">Might use one hand more often that the other</label>
+                                </div>
+
+                            </section>
+
+                        </section>
+
+                        <!--Far-Right Section-->
+
+                        <section class="inline-block w-100 ww25">
+
+                            <div class="newline n1">
+                                <label class="label w-4 w-35">Doctors' Comments</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <textarea name="txt" value="" rows="10" class="txtarea w-7 w-50"></textarea>
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-2 w-35"></label>
+                                <input type="button" name="btnPrint" value="Save" class="btn clm" />
+                            </div>
+
+                        </section>
+
+
+
+
+                    </div>
+
+
+                </div>
+
+                <div id="Endof3Yrs" class="tab-pane fade in">
+
+                    <div class="newline n1 bdr-f blu alc">
+                        <label class="label w-35"><h4>Important Milestones By The End of 3 Years(36 Months)</h4></label>
+                    </div>
+
+                    <div class="newline n1">
+                        <label class="label w-5 w-35 drk">Assessment Date</label>
+                        <input type="date" name="date" class="input w-4 w-50 increase-height design" />
+
+                        <span class="span">
+                            <label class="label w-1 w-35 drk">Age</label>
+                            <input type="text" name="txt" value="" class="input w-2 w-50" />
+                        </span>
+                    </div>
+
+                    <div class="dif">
+
+
+
+                        <section class="inline-block ww35 w-100 va-top">
+
+                            <!--Top-Left Section-->
+
+                            <section class="bdr-f va-top">
+
+                                <div class="newline n1">
+                                    <label class="label w-7 w-35"><h5 class="drk">Social and Emotional</h5></label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA" name="chk" />
+                                    <label for="chkSRA" class="label">Imitates adults and playmates</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA1" name="chk" />
+                                    <label for="chkSRA1" class="label">Spontaneously shoews affection for familiar playmates</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA2" name="chk" />
+                                    <label for="chkSRA2" class="label">Can take turns in games</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA3" name="chk" />
+                                    <label for="chkSRA3" class="label">Understands concept of "mine" and "his/hers"</label>
+                                </div>
+
+
+                            </section>
+
+                            <!--Centre-Left Section-->
+
+
+                            <section class=" bdr-f">
+
+                                <div class="newline n1">
+                                    <label class="label w-3 w-35"><h5 class="drk">Emotional</h5></label>
+                                </div>
+
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA4" name="chk" />
+                                    <label for="chkSRA4" class="label">Expresses affection openly</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA5" name="chk" />
+                                    <label for="chkSRA5" class="label">Expresses a wide range of emotions</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA6" name="chk" />
+                                    <label for="chkSRA6" class="label">By 3, seperates easily from parents</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA7" name="chk" />
+                                    <label for="chkSRA7" class="label">Objects to major changes in routine</label>
+                                </div>
+
+                            </section>
+
+
+
+                            <!--Bottom-Left Section-->
+
+
+                            <section class=" bdr-f">
+
+                                <div class="newline n1">
+                                    <label class="label w-3 w-35"><h5 class="drk">Cognitive</h5></label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA8" name="chk" />
+                                    <label for="chkSRA8" class="label">Makes mechanical toys work</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA9" name="chk" />
+                                    <label for="chkSRA9" class="label">Matches an object in his/her hand or room to a picture in a book</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA10" name="chk" />
+                                    <label for="chkSRA10" class="label">Plays make-beleives with dolls, animals and people</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA11" name="chk" />
+                                    <label for="chkSRA11" class="label">Sorts objects by shape and color</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA12" name="chk" />
+                                    <label for="chkSRA12" class="label">Completes puzzles with 3 or 4 pieces</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA13" name="chk" />
+                                    <label for="chkSRA13" class="label">Understand concept of "two"</label>
+                                </div>
+
+                            </section>
+
+                        </section>
+
+                        <!--Top-Right Section-->
+
+
+                        <section class="inline-block ww35 w-100 va-top">
+
+
+                            <section class="bdr-f">
+
+                                <div class="newline n1">
+                                    <label class="label w-3 w-35"><h5 class="drk">Language</h5></label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA14" name="chk" />
+                                    <label for="chkSRA14" class="label">Follows a 2 or 3 part command</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA15" name="chk" />
+                                    <label for="chkSRA15" class="label">Recognises and identifies almost all common objects and pictures</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA16" name="chk" />
+                                    <label for="chkSRA16" class="label">Understands most sentences</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA17" name="chk" />
+                                    <label for="chkSRA17" class="label">Understands placement in space ("on", "in", "under")</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA18" name="chk" />
+                                    <label for="chkSRA18" class="label">Uses 4 to 5 word sentences</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA19" name="chk" />
+                                    <label for="chkSRA19" class="label">Can't sasy name , age, sex</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA20" name="chk" />
+                                    <label for="chkSRA20" class="label">Uses pronouns (I, you, me, we, they) and some plurals (cars, dogs, cats)</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA21" name="chk" />
+                                    <label for="chkSRA21" class="label">Strangers csn understand most of his/her words</label>
+                                </div>
+
+
+                            </section>
+
+
+                            <!--Centre-Right Section-->
+
+
+                            <section class=" bdr-f">
+
+                                <div class="newline n1">
+                                    <label class="label w-3 w-35"><h5 class="drk">Movement</h5></label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA22" name="chk" />
+                                    <label for="chkSRA22" class="label">Climbs well</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA23" name="chk" />
+                                    <label for="chkSRA23" class="label">Walks up and down stairs, alternating feet (one foot per stair step)</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA24" name="chk" />
+                                    <label for="chkSRA24" class="label">Kicks a ball</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA25" name="chk" />
+                                    <label for="chkSRA25" class="label">Runs easily</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA26" name="chk" />
+                                    <label for="chkSRA26" class="label">Pedals tricycle</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA27" name="chk" />
+                                    <label for="chkSRA27" class="label">Bends over easily without falling</label>
+                                </div>
+
+                            </section>
+
+                            <!--Bottom-Right Section-->
+
+
+                            <section class="bdr-f">
+
+                                <div class="newline n1">
+                                    <label class="label w-8 w-35"><h5 class="drk">Hands and Finger Skills</h5></label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA28" name="chk" />
+                                    <label for="chkSRA28" class="label">Makes up-and-down, side-to-side and circular lines with pencil or crayon</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA29" name="chk" />
+                                    <label for="chkSRA29" class="label">Turns book pages one at a time</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA30" name="chk" />
+                                    <label for="chkSRA30" class="label">Builds a tower of more than 6 blocks</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA31" name="chk" />
+                                    <label for="chkSRA31" class="label">Holds a pencil in writing position</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA32" name="chk" />
+                                    <label for="chkSRA32" class="label">Screws and unscrews jar lids, nuts and bolts</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA33" name="chk" />
+                                    <label for="chkSRA33" class="label">Turns rotating handles</label>
+                                </div>
+
+
+                            </section>
+
+                        </section>
+
+                        <!--Far-Right Section-->
+
+                        <section class="inline-block w-100 ww25">
+
+                            <div class="newline n1">
+                                <label class="label w-4 w-35">Doctors' Comments</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <textarea name="txt" value="" rows="10" class="txtarea w-7 w-50"></textarea>
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-2 w-35"></label>
+                                <input type="button" name="btnPrint" value="Save" class="btn clm" />
+                            </div>
+
+                        </section>
+
+
+                    </div>
+
+                </div>
+
+                <div id="Endof4Yrs" class="tab-pane fade in">
+
+                    <div class="newline n1 bdr-f blu alc">
+                        <label class="label w-35"><h4>Important Milestones By The End of 4 Years(48 Months)</h4></label>
+                    </div>
+
+                    <div class="newline n1">
+                        <label class="label w-5 w-35 drk">Assessment Date</label>
+                        <input type="date" name="date" class="input w-4 w-50 increase-height design" />
+
+                        <span class="span">
+                            <label class="label w-1 w-35 drk">Age</label>
+                            <input type="text" name="txt" value="" class="input w-2 w-50" />
+                        </span>
+                    </div>
+
+                    <div class="dif">
+
+
+
+                       
+
+                            <!--Top-Left Section-->
+                        <section class="inline-block ww35 w-100 va-top">
+
+                            <section class="bdr-f va-top">
+
+                                <div class="newline n1">
+                                    <label class="label w-7 w-35"><h5 class="drk">Social and Emotional</h5></label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA" name="chk" />
+                                    <label for="chkSRA" class="label">Interested in new experiences</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA1" name="chk" />
+                                    <label for="chkSRA1" class="label">Coorporates with other children</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA2" name="chk" />
+                                    <label for="chkSRA2" class="label">Plays "Mom" and "Dad"</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA3" name="chk" />
+                                    <label for="chkSRA3" class="label">Increasingly inventive in fantasy plays</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA4" name="chk" />
+                                    <label for="chkSRA4" class="label">Dresses and undresses</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA5" name="chk" />
+                                    <label for="chkSRA5" class="label">Negotiates solutions to conflicts</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA6" name="chk" />
+                                    <label for="chkSRA6" class="label">More independent</label>
+                                </div>
+
+
+                            </section>
+
+                            <!--Centre-Left Section-->
+
+
+                            <section class=" bdr-f">
+
+                                <div class="newline n1">
+                                    <label class="label w-3 w-35"><h5 class="drk">Emotional</h5></label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA7" name="chk" />
+                                    <label for="chkSRA7" class="label">Imagines that many unfamiliar images may be "monsters"</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA8" name="chk" />
+                                    <label for="chkSRA8" class="label">Views self as a whole being involving body, mind and feelings</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA9" name="chk" />
+                                    <label for="chkSRA9" class="label">Often cannot tell the difference between fantasy and reality</label>
+                                </div>
+
+                            </section>
+
+
+
+                            <!--Bottom-Left Section-->
+
+
+                            <section class=" bdr-f">
+
+                                <div class="newline n1">
+                                    <label class="label w-3 w-35"><h5 class="drk">Cognitive</h5></label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA10" name="chk" />
+                                    <label for="chkSRA10" class="label">Correctly name some colors</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA11" name="chk" />
+                                    <label for="chkSRA11" class="label">Understands the concept of counting and may know a few numbers</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA12" name="chk" />
+                                    <label for="chkSRA12" class="label">Tries to solve problems from a single point of view</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA13" name="chk" />
+                                    <label for="chkSRA13" class="label">Begins to have a clearer sense of time</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA14" name="chk" />
+                                    <label for="chkSRA14" class="label">Follows three-part commands</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA15" name="chk" />
+                                    <label for="chkSRA15" class="label">Recalls part of a story</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA16" name="chk" />
+                                    <label for="chkSRA16" class="label">Understand the concept of "same" and "different"</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA17" name="chk" />
+                                    <label for="chkSRA17" class="label">Engages in fantasy plays</label>
+                                </div>
+
+                            </section>
+
+                        </section>
+
+                        <!--Top-Right Section-->
+
+
+                        <section class="inline-block ww35 w-100 va-top">
+
+
+                            <section class="bdr-f">
+
+                                <div class="newline n1">
+                                    <label class="label w-3 w-35"><h5 class="drk">Language</h5></label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA18" name="chk" />
+                                    <label for="chkSRA18" class="label">Has mastered some basic rules of grammar</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA19" name="chk" />
+                                    <label for="chkSRA19" class="label">Speaks in sentences of five to six words</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA20" name="chk" />
+                                    <label for="chkSRA20" class="label">Speaks clearly enough for strangers to understand</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA21" name="chk" />
+                                    <label for="chkSRA21" class="label">Tells stories</label>
+                                </div>
+
+
+                            </section>
+
+
+                            <!--Centre-Right Section-->
+
+
+                            <section class=" bdr-f">
+
+                                <div class="newline n1">
+                                    <label class="label w-3 w-35"><h5 class="drk">Movement</h5></label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA22" name="chk" />
+                                    <label for="chkSRA22" class="label">Hops and stands on one foot up to five seconds</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA23" name="chk" />
+                                    <label for="chkSRA23" class="label">Goes upstairs and downstairs without support</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA24" name="chk" />
+                                    <label for="chkSRA24" class="label">Kicks a ball forward</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA25" name="chk" />
+                                    <label for="chkSRA25" class="label">Throws ball overhand</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA26" name="chk" />
+                                    <label for="chkSRA26" class="label">Catches bounced ball most of the time</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA27" name="chk" />
+                                    <label for="chkSRA27" class="label">Moves forward and backward with agility</label>
+                                </div>
+
+                            </section>
+
+                            <!--Bottom-Right Section-->
+
+
+                            <section class="bdr-f">
+
+                                <div class="newline n1">
+                                    <label class="label w-8 w-35"><h5 class="drk">Hands and Finger Skills</h5></label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA28" name="chk" />
+                                    <label for="chkSRA28" class="label">Copies square shapes</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA29" name="chk" />
+                                    <label for="chkSRA29" class="label">Draws a person with two or four body parts</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA30" name="chk" />
+                                    <label for="chkSRA30" class="label">Uses scissors</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA31" name="chk" />
+                                    <label for="chkSRA31" class="label">Draws circles and squares</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA32" name="chk" />
+                                    <label for="chkSRA32" class="label">Begins to copy some capital letters</label>
+                                </div>
+
+
+                            </section>
+
+                        </section>
+
+                        <!--Far-Right Section-->
+
+                        <section class="inline-block w-100 ww25">
+
+                            <div class="newline n1">
+                                <label class="label w-4 w-35">Doctors' Comments</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <textarea name="txt" value="" rows="10" class="txtarea w-7 w-50"></textarea>
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-2 w-35"></label>
+                                <input type="button" name="btnPrint" value="Save" class="btn clm" />
+                            </div>
+
+                        </section>
+
+
+                    </div>
+
+                </div>
+
+                <div id="Endof5Yrs" class="tab-pane fade in">
+
+                    <div class="newline n1 bdr-f blu alc">
+                        <label class="label w-35"><h4>Important Milestones By The End of 5 Years(60 Months)</h4></label>
+                    </div>
+
+                    <div class="newline n1">
+                        <label class="label w-5 w-35 drk">Assessment Date</label>
+                        <input type="date" name="date" class="input w-4 w-50 increase-height design" />
+
+                        <span class="span">
+                            <label class="label w-1 w-35 drk">Age</label>
+                            <input type="text" name="txt" value="" class="input w-2 w-50" />
+                        </span>
+                    </div>
+
+                    <div class="dif">
+
+
+
+                        <section class="inline-block ww35 w-100 va-top">
+
+                            <!--Top-Left Section-->
+
+                            <section class="bdr-f va-top">
+
+                                <div class="newline n1">
+                                    <label class="label w-7 w-35"><h5 class="drk">Social and Emotional</h5></label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA" name="chk" />
+                                    <label for="chkSRA" class="label">Wants to please friends</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA1" name="chk" />
+                                    <label for="chkSRA1" class="label">Wants to be like friends</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA2" name="chk" />
+                                    <label for="chkSRA2" class="label">More likely to agree to rules</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA3" name="chk" />
+                                    <label for="chkSRA3" class="label">Likes to sing, dance and act</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA4" name="chk" />
+                                    <label for="chkSRA4" class="label">Shows more independence and may even visit a next-door neighbour by him/herself</label>
+                                </div>
+
+
+                            </section>
+
+                            <!--Centre-Left Section-->
+
+
+                            <section class=" bdr-f">
+
+                                <div class="newline n1">
+                                    <label class="label w-3 w-35"><h5 class="drk">Emotional</h5></label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA5" name="chk" />
+                                    <label for="chkSRA5" class="label">Aware of gender</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA6" name="chk" />
+                                    <label for="chkSRA6" class="label">Able to distinguish fantasy from reality</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA7" name="chk" />
+                                    <label for="chkSRA7" class="label">Sometimes demanding, sometimes eagerly cooperative</label>
+                                </div>
+
+
+
+                            </section>
+
+
+
+                            <!--Bottom-Left Section-->
+
+
+                            <section class=" bdr-f">
+
+                                <div class="newline n1">
+                                    <label class="label w-3 w-35"><h5 class="drk">Cognitive</h5></label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA8" name="chk" />
+                                    <label for="chkSRA8" class="label">Can count ten or more objects</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA9" name="chk" />
+                                    <label for="chkSRA9" class="label">Correctly names at least four colors</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA10" name="chk" />
+                                    <label for="chkSRA10" class="label">Better understands the concept of time</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA11" name="chk" />
+                                    <label for="chkSRA11" class="label">Knows about things used everyday in the home (money, appliances)</label>
+                                </div>
+
+
+
+                            </section>
+
+                        </section>
+
+                        <!--Top-Right Section-->
+
+
+                        <section class="inline-block ww35 w-100 va-top">
+
+
+                            <section class="bdr-f">
+
+                                <div class="newline n1">
+                                    <label class="label w-3 w-35"><h5 class="drk">Language</h5></label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA12" name="chk" />
+                                    <label for="chkSRA12" class="label">Recalls part of a story</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA13" name="chk" />
+                                    <label for="chkSRA13" class="label">Speaks sentences of more that five words</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA14" name="chk" />
+                                    <label for="chkSRA14" class="label">Uses future tense</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA15" name="chk" />
+                                    <label for="chkSRA15" class="label">Tells longer stories</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA16" name="chk" />
+                                    <label for="chkSRA16" class="label">Says name and address</label>
+                                </div>
+
+
+
+                            </section>
+
+
+                            <!--Centre-Right Section-->
+
+
+                            <section class=" bdr-f">
+
+                                <div class="newline n1">
+                                    <label class="label w-3 w-35"><h5 class="drk">Movement</h5></label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA17" name="chk" />
+                                    <label for="chkSRA17" class="label">Stands on one foot for 10 seconds or longer</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA18" name="chk" />
+                                    <label for="chkSRA18" class="label">Hops, summersaults</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA19" name="chk" />
+                                    <label for="chkSRA19" class="label">Swings, climbs</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA20" name="chk" />
+                                    <label for="chkSRA20" class="label">Throws ball overhand</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA21" name="chk" />
+                                    <label for="chkSRA21" class="label">Maybe able to skip</label>
+                                </div>
+
+
+                            </section>
+
+                            <!--Bottom-Right Section-->
+
+
+                            <section class="bdr-f">
+
+                                <div class="newline n1">
+                                    <label class="label w-8 w-35"><h5 class="drk">Hands and Finger Skills</h5></label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA22" name="chk" />
+                                    <label for="chkSRA22" class="label">Copies triangles and other shapes</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA23" name="chk" />
+                                    <label for="chkSRA23" class="label">Draws a person with body</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA24" name="chk" />
+                                    <label for="chkSRA24" class="label">Prints some letters</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA25" name="chk" />
+                                    <label for="chkSRA25" class="label">Dresses and undresses wothout help</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA26" name="chk" />
+                                    <label for="chkSRA26" class="label">Uses ork, spoon, and (sometimes) a table knife</label>
+                                </div>
+
+                                <div class="newline n1">
+                                    <input type="checkbox" id="chkSRA27" name="chk" />
+                                    <label for="chkSRA27" class="label">Usuallu cares for own toilet needs</label>
+                                </div>
+
+
+                            </section>
+
+                        </section>
+
+                        <!--Far-Right Section-->
+
+                        <section class="inline-block w-100 ww25">
+
+                            <div class="newline n1">
+                                <label class="label w-4 w-35">Doctors' Comments</label>
+                            </div>
+
+                            <div class="newline n1">
+                                <textarea name="txt" value="" rows="10" class="txtarea w-7 w-50"></textarea>
+                            </div>
+
+                            <div class="newline n1">
+                                <label class="label w-2 w-35"></label>
+                                <input type="button" name="btnPrint" value="Save" class="btn clm" />
+                            </div>
+
+                        </section>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+            </div>
+
+            <div class="dif alc">
+                <label class="label w-7"></label>
+                <input type="button" name="btnPrint" value="Print" class="btn clm" />
+                <label class="label w-2"></label>
+                <input type="button" name="btnPrint" value="Close" class="btn clm" />
+            </div>
+
+        </div>
+
+    </form>
+</section>
