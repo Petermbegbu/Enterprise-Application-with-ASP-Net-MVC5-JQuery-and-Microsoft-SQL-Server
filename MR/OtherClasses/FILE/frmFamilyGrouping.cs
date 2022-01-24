@@ -29,7 +29,7 @@ namespace OtherClasses.FILE
         Customer customers;
         patientinfo patients;
 
-        string lookupsource, anycode, PicSelected;
+        //string lookupsource, anycode, PicSelected;
 
         public frmFamilyGrouping(MR_DATA.MR_DATAvm VM2)
         {

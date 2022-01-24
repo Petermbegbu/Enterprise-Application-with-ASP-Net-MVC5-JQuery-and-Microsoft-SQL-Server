@@ -944,8 +944,9 @@ opsPara, callback) {
             myModal.find(table2 + ' tbody tr').removeClass(cssClassName);
             btnSelect.prop('disabled', true);
 
-            myModal.addClass('djq-hide');
-            $('body').removeClass('djq-vo');
+            myModal.find('.close-dataJQ').click();
+            //myModal.addClass('djq-hide');
+            //$('body').removeClass('djq-vo');
 
             if (typeof callback == "function") { callback(); }
             $(dataReturnID + '1').focus();
@@ -957,8 +958,9 @@ opsPara, callback) {
             myModal.find(table2 + ' tbody tr').removeClass(cssClassName);
             btnSelect.prop('disabled', true);
 
-            myModal.addClass('djq-hide');
-            $('body').removeClass('djq-vo');
+            myModal.find('.close-dataJQ').click();
+            //myModal.addClass('djq-hide');
+            //$('body').removeClass('djq-vo');
             dRID.val(dataReturn);
 
             if (typeof callback == "function") { callback(dataReturn); }
@@ -994,8 +996,9 @@ opsPara, callback) {
             myModal.find(table2 + ' tbody tr').removeClass(cssClassName);
             btnSelect.prop('disabled', true);
 
-            myModal.addClass('djq-hide');
-            $('body').removeClass('djq-vo');
+            myModal.find('.close-dataJQ').click();
+            //myModal.addClass('djq-hide');
+            //$('body').removeClass('djq-vo');
 
             if (typeof callback == "function") { callback(); }
             $(dataReturnID + '1').focus();
@@ -1008,8 +1011,9 @@ opsPara, callback) {
             myModal.find(table2 + ' tbody tr').removeClass(cssClassName);
             btnSelect.prop('disabled', true);
 
-            myModal.addClass('djq-hide');
-            $('body').removeClass('djq-vo');
+            myModal.find('.close-dataJQ').click();
+            //myModal.addClass('djq-hide');
+            //$('body').removeClass('djq-vo');
             dRID.val(dataReturn);
 
             if (typeof callback == "function") { callback(dataReturn); }
@@ -1616,6 +1620,47 @@ function closeFch() {
     $('body').removeClass('djq-vo');
 };
 
+function RptBtns(dOM, prnt) {
+
+    if (dOM.find('#pdfPath').val() != null
+                && dOM.find('#pdfPath').val().trim() != ''
+                && prnt == 'True') {
+        printPdf(dOM.find('#pdfPath').val().trim());
+    }
+
+    dOM.find('#back1').on({
+        click: function () {
+            dOM.find('#back2').click();
+        },
+        dblclick: function () {
+
+            if (dOM.find('#back3').attr('href').trim() != '#')
+            { dOM.find('#back3').click(); }
+        }
+    });
+
+    dOM.find('#print1').on({
+        click: function () {
+
+            if (dOM.find('#pdfPath').val() != null
+                && dOM.find('#pdfPath').val().trim() != ''
+                && dOM.find('#TAB2').hasClass('active')) {
+
+                printPdf(dOM.find('#pdfPath').val().trim());
+            }
+            else if (dOM.find('#pdfPath').val() != null
+                && dOM.find('#pdfPath').val().trim() != ''
+                && window.confirm("ALERT!!!\n\nPRINT PREVIOUS REPORT???")) {
+
+                printPdf(dOM.find('#pdfPath').val().trim());
+            }
+            else {
+                dOM.find('#print2').val('True')
+                dOM.find('#pre1').click();
+            }
+        }
+    });
+};
 
 
 

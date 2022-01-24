@@ -71,7 +71,7 @@
     </Reference>
     <Reference Include="mradmin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\LIB\mradmin.dll</HintPath>
+      <HintPath>..\..\..\..\Visual Studio Files\New folder (2)\mradmin.dll</HintPath>
     </Reference>
     <Reference Include="msfunc">
       <HintPath>..\..\..\..\..\Videos\1 ADI\Codes\lib\msfunc.dll</HintPath>
@@ -165,6 +165,9 @@
     <Compile Include="OtherClasses\AuthUser.cs" />
     <Compile Include="OtherClasses\ErpDB.cs" />
     <Compile Include="OtherClasses\ErpFunc.cs" />
+    <Compile Include="OtherClasses\FILE\Admmissions.cs" />
+    <Compile Include="OtherClasses\FILE\Ante_Natal_Records.cs" />
+    <Compile Include="OtherClasses\FILE\DocsTemplates.cs" />
     <Compile Include="OtherClasses\FILE\frmAcctfromSusp.cs" />
     <Compile Include="OtherClasses\FILE\frmAncreg.cs" />
     <Compile Include="OtherClasses\FILE\frmAttendanceList.cs" />
@@ -178,21 +181,31 @@
     <Compile Include="OtherClasses\FILE\frmGroupMembersdt.cs" />
     <Compile Include="OtherClasses\FILE\frmImageAcquisition.cs" />
     <Compile Include="OtherClasses\FILE\frmInjectionAlert.cs" />
+    <Compile Include="OtherClasses\FILE\frmInpPrescriptiondtls.cs" />
     <Compile Include="OtherClasses\FILE\frmInvMaterialCostDefinition.cs" />
     <Compile Include="OtherClasses\FILE\frmInvProcRequest.cs" />
     <Compile Include="OtherClasses\FILE\frmLoadBills4Edit.cs" />
+    <Compile Include="OtherClasses\FILE\frmPatientsPrescriptionDetails.cs" />
     <Compile Include="OtherClasses\FILE\frmPrivateAcct.cs" />
     <Compile Include="OtherClasses\FILE\frmPrivatePatientsdtl.cs" />
+    <Compile Include="OtherClasses\FILE\frmRxguidline.cs" />
+    <Compile Include="OtherClasses\FILE\frmSpInstnMednotes.cs" />
     <Compile Include="OtherClasses\FILE\frmStkitemsonbill.cs" />
+    <Compile Include="OtherClasses\FILE\frmTreatmentChart.cs" />
     <Compile Include="OtherClasses\FILE\hmoauthorizationcode.cs" />
+    <Compile Include="OtherClasses\FILE\ObservationCharts.cs" />
     <Compile Include="OtherClasses\FILE\opdvitals.cs" />
+    <Compile Include="OtherClasses\FILE\PrescriptionsNew.cs" />
+    <Compile Include="OtherClasses\FILE\PreviousPregnancies.cs" />
     <Compile Include="OtherClasses\FILE\ReceiptsGenerator.cs" />
     <Compile Include="OtherClasses\FILE\samplecollectiondetails.cs" />
     <Compile Include="OtherClasses\FILE\SampleLabelGenerator.cs" />
+    <Compile Include="OtherClasses\FILE\TemplateGrpDetails.cs" />
     <Compile Include="OtherClasses\FILE\TransactionsPayments.cs" />
     <Compile Include="OtherClasses\HPLfunc.cs" />
     <Compile Include="OtherClasses\Models\APS01.cs" />
     <Compile Include="OtherClasses\Models\AR_DATA.cs" />
+    <Compile Include="OtherClasses\Models\billchaindtl.cs" />
     <Compile Include="OtherClasses\Models\FAS01.cs" />
     <Compile Include="OtherClasses\Models\GLS01.cs" />
     <Compile Include="OtherClasses\Models\HP_DATA.cs" />
@@ -222,11 +235,14 @@
     <Content Include="Content\Images\homee.png" />
     <Content Include="Content\Images\imag.png" />
     <Content Include="Content\Images\intemedss.png" />
-    <Content Include="Content\Images\LoadListBtn.PNG" />
+    <Content Include="Content\Images\loadlistbtn.PNG" />
     <Content Include="Content\Images\loginbg.jpg" />
     <Content Include="Content\Images\lookUp.png" />
+    <Content Include="Content\Images\medicalNote.PNG" />
     <Content Include="Content\Images\picture.png" />
+    <Content Include="Content\Images\prescHistoryBtn.PNG" />
     <Content Include="Content\Images\reload.PNG" />
+    <Content Include="Content\Images\specialInstr.PNG" />
     <Content Include="Content\Images\welcome.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -463,10 +479,12 @@
     <Content Include="Views\File\SampleLabelGenerator.cshtml" />
     <Content Include="Views\File\MaterialCostDefinition.cshtml" />
     <Content Include="Views\File\ImageAcquisitions.cshtml" />
+    <Content Include="Views\File\AnteNatalRecords.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="ReportPDFs\" />
+    <Folder Include="Resources\Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

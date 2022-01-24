@@ -873,17 +873,15 @@
                         @Html.DropDownListFor(m => m.SYSCODETABSvm.DiagnosisCodes.name,
                                 new SelectList(Model.SYSCODETABSvm.DiagnosisCodess, "type_code", "name"), "",
                                 new { @class = "input w-5 increase-height diagnosis" })
-
-                        <input type="button" id="refLookUp6" name="btn" value="" class="btn-small hData1" />
                     </div>
 
                     <div class="newline n1">
                         <label class="label w-3 w-35 drk">Procedure</label>
                         @Html.DropDownListFor(m => m.TARIFF.NAME,
                             new SelectList(Model.TARIFFS, "REFERENCE", "NAME"), "",
-                            new { @class = "input w-5 increase-height procedure" })
+                            new { @class = "input w-5 increase-height procedure hData1" })
 
-                        <input type="button" id="refLookUp6" name="btn" value="" class="btn-small hData1" />
+                        <input type="button" id="refLookUp6" name="btn" value="" class="btn-small" />
                     </div>
                     <div class="newline n1">
                         <label class="label w-3 w-35 drk">Other Charges</label>
@@ -1002,10 +1000,10 @@
 
         <section class="borderLine">
             <div class="d-flex justify-content-around py-2">
-                <input type="button" name="btnClose" value="Print Bills" class="btn clm" />
-                <input type="button" name="btnClose" value="Submit" class="btn submitBtn" />
-                <input type="button" name="btn" value="Delete" class="btn deleteBtn" />
-                <input type="button" name="btnPrint" value="Close" class="btn clm" />
+                <input type="button" name="" value="Print Bills" class="btn clm" />
+                <input type="button" name="" value="Submit" class="btn submitBtn" />
+                <input type="button" name="" value="Delete" class="btn deleteBtn" />
+                <a href="~/Home/Index" title="Close"><input type="button" name="" value="Close" class="btn oraa" /></a>
             </div>
         </section>
 
@@ -1112,7 +1110,6 @@
     <input type="hidden" value="false" class="hiddenFcgroup" />
 
 </section>
-
 
 
 <section class="transferBillForm borderLine">
@@ -1580,6 +1577,7 @@
                                     let newRec = "NO"
                                     let rows = "";
                                     let totalAmount = 0;
+                                    let billingLength = data.BILLINGS.length;
 
                                     let xname, xpatientno = "";
 
@@ -1612,6 +1610,8 @@
 
                                     $(".tbody1").html(rows);
                                     $(".currentTotal").val(totalAmount);
+                                    $(".itemCount").val(billingLength + 1);
+                                    
 
                                     if (name1.trim() != xname.trim() || patientNo.trim() != xpatientno.trim()) {
                                         let message = `Invoice item not for this Patient...  \n Check ${xpatientno} CONTINUE ?`;
@@ -1782,7 +1782,7 @@
 
                     $(".otherCharges").val(procedure);
 
-                    if (procedure.trim() != "") {
+                    if (procedure != "" && procedure != null) {
 
                         $.ajax({
                             url: "/AJAX/procedureFocusout",
@@ -2505,8 +2505,7 @@
                             method: "POST",
                             data: {
                                 transDateString: transDateString, dateToString: dateToString, ldBillsGroupHead: ldBillsGroupHead,
-                                ldBillsPatientNo: ldBillsPatientNo, ldBillsGroupCode: ldBillsGroupCode,
-                                hiddenFcgroup: hiddenFcgroup
+                                ldBillsPatientNo: ldBillsPatientNo, ldBillsGroupCode: ldBillsGroupCode, hiddenFcgroup: hiddenFcgroup
                             },
                             success: function (data) {
                                 if (data.REPORTS != null) {

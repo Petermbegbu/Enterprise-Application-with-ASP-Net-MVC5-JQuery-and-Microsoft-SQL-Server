@@ -1000,10 +1000,10 @@
 
         <section class="borderLine">
             <div class="d-flex justify-content-around py-2">
-                <input type="button" name="btnClose" value="Print Bills" class="btn clm" />
-                <input type="button" name="btnClose" value="Submit" class="btn submitBtn" />
-                <input type="button" name="btn" value="Delete" class="btn deleteBtn" />
-                <input type="button" name="btnPrint" value="Close" class="btn clm" />
+                <input type="button" name="" value="Print Bills" class="btn clm" />
+                <input type="button" name="" value="Submit" class="btn submitBtn" />
+                <input type="button" name="" value="Delete" class="btn deleteBtn" />
+                <a href="~/Home/Index" title="Close"><input type="button" name="" value="Close" class="btn oraa" /></a>
             </div>
         </section>
 
@@ -2505,8 +2505,7 @@
                             method: "POST",
                             data: {
                                 transDateString: transDateString, dateToString: dateToString, ldBillsGroupHead: ldBillsGroupHead,
-                                ldBillsPatientNo: ldBillsPatientNo, ldBillsGroupCode: ldBillsGroupCode,
-                                hiddenFcgroup: hiddenFcgroup
+                                ldBillsPatientNo: ldBillsPatientNo, ldBillsGroupCode: ldBillsGroupCode, hiddenFcgroup: hiddenFcgroup
                             },
                             success: function (data) {
                                 if (data.REPORTS != null) {

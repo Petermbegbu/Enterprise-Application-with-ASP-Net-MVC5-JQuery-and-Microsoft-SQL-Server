@@ -1107,7 +1107,8 @@ namespace OtherClasses.FILE
                 if (vm.REPORTS.txtdiscount == 0 && !string.IsNullOrWhiteSpace(vm.REPORTS.txtreference)) //11.7.2019 - Harmony wants audit trail for 0 amt
                 {
                     billchaindtl xbc = billchaindtl.Getbillchain(mrattend.PATIENTNO, mrattend.GROUPCODE);
-                    msmrfunc.updateOverwrite(vm.REPORTS.txtreference, "ZERO amt to allow link flow by : " + woperator + " @ " + DateTime.Now.ToLongDateString(), xbc, 0m, 0m);
+                    msmrfunc.updateOverwrite(vm.REPORTS.txtreference, "ZERO amt to allow link flow by : " + woperator + 
+                        " @ " + DateTime.Now.ToLongDateString(), xbc, 0m, 0m, woperator);
                 }
             }
 

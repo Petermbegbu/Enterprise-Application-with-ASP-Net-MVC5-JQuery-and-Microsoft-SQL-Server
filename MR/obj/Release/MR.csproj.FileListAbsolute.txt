@@ -43,3 +43,4 @@ C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\Newtonsoft.Json.x
 C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\obj\Release\MR.csprojResolveAssemblyReference.cache
 C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\obj\Release\MR.dll
 C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\obj\Release\MR.pdb
+C:\Users\MY PC\Documents\Visual Studio 2015\Projects\MR\MR\bin\mradmin.dll

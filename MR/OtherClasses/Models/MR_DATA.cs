@@ -54,6 +54,94 @@ namespace OtherClasses.Models
                 public bool chkApplyFilter { get; set; }
                 public bool chkBasicMedicProfile { get; set; }
 
+
+                public bool chkDiabetes { get; set; }
+                public bool ChkHypertension { get; set; }
+                public bool chkHeartDisease { get; set; }
+                public bool chkSickleCellDisease { get; set; }
+                public bool chkpulmonaryTbasthma { get; set; }
+                public bool chkKidneyDisease { get; set; }
+                public bool chkHepatitis { get; set; }
+                public bool chkNeurologic { get; set; }
+                public bool chkThyroid { get; set; }
+                public bool chkPhychiatric { get; set; }
+                public bool chkHeentAbnormal { get; set; }
+                public bool chkHeentNormal { get; set; }
+                public bool chkFundiNormal { get; set; }
+                public bool chkFundiAbnormal { get; set; }
+                public bool chkTeethNormal { get; set; }
+                public bool chkTeethAbnormal { get; set; }
+                public bool chkThyroidNormal { get; set; }
+                public bool chkThyroidAbnormal { get; set; }
+                public bool chkBreastNormal { get; set; }
+                public bool chkBreastAbnormal { get; set; }
+                public bool chkLungsNormal { get; set; }
+                public bool chkLungsAbnormal { get; set; }
+                public bool chkHeartNormal { get; set; }
+                public bool chkHeartAbnormal { get; set; }
+                public bool chkAbdomenNormal { get; set; }
+                public bool chkAbdomenAbnormal { get; set; }
+                public bool chkExtremitiesNormal { get; set; }
+                public bool chkExtremitiesAbnormal { get; set; }
+
+                public bool chkSkinNormal { get; set; }
+                public bool chkSkinAbnormal { get; set; }
+                public bool chkLymphNormal { get; set; }
+                public bool chkLymphAbnormal { get; set; }
+                public bool chkOptVulvaNormal { get; set; }
+                public bool chkOptVulvaCondyloma { get; set; }
+                public bool chkOptVulvaLesions { get; set; }
+                public bool chkOptVaginaNormal { get; set; }
+                public bool chkOptDischargeVagina { get; set; }
+                public bool chkOptCervixNormal { get; set; }
+                public bool chkOptInflamationNormal { get; set; }
+                public bool chkOptLesionNormal { get; set; }
+                public bool chkOptFibroidYes { get; set; }
+                public bool chkOptFibroidNo { get; set; }
+                public bool chkOptnormalAnexa { get; set; }
+                public bool chkOPtabnormalAdnexa { get; set; }
+                public bool chkOptHaemorrhoidsYes { get; set; }
+                public bool chkOptHaemorrhoidsoptNo { get; set; }
+                public bool chkNoneLaborOnset { get; set; }
+                public bool chkSpontaneous { get; set; }
+                public bool chkInduced { get; set; }
+                public bool chkAugumented { get; set; }
+                public bool chkArtificial { get; set; }
+                public bool chkMemInduced { get; set; }
+                public bool chkPRNone { get; set; }
+                public bool chkPRNarcotics { get; set; }
+                public bool chkPRPurdendal { get; set; }
+                public bool chkPREntonox { get; set; }
+                public bool chkPREpidural { get; set; }
+                public bool chkPRSpinal { get; set; }
+                public bool chkPRCombinedES { get; set; }
+                public bool chktstActive { get; set; }
+                public bool chktstmanualremoval { get; set; }
+                public bool chkOxytocin { get; set; }
+                public bool chkOxyErgometrine { get; set; }
+                public bool chkOptMembApparenntly { get; set; }
+                public bool chkOptMembIncomplete { get; set; }
+                public bool chkOptcompletePlacenta { get; set; }
+                public bool chkOptIncompletePlacenta { get; set; }
+
+                public bool chkNonIdentified { get; set; }
+                public bool chkPerinealTear { get; set; }
+                public bool chkOptFirstDeg { get; set; }
+                public bool chkOptSecondDeg { get; set; }
+                public bool chkOptThirdDeg { get; set; }
+                public bool chkOptFourthDeg { get; set; }
+                public bool chkEpisotomy { get; set; }
+                public bool chkOptRepairYes { get; set; }
+                public bool chkOptRepairNo { get; set; }
+                public bool chkOptMothRYes { get; set; }
+                public bool chkOptMotherRNo { get; set; }
+                public bool chkLowRisk { get; set; }
+                public bool chkHighRisk { get; set; }
+                public bool chkMediumRisk { get; set; }
+                public bool chkSecondary { get; set; }
+
+            
+
                 public string ActRslt { get; set; }
                 public string REPORT_TYPE1 { get; set; }
                 public string REPORT_TYPE2 { get; set; }
@@ -127,7 +215,7 @@ namespace OtherClasses.Models
                 public ReportParameter[] RptParams { get; set; }
                 public ReportDataSource RptDataSrc { get; set; }
                 public ReportViewer GeneratedReport { get; set; }
-            
+
 
 
                 //NEW PROPS
@@ -145,6 +233,7 @@ namespace OtherClasses.Models
                 public string txtgroupcode { get; set; }
                 public string txtpatientno { get; set; }
                 public string txtaddress1 { get; set; }
+                public string diagnosis { get; set; }
                 public DateTime dtbirthdate { get; set; }
                 public string cbogender { get; set; }
                 public string cbomaritalstatus { get; set; }
@@ -159,6 +248,7 @@ namespace OtherClasses.Models
                 public string TXTPATIENTNAME { get; set; }
                 public string txtbillspayable { get; set; }
                 public string cbotitle { get; set; }
+                public bool cashpaying { get; set; }
                 public string Combillspayable { get; set; }
                 public decimal txtdiscount { get; set; }
                 public string comhmoservgrp { get; set; }
@@ -178,6 +268,8 @@ namespace OtherClasses.Models
                 public string txtkinaddress1 { get; set; }
                 public string cbokinstate { get; set; }
                 public string txtkinphone { get; set; }
+                public string txtRoom { get; set; }
+                public string txtBed { get; set; }
                 public string txtrelationship { get; set; }
                 public string txtemail { get; set; }
                 public string cboReligion { get; set; }
@@ -216,19 +308,119 @@ namespace OtherClasses.Models
                 public string mreference { get; set; }
                 public string msection { get; set; }
                 public string mcusttype { get; set; }
+                public string mdoctor { get; set; }
                 public string mgrouphtype { get; set; }
                 public DateTime transDate { get; set; }
                 public decimal? cost { get; set; }
                 public decimal? sell { get; set; }
-
-
-
-
-
-
-
-
-
+                public string txtImage1 { get; set; }
+                public string txtImage2 { get; set; }
+                public string txtImage3 { get; set; }
+                public string txtImage4 { get; set; }
+                public string txtImage5 { get; set; }
+                public string txtImage6 { get; set; }
+                public string txtImage7 { get; set; }
+                public string txtImage8 { get; set; }
+                public string txtImage9 { get; set; }
+                public string txtImage10 { get; set; }
+                public string txtPDF1 { get; set; }
+                public string txtPDF2 { get; set; }
+                public string txtPDF3 { get; set; }
+                public string txtPDF4 { get; set; }
+                public string txtPDF5 { get; set; }
+                public string txtPDF6 { get; set; }
+                public string txtPDF7 { get; set; }
+                public string txtPDF8 { get; set; }
+                public string txtPDF9 { get; set; }
+                
+                public string txtDiabetes { get; set; }
+                public string txtHypertention { get; set; }
+                public string txtHeartDisease { get; set; }
+                public string txtSickleCell { get; set; }
+                public string txtPulmonary { get; set; }
+                public string txtKidney { get; set; }
+                public string txtHepatitis { get; set; }
+                public string txtNeurologic { get; set; }
+                public string txtThyroid { get; set; }
+                public string txtPhychiatric { get; set; }
+                public string txtWeight { get; set; }
+                public string txtHeight { get; set; }
+                public string txtConsultant { get; set; }
+                public string txtAttendingPaed { get; set; }
+                public string txtDeliverySuite { get; set; }
+                public string txtDeliveredTime { get; set; }
+                public string txtParity { get; set; }
+                public string txtFetalNumber { get; set; }
+                public string txtGestationAge { get; set; }
+                public string txtIndicationLabor { get; set; }
+                public string txtMemRuptIndication { get; set; }
+                public string txtRuptMemDuration { get; set; }
+                public string txtdtruptureTime { get; set; }
+                public string txttstComments { get; set; }
+                public string txtOnsetTime { get; set; }
+                public string txtFullDilatedTime { get; set; }
+                public string txtPushingCommencedTIme { get; set; }
+                public string txtHeadDeliveredTIme { get; set; }
+                public string txtBabyDeliveredTIme { get; set; }
+                public string txtEndofThirdStageTime { get; set; }
+                public string txtTwinDeliveredTime { get; set; }
+                public string txtFirstStage { get; set; }
+                public string txtSecondStage { get; set; }
+                public string txtThirdStage { get; set; }
+                public string txtLaborDuration { get; set; }
+                public string txtOxydosageAndTime { get; set; }
+                public string txtCordNoVessels { get; set; }
+                public string txtMeasuredBloodLoss { get; set; }
+                public string txtEstimatedBloodloss { get; set; }
+                public string txtTotalBloodloss { get; set; }
+                public string txtFurtherAction { get; set; }
+                public string txtDeliverydate { get; set; }
+                public string txtRuptureDate { get; set; }
+                public string txtOnsetDate { get; set; }
+                public string txtFullyDilatedDate { get; set; }
+                public string txtPushingComDate { get; set; }
+                public string txtHeadDelDate { get; set; }
+                public string txtBabyDelDate { get; set; }
+                public string txtEndof3StageDate { get; set; }
+                public string txtTwinDelDate { get; set; }
+                public string txtindforepisotomy { get; set; }
+                public string txtAnaestheticUsed { get; set; }
+                public string txtSignature { get; set; }
+                public string txtAnaextheticDate { get; set; }
+                public string txtAnaestheticTime { get; set; }
+                public string txtBaby1delivered { get; set; }
+                public string txtBaby2delivered { get; set; }
+                public string txtBaby3delivered { get; set; }
+                public string txtcommentsActions { get; set; }
+                public string txtGestage { get; set; }
+                public string txtParity2 { get; set; }
+                public string txtProcess { get; set; }
+                public string txtIndications { get; set; }
+                public string txtStaffPresent { get; set; }
+                public string txtSurgeon { get; set; }
+                public string txtAssistant { get; set; }
+                public string txtPaediatricians { get; set; }
+                public string txtMidwives { get; set; }
+                public string txtAnaesthetist { get; set; }
+                public string txtOthers { get; set; }
+                public string txtAnaethesia { get; set; }
+                public string txtFindings { get; set; }
+                public string txtProcedure { get; set; }
+                public string txtMother { get; set; }
+                public string txtBaby { get; set; }
+                public string txtStaffSign { get; set; }
+                public string txtMedHistory { get; set; }
+                public string txtDateOfBirth { get; set; }
+                public string assesmentDate { get; set; }
+                public string comments { get; set; }
+                public string txtHusbandName { get; set; }
+                public string txtHbBloodGrp { get; set; }
+                public string txtSpInstruct { get; set; }
+                public string lmpDate { get; set; }
+                public string eddDate { get; set; }
+                public string patientName { get; set; }
+                public int total { get; set; }
+                public int noOfChild { get; set; }
         }
 
 
@@ -283,13 +475,10 @@ namespace OtherClasses.Models
 
 
                 #endregion Instance Properties
-}
+            }
 
             public class ADMRECS
             {
-
-
-
 
                 #region Instance Properties
 
@@ -364,13 +553,9 @@ namespace OtherClasses.Models
 
 
                 #endregion Instance Properties
-}
+            }
             public class ADMSPACE
             {
-
-
-
-
                 #region Instance Properties
 
                 public int RECID { get; set; }
@@ -404,11 +589,9 @@ namespace OtherClasses.Models
                 public decimal? adm_deposit { get; set; }
 
 
-
-
-
                 #endregion Instance Properties
-}
+            }
+
             public class ANC01
             {
 
@@ -691,10 +874,6 @@ namespace OtherClasses.Models
 }
             public class ANC03
             {
-
-
-
-
                 #region Instance Properties
 
                 public int RECID { get; set; }
@@ -739,6 +918,7 @@ namespace OtherClasses.Models
 
                 #endregion Instance Properties
 }
+
             public class ANC03A
             {
 
@@ -945,9 +1125,6 @@ namespace OtherClasses.Models
 }
             public class ANC06
             {
-
-
-
 
                 #region Instance Properties
 
@@ -1229,9 +1406,6 @@ namespace OtherClasses.Models
 }
             public class ANC07B
             {
-
-
-
 
                 #region Instance Properties
 
@@ -3287,10 +3461,6 @@ namespace OtherClasses.Models
 }
             public class DGPROFILE
             {
-
-
-
-
                 #region Instance Properties
 
                 public int RECID { get; set; }
@@ -3318,13 +3488,10 @@ namespace OtherClasses.Models
 
 
                 #endregion Instance Properties
-}
+            }
+
             public class DISPENSA
             {
-
-
-
-
                 #region Instance Properties
 
                 public int RECID { get; set; }
@@ -3406,11 +3573,9 @@ namespace OtherClasses.Models
                 public decimal? unitpurvalue { get; set; }
 
 
-
-
-
                 #endregion Instance Properties
-}
+            }
+
             public class DISPSERV
             {
             
@@ -3524,10 +3689,6 @@ namespace OtherClasses.Models
 }
             public class DUENEXT
             {
-
-
-
-
                 #region Instance Properties
 
                 public int RECID { get; set; }
@@ -3581,10 +3742,6 @@ namespace OtherClasses.Models
                 public decimal? BILLQTY { get; set; }
 
                 public string BILLQTYUNIT { get; set; }
-
-
-
-
 
                 #endregion Instance Properties
 }
@@ -5919,10 +6076,6 @@ namespace OtherClasses.Models
 }
             public class INJCARD
             {
-
-
-
-
                 #region Instance Properties
 
                 public int RECID { get; set; }
@@ -5970,102 +6123,95 @@ namespace OtherClasses.Models
 
 
                 #endregion Instance Properties
-}
-            public class INPDISPENSA
-            {
+            }
 
+        public class INPDISPENSA
+        {
+            public int RECID { get; set; }
 
+            public string PATIENTNO { get; set; }
 
+            public string GROUPCODE { get; set; }
 
-                #region Instance Properties
+            public DateTime? TRANS_DATE { get; set; }
 
-                public int RECID { get; set; }
+            public string STK_ITEM { get; set; }
 
-                public string PATIENTNO { get; set; }
+            public string STK_DESC { get; set; }
 
-                public string GROUPCODE { get; set; }
+            public string STORE { get; set; }
 
-                public DateTime? TRANS_DATE { get; set; }
+            public decimal? QTY_PR { get; set; }
 
-                public string STK_ITEM { get; set; }
+            public decimal? QTY_GV { get; set; }
 
-                public string STK_DESC { get; set; }
+            public decimal? CUMGV { get; set; }
 
-                public string STORE { get; set; }
+            public decimal? DOSE { get; set; }
 
-                public decimal? QTY_PR { get; set; }
+            public decimal? INTERVAL { get; set; }
 
-                public decimal? QTY_GV { get; set; }
+            public decimal? DURATION { get; set; }
 
-                public decimal? CUMGV { get; set; }
+            public string UNIT { get; set; }
 
-                public decimal? DOSE { get; set; }
+            public decimal? COST { get; set; }
 
-                public decimal? INTERVAL { get; set; }
+            public string NURSE { get; set; }
 
-                public decimal? DURATION { get; set; }
+            public string DOCTOR { get; set; }
 
-                public string UNIT { get; set; }
+            public string DIAG { get; set; }
 
-                public decimal? COST { get; set; }
+            public bool? POSTED { get; set; }
 
-                public string NURSE { get; set; }
+            public DateTime? POST_DATE { get; set; }
 
-                public string DOCTOR { get; set; }
+            public decimal? ITEMNO { get; set; }
 
-                public string DIAG { get; set; }
+            public string NAME { get; set; }
 
-                public bool? POSTED { get; set; }
+            public decimal? STKBAL { get; set; }
 
-                public DateTime? POST_DATE { get; set; }
+            public string TIME { get; set; }
 
-                public decimal? ITEMNO { get; set; }
+            public string TYPE { get; set; }
 
-                public string NAME { get; set; }
+            public string GROUPHEAD { get; set; }
 
-                public decimal? STKBAL { get; set; }
+            public string GHGROUPCODE { get; set; }
 
-                public string TIME { get; set; }
+            public string GROUPHTYPE { get; set; }
 
-                public string TYPE { get; set; }
+            public string OPERATOR { get; set; }
 
-                public string GROUPHEAD { get; set; }
+            public DateTime? OP_TIME { get; set; }
 
-                public string GHGROUPCODE { get; set; }
+            public decimal? UNITCOST { get; set; }
 
-                public string GROUPHTYPE { get; set; }
+            public string RX { get; set; }
 
-                public string OPERATOR { get; set; }
+            public string SP_INST { get; set; }
 
-                public DateTime? OP_TIME { get; set; }
+            public string CDOSE { get; set; }
 
-                public decimal? UNITCOST { get; set; }
+            public string CINTERVAL { get; set; }
 
-                public string RX { get; set; }
+            public string CDURATION { get; set; }
 
-                public string SP_INST { get; set; }
+            public bool? CAPITATED { get; set; }
 
-                public string CDOSE { get; set; }
+            public string REFERENCE { get; set; }
 
-                public string CINTERVAL { get; set; }
+            public decimal? unitpurvalue { get; set; }
 
-                public string CDURATION { get; set; }
+            public bool? phtransferred { get; set; }
 
-                public bool? CAPITATED { get; set; }
+            public decimal? phQtyTransferred { get; set; }
 
-                public string REFERENCE { get; set; }
+        }
 
-                public decimal? unitpurvalue { get; set; }
-
-                public bool? phtransferred { get; set; }
-
-
-
-
-
-                #endregion Instance Properties
-}
-            public class INVLINK
+        public class INVLINK
             {
 
 
@@ -6612,9 +6758,6 @@ namespace OtherClasses.Models
             public class MEDHISTMULTICONSULT
             {
 
-
-
-
                 #region Instance Properties
 
                 public int RECID { get; set; }
@@ -6633,10 +6776,10 @@ namespace OtherClasses.Models
 
                 #endregion Instance Properties
 }
+
+
             public class MEDHPIC
             {
-                #region Instance Properties
-
                 public int RECID { get; set; }
 
                 public string PATIENTNO { get; set; }
@@ -6695,18 +6838,51 @@ namespace OtherClasses.Models
 
                 public string pdffile5 { get; set; }
 
+                public string PIC6 { get; set; }
 
+                public string PIC7 { get; set; }
 
+                public string PIC8 { get; set; }
 
+                public string PIC9 { get; set; }
 
-                #endregion Instance Properties
-}
+                public string PIC10 { get; set; }
+
+                public string NOTE6 { get; set; }
+
+                public string NOTE7 { get; set; }
+
+                public string NOTE8 { get; set; }
+
+                public string NOTE9 { get; set; }
+
+                public string NOTE10 { get; set; }
+
+                public string FACILITY6 { get; set; }
+
+                public string FACILITY7 { get; set; }
+
+                public string FACILITY8 { get; set; }
+
+                public string FACILITY9 { get; set; }
+
+                public string FACILITY10 { get; set; }
+
+                public string pdffile6 { get; set; }
+
+                public string pdffile7 { get; set; }
+
+                public string pdffile8 { get; set; }
+
+                public string pdffile9 { get; set; }
+
+                public string pdffile10 { get; set; }
+
+            }
+
 
             public class MEDHREC
             {
-
-
-
 
                 #region Instance Properties
 
@@ -7121,10 +7297,6 @@ namespace OtherClasses.Models
 
             public class MRB20
             {
-
-
-
-
                 #region Instance Properties
 
                 public int RECID { get; set; }
@@ -7152,13 +7324,10 @@ namespace OtherClasses.Models
 
 
                 #endregion Instance Properties
-}
+            }
+
             public class MRB21
             {
-
-
-
-
                 #region Instance Properties
 
                 public int RECID { get; set; }
@@ -7196,12 +7365,10 @@ namespace OtherClasses.Models
 
 
                 #endregion Instance Properties
-}
+            }
+
             public class MRB21A
             {
-
-
-
 
                 #region Instance Properties
 
@@ -7234,13 +7401,10 @@ namespace OtherClasses.Models
 
 
                 #endregion Instance Properties
-}
+            }
+
             public class MRB22
             {
-
-
-
-
                 #region Instance Properties
 
                 public int RECID { get; set; }
@@ -7312,13 +7476,10 @@ namespace OtherClasses.Models
 
 
                 #endregion Instance Properties
-}
+            }
+
             public class MRB23
             {
-
-
-
-
                 #region Instance Properties
 
                 public int RECID { get; set; }
@@ -7356,21 +7517,21 @@ namespace OtherClasses.Models
                 public string RECTRAL { get; set; }
 
                 public string OTHERROUTES { get; set; }
-
+                
                 public string INFLO_TOTAL { get; set; }
-
+                
                 public string TUBE { get; set; }
 
                 public string OUT_TOTAL { get; set; }
 
                 public string CHLORIDE { get; set; }
 
-
-
-
+                public string BALANCE { get; set; }
+        
 
                 #endregion Instance Properties
-}
+            }
+
             public class MRB24
             {
 
@@ -7411,13 +7572,15 @@ namespace OtherClasses.Models
 
                 public string TIME { get; set; }
 
+                public string FBS { get; set; }
 
 
 
 
-                #endregion Instance Properties
-}
-            public class MRB25
+
+            #endregion Instance Properties
+        }
+        public class MRB25
             {
             
                 #region Instance Properties
@@ -9803,9 +9966,6 @@ namespace OtherClasses.Models
             public class ROUTDRGS
             {
 
-
-
-
                 #region Instance Properties
 
                 public int RECID { get; set; }
@@ -10389,9 +10549,6 @@ namespace OtherClasses.Models
             public class TEMPLATEGRP
             {
 
-
-
-
                 #region Instance Properties
 
                 public int RECID { get; set; }
@@ -10399,11 +10556,10 @@ namespace OtherClasses.Models
                 public string DESCRIPTION { get; set; }
 
 
-
-
-
                 #endregion Instance Properties
-}
+            }
+
+
             public class VSTATA
             {
             

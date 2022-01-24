@@ -1,198 +1,1780 @@
-﻿
+﻿@model OtherClasses.Models.MR_DATA.MR_DATAvm
+
 @{
     ViewBag.Title = "OtherServicesIncome_Receivables";
     ViewBag.TitleBar = "OTHER SERVICES INCOOME/RECEIVABLES";
     Layout = "~/Views/Shared/_MRFormLayout.cshtml";
 }
 
-<section>
-    <form method="post" action="#">
-
-        <div class="dif">
-
-            <!--Left Section -->
-            <section class="inline-block bblock ww60 w-100 va-top">
-
-                <div class="newline n1">
-                    <label class="label w-3 w-35">Consult/Adm #</label>
-                    <input type="text" list="cbo" class="input w-5 w-50 increase-height" />
-                    <datalist id="cbo">
-                        <option value="">-Select VALUE-</option>
-                        <option value="VALUE">VALUE</option>
-                    </datalist>
-                    <input type="button" name="btn" value="" class="btn-small" />
-
-                    <span class="span al-c">
-                        <input type="button" name="btnClose" value="Re-Load" class="btn clm" />
-                    </span>
-                </div>
-
-                <div class="newline n1">
-                    <label class="label w-3 w-35">PAYMENT NO.</label>
-                    <input type="text" list="cbo" class="input w-5 w-50 increase-height" />
-                    <datalist id="cbo">
-                        <option value="">-Select VALUE-</option>
-                        <option value="VALUE">VALUE</option>
-                    </datalist>
-                    <input type="button" name="btn" value="" class="btn-small" />
-                </div>
-
-                <div class="newline n1">
-                    <label class="label w-3 w-35">Group Code</label>
-                    <input type="text" list="cbo" class="input w-4 w-50 increase-height" />
-                    <datalist id="cbo">
-                        <option value="">-Select VALUE-</option>
-                        <option value="VALUE">VALUE</option>
-                    </datalist>
-                    <input type="button" name="btn" value="" class="btn-small" />
-                </div>
-
-                <div class="newline n1">
-                    <label class="label w-3 w-35">Client's Code</label>
-                    <input type="text" list="cbo" class="input w-4 w-50 increase-height" />
-                    <datalist id="cbo">
-                        <option value="">-Select VALUE-</option>
-                        <option value="VALUE">VALUE</option>
-                    </datalist>
-                    <input type="button" name="btn" value="" class="btn-small" />
-                </div>
-
-                <div class="dif blu al-c">
-                    <div class="newline n1">
-                        <label class="label w-10 w-60">Select Facility/Service Centre for Misc. Payments/Income</label>
-                        <input type="text" list="cbo" class="input w-9 w-50 increase-height" />
-                        <datalist id="cbo">
-                            <option value="">-Select VALUE-</option>
-                            <option value="VALUE">VALUE</option>
-                        </datalist>
-                    </div>
-                </div>
-
-                <div class="newline n1">
-                    <label class="label w-3 w-35">Name</label>
-                    <input type="text" name="txt" value="" class="input w-7 w-50" />
-                </div>
-
-                <div class="newline n1">
-                    <label class="label w-3 w-35">Currency</label>
-                    <input type="text" list="cbo" class="input w-4 w-50 increase-height" />
-                    <datalist id="cbo">
-                        <option value="">-Select VALUE-</option>
-                        <option value="VALUE">VALUE</option>
-                    </datalist>
-                </div>
-
-                <div class="newline n1">
-                    <label class="label w-3 w-35">Exchange Rate</label>
-                    <input type="text" name="txt" value="" class="input w-4 w-50" />
-                </div>
-
-                <div class="newline n1">
-                    <label class="label w-3 w-35">AMOUNT</label>
-                    <input type="number" name="range" value="0.00" class="input w-5 w-50 design alr" />
-                </div>
-
-                <div class="newline n1">
-                    <label class="label w-3 w-35">Payment Mode</label>
-                    <input type="text" list="cbo" class="input w-5 w-50 increase-height" />
-                    <datalist id="cbo">
-                        <option value="">-Select VALUE-</option>
-                        <option value="VALUE">VALUE</option>
-                    </datalist>
-                </div>
-
-                <div class="newline n1">
-                    <label class="label w-3 w-35">Details</label>
-                    <textarea name="txt" value="" rows="2" class="txtarea w-7 w-50"></textarea>
-                </div>
-
-                <div class="newline n1">
-                    <label class="label w-3 w-35">Value Date</label>
-                    <input type="date" name="date" class="input w-4 w-50 increase-height design" />
-                </div>
-
-                <div class="newline n1">
-                    <label class="label w-3 w-35">Date Rec'vd</label>
-                    <input type="date" name="date" class="input w-4 w-50 increase-height design" />
-                </div>
-
-            </section>
 
 
+<style>
+    .borderLine {
+        border: solid 1px black;
+    }
+
+    .nameLabel {
+        font-size: 16px;
+    }
+
+    .tableDiv {
+        height: 21rem;
+    }
+
+    .title1 {
+        font-size: 17px;
+        font-weight: bold;
+    }
+
+    .title2 {
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .recptLink {
+        text-decoration: none;
+        color: white;
+    }
+
+        .recptLink:hover {
+            text-decoration: none;
+            color: white;
+        }
+
+    .pmtHeight {
+        height: 25rem !important;
+    }
+</style>
 
 
-            <!--Right Section -->
+<!--Modal Start-->
+<div id="1LkUp" class="djq-modal djq-hide">
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR RECORDED DAILY ATTENDANCE</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
 
-            <section class="inline-block bblock w-100 va-top">
-
-
-                <div class="newline n1 al-c">
-
-                    <fieldset class="inline-block lme">
-                        <legend class="ll drk al-c alc cred">Client's Account Information</legend>
-
-                        <div class="newline n1">
-                            <label class="label w-5 w-35">Acct. Balance</label>
-                            <input type="text" name="txt" value="0.00" class="input w-5 w-50 alr" />
-                            <label class="label w-35">DB</label>
-                        </div>
-
-                        <div class="newline n1">
-                            <label class="label w-5 w-35">Cur_Debit</label>
-                            <input type="text" name="txt" value="0.00" class="input w-5 w-50 alr" />
-                        </div>
-
-                        <div class="newline n1">
-                            <label class="label w-5 w-35">Cur_Credit</label>
-                            <input type="text" name="txt" value="0.00" class="input w-5 w-50 alr" />
-                        </div>
-
-                        <div class="newline n1">
-                            <label class="label w-5 w-35 drk">PAYABLE</label>
-                            <input type="text" name="txt" value="0.00" class="input w-5 w-50 alr" />
-                            <label class="label w-35">DB</label>
-                        </div>
-
-                    </fieldset>
-
-                </div>
-
-                <div class="newline n1 alc">
-                    <input type="checkbox" id="chkSRA1" name="chk" />
-                    <label for="chkSRA1" class="label">Get Bal. B/F</label>
-                </div>
-
-
-            </section>
-
-
-
-            <!--Bottom Section -->
-
-            <section>
-
-
-                <div class="dif">
-                    <div class="newline n1 alc">
-
-                        <input type="button" name="btnClose" value="Ledger" class="btn clm" />
-
-                        <input type="button" name="btnClose" value="Print Receipt" class="btn clm" />
-
-                        <label class="label w-1"></label>
-                        <input type="button" name="btnClose" value="Submit" class="btn clm" />
-                        <input type="button" name="btn" value="Delete" class="btn clm" />
-
-                        <label class="label w-1"></label>
-                        <input type="button" name="btnPrint" value="Close" class="btn clm" />
-
-                    </div>
-                </div>
-            </section>
-
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
 
         </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable1">
 
-    </form>
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+<!--Modal Start-->
+<div id="2LkUp" class="djq-modal djq-hide">
+
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR REGISTERED PATIENTS</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable2">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+<!--Modal Start-->
+<div id="3LkUp" class="djq-modal djq-hide">
+
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR REGISTERED PATIENTS</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable3">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+<!--Modal Start-->
+<div id="4LkUp" class="djq-modal djq-hide">
+
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR REGISTERED PATIENTS</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable4">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+<!--Modal Start-->
+<div id="9LkUp" class="djq-modal djq-hide">
+
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR REGISTERED PATIENTS</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable9">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+
+
+<input type="hidden" id="refLookUp5" />
+
+<div id="5LkUp" class="djq-modal djq-hide custom">
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls drk">
+                    TAGGED SERVICE / REQUESTS FOR THIS REFERENCE -
+                    <span class="profileHead cred"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="djq-c">
+            <!--CUSTOM HTML CONTENT-->
+            <section>
+                <div class="tableDiv2 v-scroll">
+                    <table class="">
+                        <thead>
+                            <tr>
+                                <th class="px-5">PROCEDURE</th>
+                                <th class="px-5">AMOUNT</th>
+                                <th class="px-5">FACILITY</th>
+                                <th class="px-5">PROCESS</th>
+                                <th class="px-5">REQ_DATE</th>
+                                <th class="px-5">TAGGED</th>
+                                <th class="px-5">NOTES</th>
+                                <th class="px-5">BILLCODE</th>
+                                <th class="px-5">UNITCODE</th>
+                                <th class="px-5">GROUPED</th>
+                                <th class="px-5">GRPBILLBYTYPE</th>
+                                <th class="px-5">ITEM_NO</th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="tbody2 text-center"></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+
+        <div class="djq-body3 deep-g d-flex justify-content-around">
+            <scan>
+                <label class="label drk w-2 w-35">TAGGED</label>
+                <input type="number" placeholder="0" class="input w-3 alr" />
+            </scan>
+            <button type="button" class="btn clm">Tag/Untag Item</button>
+            <button type="button" class="btn clm close-dataJQ">Close</button>
+        </div>
+    </div>
+</div>
+
+
+<input type="hidden" id="refLookUp6" />
+
+<div id="6LkUp" class="djq-modal djq-hide custom">
+    <div class="djq-body pmtHeight">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls drk">
+                    PAYMENT INFORMATION
+                </label>
+            </div>
+        </div>
+
+        <div class="djq-c lme">
+            <!--CUSTOM HTML CONTENT-->
+            <section class="borderLine py-5">
+                <div class="row">
+                    <div class="col-md-4 d-flex justify-content-center align-items-center">
+                        <scan class="title1">Send Payment Notice To:</scan>
+                    </div>
+                    <div class="col-md-7">
+                        <div>
+                            <div class="d-flex justify-content-around py-4">
+                                <scan>
+                                    <input type="radio" id="pmtradio1" value="" name="" class="chkNursesDesk" />
+                                    <label for="pmtradio1" class="label drk">Nurses Desk</label>
+                                </scan>
+                                <scan>
+                                    <input type="radio" id="pmtradio2" value="" name="" class="chkLab_Xray" />
+                                    <label for="pmtradio2" class="label drk">Lab/Xray/Scan/Theatre</label>
+                                </scan>
+                                <scan>
+                                    <input type="radio" id="pmtradio3" value="" name="" class="chkPharmacy" />
+                                    <label for="pmtradio3" class="label drk">Pharmacy</label>
+                                </scan>
+                            </div>
+
+                            <div class="d-flex justify-content-around py-4">
+                                <scan>
+                                    <input type="radio" id="pmtradio4" value="" name="" class="chkPaediatrics" />
+                                    <label for="pmtradio4" class="label drk">Paediatrics/Immunization</label>
+                                </scan>
+                                <scan>
+                                    <input type="radio" id="pmtradio5" value="" name="" class="chkAdmissions" />
+                                    <label for="pmtradio5" class="label drk">Admissions</label>
+                                </scan>
+                                <scan>
+                                    <input type="radio" id="pmtradio6" value="" name="" class="chkBilling" />
+                                    <label for="pmtradio6" class="label drk">Billing/Receipt</label>
+                                </scan>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="djq-body3 deep-g d-flex justify-content-around">
+            <button type="button" class="btn clm pmtInfoSubmitBtn">SUBMIT</button>
+            <input type="hidden" class="btn clm close-dataJQ pmtClose" />
+        </div>
+    </div>
+</div>
+
+
+
+
+<section class="borderLine paymentForm">
+
+    <section class="pt-3">
+        <div class="row">
+            <div class="col-md-6">
+                <div>
+                    <div class="newline n1">
+                        <scan>
+                            <label class="label drk w-3 w-35 consultAdmLabel">Consult/Adm #</label>
+                            <input type="text" value="" class="input w-5 w-50 increase-height cData1 hData1 consultRefNo" />
+                            <input type="button" name="btn" id="refLookUp1" class="btn-small" />
+                            <input type="button" name="btn" id="refLookUp9" class="btn-small" />
+                        </scan>
+                        <span class="pl-2">
+                            @*<img src="~/content/images/reload.png" />*@
+                            <input type="button" name="btnClose" value="Re-Load" class="btn clm reLoadBtn" />
+                        </span>
+                    </div>
+                    <div class="newline n1">
+                        <scan>
+                            <label class="label drk w-3 w-35">Payment No.</label>
+                            <input type="text" value="" class="input w-5 w-50 increase-height dData1 paymentNo" />
+                            <input type="button" name="btn" id="refLookUp2" class="btn-small" />
+                        </scan>
+                        <span class="al-c line-height pl-2 curAdmission">
+                            <input type="checkbox" id="chkSRA5" name="chk" class="chkCurrentAdm" checked="checked" />
+                            <label for="chkSRA5" class="label drk">Current Admissions</label>
+                        </span>
+                    </div>
+                    <div class="newline n1">
+                        <scan>
+                            <label class="label drk w-3 w-35">GroupCode</label>
+                            <input type="text" value="" class="input w-5 w-50 increase-height groupCode fData1" />
+                            <input type="button" id="refLookUp4" name="btn" class="btn-small" />
+                        </scan>
+                        <span class="al-c line-height pl-2 todayConsult">
+                            <input type="checkbox" id="chkSRA" name="chk" class="chkTodaysConsult" checked="checked" />
+                            <label for="chkSRA" class="label drk">Today's Consult Only</label>
+                        </span>
+                    </div>
+                    <div class="newline n1">
+                        <label class="label drk w-3 w-35">Client's Code</label>
+                        <input type="text" value="" class="input w-5 w-50 increase-height clientCode eData1 fData2" />
+                        <input type="button" id="refLookUp3" name="btn" class="btn-small" />
+                    </div>
+                    <div class="newline n1 facilityDiv lme">
+                        <label class="label drk w-3 w-35">Facility/ServCenter</label>
+                        @Html.DropDownListFor(v => v.SYSCODETABSvm.ServiceCentreCodes.name,
+                            new SelectList(@Model.SYSCODETABSvm.ServiceCentreCodess, "NAME", "NAME"), "",
+                            new { @class = "input w-5 w-50 increase-height facility" })
+                    </div>
+                    <div class="newline n1">
+                        <label class="label drk w-3 w-35">Bill Reference</label>
+                        <input type="text" value="" class="input w-5 w-50 increase-height billRef" />
+                        <input type="button" name="btn" class="btn-small" />
+                    </div>
+                    <div class="newline n1">
+                        <label class="label drk w-3 w-35">Bill Value</label>
+                        <input type="text" name="txt" value="" class="input w-5 w-50 increase-height billValue" />
+                    </div>
+                    <div class="newline n1">
+                        <label class="label drk w-3 w-35">Date</label>
+                        <input type="date" value="@String.Format("{0:yyyy-MM-dd}", DateTime.Now)" class="input w-5 w-50 increase-height date" disabled="disabled" />
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div>
+                    <div class="newline n1 al-c">
+
+                        <fieldset class="inline-block lme">
+                            <legend class="drk alc cred nameLabel">Client's Account Information</legend>
+
+                            <div class="newline n1">
+                                <label class="label drk w-5 w-35">Acct. Balance</label>
+                                <input type="text" name="txt" value="" placeholder="0.00" class="input w-5 w-50 increase-height alr acctBalance" />
+                                <label class="label drk w-35 acctBalLabel">DB</label>
+                            </div>
+                            <div class="newline n1">
+                                <label class="label drk w-5 w-35">Cur_Debit</label>
+                                <input type="text" name="txt" value="" placeholder="0.00" class="input w-5 w-50 increase-height alr curDebit" />
+                            </div>
+                            <div class="newline n1">
+                                <label class="label drk w-5 w-35">Cur_Credit</label>
+                                <input type="text" name="txt" value="" placeholder="0.00" class="input w-5 w-50 increase-height alr curCredit" />
+                            </div>
+                            <div class="newline n1">
+                                <label class="label drk w-5 w-35 drk">PAYABLE</label>
+                                <input type="text" value="" placeholder="0.00" class="input w-5 w-50 increase-height alr payable" />
+                                <label class="label drk w-35 payableLabel">DB</label>
+                            </div>
+                        </fieldset>
+
+                    </div>
+
+                    <div class="newline n1 alc">
+                        <input type="checkbox" id="chkSRA1" class="chkGetBal" checked="checked" />
+                        <label for="chkSRA1" class="label drk">Get Bal. B/F</label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="pb-3">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="newline n1">
+                    <label class="label drk w-3 w-35">Name</label>
+                    <input type="text" name="txt" value="" class="input w-8 w-50 increase-height name" />
+                </div>
+                <div class="newline n1">
+                    <label class="label drk w-3 w-35">Currency</label>
+                    <select class="input w-5 w-50 increase-height currency">
+                        <option></option>
+                        <option></option>
+                    </select>
+                </div>
+                <div class="newline n1">
+                    <label class="label drk w-3 w-35">Exchange Rate</label>
+                    <input type="text" value="" class="input w-5 w-50 increase-height exchangeRate" />
+                </div>
+                <div class="newline n1">
+                    <label class="label drk w-3 w-35">AMOUNT</label>
+                    <input type="number" value="0.00" class="input w-5 w-50 increase-height alr amount" />
+                </div>
+                <div class="newline n1">
+                    <label class="label drk w-3  w-35">Payment Mode</label>
+                    <select class="input w-5 w-50 increase-height paymentMode">
+                        <option value=""></option>
+                        <option value="CASH">CASH</option>
+                        <option value="CHEQUE">CHEQUE</option>
+                        <option value="POS/CREDIT CARD">POS/CREDIT CARD</option>
+                        <option value="BANK TELLER">BANK TELLER</option>
+                        <option value="DIRECT CREDIT">DIRECT CREDIT</option>
+                    </select>
+                </div>
+                <div class="newline n1">
+                    <label class="label drk w-3 w-35">Bank</label>
+                    @Html.DropDownListFor(v => v.ATMPROFILE.NAME,
+                    new SelectList(@Model.ATMPROFILES, "NAME", "NAME"), "",
+                    new { @class = "input w-5 w-50 increase-height bank" })
+                </div>
+                <div class="newline n1">
+                    <label class="label drk w-3 w-35">Details</label>
+                    <textarea name="txt" value="" rows="3" class="txtarea w-8 w-50 increase-height details"></textarea>
+                </div>
+                <div class="newline n1">
+                    <label class="label drk w-3 w-35">Value Date</label>
+                    <input type="date" value="@String.Format("{0:yyyy-MM-dd}", DateTime.Now)" class="input w-5 w-50 increase-height valueDate" />
+                </div>
+                <div class="newline n1">
+                    <label class="label drk w-3 w-35">Date Rec'vd</label>
+                    <input type="date" value="@String.Format("{0:yyyy-MM-dd}", DateTime.Now)" class="input w-5 w-50 increase-height receivedDate" />
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="pr-2">
+                    <div class="py-1 advancePmtBlock">
+                        <scan class="">
+                            <input type="checkbox" id="radiobox" name="radio" class="chkAdvancePaymt" />
+                            <label for="radiobox" class="label drk">Advance Payment For Treatment and Services</label>
+                        </scan>
+                    </div>
+
+                    <div class="py-3 lme mb-1 capitatnBlock">
+                        <scan class="">
+                            <input type="radio" id="radio1" name="radio" class="chkNHIScapitatn" />
+                            <label for="radio1" class="label drk">NHIS Monthly Capitation</label>
+                        </scan>
+                        <scan class="">
+                            <input type="radio" id="radio2" name="radio" class="chkHMOcapitatn" />
+                            <label for="radio2" class="label drk">HMO Monthly Capitation</label>
+                        </scan>
+                        <scan class="">
+                            <input type="radio" id="radio3" name="radio" class="chkRetnshipFee" />
+                            <label for="radio3" class="label drk">Retainership Fee</label>
+                        </scan>
+                        <scan class="">
+                            <input type="radio" id="radio4" name="radio" class="chkNone" />
+                            <label for="radio4" class="label drk">None</label>
+                        </scan>
+                    </div>
+
+                    <div class="tableDiv v-scroll">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ITEM</th>
+                                    <th class="px-5 alc">DESCRIPTION</th>
+                                    <th class="px-5">DEBIT</th>
+                                    <th class="px-5">CREDIT</th>
+                                    <th class="px-5">BALANCE</th>
+                                </tr>
+                            </thead>
+
+                            <tbody class="tbody1 text-center"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="borderLine py-2">
+        <div class="newline d-flex justify-content-around">
+            <input type="button" value="POS Ledger" class="btn clm ledgerBtn" />
+            <a href="@Url.Action("ReceiptGenerator", "File")" target="_blank" class="recptLink">
+                <button type="button" class="btn printReceiptBtn">
+                    Print Receipt
+                </button>
+            </a>
+            @*<input type="button" value="Print Receipt" class="btn clm printReceiptBtn" />*@
+            <input type="button" value="Submit" class="btn clm submitBtn" />
+            <input type="button" value="Delete" class="btn clm deleteBtn" />
+            <a href="~/Home/Index" title="Close"><input type="button" name="" value="Close" class="btn oraa" /></a>
+        </div>
+    </section>
+
+
+    <input type="hidden" value="@Model.REPORTS.REPORT_TYPE1" class="hiddenServiceType" />
+    <input type="hidden" value="@Model.REPORTS.msection" class="msection" />
+    <input type="hidden" value="" class="isadmissions" />
+    <input type="hidden" value="false" class="isotherserviceIncome" />
+
+    <input type="hidden" value="" class="mcusttype" />
+    <input type="hidden" value="" class="mpatientno" />
+    <input type="hidden" value="" class="mgroupcode" />
+    <input type="hidden" value="" class="mfacility" />
+    <input type="hidden" value="" class="mghgroupcode" />
+    <input type="hidden" value="" class="mreference" />
+    <input type="hidden" value="" class="mname" />
+    <input type="hidden" value="" class="mlastno" />
+    <input type="hidden" value="false" class="newrec" />
+    <input type="hidden" value="false" class="disallowbackdate" />
+
+    <input type="hidden" value="" class="atmcompany" />
+    <input type="hidden" value="" class="atmbatchno" />
+    <input type="hidden" value="" class="atmdocument" />
+    <input type="hidden" value="" class="atmposCharge" />
+    <input type="hidden" value="" class="atmExpenseAcct" />
+    <input type="hidden" value="" class="atmdebit" />
+    <input type="hidden" value="" class="atmcredit" />
+
+    <input type="hidden" value="" class="reLoadBtnCallFlag" />
+
+
+
 </section>
+
+
+
+
+@section scripts
+{
+    <script>
+        $(function () {
+            var dOM = $('body'); //must assign
+            var formFields = document.getElementById('mainForm'); //must assign, used for calling javaScript methods
+            appendTagInvalid1(dOM, "@ViewBag.iinvalid"); //must call
+            servErrorAlert("#eLkUp", "@ViewBag.Msg"); //must call
+
+            var dTHN1 = ['NAME', 'REFERENCE', 'DATE', 'CLINIC', 'GROUPCODE', 'PATIENTNO']; //for table header
+            var dBCN1 = ['NAME', 'REFERENCE', 'TRANS_DATE', 'CLINIC', 'GROUPCODE', 'PATIENTNO']; //for database header
+            var jaxURL1 = "@Url.Action("RptMRATTENDLookUp", "AJAX")";
+
+            var dTHN2 = ['NAME', 'REFERENCE', 'TRANS_DATE', 'ITEMNO', 'AMOUNT', 'GROUPHEAD']; //for table header
+            var dBCN2 = ['NAME', 'REFERENCE', 'TRANS_DATE', 'ITEMNO', 'AMOUNT', 'GROUPHEAD']; //for database header
+            var jaxURL2 = "@Url.Action("RptPaydetailLookUp", "AJAX")";
+
+            var dTHN3 = ['NAME', 'REFERENCE', 'ADDRESS']; //for table header
+            var dBCN3 = ['NAME', 'CUSTNO', 'ADDRESS1']; //for database header
+            var jaxURL3 = "@Url.Action("RptCustomerLookUp", "AJAX")";
+
+            var dTHN4 = ['NAME', 'GROUPCODE', 'PATIENTNO', 'ADDRESS', 'GENDER', 'PHONE']; //for table header
+            var dBCN4 = ['NAME', 'GROUPCODE', 'PATIENTNO', 'ADDRESS1', 'SEX', 'HOMEPHONE']; //for database header
+            var jaxURL4 = "@Url.Action("RptPatientLookUp", "AJAX")";
+
+            var dTHN5 = ['NAME', 'GROUPCODE', 'PATIENTNO', 'REFERENCE', 'ADM_DATE', 'DISCHARGE', 'ROOM', 'BED', 'GROUPHEAD', 'GHGROUPCODE', 'ACAMT', 'PAYMENTS']; //for table header
+            var dBCN5 = ['NAME', 'GROUPCODE', 'PATIENTNO', 'REFERENCE', 'ADM_DATE', 'DISCHARGE', 'ROOM', 'BED', 'GROUPHEAD', 'GHGROUPCODE', 'ACAMT', 'PAYMENTS']; //for database header
+            var jaxURL5 = "@Url.Action("RptAdmLookUp", "AJAX")";
+
+
+            //Consult/Admin Reference No
+            LoadDynamicDT1(jaxURL1, dTHN1, dBCN1, 'MRATTENDS', '#refLookUp1', '#1LkUp', '#regPTable1', '.cData', [3]);
+
+            //Patient No
+            LoadDynamicDT1(jaxURL2, dTHN2, dBCN2, 'PAYDETAILS', '#refLookUp2', '#2LkUp', '#regPTable2', '.dData', [3]);
+
+            //Client Code
+            LoadDynamicDT1(jaxURL3, dTHN3, dBCN3, 'CUSTOMERS', '#refLookUp3', '#3LkUp', '#regPTable3', '.eData', [3]);
+
+            //GroupCode
+            LoadDynamicDT1(jaxURL4, dTHN4, dBCN4, 'PATIENTS', '#refLookUp4', '#4LkUp', '#regPTable4', '.fData', [3, 4]);
+
+            //For Admission ref
+            LoadDynamicDT1(jaxURL5, dTHN5, dBCN5, 'ADMRECSS', '#refLookUp9', '#9LkUp', '#regPTable9', '.hData', [5]);
+
+
+            //On Load
+            let hiddenServiceType = $(".hiddenServiceType").val();
+            let isadmissions = hiddenServiceType == "Admissions" ? true : false;
+            let isotherserviceIncome = hiddenServiceType == "OtherServiceIncome" ? true : false;
+
+            $(".tableDiv").hide();
+            $(".capitatnBlock").hide();
+            $(".isadmissions").val(isadmissions);
+            $(".isotherserviceIncome").val(isotherserviceIncome);
+            $(".bank").prop({ disabled: true });
+            $(".receivedDate").prop({ disabled: true });
+            $(".advancePmtBlock").hide();
+            $(".curAdmission").hide();
+            $(".facilityDiv").hide();
+            $("#refLookUp9").hide();
+
+
+            if (isadmissions) {
+                $(".consultAdmLabel").text("Admission Ref.");
+                $(".curAdmission").show();
+                $(".todayConsult").hide();
+                $(".facilityDiv").show();
+                $("#refLookUp1").hide();
+                $("#refLookUp9").show();
+            }
+
+            $.ajax({
+                url: "/AJAX/onLoad",
+                method: "POST",
+                data: { isotherserviceIncome: isotherserviceIncome },
+                success: function (data) {
+                    if (data != null) {
+                        if (data.alertMessage != null) {
+                            alert(data.alertMessage);
+                        }
+                    }
+                }
+            })
+
+
+            ShowModal(dOM, '#refLookUp5', '#5LkUp', function aF() {
+
+            });
+
+
+            ShowModal(dOM, '#refLookUp6', '#6LkUp', function aF() {
+                dOM.find('#6LkUp .pmtInfoSubmitBtn').on({
+                    click: function () {
+                        let chkNursesDesk = $(".chkNursesDesk").prop("checked");
+                        let chkLab_Xray = $(".chkLab_Xray").prop("checked");
+                        let chkPharmacy = $(".chkPharmacy").prop("checked");
+                        let chkPaediatrics = $(".chkPaediatrics").prop("checked");
+                        let chkAdmissions = $(".chkAdmissions").prop("checked");
+                        let chkBilling = $(".chkBilling").prop("checked");
+
+                        let xselect = (chkNursesDesk) ? "3" : (chkLab_Xray) ? "6" :
+                                      (chkBilling) ? "7" : (chkPharmacy) ? "8" :
+                                      (chkPaediatrics) ? "9" : (chkAdmissions) ? "A" : "";
+
+
+                        if (xselect.trim() == "")
+                        {
+                            alert("Payment Notice must be sent to a Unit/Section...", "PAYMENT NOTICE");
+                            return;
+                        } else {
+                            $("#6LkUp .pmtClose").click();
+                            let isadmissions = $(".isadmissions").val() == "true" ? true : false;
+                            let mpatientno = $(".mpatientno").val();
+                            let mgroupcode = $(".mgroupcode").val();
+                            let mname = $(".mname").val();
+                            let consultRefNo = $(".consultRefNo").val();
+                            let msection = $(".msection").val();
+                            let mfacility1 = $(".mfacility").val();
+
+
+                            $.ajax({
+                                url: "/AJAX/paylinkinfoSubmit",
+                                method: "POST",
+                                data: {
+                                    xselect: xselect, isadmissions: isadmissions, mpatientno: mpatientno,
+                                    mgroupcode: mgroupcode, mname: mname, consultRefNo: consultRefNo, msection: msection,
+                                    mfacility1: mfacility1
+                                },
+                                success: function (data) {
+                                    let reLoadBtnCallFlag = $(".reLoadBtnCallFlag").val();
+
+                                    if (reLoadBtnCallFlag.trim() == "true") {
+                                        $(".reLoadBtn").click();
+                                    }
+                                }
+                            })
+
+                        }
+                    }
+                });
+
+            });
+
+
+            $("#refLookUp1").prop({ disabled: true });
+
+
+            $('#refLookUp5').on({
+                click: function () {
+                    let consultRefNo = $(".consultRefNo").val();
+                    let clientCode = $(".clientCode").val();
+                    let groupCode = $(".groupCode").val();
+                    let mname = $(".mname").val();
+
+                    let profileName = `${consultRefNo} : ${mname} : ${groupCode} - ${clientCode} `;
+                    $(".profileHead").text(profileName);
+
+                    $.ajax({
+                        url: "/AJAX/loadgrid",
+                        method: "POST",
+                        data: { consultRefNo: consultRefNo },
+                        success: function (data) {
+                            if (data != null) {
+                                let suspense = data;
+
+                                if (suspense.length > 0) {
+                                    let rows = "";
+                                    let xduration = 0;
+                                    let xDuration = "";
+
+                                    for (var i = 0; i < suspense.length; i++) {
+                                        xduration = Number(suspense[i].DURATION);
+                                        xDuration = xduration >= 1 ? "x" + xduration : "";
+
+                                        let description = `${suspense[i].DESCRIPTION} ${xDuration}`;
+                                        let transDate = formatDate1(suspense[i].TRANS_DATE);
+                                        let groupedItem = (suspense[i].GROUPEDITEM == "true") ? "YES" : "NO";
+                                        let groupedBill = (suspense[i].GRPBILLBYSERVTYPE == "true") ? "YES" : "NO";
+
+                                        rows += "<tr>" +
+                                                        "<td>" + description + "</td>" +
+                                                        "<td>" + suspense[i].AMOUNT + "</td>" +
+                                                        "<td>" + suspense[i].FACILITY + "</td>" +
+                                                        "<td>" + suspense[i].PROCESS + "</td>" +
+                                                        "<td>" + transDate + "</td>" +
+                                                        "<td> NO </td>" +
+                                                        "<td>" + suspense[i].NOTES + "</td>" +
+                                                        "<td>" + suspense[i].BILLPROCESS + "</td>" +
+                                                        "<td>" + suspense[i].NAME + "</td>" +
+                                                        "<td>" + groupedItem + "</td>" +
+                                                        "<td>" + groupedBill + "</td>" +
+                                                        "<td>" + suspense[i].ITEMNO + "</td>" +
+                                                "</tr>";
+                                    }
+
+                                    $(".tbody2").html(rows);
+
+                                    ////re-adjust the count values after adding rows
+                                    //let counter = 0;
+                                    //$(".tbody2").find("tr").each(function () {
+                                    //    $(this).find("td").eq(0).text(++counter);
+                                    //});
+
+                                }
+                            }
+                        }
+                    })
+
+                }
+            });
+
+
+            $(".chkTodaysConsult").on({
+                click: function () {
+                    let chkTodaysConsult = $(this).prop("checked");
+
+                    if (chkTodaysConsult) {
+                        $("#refLookUp1").prop({ disabled: true });
+                    } else {
+                        $("#refLookUp1").prop({ disabled: false });
+                    }
+                }
+            })
+
+            $("#refLookUp9").prop({ disabled: true });
+            $(".chkCurrentAdm").on({
+                click: function () {
+                    let chkCurrentAdm = $(this).prop("checked");
+
+                    if (chkCurrentAdm) {
+                        $("#refLookUp9").prop({ disabled: true });
+                    } else {
+                        $("#refLookUp9").prop({ disabled: false });
+                    }
+                }
+            })
+
+
+            $(".consultRefNo").on({
+
+                focusout: function () {
+                    let consultRefNo = $(".consultRefNo").val();
+                    let clientCode = $(".clientCode").val();
+                    let groupCode = $(".groupCode").val();
+                    let isadmissions = ( $(".isadmissions") == "true" ) ? true : false;
+                    let chkGetBal = $(".chkGetBal").prop("checked");
+                    let name = $(".name").val();
+                    let acctBalance = Number($(".acctBalance").val());
+                    let curDebit = Number($(".curDebit").val());
+                    let curCredit = Number($(".curCredit").val());
+
+                    $(".groupCode").prop({ disabled: false });
+                    $(".clientCode").prop({ disabled: false });
+                    $(".name").prop({ disabled: false });
+                    $(".billRef").prop({ disabled: false });
+
+
+                    $.ajax({
+                        url: "/AJAX/consultRefNoFocusout",
+                        method: "POST",
+                        data: {
+                            consultRefNo: consultRefNo, clientCode: clientCode, groupCode: groupCode,
+                            isadmissions: isadmissions, name: name, chkGetBal: chkGetBal
+                        },
+                        success: function (data) {
+
+                            if (data.REPORTS != null) {
+                                if (data.REPORTS.alertMessage != null) {
+                                    alert(data.REPORTS.alertMessage);
+                                    $(".consultRefNo").val("")
+                                    return;
+                                }
+
+                                if (data.REPORTS.chkDomantAccts == true) {
+                                    $(".groupCode").prop({ disabled: true });
+                                    $(".clientCode").prop({ disabled: true });
+                                    $(".name").prop({ disabled: true });
+                                    $(".billRef").prop({ disabled: true });
+                                    $(".date").prop({ disabled: true });
+                                    $(".currency").prop({ disabled: true });
+                                    $(".billValue").prop({ disabled: true });
+                                    $(".exchangeRate").prop({ disabled: true });
+                                }
+
+                                $(".consultRefNo").val(data.REPORTS.txtreference);
+                                $(".amount").val(data.REPORTS.nmrAmountTo);
+                                $(".payable").val(data.REPORTS.nmrPayable);
+                                $(".date").val(data.REPORTS.REPORT_TYPE2);
+                                $(".clientCode").val(data.REPORTS.REPORT_TYPE1);
+                                $(".groupCode").val(data.REPORTS.txtgroupcode);
+                                $(".name").val(data.REPORTS.TXTPATIENTNAME);
+                                $(".acctBalLabel").text(data.REPORTS.lblBalbfDbCr);
+                                $(".payableLabel").text(data.REPORTS.lblbillspayable);
+                                $(".curCredit").val(data.REPORTS.nmrcurcredit.toFixed(2));
+                                $(".curDebit").val(data.REPORTS.nmrcurdebit.toFixed(2));
+                                $(".acctBalance").val(data.REPORTS.nmrbalance.toFixed(2));
+                                $(".payable").val(data.REPORTS.nmrPayable.toFixed(2));
+                                $(".mname").val(data.REPORTS.txtothername);
+                                $(".mghgroupcode").val(data.REPORTS.mghgroupcode);
+                                $(".mcusttype").val(data.REPORTS.cbotype);
+                                $(".mgroupcode").val(data.REPORTS.mgroupcode);
+                                $(".mpatientno").val(data.REPORTS.mpatientno);
+
+                                if (data.REPORTS.chkReportbyAgent == true) {
+                                    //display table
+                                    $(".tbody1").html("");
+                                    $(".tableDiv").show();
+                                }
+
+                                if (data.REPORTS.chkLoyaltyCustomers) {
+                                    //display modal
+                                    $("#refLookUp5").click();
+                                }
+
+                            }
+
+
+                            let currentDebit = 0;
+                            let currentCredit = 0;
+
+                            if (data.BILLINGS != null) {
+                                let billings = data.BILLINGS;
+
+                                if (billings.length != 0) {
+                                    let rows = "";
+
+                                    for (var i = 0; i < billings.length; i++) {
+                                        let debit = "";
+                                        let credit = "";
+
+                                        if (billings[i].TTYPE == "D") {
+                                            debit = (billings[i].AMOUNT).toFixed(2);
+                                            currentDebit += billings[i].AMOUNT;
+                                        } else {
+                                            credit = (billings[i].AMOUNT).toFixed(2);
+                                            currentCredit += billings[i].AMOUNT;
+                                        }
+
+                                        let balance = (currentDebit - currentCredit).toFixed(2);
+
+                                        rows += "<tr>" +
+                                                        "<td></td>" +
+                                                        "<td>" + billings[i].DESCRIPTION + "</td>" +
+                                                        "<td>" + debit + "</td>" +
+                                                        "<td>" + credit + "</td>" +
+                                                        "<td>" + balance + "</td>" +
+                                                "</tr>";
+
+                                    }
+
+                                    $(".tbody1").append(rows);
+                                }
+
+                            }
+
+                            if (data.PAYDETAILS != null) {
+                                let paydetails = data.PAYDETAILS;
+
+                                if (paydetails.length != 0) {
+                                    let rows = "";
+
+                                    for (var i = 0; i < paydetails.length; i++) {
+                                        let debit = "";
+                                        let credit = "";
+
+                                        if (paydetails[i].TTYPE == "D") {
+                                            debit = (paydetails[i].AMOUNT).toFixed(2);
+                                            currentDebit += paydetails[i].AMOUNT;
+                                        } else {
+                                            credit = (paydetails[i].AMOUNT).toFixed(2);
+                                            currentCredit += paydetails[i].AMOUNT;
+                                        }
+
+                                        let balance = (currentDebit - currentCredit).toFixed(2);
+
+                                        rows += "<tr>" +
+                                                        "<td></td>" +
+                                                        "<td>" + paydetails[i].DESCRIPTION + "</td>" +
+                                                        "<td>" + debit + "</td>" +
+                                                        "<td>" + credit + "</td>" +
+                                                        "<td>" + balance + "</td>" +
+                                                "</tr>";
+
+                                    }
+
+                                    $(".tbody1").append(rows);
+
+                                }
+
+                            }
+
+                            if (data.BILL_ADJS != null) {
+                                let bill_Adjs = data.BILL_ADJS;
+
+                                if (bill_Adjs.length != 0) {
+                                    let rows = "";
+
+                                    for (var i = 0; i < bill_Adjs.length; i++) {
+                                        let debit = "";
+                                        let credit = "";
+
+                                        if (bill_Adjs[i].TTYPE == "D") {
+                                            debit = (bill_Adjs[i].AMOUNT).toFixed(2);
+                                            currentDebit += bill_Adjs[i].AMOUNT;
+                                        } else {
+                                            credit = (bill_Adjs[i].AMOUNT).toFixed(2);
+                                            currentCredit += bill_Adjs[i].AMOUNT;
+                                        }
+
+                                        let balance = (currentDebit - currentCredit).toFixed(2);
+
+                                        rows += "<tr>" +
+                                                        "<td></td>" +
+                                                        "<td>" + bill_Adjs[i].ADJUST + "</td>" +
+                                                        "<td>" + debit + "</td>" +
+                                                        "<td>" + credit + "</td>" +
+                                                        "<td>" + balance + "</td>" +
+                                                "</tr>";
+
+                                    }
+
+                                    $(".tbody1").append(rows);
+
+                                }
+
+                            }
+
+
+                            $(".curDebit").val(currentDebit.toFixed(2));
+                            $(".curCredit").val(currentCredit.toFixed(2));
+
+                            let payableValue = (acctBalance + currentDebit) - currentCredit;
+                            let amountValue = payableValue < 1 ? 0 : payableValue;
+
+                            $(".payable").val(payableValue.toFixed(2));
+                            $(".amount").val(amountValue.toFixed(2));
+
+                            //re-adjust the count values after deleting or adding a row
+                            let counter = 0;
+                            $(".tbody1").find("tr").each(function () {
+                                $(this).find("td").eq(0).text(++counter);
+                            });
+
+                            if (data.REPORTS.chkHMO) {
+                                $(".paymentNo").focus();
+                            }
+
+                        }
+                    })
+
+                }
+            })
+
+
+            $(".paymentNo").on({
+                focus: function () {
+                    let consultRefNo = $(".consultRefNo").val();
+                    let groupCode = $(".groupCode").val();
+                    let paymentNo = $(this).val();
+                    $(".advancePmtBlock").hide();
+
+                    if (paymentNo.trim() == "") {
+                        $.ajax({
+                            url: "/AJAX/paymentNoFocused",
+                            method: "POST",
+                            data: { consultRefNo: consultRefNo },
+                            success: function (data) {
+                                if (data != null) {
+                                    $(".mlastno").val(data.mlastno);
+                                    $(".paymentNo").val(data.mlastno);
+
+                                    if (data.REPORT_TYPE1 == "") {
+                                        $(".groupCode").val("");
+                                        $(".clientCode").val("");
+                                        $(".name").val("");
+                                        $(".mcusttype").val("");
+                                        $(".mfacility").val("");
+                                        $(".billRef").val("");
+                                    }
+
+                                    if (data.nmrPayable == 0) {
+                                        $(".curDebit").val(data.nmrPayable.toFixed(2));
+                                        $(".curCredit").val(data.nmrPayable.toFixed(2));
+                                        $(".payable").val(data.nmrPayable.toFixed(2));
+                                        $(".acctBalance").val(data.nmrPayable.toFixed(2));
+                                    }
+
+                                    if (data.cmbsave == false) {
+                                        $(".deleteBtn").prop({ disabled: true });
+                                        $(".submitBtn").prop({ disabled: true });
+                                        $(".capitatnBlock").hide();
+                                    }
+
+
+                                }
+
+                            }
+                        })
+
+                    }
+
+                },
+
+                focusout: function () {
+                    let paymentNo = $(this).val();
+                    let groupCode = $(".groupCode").val();
+                    let mpatientno = $(".mpatientno").val();
+                    let mlastno = Number($(".mlastno").val());
+                    let msection = $(".msection").val();
+
+                    if (paymentNo.trim() == "") {
+                        $(".consultRefNo").focus();
+                        return;
+                    } else {
+                        $.ajax({
+                            url: "/AJAX/paymentNoFocusout",
+                            method: "POST",
+                            data: {
+                                paymentNo: paymentNo, mlastno: mlastno, groupCode: groupCode,
+                                mpatientno: mpatientno, msection: msection
+                            },
+                            success: function (data) {
+
+                                if (data != null) {
+
+                                    if (data.alertMessage != null) {
+                                        alert(data.alertMessage);
+                                        $(".paymentNo").val("");
+                                        $(".paymentNo").focus();
+                                        return;
+                                    }
+
+                                    if (data.REPORT_TYPE1 != null) {
+                                        $(".paymentNo").val(data.REPORT_TYPE1);
+                                        $(".mreference").val(data.mreference);
+                                    }
+
+                                    $(".newrec").val(data.newrec);
+
+                                    if (data.cmdgrpmember == true) {
+                                        $(".amount").val(data.txtdiscount);
+                                        $(".name").val(data.TXTPATIENTNAME);
+                                        $(".paymentMode").val(data.REPORT_TYPE2);
+                                        $(".details").val(data.REPORT_TYPE3);
+                                        $(".valueDate").val(data.REPORT_TYPE4);
+                                        $(".receivedDate").val(data.REPORT_TYPE5);
+                                        $(".mreference").val(data.mreference);
+                                    }
+
+                                    if (data.cmbdelete == true) {
+                                        $(".deleteBtn").prop({ disabled: false });
+                                    } else {
+                                        $(".deleteBtn").prop({ disabled: true });
+                                    }
+
+                                }
+
+                            }
+                        })
+
+                    }
+
+
+                }
+            })
+
+
+            $(".clientCode").on({
+                focusout: function () {
+                    let clientCode = $(this).val();
+                    let groupCode = $(".groupCode").val();
+                    let chkGetBal = $(".chkGetBal").prop("checked");
+
+                    if (clientCode.trim() != "") {
+                        $.ajax({
+                            url: "/AJAX/clientCodeFocusOut",
+                            method: "POST",
+                            data: { clientCode: clientCode, groupCode: groupCode, chkGetBal: chkGetBal },
+                            success: function (data) {
+
+                                if (data != null) {
+                                    if (data.alertMessage != null) {
+                                        alert(data.alertMessage);
+                                        $(".clientCode").val("");
+                                        $(".clientCode").focus();
+                                        return;
+                                    }
+
+                                    if(data.mgroupcode != null)
+                                        $(".mgroupcode").val(data.mgroupcode);
+
+                                    if (data.mpatientno != null)
+                                        $(".mpatientno").val(data.mpatientno);
+
+                                    if (data.mgrouphead != null)
+                                        $(".mgrouphead").val(data.mgrouphead);
+
+                                    if (data.TXTPATIENTNAME != null)
+                                        $(".name").val(data.TXTPATIENTNAME);
+
+                                    $(".mcusttype").val(data.mcusttype);
+
+                                    if (data.chkApplyFilter == true) {
+                                        $(".capitatnBlock").show();
+                                    }
+
+                                    if (data.chkADVCorporate == true) {
+                                        $(".chkNone").prop({ checked: true });
+                                    }
+
+                                    if (data.chkAuditProfile == true) {
+                                        $(".advancePmtBlock").show();
+                                    }
+
+                                    if (data.chkByBranch == true) {
+                                        $(".acctBalLabel").text(data.lblBalbfDbCr);
+                                        $(".payableLabel").text(data.lblbillspayable);
+                                        $(".curCredit").val(data.nmrcurcredit.toFixed(2));
+                                        $(".curDebit").val(data.nmrcurdebit.toFixed(2));
+                                        $(".acctBalance").val(data.nmrbalance.toFixed(2));
+                                        $(".payable").val(data.nmrPayable.toFixed(2));
+                                        $(".amount").val(data.nmrAmountTo);
+                                    }
+
+                                }
+
+                            }
+                        })
+
+                    }
+
+
+                }
+            })
+
+
+            $(".amount").on({
+                focus: function () {
+                    let consultRefNo = $(".consultRefNo").val();
+                    let mcusttype = $(".mcusttype").val();
+                    let newrec = ($(".newrec").val() == "true") ? true : false;
+                    let groupCode = $(".groupCode").val();
+                    let paymentNo = $(".paymentNo").val();
+
+
+                    if (consultRefNo.trim() == "" && mcusttype == "C")
+                        $(".capitatnBlock").show();
+
+                    $.ajax({
+                        url: "/AJAX/amountFocused",
+                        method: "POST",
+                        data: {
+                            consultRefNo: consultRefNo, newrec: newrec, groupCode: groupCode,
+                            paymentNo: paymentNo
+                        },
+                        success: function (data) {
+
+                            if (data != null) {
+                                if (data.txtdiscount != null)
+                                    $(".amount").val(data.txtdiscount);
+
+                                if (data.TXTPATIENTNAME != null)
+                                    $(".name").val(data.TXTPATIENTNAME);
+
+                            }
+
+                        }
+                    })
+
+                }
+            })
+
+
+            $(".bank").on({
+                focusout: function () {
+                    let bank = $(this).val();
+                    let paymentMode = $(".paymentMode").val();
+                    let name = $(".name").val();
+
+                    if (bank != "") {
+                        let details = paymentMode.trim() + " - " + name.trim() + "\r\n : (" + bank.trim() + ")";
+                        $(".details").val(details);
+
+                        $.ajax({
+                            url: "/AJAX/bankFocusout",
+                            method: "POST",
+                            success: function (data) {
+                                if (data != null) {
+                                    console.log(data);
+                                    let atmProfiles = data;
+
+                                    for (var i = 0; i < atmProfiles.length; i++) {
+                                        if (atmProfiles[i].NAME.trim() == bank.trim()) {
+                                            $(".atmcompany").val(atmProfiles[i].COMPANY);
+                                            $(".atmbatchno").val(atmProfiles[i].BATCHNO);
+                                            $(".atmdocument").val(atmProfiles[i].DOCUMENT);
+                                            $(".atmposCharge").val(atmProfiles[i].POS_CHARGE);
+                                            $(".atmExpenseAcct").val(atmProfiles[i].EXPENSE_ACCT);
+                                            $(".atmdebit").val(atmProfiles[i].DEBIT);
+                                            $(".atmcredit").val(atmProfiles[i].CREDIT);
+                                            break;
+                                        }
+                                    }
+
+                                    $(".bank").prop({ disabled: true });
+
+                                }
+                            }
+                        })
+                    }
+
+                }
+            })
+
+
+            $(".valueDate").on({
+                focusout: function () {
+                    let valueDate = $(this).val();
+                    let overwrite = false;
+                    let paymentMode = $(".paymentMode").val();
+
+                    $.ajax({
+                        url: "/AJAX/valueDateFocusout",
+                        method: "POST",
+                        data: { valueDate: valueDate, paymentMode: paymentMode },
+                        success: function (data) {
+
+                            if (data != null) {
+
+                                if (data.alertMessage != null) {
+                                    if (!confirm(data.alertMessage)) {
+                                        $(".valueDate").val(@String.Format("{0:yyyy-MM-dd}", DateTime.Now));
+                                        return;
+                                    } else {
+                                        overwrite = true;
+                                    }
+
+                                }
+
+                                if (data.ActRslt != null) {
+                                    if (!confirm(data.ActRslt)) {
+                                        $(".valueDate").val(@String.Format("{0:yyyy-MM-dd}", DateTime.Now));
+                                    }
+                                    else {
+                                        $(".submitBtn").prop({ disabled: false });
+                                        return;
+                                    }
+                                }
+
+                                if(data.chkApplyFilter){
+                                    $(".disallowbackdate").val(data.chkApplyFilter);
+                                }
+
+                            }
+
+                        }
+                    }).then(() => {
+                        console.log(overwrite);
+                        //pending overwrite code
+                        if (overwrite) {
+
+                        }
+                    })
+
+                }
+            })
+
+
+            $(".receivedDate").on({
+                focusout: function () {
+                    let receivedDate = $(this).val();
+
+                    $.ajax({
+                        url: "/AJAX/receivedDateFocusout",
+                        method: "POST",
+                        data: { receivedDate: receivedDate },
+                        success: function (data) {
+                            if (data != null) {
+                                if (data.REPORT_TYPE5 != null) {
+                                    $(".receivedDate").val(data.REPORT_TYPE5);
+                                }
+                            }
+                        }
+                    })
+
+                }
+            })
+
+
+            $(".paymentMode").on({
+                focusout: function () {
+                    let paymentMode = $(this).val().trim();
+                    let newrec = $(".newrec").val() == "true" ? true : false;
+                    let details = $(".details").val().trim();
+
+                    if (paymentMode != "" && paymentMode != null) {
+                        $(".receivedDate").prop({ disabled: false });
+
+                        if (paymentMode == "POS/CREDIT CARD" || paymentMode == "BANK TELLER" || paymentMode == "DIRECT CREDIT") {
+                            $(".bank").prop({ disabled: false });
+                        } else {
+                            $(".bank").prop({ disabled: true });
+                        }
+
+                        if (paymentMode != "" && newrec && paymentMode == "CASH") {
+                            let Details = (details == "" || details.length > 18 &&
+                                            details.slice(0, 18) != "Admissions Deposit") ?
+                                            "C A S H" : details;
+
+                            $(".details").val(Details);
+                            $(".receivedDate").prop({ disabled: true });
+                            $(".details").focus();
+                        }
+
+                        $(".submitBtn").prop({ disabled: false });
+                    } else {
+                        alert("Payment Mode cannot be empty...");
+                        return;
+                    }
+
+
+                }
+            })
+
+
+            $(".submitBtn").on({
+                click: function () {
+                    let details = $(".details").val().trim();
+                    let isotherserviceIncome = $(".isotherserviceIncome").val() == "true" ? true : false;
+                    let name = $(".name").val();
+                    let paymentMode = $(".paymentMode").val();
+                    let bank = $(".bank").val();
+                    let isadmissions = $(".isadmissions").val() == "true" ? true : false;
+                    let newrec = $(".newrec").val() == "true" ? true : false;
+                    let msection = $(".msection").val();
+                    let amount = Number($(".amount").val());
+                    let paymentNo = $(".paymentNo").val();
+                    let consultRefNo = $(".consultRefNo").val();
+                    let chkNHIScapitatn = $(".chkNHIScapitatn").prop("checked");
+                    let chkHMOcapitatn = $(".chkHMOcapitatn").prop("checked");
+                    let chkRetnshipFee = $(".chkRetnshipFee").prop("checked");
+                    let chkNone = $(".chkNone").prop("checked");
+                    let valueDate = $(".valueDate").val();
+                    let receivedDate = $(".receivedDate").val();
+                    let clientCode = $(".clientCode").val().trim();
+                    let groupCode = $(".groupCode").val().trim();
+                    let date = $(".date").val();
+                    let chkAdvancePaymt = $(".chkAdvancePaymt").prop("checked");
+                    let mpatientno = $(".mpatientno").val();
+                    let mgroupcode = $(".mgroupcode").val();
+                    let mname = $(".mname").val();
+                    let facility = $(".facility").val();
+
+                    
+                    //if (nmrAdmissionDeposit.Visible && nmrAdmissionDeposit.Value > 0m && nmrAmount.Value < nmrAdmissionDeposit.Value)
+                    //{
+                    //    result = MessageBox.Show("Amount specified is LESS THAN Admissions Deposit Requirement...\r\n    CONTINUE ? ", "Admissions Deposit/Payments", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                    //    if (result == DialogResult.No)
+                    //        return;
+                    //}
+
+                    if (details.trim() == "") {
+                        alert("Payment mode or details cannot be empty...");
+                        return;
+                    } else if (isotherserviceIncome && facility == "" || name.trim() == "") {
+                        alert("Service Centre/Facility/NAME for this Payment must be specified...");
+                        return;
+                    } else if ((paymentMode == "POS/CREDIT CARD" || paymentMode == "BANK TELLER" ||
+                        paymentMode == "DIRECT CREDIT") && bank == "" ){
+
+                        alert("A Bank must be selected for Pay Mode - CreditCard/BankTeller/DirectCredit");
+                        return;
+                    } else if (amount != 0 && amount < 1 && msection != "C") {
+                        alert("Invalid Amount Specification...");
+                        $(".amount").val(0);
+                        return;
+                    } else if (name.trim() == "" || paymentNo.trim() == "") {
+                        alert("Name and PaymentNo are empty.. Cannot Save Record...");
+                        return;
+                    } else if (consultRefNo == "" && isadmissions) {
+                        alert("Admissions Number or Reference must be specified...");
+                        return;
+                    }
+                    else {
+                        if(isadmissions && newrec){
+                            $(".details").val(`${details} - Admissions`);
+                        }
+
+                        if(confirm("Confirm to Save...")){
+                            $(".submitBtn").prop({ disabled: true });
+
+                            let dataObject = {
+                                txtdiscount: amount,
+                                txtreference: consultRefNo,
+                                edtallergies: details,
+                                txtstaffno: paymentNo,
+                                chkByBranch: chkNHIScapitatn,
+                                chkHMO: chkHMOcapitatn,
+                                chkIncludeBf: chkRetnshipFee,
+                                chkCurrtAdmRev: chkNone,
+                                TXTPATIENTNAME: name,
+                                REPORT_TYPE1: valueDate,
+                                REPORT_TYPE2: receivedDate,
+                                combillcycle: paymentMode,
+                                txtghgroupcode: clientCode,
+                                txtgroupcode: groupCode,
+                                chkIncludePayments: isadmissions,
+                                txtTimeTo: date,
+                                chkQueryTimeofDay: chkAdvancePaymt,
+                                newrec: newrec,
+                                txtothername: mname,
+                                mpatientno: mpatientno,
+                                mgroupcode: mgroupcode,
+                                chkReportbyAgent: isotherserviceIncome
+                            }
+
+                            //let generateCapitation = false;
+
+                            $.ajax({
+                                url: "/AJAX/PaymentSubmitClicked",
+                                method: "POST",
+                                data: { dataObject: dataObject },
+                                success: function (data) {
+                                    if (data != null) {
+
+                                        if (data.alertMessage != null) {
+                                            alert(data.alertMessage);
+                                        }
+
+                                        if (data.chkIncludeOnHold) {
+                                            //display modal
+                                            $("#refLookUp6").click();
+                                        }
+
+                                        if (data.chkgetdependants) {
+                                            $(".reLoadBtnCallFlag").val("true");
+                                           // $(".reLoadBtn").click();
+                                        }
+                                    }
+                                }
+                            })
+
+                        }
+                    }
+
+
+
+                }
+            })
+
+
+            $(".deleteBtn").on({
+                click: function () {
+                    let newrec = $(".newrec").val().trim() == "true" ? true : false;
+                    let groupCode = $(".groupCode").val().trim();
+                    let mpatientno = $(".mpatientno").val();
+                    let paymentNo = $(".paymentNo").val();
+
+                    if (confirm("Confirm to Delete Record")) {
+                        $.ajax({
+                            url: "/AJAX/paymentDeleteBtnClicked",
+                            method: "POST",
+                            data: { newrec: newrec, paymentNo: paymentNo, groupCode: groupCode, mpatientno: mpatientno },
+                            success: function (data) {
+                                if (data != null) {
+                                    if (data.alertMessage != null) {
+                                        alert(data.alertMessage);
+                                        return;
+                                    }
+                                }
+                            }
+                        })
+
+                    }
+
+                }
+            })
+
+
+            $(".reLoadBtn").on({
+                click: function () {
+                    let consultRefNo = $(".consultRefNo").val().trim();
+                    let msection = $(".msection").val().trim();
+
+                    $.ajax({
+                        url: "/AJAX/reLoadBtnClicked",
+                        method: "POST",
+                        data: { consultRefNo: consultRefNo, msection: msection },
+                        success: function (data) {
+                            if (data != null) {
+                                if (data.alertMessage != null) {
+                                    alert(data.alertMessage);
+                                    return;
+                                }
+                            }
+                        }
+                    })
+                }
+            })
+
+
+            $(".ledgerBtn").on({
+                click: function () {
+                    let mreference = $(".mreference").val();
+                    let consultRefNo = $(".consultRefNo").val();
+
+                    if (mreference.trim() == "") {
+                        alert("No On-line Transaction Reference...");
+                        return;
+                    }
+
+                    $.ajax({
+                        url: "/AJAX/ledgerBtnClicked",
+                        method: "POST",
+                        data: { consultRefNo: consultRefNo, mreference: mreference },
+                        success: function (data) {
+                            if (data != null) {
+                                if (data.alertMessage != null) {
+                                    alert(data.alertMessage);
+                                    return;
+                                }
+                            }
+                        }
+                    })
+
+
+                }
+            })
+
+
+
+
+            function formatDate1(str) {
+                str = Number(str.slice(str.indexOf("(") + 1, str.indexOf(")")));
+                var d = new Date(str);
+                d = ('0' + d.getDate()).slice(-2) + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + d.getFullYear();
+                return d; //returns 01-01-1970
+            };
+        })
+
+    </script>
+}
 

@@ -346,236 +346,236 @@
             <div class="tab-content">
                 <div id="personalInfo" class="tab-pane fade in active">
 
-                        <section class="pb-3">
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <div class="new">
-                                        <label class="label w-3 w-35 drk">Type</label>
-                                        <select class="input w-5 w-50 increase-height type" name="REPORTS.cbotype">
-                                            <option value=""></option>
-                                            <option value="Private">Private</option>
-                                            <option value="Family">Family</option>
-                                            <option value="Coperate">Coperate</option>
-                                        </select>
-                                    </div>
-                                    <div class="new">
-                                        <label class="label w-3 w-35 drk">Title</label>
-                                        <select id="cbo" class="input w-5 w-50 increase-height title" name="REPORTS.cbotitle">
-                                            <option value=""></option>
-                                            <option value="Master">Master</option>
-                                            <option value="Mr.">Mr.</option>
-                                            <option value="Mrs.">Mrs.</option>
-                                            <option value="Miss.">Miss.</option>
-                                            <option value="Dr.">Dr.</option>
-                                            <option value="Prof.">Prof.</option>
-                                            <option value="Engr.">Engr.</option>
-                                            <option value="Pharm.">Pharm</option>
-                                            <option value="Arch.">Arch.</option>
-                                            <option value="Chief">Chief</option>
-                                            <option value="Evang.">Evang.</option>
-                                            <option value="Pastor">Pastor</option>
-                                            <option value="Imam">Imam</option>
-                                            <option value="Alhaji">Alhaji</option>
-                                            <option value="Citizen">Citizen</option>
-                                            <option value="Senator">Senator</option>
-                                            <option value="Hon.">Hon.</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="new">
-                                        <label class="label w-3 w-35 drk">Surname</label>
-                                        <input type="text" name="REPORTS.txtsurname" value="" class="input w-7 w-50 surname" />
-                                    </div>
-
-                                    <div class="new">
-                                        <label class="label w-3 w-35 drk">Other Names</label>
-                                        <input type="text" name="REPORTS.txtothername" value="" class="input w-7 w-50 othernames" />
-                                    </div>
-
-                                    <div class="new">
-                                        <label class="label w-3 w-35 drk">Address 1</label>
-                                        <input type="text" name="REPORTS.txtaddress1" value="" class="input w-7 w-50 address" />
-                                    </div>
-
-                                    <div class="new">
-                                        <label class="label w-3 w-35 drk">State</label>
-                                        @Html.DropDownListFor(v => v.SYSCODETABSvm.StateCodes.name,
-                                        new SelectList(@Model.SYSCODETABSvm.StateCodess, "type_code", "name"), "",
-                                        new { @class = "input w-5 w-50 increase-height state" })
-                                    </div>
-
-                                    <div class="new">
-                                        <label class="label w-3 w-35 drk">Date of Birth</label>
-                                        <input type="date" value="@String.Format("{0:yyyy-MM-dd}", DateTime.Now)" class="input w-5 w-50 dateOfBirth increase-height" name="REPORTS.dtbirthdate" />
-                                    </div>
-
-                                    <div class="new">
-                                        <label class="label w-3 w-35 drk">Sex</label>
-                                        <select class="input w-5 w-50 increase-height gender" name="REPORTS.cbogender">
-                                            <option value=""></option>
-                                            <option value="MALE">Male</option>
-                                            <option value="FEMALE">Female</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="new">
-                                        <label class="label w-3 w-35 drk">Marital Status</label>
-                                        <select class="input w-5 w-50 increase-height status" name="REPORTS.cbomaritalstatus">
-                                            <option value=""></option>
-                                            <option value="S">SINGLE</option>
-                                            <option value="M">MARRIED</option>
-                                            <option value="WD">WIDOWED</option>
-                                            <option value="WR">WIDOWER</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="new">
-                                        <label class="label w-3 w-35 drk">Blood Group</label>
-                                        <select class="input w-5 w-50 increase-height bloodGroup" name="REPORTS.cbobloodgroup">
-                                            <option value=""></option>
-                                            <option value="A+">A+</option>
-                                            <option value="A-">A-</option>
-                                            <option value="B+">B+</option>
-                                            <option value="B-">B-</option>
-                                            <option value="O+">O+</option>
-                                            <option value="O-">O-</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="new">
-                                        <label class="label w-3 w-35 drk">Genotype</label>
-                                        <select class="input w-5 w-50 increase-height genoType" name="REPORTS.cbogenotype">
-                                            <option value=""></option>
-                                            <option value="AA">AA</option>
-                                            <option value="AS">AS</option>
-                                            <option value="SS">SS</option>
-                                        </select>
-                                    </div>
-
+                    <section class="pb-3">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="new">
+                                    <label class="label w-3 w-35 drk">Type</label>
+                                    <select class="input w-5 w-50 increase-height type" name="REPORTS.cbotype">
+                                        <option value=""></option>
+                                        <option value="Private">Private</option>
+                                        <option value="Family">Family</option>
+                                        <option value="Coperate">Coperate</option>
+                                    </select>
                                 </div>
-                                <div class="col-md-7">
+                                <div class="new">
+                                    <label class="label w-3 w-35 drk">Title</label>
+                                    <select id="cbo" class="input w-5 w-50 increase-height title" name="REPORTS.cbotitle">
+                                        <option value=""></option>
+                                        <option value="Master">Master</option>
+                                        <option value="Mr.">Mr.</option>
+                                        <option value="Mrs.">Mrs.</option>
+                                        <option value="Miss.">Miss.</option>
+                                        <option value="Dr.">Dr.</option>
+                                        <option value="Prof.">Prof.</option>
+                                        <option value="Engr.">Engr.</option>
+                                        <option value="Pharm.">Pharm</option>
+                                        <option value="Arch.">Arch.</option>
+                                        <option value="Chief">Chief</option>
+                                        <option value="Evang.">Evang.</option>
+                                        <option value="Pastor">Pastor</option>
+                                        <option value="Imam">Imam</option>
+                                        <option value="Alhaji">Alhaji</option>
+                                        <option value="Citizen">Citizen</option>
+                                        <option value="Senator">Senator</option>
+                                        <option value="Hon.">Hon.</option>
+                                    </select>
+                                </div>
+
+                                <div class="new">
+                                    <label class="label w-3 w-35 drk">Surname</label>
+                                    <input type="text" name="REPORTS.txtsurname" value="" class="input w-7 w-50 surname" />
+                                </div>
+
+                                <div class="new">
+                                    <label class="label w-3 w-35 drk">Other Names</label>
+                                    <input type="text" name="REPORTS.txtothername" value="" class="input w-7 w-50 othernames" />
+                                </div>
+
+                                <div class="new">
+                                    <label class="label w-3 w-35 drk">Address 1</label>
+                                    <input type="text" name="REPORTS.txtaddress1" value="" class="input w-7 w-50 address" />
+                                </div>
+
+                                <div class="new">
+                                    <label class="label w-3 w-35 drk">State</label>
+                                    @Html.DropDownListFor(v => v.SYSCODETABSvm.StateCodes.name,
+                                    new SelectList(@Model.SYSCODETABSvm.StateCodess, "type_code", "name"), "",
+                                    new { @class = "input w-5 w-50 increase-height state" })
+                                </div>
+
+                                <div class="new">
+                                    <label class="label w-3 w-35 drk">Date of Birth</label>
+                                    <input type="date" value="@String.Format("{0:yyyy-MM-dd}", DateTime.Now)" class="input w-5 w-50 dateOfBirth increase-height" name="REPORTS.dtbirthdate" />
+                                </div>
+
+                                <div class="new">
+                                    <label class="label w-3 w-35 drk">Sex</label>
+                                    <select class="input w-5 w-50 increase-height gender" name="REPORTS.cbogender">
+                                        <option value=""></option>
+                                        <option value="MALE">Male</option>
+                                        <option value="FEMALE">Female</option>
+                                    </select>
+                                </div>
+
+                                <div class="new">
+                                    <label class="label w-3 w-35 drk">Marital Status</label>
+                                    <select class="input w-5 w-50 increase-height status" name="REPORTS.cbomaritalstatus">
+                                        <option value=""></option>
+                                        <option value="S">SINGLE</option>
+                                        <option value="M">MARRIED</option>
+                                        <option value="WD">WIDOWED</option>
+                                        <option value="WR">WIDOWER</option>
+                                    </select>
+                                </div>
+
+                                <div class="new">
+                                    <label class="label w-3 w-35 drk">Blood Group</label>
+                                    <select class="input w-5 w-50 increase-height bloodGroup" name="REPORTS.cbobloodgroup">
+                                        <option value=""></option>
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+                                    </select>
+                                </div>
+
+                                <div class="new">
+                                    <label class="label w-3 w-35 drk">Genotype</label>
+                                    <select class="input w-5 w-50 increase-height genoType" name="REPORTS.cbogenotype">
+                                        <option value=""></option>
+                                        <option value="AA">AA</option>
+                                        <option value="AS">AS</option>
+                                        <option value="SS">SS</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="col-md-7">
                                     
-                                    <div class="new">
-                                        <label class="label w-3 w-35 drk">Bills Payable by</label>
-                                        <select class="input w-5 w-50 increase-height billPayableBy">
+                                <div class="new">
+                                    <label class="label w-3 w-35 drk">Bills Payable by</label>
+                                    <select class="input w-5 w-50 increase-height billPayableBy">
+                                        <option value=""></option>
+                                        <option value="SELF">Self</option>
+                                        <option value="P\ANOTHER PATIENT">P\ANOTHER PATIENT</option>
+                                        <option value="CORPORATE CLIENT">CORPERATE CLIENT</option>
+                                    </select>
+                                </div>
+
+                                <div class="new">
+                                    <label class="label w-3 w-35 drk">Group Code</label>
+                                    <input type="text" id="groupCode2" name="REPORTS.txtghgroupcode" value="" class="input w-5 w-50 groupCode2 eData1" />
+                                    <input type="button" id="refLookUp3" name="btn" value="" class="btn-small " />
+                                </div>
+
+                                <div class="new">
+                                    <label class="label w-3 w-35 drk">Code</label>
+                                    <input type="text" name="REPORTS.txtbillspayable" value="" class="input w-5 w-50 code eData2 fData1" />
+                                    <input type="button" id="refLookUp4" name="btn" value="" class="btn-small " />
+                                    <span class="lblbillspayable"></span>
+                                </div>
+
+                                <div class="new">
+                                    <label class="label w-3 w-35 drk">Date Registered</label>
+                                    <input type="date" value="@String.Format("{0:yyyy-MM-dd}", DateTime.Now)" class="input w-5 w-50 dateRegistered increase-height" name="REPORTS.dtregistered" />
+                                </div>
+                                <div class="new">
+                                    <label class="label w-3 w-35 drk">HMO Service Grp</label>
+                                    <input type="text" name="REPORTS.comhmoservgrp" class="input w-5 w-50 increase-height serviceGroup" />
+                                </div>
+                                <div class="new">
+                                    <scan>
+                                        <label class="label w-3 w-35 drk">Bill Category</label>
+                                        @Html.DropDownListFor(v => v.CUSTCLASS.NAME,
+                                        new SelectList(Model.CUSTCLASSS, "REFERENCE", "NAME"), "",
+                                        new { @class = "input w-5 w-50 increase-height billCategory" })
+                                    </scan>
+                                    <scan>
+                                        <label class="label w-3 w-35 drk">Bill Circle</label>
+                                        <select class="input w-3 w-50 increase-height billCircle" name="REPORTS.combillcycle">
                                             <option value=""></option>
-                                            <option value="SELF">Self</option>
-                                            <option value="P\ANOTHER PATIENT">P\ANOTHER PATIENT</option>
-                                            <option value="CORPORATE CLIENT">CORPERATE CLIENT</option>
+                                            <option value="C">CASH</option>
+                                            <option value="M">MONTHLY</option>
+                                            <option value="H">H> ON HOLD</option>
+                                            <option value="Q">QUARTERLY</option>
+                                            <option value="S">S> ON PAYMENT</option>
                                         </select>
-                                    </div>
+                                    </scan>
+                                </div>
 
-                                    <div class="new">
-                                        <label class="label w-3 w-35 drk">Group Code</label>
-                                        <input type="text" id="groupCode2" name="REPORTS.txtghgroupcode" value="" class="input w-5 w-50 groupCode2 eData1" />
-                                        <input type="button" id="refLookUp3" name="btn" value="" class="btn-small " />
-                                    </div>
+                                <div class="new">
+                                    <scan>
+                                        <label class="label w-3 w-35 drk">Balance B/F</label>
+                                        <input type="number" name="REPORTS.nmrBalbf" value="0.00" class="input w-4 w-50 design alr balanceBF" />
+                                        <label class="label balanceBFText">...</label>
+                                    </scan>
+                                    <scan>
+                                        <label class="label w-3 w-35 drk">Current Debit</label>
+                                        <input type="number" name="REPORTS.nmrcurdebit" value="0.00" class="input w-3 w-50 design alr currentDebit" />
+                                    </scan>
+                                </div>
+                                <div class="new">
+                                    <scan>
+                                        <label class="label w-3 w-35 drk">Credit Limit</label>
+                                        <input type="number" name="REPORTS.txtcreditlimit" value="0.00" class="input w-4 w-50 design alr creditLimit" />
+                                    </scan>
+                                    <scan>
+                                        <label class="label w-4 w-35 drk">Current Credit</label>
+                                        <input type="number" name="REPORTS.nmrcurcredit" value="0.00" class="input w-3 w-50 design alr currentCredit" />
+                                    </scan>
+                                </div>
 
-                                    <div class="new">
-                                        <label class="label w-3 w-35 drk">Code</label>
-                                        <input type="text" name="REPORTS.txtbillspayable" value="" class="input w-5 w-50 code eData2 fData1" />
-                                        <input type="button" id="refLookUp4" name="btn" value="" class="btn-small " />
-                                        <span class="lblbillspayable"></span>
-                                    </div>
+                                <div class="new">
+                                    <span class="">
+                                        <label class="label w-3 w-35 drk">Special Discount</label>
+                                        <input type="number" name="REPORTS.txtdiscount" value="0.00" class="input w-4 w-50 design alr specialDiscnt" />
+                                    </span>
+                                    <span class="">
+                                        <label class="label w-3 w-35 drk">Balance</label>
+                                        <input type="number" name="range" value="0.00" class="input w-4 w-50 balance" />
+                                        <label class="label w-35 balanceText">DB</label>
+                                    </span>
+                                </div>
 
-                                    <div class="new">
-                                        <label class="label w-3 w-35 drk">Date Registered</label>
-                                        <input type="date" value="@String.Format("{0:yyyy-MM-dd}", DateTime.Now)" class="input w-5 w-50 dateRegistered increase-height" name="REPORTS.dtregistered" />
-                                    </div>
-                                    <div class="new">
-                                        <label class="label w-3 w-35 drk">HMO Service Grp</label>
-                                        <input type="text" name="REPORTS.comhmoservgrp" class="input w-5 w-50 increase-height serviceGroup" />
-                                    </div>
-                                    <div class="new">
-                                        <scan>
-                                            <label class="label w-3 w-35 drk">Bill Category</label>
-                                            @Html.DropDownListFor(v => v.CUSTCLASS.NAME,
-                                            new SelectList(Model.CUSTCLASSS, "REFERENCE", "NAME"), "",
-                                            new { @class = "input w-5 w-50 increase-height billCategory" })
-                                        </scan>
-                                        <scan>
-                                            <label class="label w-3 w-35 drk">Bill Circle</label>
-                                            <select class="input w-3 w-50 increase-height billCircle" name="REPORTS.combillcycle">
-                                                <option value=""></option>
-                                                <option value="C">CASH</option>
-                                                <option value="M">MONTHLY</option>
-                                                <option value="H">H> ON HOLD</option>
-                                                <option value="Q">QUARTERLY</option>
-                                                <option value="S">S> ON PAYMENT</option>
-                                            </select>
-                                        </scan>
-                                    </div>
+                                <div class="new">
+                                    <label class="label w-3 w-35 drk">Billing Currency</label>
+                                    @Html.DropDownListFor(v => v.SYSCODETABSvm.CurrencyCodes.name,
+                                        new SelectList(@Model.SYSCODETABSvm.CurrencyCodess, "type_code", "name"), "",
+                                        new { @class = "input w-5 w-50 increase-height billingCurrency" })
+                                </div>
 
-                                    <div class="new">
-                                        <scan>
-                                            <label class="label w-3 w-35 drk">Balance B/F</label>
-                                            <input type="number" name="REPORTS.nmrBalbf" value="0.00" class="input w-4 w-50 design alr balanceBF" />
-                                            <label class="label balanceBFText">...</label>
-                                        </scan>
-                                        <scan>
-                                            <label class="label w-3 w-35 drk">Current Debit</label>
-                                            <input type="number" name="REPORTS.nmrcurdebit" value="0.00" class="input w-3 w-50 design alr currentDebit" />
-                                        </scan>
-                                    </div>
-                                    <div class="new">
-                                        <scan>
-                                            <label class="label w-3 w-35 drk">Credit Limit</label>
-                                            <input type="number" name="REPORTS.txtcreditlimit" value="0.00" class="input w-4 w-50 design alr creditLimit" />
-                                        </scan>
-                                        <scan>
-                                            <label class="label w-4 w-35 drk">Current Credit</label>
-                                            <input type="number" name="REPORTS.nmrcurcredit" value="0.00" class="input w-3 w-50 design alr currentCredit" />
-                                        </scan>
-                                    </div>
-
-                                    <div class="new">
-                                        <span class="">
-                                            <label class="label w-3 w-35 drk">Special Discount</label>
-                                            <input type="number" name="REPORTS.txtdiscount" value="0.00" class="input w-4 w-50 design alr specialDiscnt" />
-                                        </span>
-                                        <span class="">
-                                            <label class="label w-3 w-35 drk">Balance</label>
-                                            <input type="number" name="range" value="0.00" class="input w-4 w-50 balance" />
-                                            <label class="label w-35 balanceText">DB</label>
-                                        </span>
-                                    </div>
-
-                                    <div class="new">
-                                        <label class="label w-3 w-35 drk">Billing Currency</label>
-                                        @Html.DropDownListFor(v => v.SYSCODETABSvm.CurrencyCodes.name,
-                                            new SelectList(@Model.SYSCODETABSvm.CurrencyCodess, "type_code", "name"), "",
-                                            new { @class = "input w-5 w-50 increase-height billingCurrency" })
-                                    </div>
-
-                                    <div class="new">
-                                        <label class="label w-3 w-35 drk">Clinic</label>
-                                        @Html.DropDownListFor(v => v.SYSCODETABSvm.ServiceCentreCodes.name,
-                                            new SelectList(@Model.SYSCODETABSvm.ServiceCentreCodess, "type_code", "name"), "",
-                                            new { @class = "input w-5 w-50 increase-height clinic" })
-                                    </div>
+                                <div class="new">
+                                    <label class="label w-3 w-35 drk">Clinic</label>
+                                    @Html.DropDownListFor(v => v.SYSCODETABSvm.ServiceCentreCodes.name,
+                                        new SelectList(@Model.SYSCODETABSvm.ServiceCentreCodess, "type_code", "name"), "",
+                                        new { @class = "input w-5 w-50 increase-height clinic" })
                                 </div>
                             </div>
+                        </div>
                                 
-                        </section>
+                    </section>
 
 
-                        <section class="py-3 lme">
-                            <div class="row">
-                                <div class="col-md-12 d-flex justify-content-around">
-                                    <span>
-                                        <input type="checkbox" class="getAcctInfo" id="acctInfor" />
-                                        <label for="acctInfor" class="drk">Get Acct Informattion</label>
-                                    </span>
-                                    <span>
-                                        <input type="button" name="btnPrint" value="Chained Medical History" class="btn chnMedclHistryBtn" />
-                                    </span>
-                                </div>
+                    <section class="py-3 lme">
+                        <div class="row">
+                            <div class="col-md-12 d-flex justify-content-around">
+                                <span>
+                                    <input type="checkbox" class="getAcctInfo" id="acctInfor" />
+                                    <label for="acctInfor" class="drk">Get Acct Informattion</label>
+                                </span>
+                                <span>
+                                    <input type="button" name="btnPrint" value="Chained Medical History" class="btn chnMedclHistryBtn" />
+                                </span>
                             </div>
-                        </section>
+                        </div>
+                    </section>
                         
-                        <!--Bottom Block-->
+                    <!--Bottom Block-->
 
-                        <section class="py-3">
+                    <section class="py-3">
                            <div class="row">
                                 <div class="col-md-6 text-center">
                                     <div class="title2 mb-2">[MEDICAL NOTES, ALLERGIES etc]</div>
@@ -591,12 +591,10 @@
                                 </div>
                             </div>
                         </section>
-
                 </div>
 
 
                 <div id="otherDetails" class="tab-pane fade in">
-
                     <section class="py-3">
                         <div class="row">
                             <div class="col-md-6">
@@ -752,7 +750,7 @@
                     <input type="submit" name="" value="Submit" class="btn clm submit" />
 
                     <input type="button" name="" value="Delete" class="btn clm delete" />
-                    <input type="button" name="" value="Close" class="btn clm" />
+                    <a href="~/Home/Index" title="Close"><input type="button" name="" value="Close" class="btn oraa" /></a>
                 </div>
             </div>
         </div>
@@ -1114,8 +1112,6 @@
                     }
                 }
             })
-
-
 
             $(".patient").on({
                 focusout: function () {
@@ -1488,7 +1484,6 @@
             })
 
 
-
             var returnSubmitVal = $(".returnSubmitVal").val();
             if (returnSubmitVal != "") {
                 alert(returnSubmitVal);
@@ -1693,8 +1688,6 @@
                 }
             })
 
-
-
             $(".chnMedSubmitBtn").on({
                 click: function () {
                     let patInfoPatientNo = $(".patient").val();
@@ -1747,11 +1740,6 @@
                     }
                 }
             })
-
-
-
-
-
 
 
 

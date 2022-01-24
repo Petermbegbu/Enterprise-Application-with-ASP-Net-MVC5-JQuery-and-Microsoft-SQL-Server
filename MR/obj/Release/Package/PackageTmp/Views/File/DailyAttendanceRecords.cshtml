@@ -816,7 +816,7 @@
                                     <input type="button" value="Delete" class="btn clm deleteBtn" />
                                     <input type="button" value="Submit" class="btn clm submitBtn" />
                                     <input type="submit" value="Submit" class="btn clm hiddenSubmitBtn" />
-                                    <input type="button" value="Close" class="btn clm closeBtn" />
+                                    <a href="~/Home/Index" title="Close"><input type="button" name="" value="Close" class="btn oraa" /></a>
                                 </div>
                             </div>
                         </div>
@@ -984,6 +984,7 @@
                                             @Html.DropDownListFor(m => m.SYSCODETABSvm.ServiceCentreCodes.name,
                                                 new SelectList(Model.SYSCODETABSvm.ServiceCentreCodess, "type_code", "name"), "",
                                                 new { @id = "ivgFac", @class = "input w-7 increase-height SSPfacility" })
+                                            
                                             <label class="ll pr-5 drk labelSSPfacility">...</label>
                                         </span>
                                     </div>
@@ -1082,7 +1083,7 @@
                                     <input type="button" value="Submit" id="ivgSubmit" class="btn SSPsubmitBtn" />
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <input type="button" name="btn" value="Close" id="ivgClose" class="btn drk" />
+                                    <a href="~/Home/Index" title="Close"><input type="button" name="" value="Close" class="btn oraa" /></a>
                                 </div>
                             </div>
                         </section>
@@ -1181,7 +1182,6 @@
                 $(".labelCrDb").text("Db");
 
             }
-
 
             setTimeout(function () {
                 $(".referenceNo").focus();
@@ -1532,13 +1532,11 @@
             $(".SSPsubmitBtn").prop({ disabled: true });
             $(".serviceModalBtn").hide();
 
-
             $(".SSPpatGroupCode").on({
                 focusout: function () {
                     $(".SSPhospitalNo").focus();
                 }
             })
-
 
             $(".SSPhospitalNo").on({
                 focusout: function () {
@@ -1575,7 +1573,6 @@
 
                                 }
 
-
                             }
                         })
 
@@ -1584,7 +1581,6 @@
 
                 }
             })
-
 
             $(".SSPbillsPayableBy").on({
                 focusout: function () {
@@ -1630,7 +1626,6 @@
                 }
             })
 
-
             //For code field
             $(".SSPgrouphead").on({     
                 focusout: function () {
@@ -1672,7 +1667,6 @@
                 }
             })
 
-
             $(".SSPtransDate").on({
                 focusout: function () {
                     let transDate = new Date($(".SSPtransDate").val());
@@ -1683,10 +1677,8 @@
 
                         $(".SSPtransDate").val("@String.Format("{0:yyyy-MM-ddThh:mm:ss}", DateTime.Now)");
                     }
-
                 }
             })
-
 
             $(".SSPfacility").on({
                 focusout: function () {
@@ -1733,7 +1725,6 @@
                     $(".SSPservRequired").focus();
                 }
             })
-            
 
             $(".SSPservRequired").on({
                 focusout: function () {
@@ -1812,7 +1803,6 @@
                     }
                 }
             })
-
 
             $(".SSPaddBtn").on({
                 click: function () {
@@ -1914,7 +1904,6 @@
                 }
             })
 
-
             $(".grpProcedure").on({
                 focusout: function () {
                     let grpProcedure = $(this).val();
@@ -1967,7 +1956,7 @@
                                         let foundIt = false;
                                         let grpDetails = data.MRB15AS;
 
-                                        if (grpDetails.length != 0) {
+                                        if (grpDetails.length > 0) {
                                             for (var i = 0; i < grpDetails.length; i++) {
                                                 $(".tbody").find("tr").each(function () {
                                                     let code = $(this).find("td").eq(4).text();
@@ -2040,7 +2029,6 @@
 
                 }
             })
-
 
             $(".modalAddBtn").on({
                 click: function () {

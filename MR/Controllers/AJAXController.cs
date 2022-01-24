@@ -17,6 +17,7 @@ using Gizmox.WebGUI.Forms;
 using msfunc.Forms;
 using MSMR.Forms;
 using SCS.DataAccess;
+using mradmin.Forms;
 
 namespace OtherClasses.FILE
 {
@@ -28,121 +29,4122 @@ namespace OtherClasses.FILE
         // GET: AJAX
         string br_cc = bissclass.sysGlobals.mbr_cc;
 
-        //Image Acquisition Start
+        //Ante_Natal Records Start
+        #region 
+
+        public JsonResult prvPregSubmitBtnClick(IEnumerable<MR_DATA.ANC03> tableList, MR_DATA.REPORTS dataList)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            //string woperato = Request.Cookies["mrName"].Value;
+            //vm.REPORTS = dataList;
+
+            PreviousPregnancies formObject = new PreviousPregnancies(vm);
+            vm.REPORTS = formObject.savedetails(tableList, dataList);
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult prvPregDeleteBtnClick(string pg1PatientNo, string pg1GroupCode, string mthOfBirth)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+
+            if (ANC03.DeleteANC03(pg1GroupCode, pg1PatientNo, mthOfBirth))
+            {
+                vm.REPORTS.alertMessage = "Deleted...";
+            }
+            else
+            {
+                vm.REPORTS.alertMessage = "Record was not Deleted...";
+            }
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult prevPregOnLoad(string pg1PatientNo, string pg1GroupCode)
+        {           
+            vm.ANC03S = ErpFunc.RsGet<MR_DATA.ANC03>("MR_DATA", 
+                "SELECT * FROM ANC03 WHERE GROUPCODE = " + pg1GroupCode + " and PATIENTNO = " + pg1PatientNo + "");
+
+            return Json(vm.ANC03, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult pg1HbPatientNoFocusout(string pg1HbPatientNo, string pg1HbGroupCode)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+
+            if (string.IsNullOrWhiteSpace(pg1HbPatientNo))  //no lookup value obtained
+            {
+                vm.REPORTS.txtpatientno = bissclass.autonumconfig(pg1HbPatientNo, true, "", "9999999"); //pg1_txtpatientnoHB.Text
+            }
+
+            //check if patientno exists
+            billchaindtl bchainHB = billchaindtl.Getbillchain(pg1HbPatientNo, pg1HbGroupCode);
+
+            if (bchainHB == null)
+            {
+                vm.REPORTS.alertMessage = "Invalid Patient Number... ";
+                //pg1_txtpatientnoHB.Text = " ";
+                //pg1_txtgroupcodeHB.Select();
+                return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                vm.REPORTS.TXTPATIENTNAME = bchainHB.NAME; //pg1_txtHusbandName.Text
+                vm.REPORTS.txtemail = bchainHB.PHONE.Trim() + " : " + bchainHB.EMAIL.Trim(); //txthusbankphoneEmail.Text
+            }
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult pg1ANCreferenceFocusout(string pg1ConsultRef, string pg1ANCreference, string pg1DOB)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            ANC01 anc01 = new ANC01();
+            billchaindtl billchain = new billchaindtl();
+
+            anc01 = ANC01.GetANC01(pg1ANCreference);
+
+            if (anc01 == null)
+            {
+                vm.REPORTS.alertMessage = "Invalid ANC Registration Number... ";
+                //pg1_txtANCReference.Focus();
+                return Json(vm, JsonRequestBehavior.AllowGet);
+            }
+
+            billchain = billchaindtl.Getbillchain(anc01.PATIENTNO, anc01.GROUPCODE);
+            if (billchain == null)
+            {
+                vm.REPORTS.alertMessage = "Error Reading Patients Details in Master File... \r\n Pls Check Patients Registration Details!";
+                return Json(vm, JsonRequestBehavior.AllowGet);
+            }
+
+            displayANCPages(anc01, billchain, pg1ConsultRef, pg1ANCreference, pg1DOB);
+
+            return Json(vm, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult pg1LMPFocusout(string pg1LMP)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            DateTime lmp = Convert.ToDateTime(pg1LMP);
+
+            if (lmp.Date > DateTime.Now.Date)
+            {
+                vm.REPORTS.alertMessage = "Invalid LMP Date...";
+                //dtLMPpg1.Select();
+                return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+            }
+
+            decimal xdays = Convert.ToDecimal(DateTime.Now.Date.Subtract(lmp.Date).TotalDays);
+            decimal xega = xdays / 7;
+            DateTime edd = lmp.Date.AddDays(281); //dtEDDpg1.Value
+            vm.REPORTS.REPORT_TYPE1 = edd.ToString();
+
+            vm.REPORTS.txtGestationAge = Math.Round(xega, 0).ToString() + " Wk(s)"; //pg1_txtGestationPeriod.Text
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        void displaySpecialInstructions(billchaindtl billchain)
+        {
+            //retrieve special medical notes - allergies etc.
+            //edtallergies.Text = edtspinstructions.Text = txtHmoNhisPlanType.Text = txtHMOPlanType.Text =
+            //    txtHMOPlanType.Text = "";
+            vm.REPORTS.SessionMhead = "";
+            // PSPNOTES pspnotes = PSPNOTES.GetPSPNOTES(anc01.GROUPCODE,anc01.PATIENTNO);
+            //  if ( pspnotes != null)
+            //  {
+
+            vm.REPORTS.edtallergies = billchain.MEDNOTES.Trim(); //edtallergies.Text
+            vm.REPORTS.edtspinstructions = billchain.SPNOTES.Trim(); //edtspinstructions.Text
+
+            //  }
+            if (billchain.GROUPHTYPE == "C" && !string.IsNullOrWhiteSpace(billchain.HMOSERVTYPE))
+            {
+                vm.REPORTS.diagnosis = billchain.HMOSERVTYPE; //txtHMOPlanType.Text
+                DataTable HMODETAILS = Hmodetail.GetHMODETAIL(billchain.GROUPHEAD);
+
+                for (int i = 0; i < HMODETAILS.Rows.Count; i++)
+                {
+                    if (HMODETAILS.Rows[i]["HMOSERVTYPE"].ToString().Trim() == billchain.HMOSERVTYPE.Trim())
+                    {
+                        vm.REPORTS.diagnosis = HMODETAILS.Rows[i]["HMOSERVTYPE"].ToString().Trim(); //txtHmoNhisPlanType.Text
+                        break;
+                    }
+                }
+            }
+        }
+
+        void displayPrevMedHistory(bool xcurrent, ANC01 anc01, billchaindtl billchain) //page 10
+        {
+          
+            //DataTable dt = MedHist.GetHISTByPatient(anc01.GROUPCODE,anc01.PATIENTNO,"D", anc01.LASTATTEND.Date,  DateTime.Now.Date, true);
+            string medrecs = GetMEDHISTCaseNotes(anc01.GROUPCODE, anc01.PATIENTNO, xcurrent ? false : true, 
+                xcurrent ? true : false, anc01.LASTATTEND.Date, DateTime.Now.Date, billchain, "DESC");
+            
+            vm.REPORTS.txtMedHistory = medrecs; // PrevMedHistoryNotes.Text + medhist.COMMENTS.Trim();
+                                               
+        }
+
+        void displaydetailsPage8(ANC01 anc01)
+        {
+            ANC07A anc07a = new ANC07A();
+
+            //recno = 0;
+            anc07a = ANC07A.GetANC07A(anc01.REFERENCE);
+
+            if (anc07a == null)
+            {
+                vm.REPORTS.chkExcludeRequests = true; //anc07anewRecord
+                return;
+            }
+
+            vm.REPORTS.chkExcludeRequests = false; //anc07anewRecord
+
+            vm.REPORTS.txtGestage = anc07a.GESTAGE; //Pg8_TxtGesAge.Text
+            vm.REPORTS.txtParity2 = anc07a.PARITY; //Pg8_TxtParity.Text
+            DateTime transDate = anc07a.TRANS_DATE; //Pg8_trans_date.Value
+            vm.REPORTS.REPORT_TYPE2 = string.Format("{0:yyyy-MM-dd}", transDate);
+            vm.REPORTS.txtProcess = anc07a.PROCESS; //Pg8_txtProcess.Text
+            vm.REPORTS.txtIndications = anc07a.INDICATIONS; //Pg8_txtIndications.Text
+            vm.REPORTS.txtStaffPresent = anc07a.STAFFPRESENT; //Pg8_txtStaffPresent.Text
+            vm.REPORTS.txtSurgeon = anc07a.SURGEON; //Pg8_TxtSurgeon.Text
+            vm.REPORTS.txtAssistant = anc07a.ASSISTANT; //Pg8_txtAssistant.Text
+            vm.REPORTS.txtPaediatricians = anc07a.PAEDIATRICIAN; //Pg8_txtPaediatricians.Text
+            vm.REPORTS.txtMidwives = anc07a.MIDWIVES; //Pg8_txtMidwives.Text
+            vm.REPORTS.txtAnaesthetist = anc07a.ANAESTHETIST; //Pg8_txtAnaesthetist.Text
+            vm.REPORTS.txtOthers = anc07a.OTHERS; //Pg8_txtOthers.Text
+            vm.REPORTS.txtAnaethesia = anc07a.ANAESTHESIA; //Pg8_txtAnaethesia.Text
+            vm.REPORTS.txtFindings = anc07a.FINDINGS; //Pg8_txtFindings.Text
+            vm.REPORTS.txtProcedure = anc07a.PROCEDURENOTE; //Pg8_txtProcedure.Text
+            vm.REPORTS.txtMother = anc07a.MOTHER; //Pg8_txtMother.Text
+            vm.REPORTS.txtBaby = anc07a.BABY; //Pg8_txtBaby.Text
+            vm.REPORTS.txtStaffSign = anc07a.STAFFSIGN; //Pg8_txtStaffSign.Text
+
+        }
+
+        void displaydetailsPage7(ANC01 anc01)
+        {
+            ANC07 anc07 = new ANC07();
+
+            //recno = 0;
+
+            anc07 = ANC07.GetANC07(anc01.REFERENCE);
+            if (anc07 == null)
+            {
+                vm.REPORTS.chkCummulativeSumm = true; //anc07newRecord
+                return;
+            }
+            vm.REPORTS.chkCummulativeSumm = false; //anc07newRecord
+
+            //anc07.LABDURATION;
+            vm.REPORTS.chkNonIdentified = anc07.TRAUMA_NONE ? true : false; //Pg7_ChkNonIdentified.Checked
+            vm.REPORTS.chkPerinealTear = anc07.PERINEAL_TEAR ? true : false; //Pg7_ChkPerinealTear.Checked
+            vm.REPORTS.chkOptFirstDeg = anc07.TEARDEGREE == 1 ? true : false; //Pg7_optFirstDeg.Checked
+            vm.REPORTS.chkOptSecondDeg = anc07.TEARDEGREE == 2 ? true : false; //Pg7_optSecondDeg.Checked
+            vm.REPORTS.chkOptThirdDeg = anc07.TEARDEGREE == 3 ? true : false; //Pg7_optThirdDeg.Checked
+            vm.REPORTS.chkOptFourthDeg = anc07.TEARDEGREE == 4 ? true : false; //Pg7_optFourthDeg.Checked
+            vm.REPORTS.chkEpisotomy = anc07.EPISIOTOMY ? true : false; //Pg7_chkEpisotomy.Checked
+            vm.REPORTS.txtindforepisotomy = anc07.INDI4EPISIOTOMY; //Pg7_txtindicationforepisotomy.Text
+            vm.REPORTS.chkOptRepairYes = anc07.REPREQ == 1 ? true : false; //Pg7_OptRepairYes.Checked
+            vm.REPORTS.chkOptRepairNo = anc07.REPREQ == 2 ? true : false; //Pg7_optRepairNo.Checked 
+            vm.REPORTS.chkOptMothRYes = anc07.MOTHERAGREE == 1 ? true : false; //Pg7_optMothRYes.Checked
+            vm.REPORTS.chkOptMotherRNo = anc07.MOTHERAGREE == 2 ? true : false; //Pg7_optMotherRNo.Checked
+            vm.REPORTS.txtAnaestheticUsed = anc07.ANAESTHUSED; //Pg7_txtAnaestheticUsed.Text
+            vm.REPORTS.txtSignature = anc07.STAFF; //Pg7_txtSignature.Text
+            DateTime trdttime = anc07.TRDTTIME.Date; //Pg7_AnaextheticDate.Value
+            vm.REPORTS.txtAnaextheticDate = string.Format("{0:yyyy-MM-dd}", trdttime);
+            vm.REPORTS.txtAnaestheticTime = anc07.TRDTTIME.ToString("HH:mm:ss"); //Pg7_AnaestheticTime.Text
+            vm.REPORTS.txtBaby1delivered = anc07.BAB1BY; //Pg7_TxtBaby1delivered.Text
+            vm.REPORTS.txtBaby2delivered = anc07.BAB2BY; //Pg7_TxtBaby2delivered.Text
+            vm.REPORTS.txtBaby3delivered = anc07.BAB3BY; //Pg7_TxtBaby3delivered.Text
+            vm.REPORTS.txtcommentsActions = anc07.COMMENTS; //Pg7_commentsActions.Text
+
+            //the datagrid values
+            vm.ANC07BS = ErpFunc.RsGet<MR_DATA.ANC07B>("MR_DATA",
+                "select * from ANC07B where reference = '" + anc01.REFERENCE + "'");
+
+        }
+
+        void displaydetailsPage6(ANC01 anc01)
+        {
+            //recno = 0;
+            ANC07 anc07 = new ANC07();
+
+            anc07 = ANC07.GetANC07(anc01.REFERENCE);
+
+            if (anc07 == null)
+            {
+                vm.REPORTS.chkADVunpaidmiscbills = true; //anc07newRecord
+                return;
+            }
+
+            vm.REPORTS.chkADVunpaidmiscbills = false; //anc07newRecord
+
+            vm.REPORTS.txtConsultant = anc07.CONSOBS; //pg6_txtConsultantOb.Text
+            vm.REPORTS.txtAttendingPaed = anc07.ATTENDPAED; //pg6_txtAttendingPaediatrician.Text
+            DateTime dtpDeliverydate = anc07.DELDATE; //pg6_dtpDeliverydate.Value 
+            vm.REPORTS.txtDeliverydate = string.Format("{0:yyyy-MM-dd}", dtpDeliverydate);
+
+            vm.REPORTS.txtDeliverySuite = anc07.DELSUITE; //pg6_txtDeliverySuite.Text
+            vm.REPORTS.txtDeliveredTime = anc07.DELTIME; //pg6_txtBabyDeliveredTIme.Text
+            vm.REPORTS.txtParity = anc07.PARITY; //pg6_txtParity.Text
+            vm.REPORTS.txtFetalNumber = anc07.FETALNUMBER; //pg6_txtFetalNumber.Text
+            vm.REPORTS.txtGestationAge = anc07.GESTAGE; //pg6_txtGestationAge.Text
+            vm.REPORTS.chkNoneLaborOnset = anc07.LO_NONE ? true : false; //pg6_chkNoneLaborOnset.Checked
+            vm.REPORTS.chkSpontaneous = anc07.LO_SPONTANEOUS ? true : false; //pg6_chkSpontaneous.Checked
+            vm.REPORTS.chkInduced = anc07.LO_INDUCED ? true : false; //pg6_ChkInduced.Checked
+            vm.REPORTS.chkAugumented = anc07.LO_AUGUMENTD ? true : false; //pg6_ChkAugumented.Checked
+            vm.REPORTS.txtIndicationLabor = anc07.INDICANTIONS; //pg6_TxtIndicationLaborOnset.Text
+            vm.REPORTS.chkArtificial = anc07.ROM_ACTIFICIAL; //pg6_chkArtificial.Checked
+            vm.REPORTS.chkMemInduced = anc07.ROM_INDUCED ? true : false; //pg6_chkMemInduced.Checked
+            vm.REPORTS.txtMemRuptIndication = anc07.ROM_INDICATIONS; //pg6_TxtMemRuptIndication.Text
+            DateTime dtruptureDate = anc07.ROMDATE; //pg6_dtruptureDate.Value
+            vm.REPORTS.txtRuptureDate = string.Format("{0:yyyy-MM-dd}", dtruptureDate);
+            vm.REPORTS.txtRuptMemDuration = anc07.ROM_DURATION; //pg6_txtRuptMemDuration.Text
+            vm.REPORTS.txtdtruptureTime = anc07.ROMTIME; //pg6_txtdtruptureTime.Text
+            vm.REPORTS.chkPRNone = anc07.PR_NONE ? true : false; //pg6_chkPRNone.Checked
+            vm.REPORTS.chkPRNarcotics = anc07.PR_NARCOTICS ? true : false; //pg6_chkPRNarcotics.Checked
+            vm.REPORTS.chkPRPurdendal = anc07.PR_PRUDENDAL ? true : false; //pg6_chkPRPurdendal.Checked
+            vm.REPORTS.chkPREntonox = anc07.PR_ENTONOX ? true : false; //pg6_chkPREntonox.Checked
+            vm.REPORTS.chkPREpidural = anc07.PR_EPIDURAL ? true : false; //pg6_chkPREpidural.Checked
+            vm.REPORTS.chkPRSpinal = anc07.PR_SPINAL ? true : false; //pg6_chkPRSpinal.Checked
+            vm.REPORTS.chkPRCombinedES = anc07.PR_COMBINED ? true : false; //pg6_chkPRCombinedES.Checked
+            vm.REPORTS.chktstActive = anc07.TSTAGEM_A ? true : false; //pg6_chktstActive.Checked
+            vm.REPORTS.chktstmanualremoval = anc07.TSTAGEM_M ? true : false; //pg6_chktstmanualremoval.Checked
+            vm.REPORTS.txttstComments = anc07.TSTAGEMGTNOTES; //pg6_TxttstCommentsIndications.Text
+
+            DateTime dtpOnset = anc07.LABONSETDT; //pg6_dtpOnset.Value
+            vm.REPORTS.txtOnsetDate = string.Format("{0:yyyy-MM-dd}", dtpOnset);
+            DateTime dtpFullyDilated = anc07.LABFDDT; //pg6_dtpFullyDilated.Value
+            vm.REPORTS.txtFullyDilatedDate = string.Format("{0:yyyy-MM-dd}", dtpFullyDilated);
+            DateTime dtpPushingCommenced = anc07.LABPCDT; //pg6_dtpPushingCommenced.Value
+            vm.REPORTS.txtPushingComDate = string.Format("{0:yyyy-MM-dd}", dtpPushingCommenced);
+            DateTime dtpHeadDelivered = anc07.LABHDDT; //pg6_dtpHeadDelivered.Value
+            vm.REPORTS.txtHeadDelDate = string.Format("{0:yyyy-MM-dd}", dtpHeadDelivered);
+            DateTime dtpBabyDelivered = anc07.LABBDDT; //pg6_dtpBabyDelivered.Value
+            vm.REPORTS.txtBabyDelDate = string.Format("{0:yyyy-MM-dd}", dtpBabyDelivered);
+            DateTime dtpEndofThirdStage = anc07.LABEOTSDT; //pg6_dtpEndofThirdStage.Value
+            vm.REPORTS.txtEndof3StageDate = string.Format("{0:yyyy-MM-dd}", dtpEndofThirdStage);
+            DateTime dtpTwinDel = anc07.LABT2DDT; //pg6_dtpTwinDel.Value
+            vm.REPORTS.txtTwinDelDate = string.Format("{0:yyyy-MM-dd}", dtpTwinDel);
+
+            vm.REPORTS.txtOnsetTime = anc07.LABPNSETTIME; //pg6_txtOnsetTime.Text
+            vm.REPORTS.txtFullDilatedTime = anc07.LABFDTIME; //pg6_txtFullDilatedTime.Text
+            vm.REPORTS.txtPushingCommencedTIme = anc07.LABPCTIME; //pg6_txtPushingCommencedTIme.Text
+            vm.REPORTS.txtHeadDeliveredTIme = anc07.LABHDTIME; //pg6_txtHeadDeliveredTIme.Text
+            vm.REPORTS.txtBabyDeliveredTIme = anc07.LABBDTIME; //pg6_txtBabyDeliveredTIme.Text
+            vm.REPORTS.txtEndofThirdStageTime = anc07.LABEOTSTIME; //pg6_txtEndofThirdStageTime.Text
+            vm.REPORTS.txtTwinDeliveredTime = anc07.LAB2DTIME; //pg6_txtTwinDeliveredTime.Text
+
+            //if (anc07.LABONSETDT <= dtmin_date.Date)
+            //{
+            //     = true; //pg6_txtdtpOnset.Visible
+            //     = true; //pg6_txtdtpFullyDilated.Visible
+            //     = true; //pg6_txtdtpPushingCommenced.Visible
+            //     = true; //pg6_txtdtpHeadDelivered.Visible
+            //     = true; //pg6_txtdtpBabyDelivered.Visible
+            //     = true; //pg6_txtdtpEndofThirdStage.Visible
+            //     = true; //pg6_txtdtpTwinDel.Visible
+
+            //     = true; //pg6_txtOnsetTime.Visible
+            //     = true; //pg6_txtFullDilatedTime.Visible
+            //     = true; //pg6_txtPushingCommencedTIme.Visible
+            //     = true; //pg6_txtHeadDeliveredTIme.Visible
+            //     = true; //pg6_txtBabyDeliveredTIme.Visible
+            //     = true; //pg6_txtEndofThirdStageTime.Visible
+            //     = true; //pg6_txtTwinDeliveredTime.Visible
+            //}
+
+            vm.REPORTS.txtFirstStage = anc07.FSTSTAGEHRMIN; //pg6_TxtFirstStage.Text
+            vm.REPORTS.txtSecondStage = anc07.SSTSTAGEHRMIN; //pg6_TxtSecondStage.Text
+            vm.REPORTS.txtThirdStage = anc07.TSTSTAGEHRMIN; //pg6_TxtThirdStage.Text
+            vm.REPORTS.txtLaborDuration = anc07.LABDURATION; //Pg6_LaborDuration.Text
+
+            vm.REPORTS.chkOxytocin = anc07.OXYTOCICS ? true : false; //pg6_chkOxytocin.Checked
+            vm.REPORTS.chkOxyErgometrine = anc07.EGOMETRINE ? true : false; //pg6_chkOxyErgometrine.Checked
+            vm.REPORTS.txtOxydosageAndTime = anc07.OXYTOCICSDTM; //pg6_txtOxydosageAndTime.Text
+
+            vm.REPORTS.txtCordNoVessels = anc07.CORD; //TxtCordNoVessels.Text
+            vm.REPORTS.chkOptMembApparenntly = anc07.MEMBRANES == 1 ? true : false; //optMembApparenntlyComplete.Checked
+            vm.REPORTS.chkOptMembIncomplete = anc07.MEMBRANES == 2 ? true : false; //optMembIncomplete.Checked
+
+            vm.REPORTS.txtMeasuredBloodLoss = anc07.BLMEASURE; //pg6_TxtMeasuredBloodLoss.Text
+            vm.REPORTS.txtEstimatedBloodloss = anc07.BLESTIMATES; //pg6_TxtEstimatedBloodloss.Text
+            vm.REPORTS.txtTotalBloodloss = anc07.BLTOTAL; //pg6_TxtTotalBloodloss.Text
+
+            vm.REPORTS.txtFurtherAction = anc07.FURTHERACTN; //pg6_txtFurtherAction.Text
+            vm.REPORTS.chkOptcompletePlacenta = anc07.PLACENTA == 1 ? true : false; //pg6_optcompletePlacenta.Checked
+            vm.REPORTS.chkOptIncompletePlacenta = anc07.PLACENTA == 2 ? true : false; //pg6_optIncompletePlacenta.Checked
+
+        }
+
+        void displaydetailsPage5(ANC01 anc01, Vstata vstata, DataTable anc06dt, ANC06 anc06)
+        {
+            MedHist medhist = new MedHist();
+
+            vm.REPORTS.chkAuditProfile = false; //anc06newRecord = false;
+            //DataGridViewRow dgv; // = new DataGridViewRow();
+            //DataRow row;
+            //recno = 0;
+
+            medhist = MedHist.GetMEDHIST(anc01.GROUPCODE, anc01.PATIENTNO, "", false, true, DateTime.Now.Date, "DESC");
+
+            vm.ANC06S = ErpFunc.ConvertDtToList<MR_DATA.ANC06>(anc06dt);
+            
+            
+            //anc06 = ANC06.GetANC06(pg1_txtANCReference.Text, DateTime.Now.Date);
+
+            if (anc06 == null)
+            {
+                vm.REPORTS.chkAuditProfile = true; //anc06newRecord
+                
+                //dataGridView1.Rows[recno].Cells[0].Value = DateTime.Now.ToShortDateString();
+
+                if (vstata != null)
+                {
+                    vm.REPORTS.txtothername = vstata.OTHERS.ToString(); //dataGridView1.Rows[recno].Cells[6].Value
+                    vm.REPORTS.txthomephone = vstata.BPSITTING.ToString(); //dataGridView1.Rows[recno].Cells[7].Value
+                    vm.REPORTS.txtworkphone = vstata.WEIGHT.ToString("N2") + "kg"; //dataGridView1.Rows[recno].Cells[8].Value
+                    vm.REPORTS.doctor = vstata.DOCTOR.ToString(); //dataGridView1.Rows[recno].Cells[13].Value
+                }
+
+                vm.REPORTS.comments = medhist != null ? medhist.COMMENTS.ToString() : ""; //dataGridView1.Rows[recno].Cells[9].Value
+            }
+        }
+
+        void displaydetailsPage4(ANC04 anc04, Vstata vstata)
+        {
+            if (anc04 == null)
+            {
+                vm.REPORTS.chkADVIncludePVTFC = true; //anc04newRecord
+
+                if (vstata == null)
+                    return;
+
+                if (anc04 == null)
+                    return;
+
+                vm.REPORTS.txtWeight = vstata.WEIGHT.ToString() + " kg"; //TxtWeight.Text
+                //	urine WITH vstata.others,;
+                vm.REPORTS.combillcycle = vstata.RESPIRATIO; //txtRespiration.Text
+                vm.REPORTS.SessionIsbf = vstata.PULSE; //txtPulse.Text
+                vm.REPORTS.txtHeight = vstata.HIGHT.ToString() + " mtr"; //TxtHeight.Text
+                vm.REPORTS.txtghgroupcode = vstata.BPSITTING; //TxtBloodPressure.Text
+                return; 
+            }
+
+            vm.REPORTS.chkADVIncludePVTFC = false; //anc04newRecord
+            DateTime AssesmentDate = anc04.TRANS_DATE; //dteAssesmentDate.Value
+            vm.REPORTS.assesmentDate = string.Format("{0:yyyy-MM-dd}", AssesmentDate);
+            vm.REPORTS.txtHeight = anc04.HEIGHT; //TxtHeight.Text 
+            vm.REPORTS.txtWeight = anc04.WEIGHT; //TxtWeight.Text 
+            vm.REPORTS.txtghgroupcode = anc04.BP; //TxtBloodPressure.Text
+
+            vm.REPORTS.chkHeentAbnormal = anc04.HEENT == 2 ? true : false; //heentAbnormal.Checked
+            vm.REPORTS.chkHeentNormal = anc04.HEENT == 1 ? true : false; //heentNormal.Checked
+            vm.REPORTS.chkFundiNormal = anc04.FUNDI == 1 ? true : false; //FundiNormal.Checked
+            vm.REPORTS.chkFundiAbnormal = anc04.FUNDI == 2 ? true : false; //FundiAbnormal.Checked
+            vm.REPORTS.chkTeethNormal = anc04.TEETH == 1 ? true : false; //TeethNormal.Checked
+            vm.REPORTS.chkTeethAbnormal = anc04.TEETH == 2 ? true : false; //TeethAbnormal.Checked
+            vm.REPORTS.chkThyroidNormal = anc04.THYROID == 1 ? true : false; //ThyroidNormal.Checked
+            vm.REPORTS.chkThyroidAbnormal = anc04.THYROID == 2 ? true : false; //ThyroidAbnormal.Checked
+            vm.REPORTS.chkBreastNormal = anc04.BREASTS == 1 ? true : false; //BreastNormal.Checked
+            vm.REPORTS.chkBreastAbnormal = anc04.BREASTS == 2 ? true : false; //BreastAbnormal.Checked 
+            vm.REPORTS.chkLungsNormal = anc04.LUNGS == 1 ? true : false; //LungsNormal.Checked
+            vm.REPORTS.chkLungsAbnormal = anc04.LUNGS == 2 ? true : false; //LungsAbnormal.Checked 
+            vm.REPORTS.chkHeartNormal = anc04.HEART == 1 ? true : false; //HeartNormal.Checked
+            vm.REPORTS.chkHeartAbnormal = anc04.HEART == 2 ? true : false; //HeartAbnormal.Checked
+            vm.REPORTS.chkAbdomenNormal = anc04.ABDOMEN == 1 ? true : false; //AbdomenNormal.Checked
+            vm.REPORTS.chkAbdomenAbnormal = anc04.ABDOMEN == 2 ? true : false; //AbdomenAbnormal.Checked
+            vm.REPORTS.chkExtremitiesNormal = anc04.EXTREMITIES == 1 ? true : false; //ExtremitiesNormal.Checked
+            vm.REPORTS.chkExtremitiesAbnormal = anc04.EXTREMITIES == 2 ? true : false; //ExtremitiesAbnormal.Checked
+            vm.REPORTS.chkSkinNormal = anc04.SKIN == 1 ? true : false; //SkinNormal.Checked
+            vm.REPORTS.chkSkinAbnormal = anc04.SKIN == 2 ? true : false; //SkinAbnormal.Checked
+            vm.REPORTS.chkLymphNormal = anc04.LYMPHNODES == 1 ? true : false; //LymphNormal.Checked
+            vm.REPORTS.chkLymphAbnormal = anc04.LYMPHNODES == 2 ? true : false; //LymphAbnormal.Checked
+            vm.REPORTS.chkOptVulvaNormal = anc04.VULVA == 1 ? true : false; //pg4_optVulvaNormal.Checked
+            vm.REPORTS.chkOptVulvaCondyloma = anc04.VULVA == 2 ? true : false; // pg4_optVulvaCondyloma.Checked
+            vm.REPORTS.chkOptVulvaLesions = anc04.VULVA == 3 ? true : false; //pg4_OptVulvaLesions.Checked
+            vm.REPORTS.chkOptVaginaNormal = anc04.VAGINA == 1 ? true : false; //pg4_optVaginaNormal.Checked
+            vm.REPORTS.chkOptDischargeVagina = anc04.VAGINA == 2 ? true : false; //pg4_OptDischargeVagina.Checked
+            vm.REPORTS.chkOptCervixNormal = anc04.CERVIX == 1 ? true : false; //pg4_OptCervixNormal.Checked
+            vm.REPORTS.chkOptInflamationNormal = anc04.CERVIX == 2 ? true : false; //pg4_optInflamationNormal.Checked
+            vm.REPORTS.chkOptLesionNormal = anc04.CERVIX == 3 ? true : false; //pg4_OptLesionNormal.Checked
+
+            vm.REPORTS.RptPath = anc04.UTERINESIZE; //pg4_txtuterussize.Text
+            vm.REPORTS.chkOptFibroidYes = anc04.FIBROIDS == 1 ? true : false; //pg4_optFibroidYes.Checked
+            vm.REPORTS.chkOptFibroidNo = anc04.FIBROIDS == 2 ? true : false; //pg4_optFibroidNo.Checked
+            vm.REPORTS.chkOptnormalAnexa = anc04.ADNEXA == 1 ? true : false; //pg4_optnormalAnexa.Checked
+            vm.REPORTS.chkOPtabnormalAdnexa = anc04.ADNEXA == 2 ? true : false; //pg4_OPtabnormalAdnexa.Checked
+            vm.REPORTS.chkOptHaemorrhoidsYes = anc04.HAEMORRHOIDS == 1 ? true : false; //pg4_optHaemorrhoidsYes.Checked
+            vm.REPORTS.chkOptHaemorrhoidsoptNo = anc04.HAEMORRHOIDS == 2 ? true : false; //pg4_optHaemorrhoidsoptNo.Checked
+
+            vm.REPORTS.cboPVTNameTo = anc04.COMMENTS; //pg4_TxtComments.Text
+            vm.REPORTS.SessionSQL = anc04.DELPLAN; //pg4_TxtPlan.Text
+
+            vm.REPORTS.SessionOCP = anc04.INTERVIEWER; //pg4_TxtInterviewdoneBy.Text
+        }
+
+        void displaypage3(ANC01 anc01)
+        {
+            ANC03A anc03a = new ANC03A();
+
+            anc03a = ANC03A.GetANC03A(anc01.GROUPCODE, anc01.PATIENTNO);
+
+            if (anc03a == null)
+            {
+                vm.REPORTS.PRINT = true; //anc03anewRecord
+                return;
+            }
+
+            vm.REPORTS.PRINT = false; //anc03anewRecord
+
+            vm.REPORTS.chkbyacctofficers = (anc03a.AGEATEDD) ? true : false; //pg3_ChkpatientsAge.Checked
+            vm.REPORTS.chkSortByOperator = (anc03a.SICKLECELL) ? true : false; //pg3_ChkSickleCell.Checked
+            vm.REPORTS.chkBroughtForward = (anc03a.DOWNS) ? true : false; //pg3_ChkDownSyndrome.Checked
+            vm.REPORTS.chkStaffProfiling = (anc03a.CHROMOSOMAL) ? true : false; //pg3_ChkChromosonalAbnormalities.Checked
+            vm.REPORTS.chkDomantAccts = (anc03a.HEARTDISEASE) ? true : false; //pg3_ChkCongenitalHEartDisease.Checked
+            vm.REPORTS.chkLoyaltyCustomers = (anc03a.TUBEDEFECT) ? true : false; //create field .chromosomal, pg3_chkotherinheritedgenetic.Checked
+            vm.REPORTS.chkReportCustomerName = (anc03a.METABOLIC) ? true : false; //pg3_chkmaternalMetabolic.Checked
+            vm.REPORTS.chkByBranch = (anc03a.TUBEDEFECT) ? true : false; //pg3_chkNeuraltube.Checked
+            vm.REPORTS.chkReportBankColumn = (anc03a.STILLBIRTH) ? true : false; //pg3_chkHistoryofrecrrentprgloss.Checked
+            vm.REPORTS.chkReportbyAgent = (anc03a.MEDICATIONS) ? true : false; //pg3_chkVitamins.Checked;
+
+            vm.REPORTS.chkComparativereport = (anc03a.TB) ? true : false; //pg3_chkTB.Checked
+            vm.REPORTS.chkIncludePayments = (anc03a.HERPES) ? true : false; //pg3_chkherpes.Checked
+            vm.REPORTS.chkReportGroupFamily = (anc03a.VIRALILLNESS) ? true : false; //pg3_chkviralillnes.Checked
+            vm.REPORTS.chkIncludeBf = (anc03a.STI) ? true : false; //pg3_chkSTD.Checked
+            vm.REPORTS.chkADVCorporate = (anc03a.HEPATITISB) ? true : false; //pg3_ChkHepatitis.Checked
+
+            vm.REPORTS.Searchdesc = anc03a.INDEXPREG; //pg3_txtIndexpregnancy.Text
+            vm.REPORTS.SearchName = anc03a.MEDICATIONDETL; //pg3_txtMedicationDtl.Text
+        }
+
+        void displaydetailsPage2(ANC01 anc01)
+        {
+            ANC02 anc02 = new ANC02();
+
+            anc02 = ANC02.GetANC02(anc01.GROUPCODE, anc01.PATIENTNO);
+
+            if (anc02 == null)
+            {
+                vm.REPORTS.REPORT_BY_DATE = true; //anc02newRecord
+                return;
+            }
+
+            vm.REPORTS.REPORT_BY_DATE = false; //anc02newRecord
+
+            vm.REPORTS.chkDiabetes = string.IsNullOrWhiteSpace(anc02.DIABETES) ? false : true; //pg2_ChkDiabetes.Checked
+            vm.REPORTS.ChkHypertension = string.IsNullOrWhiteSpace(anc02.HYPERTENSION) ? false : true; //pg2_ChkHypertension.Checked
+            vm.REPORTS.chkHeartDisease = string.IsNullOrWhiteSpace(anc02.HEART_DISEASE) ? false : true; //pg2_ChkHeartDisease.Checked
+            vm.REPORTS.chkSickleCellDisease = string.IsNullOrWhiteSpace(anc02.SICKLE_CELL) ? false : true; //pg2_ChkSickleCellDisease.Checked
+            vm.REPORTS.chkpulmonaryTbasthma = string.IsNullOrWhiteSpace(anc02.PULMONARY) ? false : true; //pg2_ChkpulmonaryTbasthma.Checked
+            vm.REPORTS.chkKidneyDisease = string.IsNullOrWhiteSpace(anc02.KIDNEYDISEASE) ? false : true; //pg2_ChkKidneyDisease.Checked
+            vm.REPORTS.chkHepatitis = string.IsNullOrWhiteSpace(anc02.HEPATITIS) ? false : true; //pg2_Hepatitis.Checked
+            vm.REPORTS.chkNeurologic = string.IsNullOrWhiteSpace(anc02.NEUROLOGIC) ? false : true; //pg2_chkNeurologic.Checked
+            vm.REPORTS.chkThyroid = string.IsNullOrWhiteSpace(anc02.THYROID) ? false : true; //pg2_ChkThyroid.Checked
+            vm.REPORTS.chkPhychiatric = string.IsNullOrWhiteSpace(anc02.PSYCHIATRIC) ? false : true; //pg2_ChkPhychiatric.Checked
+
+            vm.REPORTS.txtDiabetes = anc02.DIABETES; //pg2_TxtDiabetes.Text
+            vm.REPORTS.txtHypertention = anc02.HYPERTENSION; //pg2_TxtHypertention.Text
+            vm.REPORTS.txtHeartDisease = anc02.HEART_DISEASE; //pg2_txtHeartDisease.Text
+            vm.REPORTS.txtSickleCell = anc02.SICKLE_CELL; //pg2_txtSickleCellDisease.Text
+            vm.REPORTS.txtPulmonary = anc02.PULMONARY; // pg2_txtPulmonary.Text
+            vm.REPORTS.txtKidney = anc02.KIDNEYDISEASE; //pg2_TxtKidney.Text
+            vm.REPORTS.txtHepatitis = anc02.HEPATITIS; //pg2_txtHepatitis.Text
+            vm.REPORTS.txtNeurologic = anc02.NEUROLOGIC; //pg2_txtNeurologic.Text
+            vm.REPORTS.txtThyroid = anc02.THYROID; //pg2_txtThyroid.Text
+            vm.REPORTS.txtPhychiatric = anc02.PSYCHIATRIC; //pg2_TxtPhychiatric.Text
+
+        }
+
+        void displaydetailsPage1(ANC01 anc01, billchaindtl billchain, string pg1DOB)
+        {
+            DateTime dtmin_date = DateTime.Now;
+            DateTime DOB = Convert.ToDateTime(pg1DOB);
+
+            vm.REPORTS.cbotype = anc01.REFERENCE; //pg1_txtANCReference.Text
+            vm.REPORTS.txtpatientno = anc01.PATIENTNO; //pg1_txtpatientno.Text
+            vm.REPORTS.txtgroupcode = anc01.GROUPCODE; //pg1_txtgroupcode.Text
+            vm.REPORTS.TXTPATIENTNAME = anc01.NAME; //pg1_TxtName.Text
+            vm.REPORTS.txtaddress1 = billchain.RESIDENCE; //anc01.ADDRESS;
+            vm.REPORTS.chkLowRisk = anc01.BOOKINGTAG == 1 ? true : false; //"LOW RISK" 
+            vm.REPORTS.chkHighRisk = anc01.BOOKINGTAG == 3 ? true : false; //"HIGH RISK" 
+            vm.REPORTS.chkMediumRisk = anc01.BOOKINGTAG == 2 ? true : false; //"MEDIUM RISK"
+            vm.REPORTS.cbobloodgroup = anc01.HUSBANDBG; //pg1_combHusbandBloodGroup.Text
+            vm.REPORTS.txtbranch = anc01.BOOKINGCATEGORY; //pg1_txtgravida.Text
+            
+            DateTime lmp = anc01.LMP; //dtLMPpg1.Value
+            vm.REPORTS.lmpDate = string.Format("{0:yyyy-MM-dd}", lmp);
+            DateTime edd = anc01.EDD; //dtEDDpg1.Value
+            vm.REPORTS.eddDate = edd.ToShortDateString();
+            DateTime deliveryDate = anc01.DEL_DATE; //dtDeliveryDatepg1.Value
+            vm.REPORTS.cboReligion = deliveryDate.ToShortDateString();
+
+            vm.REPORTS.SessionCustomer = anc01.BLOODGROUP; //pg1_combBloodGroup.Text
+
+            if (deliveryDate.Date <= dtmin_date)
+            {
+                vm.REPORTS.chkReportbyAgent = false; //pg1_txtDeliveryDate.Visible
+                vm.REPORTS.chkIncludePayments = true; //chkRecordDeliveryDate.Visible
+                vm.REPORTS.cboReligion = ""; //pg1_txtDeliveryDate.Text
+            }
+            else
+                vm.REPORTS.chkReportbyAgent = true; //dtDeliveryDatepg1.Visible
+
+            //header information
+            vm.REPORTS.cboAge = (DateTime.Now.Date.Year - billchain.BIRTHDATE.Year).ToString(); // anc01.AGE.ToString(); TxtAge.Text
+
+            vm.REPORTS.SessionCustomer = anc01.BLOODGROUP; //txtbloodgroup.Text
+            vm.REPORTS.cbogenotype = anc01.GENOTYPE; //TxtGT.Text
+            vm.REPORTS.txtBed = (anc01.EDD.Year <= dtmin_date.Year) ? "" : anc01.EDD.ToShortDateString(); //txtEDDpg1Header.Text
+            vm.REPORTS.patientName = anc01.NAME; //TxtPatient.Text
+            vm.REPORTS.cboAge = anc01.AGE.ToString(); //pg1_TxtAge.Text
+
+            if (billchain.PATIENTNO == billchain.GROUPHEAD || billchain.GROUPHTYPE == "P")
+                vm.REPORTS.cashpaying = true; //cashpaying
+            else
+            {
+                vm.REPORTS.cashpaying = false; //cashpaying
+            }
+
+            if (DOB <= dtmin_date.Date || DOB == DateTime.Now.Date)
+            {
+                DateTime dtDOB = billchain.BIRTHDATE; //dtDOBpg1.Value;
+                vm.REPORTS.txtDateOfBirth = string.Format("{0:yyyy-MM-dd}", dtDOB);
+                //vm.REPORTS.txtworkphone = dtDOB.ToString();
+                vm.REPORTS.cboAge = (DateTime.Now.Date.Year - billchain.BIRTHDATE.Year).ToString(); //pg1_TxtAge.Text
+            }
+
+            DateTime dateOfBooking = anc01.REG_DATE; //dtDateofBookingpg1.Value
+            vm.REPORTS.combFacility = string.Format("{0:yyyy-MM-dd}", dateOfBooking);
+
+            vm.REPORTS.txtTimeTo = anc01.REG_TIME; //dtTimeofBookpg1.Text
+
+            //bissclass.displaycombo(pg1_combDoctor, dtdoctors, anc01.DOCTOR, "name");
+            vm.REPORTS.cbokinstate = anc01.DURATIONOFPREGNANCY; //pg1_txtGestationPeriod.Text
+
+            vm.REPORTS.cboTribe = anc01.TRIBE; //pg1_txtTribe.Text
+
+            vm.REPORTS.cbooccupation = anc01.OCCUPATION; //pg1_combOccupatonWf.Text
+            vm.REPORTS.chkBasicMedicProfile = anc01.LEVELOFEDUCATION == 0 ? true : false; //OptNone.Checked
+            vm.REPORTS.chkApplyFilter = anc01.LEVELOFEDUCATION == 1 ? true : false; //optPrimary.Checked
+            vm.REPORTS.chkSecondary = anc01.LEVELOFEDUCATION == 2 ? true : false; //OptSecondary.Checked
+            vm.REPORTS.chkHMO = anc01.LEVELOFEDUCATION == 3 ? true : false; //OptTertiary.Checked
+            vm.REPORTS.txtHusbandName = anc01.HUSBANDNAME; //pg1_txtHusbandName.Text
+            vm.REPORTS.txtsurname = anc01.HUSBANDOCCUPATION; //pg1_combOccupationHB.Text
+            vm.REPORTS.txtemployer = anc01.HUSBANDEMPLOYER;
+            vm.REPORTS.chkByDateRange = anc01.HUSBANDLEVELOFEDUCATION == 0 ? true : false; //optHusbandNone.Checked
+            vm.REPORTS.chkQueryTimeofDay = anc01.HUSBANDLEVELOFEDUCATION == 1 ? true : false; //optHusbandPrimary.Checked
+            vm.REPORTS.chkReportSum = anc01.HUSBANDLEVELOFEDUCATION == 2 ? true : false; //optHusbandSecondary.Checked
+            vm.REPORTS.chkCurrtAdmRev = anc01.HUSBANDLEVELOFEDUCATION == 3 ? true : false; //optHusbandTertiary.Checked
+
+            vm.REPORTS.txtemail = anc01.HUSBANDPHONE; //txthusbankphoneEmail.Text
+            vm.REPORTS.txtstaffno = anc01.HUSBANDGC; //pg1_txtgroupcodeHB.Text
+            vm.REPORTS.txtdepartment = anc01.HUSBANDPATNO; //pg1_txtpatientnoHB.Text
+            vm.REPORTS.txtHbBloodGrp = anc01.HUSBANDBG; //pg1_combHusbandBloodGroup.Text
+
+            vm.REPORTS.txtSpInstruct = anc01.SPNOTES; //pg1_txtInstructions.Text
+            //  dtDOBpg1.Value = anc01.BIRTHDATE;
+            vm.REPORTS.cbogenotype = anc01.GENOTYPE; // pg1_combGenotype.Text 
+            vm.REPORTS.msection = anc01.MENS_REGULARITY; //pg1_TxtRegularity.Text
+            vm.REPORTS.mcusttype = anc01.CONTRACEPTIVEUSE; //pg1_TxtContrapceptive.Text
+            vm.REPORTS.mgroupcode = anc01.RISKFACTOR; //pg1_txtAllergies.Text
+            vm.REPORTS.mgrouphtype = anc01.HUSBANDGENOTYPE; //pg1_CombHusbandgenotype.Text
+            vm.REPORTS.txtgrouphead = anc01.MENARCHE; //pg1_Txtmenarche.Text
+
+            if (Convert.ToDecimal(vm.REPORTS.cboAge) < 15)
+            {
+                vm.REPORTS.ActRslt = "Please check this Patients Age...... CONTINUE ?";
+
+                //if (result == DialogResult.No)
+                //{
+                //    dtDOBpg1.Select(); 
+                //    return;
+                //}
+            }
+        }
+
+        void displayANCPages(ANC01 anc01, billchaindtl billchain, string pg1ConsultRef, string pg1ANCreference, string pg1DOB)
+        {
+            ANC04 anc04 = new ANC04();
+            ANC06 anc06 = new ANC06();
+            Vstata vstata = new Vstata();
+            DataTable anc06dt;
+            DateTime dtmin_date = DateTime.Now;
+
+            vstata = Vstata.GetVSTATA(pg1ConsultRef);
+            anc04 = ANC04.GetANC04(pg1ANCreference);
+            anc06dt = ANC06.GetANC06(pg1ANCreference);
+            anc06 = ANC06.GetANC06(pg1ANCreference, DateTime.Now.Date);
+
+            displaydetailsPage1(anc01, billchain, pg1DOB);
+            displaydetailsPage2(anc01);
+            displaypage3(anc01);
+            displaydetailsPage4(anc04, vstata);
+            displaydetailsPage5(anc01, vstata, anc06dt, anc06);
+            displaydetailsPage6(anc01);
+            displaydetailsPage7(anc01);
+            displaydetailsPage8(anc01);
+
+            if (anc01.DEL_DATE > dtmin_date)
+            {
+                vm.REPORTS.alertMessage = "This Record is closed... Patient delivered on " + anc01.DEL_DATE.ToLongDateString();
+
+                //btnSave.Enabled = btnSubmitPage2.Enabled = btnSubmitPage3.Enabled = btnSubmitPage6.Enabled = 
+                //    btnSubmitPage7.Enabled = btnSubmitPage8.Enabled = btnSubmitPg4.Enabled = pg5_btnSave.Enabled = 
+                //    Pg9_btnSubmit.Enabled = false;
+
+                vm.REPORTS.REPORT_TYPE3 = anc01.DEL_DATE.ToShortDateString(); //pg1_txtDeliveryDate.Text 
+            }
+            else
+            {
+                //btnSave.Enabled = true;
+            }
+
+            //display previous medical history
+            displayPrevMedHistory(true, anc01, billchain);
+            displaySpecialInstructions(billchain);
+        }
+
+        public JsonResult pg1ConsultRefFocusout(string pg1ConsultRef, string pg1DOB, string pg1ANCreference)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            Mrattend mrattend = new Mrattend();
+            billchaindtl billchain = new billchaindtl();
+            ANC01 anc01 = new ANC01();
+            DateTime dtmin_date = DateTime.Now;
+
+            if (bissclass.IsDigitsOnly(pg1ConsultRef))  //no lookup value obtained
+            {
+                vm.REPORTS.txtreference = bissclass.autonumconfig(pg1ConsultRef, true, "C", "999999999");
+            }
+
+            mrattend = Mrattend.GetMrattend(pg1ConsultRef);
+
+            if (mrattend == null)
+            {
+                vm.REPORTS.newrecString = "Unable to Link Consultation Reference in Daily Attendance Register...";
+                //vm.REPORTS.txtreference = "";
+                
+                return Json(vm, JsonRequestBehavior.AllowGet);
+            }
+
+            vm.REPORTS.txtgroupcode = mrattend.GROUPCODE;
+            vm.REPORTS.txtpatientno = mrattend.PATIENTNO;
+            vm.REPORTS.TXTPATIENTNAME = mrattend.NAME;
+
+            DataTable dt = Dataaccess.GetAnytable("", "MR", "select reference from ancreg where groupcode = '" +
+                mrattend.GROUPCODE + "' and patientno = '" + mrattend.PATIENTNO + "' AND DEL_DATE <= '" + 
+                dtmin_date + "' ", false);
+
+            // if (!xval)
+            if (dt.Rows.Count < 1)
+            {
+                vm.REPORTS.newrecString = "This Patient -> " + mrattend.NAME.Trim() + " [ " + mrattend.PATIENTNO.Trim() + 
+                    " ]" + "\r\n  does not have a Current ANC Registration Profile... her PATIENTNO may have " + 
+                    "\r\n been changed by Record Officers between the Original ANC Registration and this Attendance..." +
+                    "\r\n Please Check and try again !!!";
+
+                vm.REPORTS.txtreference = "";
+               
+                return Json(vm, JsonRequestBehavior.AllowGet);
+            }
+
+            //scan anc01 for current registration
+            string xreference = dt.Rows[0]["reference"].ToString(); // returnedAncRef; // ancrtnstring.Substring(0, 9);
+            anc01 = ANC01.GetANC01(xreference);
+
+            if (anc01 == null)
+            {
+                vm.REPORTS.newrecString = "This Patient -> " + mrattend.NAME.Trim() + " [ " +
+                    mrattend.PATIENTNO.Trim() + " ]" + "\r\n ANC REFERENCE :" + xreference + 
+                    " is not on ANC Registration Profiles... her PATIENTNO may have " + 
+                    "\r\n been changed by Record Officers between the Original ANC Registration and this Attendance..." +
+                    "\r\n Please Check and try again !!!";
+
+                return Json(vm, JsonRequestBehavior.AllowGet);
+            }
+
+            billchain = billchaindtl.Getbillchain(anc01.PATIENTNO, anc01.GROUPCODE);
+            if (billchain == null)
+            {
+                vm.REPORTS.alertMessage = "Error Reading Patients Details in Master File... \r\n Pls Check Patients Registration Details!";
+                return Json(vm, JsonRequestBehavior.AllowGet);
+            }
+
+            vm.REPORTS.cbotype = xreference; // pg1_txtANCReference.Text
+                                             //pg1_txtANCReference.Enabled = false;
+
+            displayANCPages(anc01, billchain, pg1ConsultRef, pg1ANCreference, pg1DOB);
+            //displayANCPages(anc01, billchain, pg1DOB);
+            
+            return Json(vm, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult loadListBtnClick(string pg1ConsultRef, string msection, string mdoctor)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+
+            DataTable dt1 = Dataaccess.GetAnytable("", "MR",
+                "select docson,pvtcode from mrcontrol where recid < 4 order by recid", false);
+            
+            string manccode = dt1.Rows[2]["pvtcode"].ToString().Substring(0, 5);
+
+            DataTable dt = getLinkDetails(pg1ConsultRef, 0, 0m, 0m, manccode, true, msection, 9, "", mdoctor);
+
+            if (dt.Rows.Count > 0)
+            {
+                vm.REPORTS.txtreference = msmrfunc.mrGlobals.anycode; //txtConsultReference.Text
+            }
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
+        //Ante_Natal Records End
+
+
+
+        //Admissions Management Start
         #region
 
-        //public JsonResult imageOkBtnClicked(bool isPDF, HttpPostedFileBase files)
-        //{
-        //    vm.REPORTS = new MR_DATA.REPORTS();
-        //    HttpPostedFileBase file;
+        //Discharge
+        public JsonResult dSubmitBtnClick(MR_DATA.REPORTS dataList)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            string woperato = Request.Cookies["mrName"].Value;
+            vm.REPORTS = dataList;
 
-        //    string picName = null;
-        //    if (fileName == "")
-        //    {
-        //        return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
-        //    }
+            Admissions formObject = new Admissions(vm, woperato);
+            vm.REPORTS = formObject.btnSubmitD_Click();
 
-        //    picName = System.IO.Path.GetFileName(fileName);
-        //    string path = System.IO.Path.Combine(Server.MapPath("~/ProductImg/"), picName);
-        //    file.SaveAs(path);
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
 
-        //    string filename = System.IO.Path.GetFileName(file.PostedFileName);
-        //    string savepath = VWGContext.Current.Server.MapPath("~/Resources/Images/" + filename);
-        //    // string savepath = txtImageLocation + "\\" + filename; // VWGContext.Current.Server.MapPath("~/Resources/Images/" + filename);
+        void calc_prof_fees(bool iswrite, string dAdmReference, decimal dAccumCharge)
+        {
+            // string mgldocument,mdtformat;
+            string masterprocessbillcode, billcode;
+            decimal percentagemarkup = 0m;
 
-        //    picselected = savepath;
-        //    Gizmox.WebGUI.Common.Resources.ImageResourceHandle imageResourceHandlePic1 = new Gizmox.WebGUI.Common.Resources.ImageResourceHandle();
+            Admrecs admrecs = new Admrecs();
+            billchaindtl bchain = new billchaindtl();
+            Customer customers = new Customer();
 
-        //    // if (clsMain.FileExists(savepath)) clsMain.FileDelete(savepath);
-        //    file.SaveAs(savepath);
-        //    file.Close();
-        //    file.Dispose();
-        //    imageResourceHandlePic1.File = filename;
-        //    if (!ispdf)
-        //    {
-        //        //string xpic = "pics"+picsCounter.ToString().Trim();
-        //        //PictureBox pics = new PictureBox();
-        //        picsCounter++;
-        //        imagenotes[picsCounter - 1, 3] = savepath;
-        //        if (picsCounter == 1)
-        //        {
-        //            pictureBox1.Image = pictureBox1.Image = WebGUIGatway.getpicture(picselected);
-        //            txtImage1.Text = savepath;
-        //        }
-        //        if (picsCounter == 2)
-        //        {
-        //            pictureBox2.Image = imageResourceHandlePic1;
-        //            txtImage2.Text = savepath;
-        //        }
-        //        if (picsCounter == 3)
-        //        {
-        //            pictureBox3.Image = imageResourceHandlePic1;
-        //            txtImage3.Text = savepath;
-        //        }
-        //        if (picsCounter == 4)
-        //        {
-        //            pictureBox4.Image = imageResourceHandlePic1;
-        //            txtImage4.Text = savepath;
-        //        }
-        //        if (picsCounter == 5)
-        //        {
-        //            pictureBox5.Image = imageResourceHandlePic1;
-        //            txtImage5.Text = savepath;
-        //        }
-        //        if (picsCounter == 6)
-        //        {
-        //            pictureBox6.Image = pictureBox6.Image = WebGUIGatway.getpicture(picselected);
-        //            txtImage6.Text = savepath;
-        //        }
-        //        if (picsCounter == 7)
-        //        {
-        //            pictureBox7.Image = pictureBox7.Image = WebGUIGatway.getpicture(picselected);
-        //            txtImage7.Text = savepath;
-        //        }
-        //        if (picsCounter == 8)
-        //        {
-        //            pictureBox8.Image = pictureBox8.Image = WebGUIGatway.getpicture(picselected);
-        //            txtImage8.Text = savepath;
-        //        }
-        //        if (picsCounter == 9)
-        //        {
-        //            pictureBox9.Image = pictureBox9.Image = WebGUIGatway.getpicture(picselected);
-        //            txtImage9.Text = savepath;
-        //        }
-        //        if (picsCounter == 10)
-        //        {
-        //            pictureBox10.Image = pictureBox10.Image = WebGUIGatway.getpicture(picselected);
-        //            txtImage10.Text = savepath;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        pdfCounter++;
-        //        pdfNotes[pdfCounter - 1] = savepath;
-        //        if (pdfCounter == 1)
-        //            txtPDF1.Text = savepath;
-        //        if (pdfCounter == 2)
-        //            txtPDF2.Text = savepath;
-        //        if (pdfCounter == 3)
-        //            txtPDF3.Text = savepath;
-        //        if (pdfCounter == 4)
-        //            txtPDF4.Text = savepath;
-        //        if (pdfCounter == 5)
-        //            txtPDF5.Text = savepath;
-        //        if (pdfCounter == 6)
-        //            txtPDF6.Text = savepath;
-        //        if (pdfCounter == 7)
-        //            txtPDF7.Text = savepath;
-        //        if (pdfCounter == 8)
-        //            txtPDF8.Text = savepath;
-        //        if (pdfCounter == 9)
-        //            txtPDF9.Text = savepath;
-        //    }
-        //    btnSave.Enabled = true;
+            //check if reference exist
+            admrecs = Admrecs.GetADMRECS(dAdmReference);
+            bchain = Getbillchain(admrecs.PATIENTNO, admrecs.GROUPCODE);
+            customers = Customer.GetCustomer(bchain.GROUPHEAD);
 
-        //    return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
-        //}
+            DataTable dt = Dataaccess.GetAnytable("", "MR", 
+                "SELECT gldocument, fccode, paediacons, dtformat from mrcontrol order by recid", false);
 
+            DateTime dtmin_date = DateTime.Now;
+            string woperator = Request.Cookies["mrName"].Value;
+
+            masterprocessbillcode = dt.Rows[6]["gldocument"].ToString().Length > 6 ? 
+                dt.Rows[6]["gldocument"].ToString().Substring(0, 7) : "";// master process
+                                                                                                                                              //17/09/2011 - 12.15AM, 6-3-2014 - CHECK PATIENT GROUP AND % TO ADD
+            if (bchain.GROUPHTYPE == "P")
+                percentagemarkup = (decimal)dt.Rows[6]["paediacons"];
+
+            billcode = dt.Rows[6]["dtformat"].ToString().Length > 6 ? dt.Rows[6]["dtformat"].ToString().Substring(0, 7) : "";
+            
+            //  encryptedaccesscode = dt.Rows[1]["fccode"].ToString();
+            //check if specific corporate has defined %
+            if (bchain.GROUPHTYPE == "C" && customers.MAX_ORD_AM > 0)
+                percentagemarkup = customers.MAX_ORD_AM;
+            else if (bchain.GROUPHTYPE == "C" && string.IsNullOrWhiteSpace(bchain.HMOSERVTYPE))
+                percentagemarkup = (decimal)dt.Rows[0]["paediacons"];
+            else if (bchain.GROUPHTYPE == "C" && !string.IsNullOrWhiteSpace(bchain.HMOSERVTYPE))
+                percentagemarkup = (decimal)dt.Rows[1]["paediacons"];
+
+            decimal xamt = dAccumCharge;
+            vm.REPORTS.nmrbalance = (xamt * percentagemarkup) / 100; // nmrProfCharge_D.Value
+            vm.REPORTS.lblbillonaccount = percentagemarkup.ToString("N2") + " %"; //lblproffees.Text
+
+            if (!iswrite)
+                return;
+
+            string mdesc = "", xfacility = ""; // bissclass.seeksay("select name from tariff where reference = '" + billcode + "'", "MR", "NAME");
+
+            msmrfunc.getFeefromtariff(billcode, bchain.PATCATEG, ref mdesc, ref xfacility);
+            //write to admdetail
+            ADMDETAI.writeAdmdetails(true, dAdmReference, DateTime.Now.Date, DateTime.Now.ToShortTimeString(), 
+                billcode, masterprocessbillcode, "", mdesc, "", 1m, vm.REPORTS.nmrbalance, false, dtmin_date, 
+                woperator, DateTime.Now, bchain.GROUPCODE, bchain.PATIENTNO, "", xfacility, 0, "");
+
+            Admrecs.UpdateAdmrecAmounts(dAdmReference, vm.REPORTS.nmrbalance, 0m);
+        }
+
+        public JsonResult dDateFocusout(string dAdmReference, decimal dAccumCharge)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+
+            DataTable dt = Dataaccess.GetAnytable("", "MR",
+               "select fccode, facilauto, facilauto, facilauto, glintenabl, dactive, pvtcode, installed, serial, ta_post from mrcontrol order by recid", false);
+
+            bool mcalc_prof_fees = (bool)dt.Rows[6]["glintenabl"];
+
+            if (mcalc_prof_fees)
+                calc_prof_fees(false, dAdmReference, dAccumCharge);
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult dAdmReferenceFocusout(string dAdmReference)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            DataTable dtfacility = Dataaccess.GetAnytable("", "CODES", "SELECT TYPE_CODE, NAME FROM SERVICECENTRECODES order by name ", true),
+                dtdiag = Dataaccess.GetAnytable("", "CODES", "SELECT TYPE_CODE, NAME FROM DIAGNOSISCODES order by name", true);
+
+            Admrecs admrecs = new Admrecs();
+            billchaindtl bchain = new billchaindtl();
+
+            //check if reference exist
+            admrecs = Admrecs.GetADMRECS(dAdmReference);
+
+            if (dAdmReference.Substring(0, 1) != "A" && bissclass.IsDigitsOnly(dAdmReference.Trim()))
+            {
+                vm.REPORTS.txtreference = bissclass.autonumconfig(dAdmReference, true, "A", "999999999");
+            }
+
+            if (admrecs == null)
+            {
+                vm.REPORTS.alertMessage = "Invalid Admission Reference...";
+                //txtReference_D.Text = "";
+                //txtReference_D.Select();
+                return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                vm.REPORTS.txtreference = dAdmReference;
+                vm.REPORTS.mgrouphtype = admrecs.GROUPHTYPE;
+                vm.REPORTS.txtpatientno = admrecs.PATIENTNO;
+                vm.REPORTS.txtgroupcode = admrecs.GROUPCODE;
+                vm.REPORTS.combFacility = bissclass.combodisplayitemCodeName("type_code", admrecs.FACILITY, dtfacility, "name");
+                vm.REPORTS.TXTPATIENTNAME = admrecs.NAME;
+                vm.REPORTS.txtRoom = admrecs.ROOM;
+                vm.REPORTS.txtBed = admrecs.BED;
+                vm.REPORTS.diagnosis = bissclass.combodisplayitemCodeName("type_code", admrecs.DIAGNOSIS, dtdiag, "name") + " " + admrecs.DIAGNOSIS_ALL.Trim();
+                vm.REPORTS.REPORT_TYPE1 = admrecs.ADM_DATE.ToShortDateString(); //txtadm_dateD.Text
+                vm.REPORTS.REPORT_TYPE2 = admrecs.DISCHARGE;
+                DateTime xdischarge = string.IsNullOrWhiteSpace(admrecs.DISCHARGE) ? DateTime.Now.Date : Convert.ToDateTime(admrecs.DISCHARGE);
+                vm.REPORTS.cbotitle = xdischarge.Subtract(admrecs.ADM_DATE).TotalDays.ToString() + " day(s)";
+                vm.REPORTS.mgrouphead = admrecs.GROUPHEAD;
+                //  nmrAccumCharge_D.Value = admrecs.ACAMT;
+                vm.REPORTS.txtdiscount = getAccummulatedCharge(admrecs.REFERENCE, admrecs.ACAMT);
+                vm.REPORTS.cbotype = "YES"; //cboRaiseBill_D.SelectedItem
+                bchain = Getbillchain(admrecs.PATIENTNO, admrecs.GROUPCODE);
+                vm.REPORTS.txtaddress1 = bchain.RESIDENCE;
+                vm.REPORTS.txtsurname = patientprofile(bchain);
+                vm.REPORTS.txtgrouphead = getgrouphead(bchain.GROUPHEAD, bchain.GHGROUPCODE, bchain.GROUPHTYPE);
+
+                if (vm.REPORTS.txtgrouphead.Trim() == "Abort")
+                {
+                    //txtReference_D.Focus();
+                    return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+                }
+
+                //displayPatientPicture(this.pictureBox_Discharge, bchain.PICLOCATION);
+
+                if (!string.IsNullOrWhiteSpace(admrecs.DISCHARGE))
+                {
+                    vm.REPORTS.ActRslt = "This Patient has been discharged on " + admrecs.DISCHARGE + ", " + admrecs.NAME;
+                    //txtReference_D.Text = "";
+                    //txtReference_D.Select();
+                    return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+                }
+
+                //dttrans_dateD.Focus();
+                return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+
+        //Change Bed / Room
+        public JsonResult cbSubmitBtnClick(MR_DATA.REPORTS dataList)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            string woperato = Request.Cookies["mrName"].Value;
+            vm.REPORTS = dataList;
+
+            Admissions formObject = new Admissions(vm, woperato);
+            vm.REPORTS = formObject.btnSubmitCB_Click();
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult cbAdmReferenceFocusout(string cbAdmReference)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            DataTable dtfacility = Dataaccess.GetAnytable("", "CODES", "SELECT TYPE_CODE, NAME FROM SERVICECENTRECODES order by name ", true),
+            dtdiag = Dataaccess.GetAnytable("", "CODES", "SELECT TYPE_CODE, NAME FROM DIAGNOSISCODES order by name", true);
+
+            Admrecs admrecs = new Admrecs();
+            billchaindtl bchain = new billchaindtl();
+
+            admrecs = Admrecs.GetADMRECS(cbAdmReference);
+
+            if (cbAdmReference.Substring(0, 1) != "A")
+            {
+                vm.REPORTS.txtreference = bissclass.autonumconfig(cbAdmReference, true, "A", "999999999");
+            }
+
+            //check if reference exist
+            //AnyCode = Anycode1 = "";
+
+            if (admrecs == null) //new defintion
+            {
+                vm.REPORTS.alertMessage = "Invalid Admission Reference...";
+                //vm.REPORTS.txtreference = "";
+                //txtReference_BC.Select();
+                return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                vm.REPORTS.mgrouphtype = admrecs.GROUPHTYPE;
+                vm.REPORTS.txtpatientno = admrecs.PATIENTNO;
+                vm.REPORTS.txtgroupcode = admrecs.GROUPCODE;
+                vm.REPORTS.combFacility = bissclass.combodisplayitemCodeName("type_code", admrecs.FACILITY, dtfacility, "name");
+                vm.REPORTS.TXTPATIENTNAME = admrecs.NAME;
+                vm.REPORTS.txtstaffno = admrecs.RATE.ToString(); //txtoldRateCB.Text
+                vm.REPORTS.txtRoom = admrecs.ROOM;
+                vm.REPORTS.txtBed = admrecs.BED;
+                vm.REPORTS.diagnosis = bissclass.combodisplayitemCodeName("type_code", admrecs.DIAGNOSIS, dtdiag, "name") + " " + admrecs.DIAGNOSIS_ALL.Trim();
+                vm.REPORTS.REPORT_TYPE1 = admrecs.ADM_DATE.ToShortDateString(); //txtadm_dateCB.Text
+                vm.REPORTS.REPORT_TYPE2 = admrecs.DISCHARGE;
+                DateTime xdischarge = string.IsNullOrWhiteSpace(admrecs.DISCHARGE) ? DateTime.Now.Date : Convert.ToDateTime(admrecs.DISCHARGE);
+                vm.REPORTS.REPORT_TYPE3 = xdischarge.Subtract(admrecs.ADM_DATE).TotalDays.ToString() + " day(s)"; //lbllenghtofStay_CB.Text
+                vm.REPORTS.mgrouphead = admrecs.GROUPHEAD;
+                bchain = Getbillchain(admrecs.PATIENTNO, admrecs.GROUPCODE);
+                vm.REPORTS.txtaddress1 = bchain.RESIDENCE;
+                vm.REPORTS.txtsurname = patientprofile(bchain);
+                vm.REPORTS.txtgrouphead = getgrouphead(bchain.GROUPHEAD, bchain.GHGROUPCODE, bchain.GROUPHTYPE); //txtgroupheadchangebed.Text
+
+                if (vm.REPORTS.txtgrouphead.Trim() == "Abort")
+                {
+                    //txtReference_BC.Focus();
+                    return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+                }
+
+                //displayPatientPicture(this.pictureBox_CB, bchain.PICLOCATION);
+
+                if (admrecs.DISCHARGE != "")
+                {
+                    vm.REPORTS.alertMessage = "This Patient has been discharged on " + admrecs.DISCHARGE + "," + admrecs.NAME;
+                    //vm.REPORTS.txtreference = "";
+                    //txtReference_BC.Select();
+                    return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+                }
+
+                vm.REPORTS.txtdiscount = getAccummulatedCharge(admrecs.REFERENCE, admrecs.ACAMT); //nmrCummAmt_BC.Value
+                //combfacilityCB.Focus();
+
+                return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult cbFacilityFocusout(string cbFacility)
+        {
+            vm.ADMSPACES = ErpFunc.RsGet<MR_DATA.ADMSPACE>("MR_DATA",
+                "SELECT * FROM ADMSPACE WHERE FACILITY='" + cbFacility + "' ORDER BY ROOM");
+
+            return Json(vm.ADMSPACES, JsonRequestBehavior.AllowGet);
+        }
+
+
+        //Service Items
+        public JsonResult siDeleteBtnClick(string headerDesc, string tariffCode, string status)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            string woperato = Request.Cookies["mrName"].Value;
+
+            DataTable dt = Dataaccess.GetAnytable("", "MR",
+              "select wseclevel, CANDELETE, CANALTER, CANADD from mrstlev where operator = '" + woperato + "'", false);
+
+            int mdoc_seclevel = (Int32)dt.Rows[0]["wseclevel"];
+
+            if (mdoc_seclevel < 9)
+            {
+                vm.REPORTS.alertMessage = "Access Denied... See your Systems Administrator!";
+                return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+            }
+
+            if (status == "OldRec")
+            {
+                string updstr = "delete from Dispserv where rtrim(reference) = '" + tariffCode + "'";
+                bissclass.UpdateRecords(updstr, "MR");
+            }
+
+            vm.REPORTS.ActRslt = "Deleted Successfully...";
+            //listViewSI.Items[recno].Remove();
+            //btnDeleteSI.Enabled = false;
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult siSubmitBtnClick(IEnumerable<MR_DATA.REPORTS> tableList)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            string woperato = Request.Cookies["mrName"].Value;
+
+            DataTable dt = Dataaccess.GetAnytable("", "MR",
+              "select wseclevel, CANDELETE, CANALTER, CANADD from mrstlev where operator = '" + woperato + "'", false);
+
+            int mdoc_seclevel = (Int32)dt.Rows[0]["wseclevel"];
+
+            if (mdoc_seclevel < 9)
+            {
+                vm.REPORTS.alertMessage = "Access Denied... See your Systems Administrator!";
+                return Json(vm, JsonRequestBehavior.AllowGet);
+            }
+
+            Admissions formObject = new Admissions(vm, woperato);
+            vm = formObject.btnsubmitSI_Click(tableList);
+
+            return Json(vm, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        //Review
+        public JsonResult prescHistoryBtnClick(string revGroupCode, string revPatientNo, string revTreatmentDate)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+
+            billchaindtl phbchain = new billchaindtl();
+            phbchain = Getbillchain(revPatientNo, revGroupCode);
+
+            vm.REPORTS.txtgroupcode = phbchain.GROUPCODE;
+            vm.REPORTS.txtpatientno = phbchain.PATIENTNO;
+            vm.REPORTS.TXTPATIENTNAME = phbchain.NAME;
+
+            var xdate = Convert.ToDateTime(revTreatmentDate);
+            var datefrom = xdate.AddDays(-90); //datefrom
+            var dateto = xdate; //dateto
+
+            vm.REPORTS.REPORT_TYPE1 = datefrom.ToShortDateString();
+            vm.REPORTS.REPORT_TYPE2 = xdate.ToShortDateString();
+            
+
+            vm.DISPENSAS = ErpFunc.RsGet<MR_DATA.DISPENSA>("MR_DATA",
+               "SELECT dispensa.STK_DESC,dispensa.TRANS_DATE,  dispensa.QTY_PR, dispensa.CUMGV, dispensa.CDOSE, " +
+                "dispensa.CINTERVAL,dispensa.CDURATION, dispensa.DOCTOR, dispensa.NURSE, dispensa.TYPE, dispensa.RX, " +
+                " dispensa.SP_INST AS RX from dispensa where dispensa.groupcode = '" + vm.REPORTS.txtgroupcode +
+                "' and dispensa.patientno = '" + vm.REPORTS.txtpatientno + "' and dispensa.trans_date >= '" +
+                datefrom.ToShortDateString() + "' and dispensa.trans_date <= '" + dateto.ToShortDateString() +
+                " 23:59:59:999' UNION SELECT inpdispensa.STK_DESC, inpdispensa.TRANS_DATE, inpdispensa.QTY_PR, " +
+                "inpdispensa.CUMGV, inpdispensa.CDOSE, inpdispensa.CINTERVAL,inpdispensa.CDURATION, inpdispensa.DOCTOR, " +
+                "inpdispensa.NURSE, 'I' AS TYPE, inpdispensa.RX, inpdispensa.SP_INST AS RX from inpdispensa where " +
+                "inpdispensa.groupcode = '" + vm.REPORTS.txtgroupcode + "' and inpdispensa.patientno = '" +
+                vm.REPORTS.txtpatientno + "' and inpdispensa.trans_date >= '" + datefrom.ToShortDateString() +
+                "' and inpdispensa.trans_date <= '" + dateto.ToShortDateString() + " 23:59:59:999' ");
+
+            if (vm.DISPENSAS.Count() < 1)
+            {
+                vm.REPORTS.alertMessage = "No Prescription Record for the period...";
+                return Json(vm, JsonRequestBehavior.AllowGet);
+                //btnClose.PerformClick();
+            }
+
+            return Json(vm, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult prescConvertOPDBtnClick(IEnumerable<MR_DATA.DISPENSA> tableList, string revGroupCode, 
+            string revPatientNo, string revTreatmentDate, string mdoctor, string prescSpecInstrn)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            string woperato = Request.Cookies["mrName"].Value;
+
+            billchaindtl phbchain = new billchaindtl();
+            phbchain = Getbillchain(revPatientNo, revGroupCode);
+
+            PrescriptionsNew formObject = new PrescriptionsNew(vm, woperato);
+            vm.REPORTS = formObject.btnConvert_Click(tableList, phbchain, revTreatmentDate, mdoctor, prescSpecInstrn);
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+          
+        public JsonResult prescRoutineDrugsFocusout(string prescRoutineDrugs, string revGroupCode, string revPatientNo, 
+            bool inpatient)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+
+            billchaindtl phbchain = new billchaindtl();
+            Customer customer = new Customer();
+
+            phbchain = Getbillchain(revPatientNo, revGroupCode);
+            customer = Customer.GetCustomer(phbchain.GROUPHEAD);
+
+            vm.ROUTDRGSS = ErpFunc.RsGet<MR_DATA.ROUTDRGS>("MR_DATA",
+              "select reference, description, qty, unit, cost, drugs, GLOBAL_DIFF_CHG, CORP_DIFF_CHG, DOSE, " +
+              " INTERVAL, DURATION, CDOSE, CINTERVAL, CDURATION, WHENHOW FROM routdrgs where reference = '" +
+              prescRoutineDrugs + "' order by description");
+
+            //string[] arr = new string[21];
+            //ListViewItem itm;
+            decimal xcost = 0m;
+            bool preauthorization = false, tocontue = false, capitated = false;
+            //int xrow = listView1.Items.Count;
+
+            foreach (var row in vm.ROUTDRGSS)
+            {
+                if (((bool)row.GLOBAL_DIFF_CHG || (bool)row.CORP_DIFF_CHG)) //&& phbchain.GROUPHTYPE == "C")
+                {
+                    if (!string.IsNullOrWhiteSpace(phbchain.HMOSERVTYPE)) //hmo patient
+                    {
+                        xcost = msmrfunc.CheckCorpPatientStkDefined(phbchain.GROUPHEAD, phbchain.GROUPHTYPE, 
+                            phbchain.HMOSERVTYPE, phbchain.GROUPCODE, false, inpatient, ref xcost, customer.noncapitation, 
+                            row.DRUGS, ref preauthorization, ref capitated, ref tocontue, row.DESCRIPTION);
+                    }
+                    else
+                    {
+                        xcost = msmrfunc.othercorpClientTariffCheck(phbchain.PATIENTNO, phbchain.PATCATEG,
+                          ref preauthorization, ref tocontue, row.DESCRIPTION, row.DRUGS);
+                    }
+                }
+                else
+                {
+                    xcost = (decimal)row.COST;
+                }
+
+            }
+
+            vm.REPORTS.nmrbalance = xcost;
+
+            return Json(vm, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult prescClearSelectBtnClick(string msection, string revAdmReference, string revTreatmentDate, 
+            string revGroupCode, string revPatientNo)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+
+            billchaindtl phbchain = new billchaindtl();
+           
+            phbchain = Getbillchain(revPatientNo, revGroupCode);
+
+
+            loadprevDefinitions(msection, revAdmReference, phbchain, revTreatmentDate);
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult prescWriteSaveBtnClick(MR_DATA.REPORTS dataObject, IEnumerable<MR_DATA.DISPENSA> tableList)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            string woperato = Request.Cookies["mrName"].Value;
+
+            billchaindtl phbchain = new billchaindtl();
+            phbchain = Getbillchain(dataObject.txtpatientno, dataObject.txtgroupcode);
+
+            PrescriptionsNew formObject = new PrescriptionsNew(vm, woperato);
+            vm.REPORTS = formObject.btnsave_Click(dataObject, tableList, phbchain);
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult prescDubDeleteBtnClick(bool prescChkInpatient, string recID)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+
+            string xfile = prescChkInpatient ? "inpdispensa" : "dispensa";
+            string updstr = "delete from " + xfile + " where recid = '" + recID + "'";
+
+            bissclass.UpdateRecords(updstr, "MR");
+
+            //we need to adjust bill
+            vm.REPORTS.chkADVCorporate = true; //btnsave.Enabled;
+
+            vm.REPORTS.alertMessage = "You must click the Submit Button To Adjust Bills and other records accordingly...";
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        void anc_check(ref decimal xcost, billchaindtl phbchain, string mstkcode)
+        {
+            string xref = "", ct = "";
+            bool xv = false;
+            decimal xvamt = 0;
+
+            ANCREG.GetANCREG(phbchain.PATIENTNO, phbchain.GROUPCODE, "D", mstkcode, ref xcost, 
+                ref ct, ref xv, ref xvamt, ref xref);
+
+            vm.REPORTS.txtdiscount = xcost; //for nmrCost.Value
+        }
+
+        void LoadListviewDtl(decimal prescUnitCost, decimal prescQtyReqd, bool prescChkInpatient, string prescPatientNo, 
+            string prescGroupCode, string txtdose, string prescInterval, string prescDuration, string prescUnitId,
+            string prescNewRec, string unitIDsave, bool isanc, bool iscapitated, string mstkcode, string msection)
+        {
+            billchaindtl phbchain = new billchaindtl();
+            phbchain = billchaindtl.Getbillchain(prescPatientNo, prescGroupCode);
+
+            DataTable dt = Dataaccess.GetAnytable("", "MR",
+                "SELECT glbatchno, ecgno, dischtime, othercharg, installed, pvtcode, dischtime, serial, fsh, FESTLEVPAS from mrcontrol order by recid", false);
+
+            decimal mdrgmarkup = (Decimal)dt.Rows[1]["ecgno"];
+            bool markupdrgbillonPercentage = Convert.ToBoolean(dt.Rows[1]["fsh"]);
+
+            bool newrec = prescNewRec == "true" ? true : false;
+            decimal xcost;
+            vm.REPORTS.txtdiscount = prescQtyReqd * prescUnitCost; //for nmrCost.Value
+
+            //17.05.2019 - check and add markup if enabled
+            if (phbchain.GROUPHTYPE == "P" && !prescChkInpatient)
+            {
+                if (mdrgmarkup != 0m) //outpatient
+                {
+                    if (markupdrgbillonPercentage)
+                        vm.REPORTS.txtdiscount += ((vm.REPORTS.txtdiscount * mdrgmarkup) / 100); //nmrCost.Value
+                    else
+                        vm.REPORTS.txtdiscount += mdrgmarkup; //nmrCost.Value
+                }
+            }
+
+            if (string.IsNullOrWhiteSpace(txtdose) && string.IsNullOrWhiteSpace(prescInterval) && string.IsNullOrWhiteSpace(prescDuration))
+            {
+            }
+            else
+            {
+                //03/08/2011 - 8.57 - We must attempt to put a check here against irresponsible consulting
+                string xlabel = prescUnitId.Length > 2 ? prescUnitId.Substring(0, 3).ToUpper() : prescUnitId.Trim().ToUpper();
+
+                if ((xlabel == "BTL" || xlabel == "BOT" || xlabel == "VIA" || xlabel == "SYR" || xlabel == "INJ" || 
+                    xlabel == "AMP" || unitIDsave == "Cream") && prescQtyReqd > 2)
+                {
+                    //result = Messa "Please Check Your Prescription criterial - Quantity Required Inconsistency !!!", "QUANTITY REQUIRED ALERT!!!");
+                    //if (result == DialogResult.No)
+                    //{
+                    //    return;
+                    //}
+                    //result = MessageBox.Show("Would you Prescribe " + nmrQtyReqd.Value.ToString() + " of " + txtDescription.Text.Trim() + " at once...?", "Prescriptions Management", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                    //if (result == DialogResult.No)
+                    //{
+                    //    return;
+                    //}
+                }
+            }
+          
+            xcost = vm.REPORTS.txtdiscount;
+            if (isanc)
+            {
+                anc_check(ref xcost, phbchain, mstkcode);
+                vm.REPORTS.txtdiscount = xcost;
+            }
+
+            if (iscapitated)
+                vm.REPORTS.nmrBalbf = (prescQtyReqd * prescUnitCost); // for nmrCapitedCost.Value
+            else
+                vm.REPORTS.nmrcurcredit += vm.REPORTS.txtdiscount; //for nmrCurrentTotal.Value
+
+            vm.REPORTS.chkReportSum = iscapitated;
+
+            //save item counter, if old record and restore after init
+            string uid = prescUnitId;
+
+            //decimal newcounter = counter;
+
+            if (!newrec)
+            {
+                //We update the row;
+                vm.REPORTS.chkgetdependants = true;                
+            }
+            else
+            {
+                //We add a row;
+                vm.REPORTS.chkIncludeBf = true;
+            }
+
+            if (newrec && msection == "8") //for medhist note
+            {
+                vm.REPORTS.chkIncludeOnHold = true;
+            }
+
+            //  lv_written = true;
+            //anycode = "";
+            vm.REPORTS.chkApplyFilter = true; //for btnsave.Enabled
+            //ClearControls("");
+            //txtStkCode.Focus();
+
+            return;
+        }
+
+        public JsonResult prescLoadListView(decimal prescUnitCost, decimal prescQtyReqd, bool prescChkInpatient, string prescPatientNo,
+            string prescGroupCode, string txtdose, string prescInterval, string prescDuration, string prescUnitId, string prescNewRec,
+            string unitIDsave, bool isanc, bool iscapitated, string mstkcode, string msection)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+
+            LoadListviewDtl(prescUnitCost, prescQtyReqd, prescChkInpatient, prescPatientNo, prescGroupCode, txtdose, prescInterval,
+                prescDuration, prescUnitId, prescNewRec, unitIDsave, isanc, iscapitated, mstkcode, msection);
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult prescDurationFocusout(int prescDuration, string prescDurationText, string prescIntervalText,
+            decimal minterval, decimal mduration, decimal mdose, bool isconvertable, decimal packqty, decimal prescDose)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+
+            vm.REPORTS.nmrPayable = mduration;
+            vm.REPORTS.nmrcurcredit = mdose;
+
+
+            decimal xqtysave, xdose, x;
+
+            if (prescDuration == 10) //OTHERS - specify
+            {
+                prescDurationText = bissclass.GetNumberFromString(prescDurationText.Trim()).ToString() + " days"; //comboDuration.Text
+            }
+
+            //int xindex = -1;
+            //if (comboDuration.Text.Trim().Length == 1 && comboDuration.SelectedIndex == -1)
+            //{
+            //    comboDuration.Text = GetComboText(comboDuration, comboDuration.Text.Trim(), ref xindex);
+            //    comboDuration.SelectedIndex = xindex;
+            //}
+
+            if (prescDurationText != null)
+            {
+                vm.REPORTS.nmrPayable = prescDuration < 6 ? Convert.ToDecimal(prescDurationText.Substring(0, 1)) : 
+                    prescDuration < 8 ? Convert.ToDecimal(prescDurationText.Substring(0, 2)) : 
+                    bissclass.GetNumberFromString(prescDurationText);
+            }
+            else
+                vm.REPORTS.nmrPayable = bissclass.GetNumberFromString(prescDurationText);
+
+            if (prescIntervalText == null)
+                vm.REPORTS.txtdiscount = mdose; //nmrQtyReqd.Value
+            else
+            {
+                xdose = vm.REPORTS.nmrcurcredit = prescDose;
+
+                if (isconvertable)
+                {
+                    //xdose = Stkstrength / stkper;
+                    xdose = vm.REPORTS.nmrcurcredit / xdose;
+                }
+                x = minterval < 1 ? 1 : 24m / minterval;
+                vm.REPORTS.txtdiscount = (x * vm.REPORTS.nmrPayable * xdose);//nmrQtyReqd.Value
+
+                if (vm.REPORTS.txtdiscount < 1m)
+                    vm.REPORTS.txtdiscount = 1m;
+
+                xqtysave = vm.REPORTS.txtdiscount;
+
+                if (packqty > 0)
+                {
+                    vm.REPORTS.txtdiscount = Math.Round((vm.REPORTS.txtdiscount / packqty)); //nmrQtyReqd.Value
+
+                    if (xqtysave < packqty)
+                        vm.REPORTS.txtdiscount = 1m;
+                }
+            }
+
+            if (vm.REPORTS.txtdiscount > 99m) //nmrQtyReqd.Value
+            {
+                vm.REPORTS.alertMessage = "System is Unable to calculate actual requirement from your Selections...'\n'" + 
+                    "Pls Specify Qty Required Manually";
+
+                vm.REPORTS.txtdiscount = 0; //nmrQtyReqd.Value
+                //nmrQtyReqd.Focus();
+                return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        void doconvertable(decimal Stkstrength, decimal stkper, decimal prescDose)
+        {
+            decimal xdose1;
+            vm.REPORTS.chkbillregistration = true; //for isconvertable
+            xdose1 = Stkstrength / stkper;
+            //xdose1 = Convert.ToDecimal(comboDoseLiquid.Text) / xdose1;
+            xdose1 = prescDose / xdose1;
+
+            msmrfunc.mrGlobals.waitwindowtext = "Convertable - Strength :" + Stkstrength.ToString() +
+                " mg Per " + stkper.ToString() + "ml   :=  " + xdose1.ToString() + "ml";
+        }
+
+        public JsonResult prescUnitIdFocusout(decimal Stkstrength, decimal stkper, decimal prescDose)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+
+            doconvertable(Stkstrength, stkper, prescDose);
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        decimal stockitemValidate(string stkcode, ref decimal qtyavailable, ref bool tocontinue, 
+            ref bool preauthorization, ref bool iscapitated, string stkdesc, ref string txtdose, ref string unitid, 
+            ref decimal cost, ref decimal strength, ref decimal stkper, ref decimal packqty, int autoremind_period,
+            ref decimal purcost, string xstore, ref bool xwithConsumables)
+        {
+            DateTime dateNow = DateTime.Now;
+
+            if (string.IsNullOrWhiteSpace(stkcode))
+            {
+                vm.REPORTS.alertMessage = "Valid Stock Definition must be selected...";
+                tocontinue = false;
+                return 0m;
+            }
+
+            string xstoresel = "";
+            //   PleaseWaitForm pleaseWait = new PleaseWaitForm();
+            if (!string.IsNullOrWhiteSpace(xstore))
+                xstoresel = " and store = '" + xstore + "'";
+
+            DataTable stock = Dataaccess.GetAnytable("", "SMS", 
+                "select stock_qty, unit, sell, cost, strength, per, packqty, status, expirydate, withprescription " +
+                "from stock where item = '" + stkcode + "'" + xstoresel, false);
+
+            if (stock.Rows.Count < 1)
+            {
+                vm.REPORTS.alertMessage = "Undefined Stock Item....";
+                tocontinue = false;
+                return 0m;
+            }
+
+            bool xreturn = false;
+            DateTime xpirydate = msmrfunc.mrGlobals.dtmin_date;
+            txtdose = "";
+            qtyavailable = 0m;
+
+            foreach (DataRow row in stock.Rows)
+            {
+                qtyavailable += Convert.ToDecimal(row["stock_qty"]);
+                unitid = row["unit"].ToString().Trim();
+                cost = Convert.ToDecimal(row["sell"]);
+                strength = Convert.ToDecimal(row["strength"]);
+                stkper = Convert.ToDecimal(row["per"]);
+                packqty = Convert.ToDecimal(row["packqty"]);
+                purcost = Convert.ToDecimal(row["cost"]);
+
+                if (Convert.ToBoolean(row["withprescription"]))
+                    xwithConsumables = (bool)row["withprescription"];
+
+                vm.REPORTS.chkSegmented = xwithConsumables;
+
+                if (row["status"].ToString() == "D")
+                {
+                    vm.REPORTS.alertMessage = "This Item is no longer in use... has been flagged domant !";
+                    xreturn = true;
+                    break;
+                }
+
+                //CHECK FOR EXPIRY DATE
+                xpirydate = Convert.ToDateTime(row["expirydate"]);
+            }
+
+            if (xpirydate.Year < dateNow.Year)
+            {
+                vm.REPORTS.alertMessage = "This Item Expired " + xpirydate;
+            }
+            //bissclass.expdtremind(xpirydate, autoremind_period, msmrfunc.mrGlobals.mta_start);
+
+            if (xreturn)
+            {
+                tocontinue = false;
+                return 0m;
+            }
+
+            return cost;
+        }
+
+        void GetItemDtls(string prescStockDisc, bool prescChkInpatient, string dtlastattend, string prescGroupCode, 
+            string prescPatientNo, int reqAlertCount, IEnumerable<MR_DATA.REPORTS> tableList)
+        {
+            DateTime xdtlastattend;
+            billchaindtl phbchain = Getbillchain(prescPatientNo, prescGroupCode);
+
+            string[] requestalert = new string[5];
+
+            DataTable dtGrpDrgChargRate = Dataaccess.GetAnytable("", "MR", "select reference,rate,oncost from GROUPDRGCHARGE", false);
+            DataTable dt = Dataaccess.GetAnytable("", "MR",
+                "SELECT glbatchno, ecgno, dischtime, othercharg, installed, pvtcode, dischtime, serial, fsh, FESTLEVPAS from mrcontrol order by recid", false);
+
+            decimal presctnIntValidation = (decimal)dt.Rows[2]["glbatchno"];
+            bool nhisgentariff = (bool)dt.Rows[5]["installed"]; //use gen tariff to nhis outpatient consult
+
+            bool iscapitated = false, fee_for_service = false, preauthorization = false, alertforConsumables = false;
+            bool tocontinue = true;
+            bool foundit;
+
+            if (string.IsNullOrWhiteSpace(dtlastattend)){
+                xdtlastattend = DateTime.Now.Date;
+            } else {
+                xdtlastattend = Convert.ToDateTime(dtlastattend);
+            }
+
+            // lv_written = false;
+            decimal Stkstrength = 0, stkper = 0;
+            decimal qtyavailable = 0m, cost = 0m, rtnCost = 0m, purcost = 0m, packqty = 0m;
+            string txtdose = "", unitid = "", pharmacyStore = "";
+            int autoremind_period = 0;
+
+            if (string.IsNullOrWhiteSpace(prescStockDisc) || string.IsNullOrWhiteSpace(vm.REPORTS.txtbranch))
+                return;
+
+            //anycode = "";
+            string mstkcode = prescStockDisc; // cboDescription.SelectedValue.ToString();
+
+            rtnCost = stockitemValidate(mstkcode, ref qtyavailable, ref tocontinue, ref preauthorization,
+                ref iscapitated, vm.REPORTS.txtbranch, ref txtdose, ref unitid, ref cost, ref Stkstrength, ref stkper,
+                ref packqty, autoremind_period, ref purcost, pharmacyStore, ref alertforConsumables);
+
+            vm.REPORTS.nmrAgeFrom = Stkstrength;
+            vm.REPORTS.nmrAgeTo = stkper;
+            vm.REPORTS.nmrcurdebit = packqty;
+            vm.REPORTS.txtbillonacct = txtdose;
+            vm.REPORTS.chkCurrtAdmRev = iscapitated;
+            vm.REPORTS.txtcurrency = mstkcode;
+
+            if (!tocontinue)
+            {
+                //btnstock.Focus();
+                vm.REPORTS.txtreference = ""; //txtStkCode.Text = "";
+                vm.REPORTS.txtbranch = "";  //cboDescription.Text = "";
+
+                //txtStkCode.Focus();
+                return;
+            }
+
+            vm.REPORTS.lblbillspayable = packqty < 1 ? "1" : packqty.ToString(); //lblQtyPack.Text
+            vm.REPORTS.lblbillspayable += "/pU";
+            vm.REPORTS.nmrBalbf = qtyavailable; //nmrQtyavailable.Value
+            vm.REPORTS.cbotype = unitid; //lblunitid.Text
+            vm.REPORTS.txtdiscount = cost; //nmrunitcost.Value
+            vm.REPORTS.nmrcurcredit = purcost; //nmrUnitPurchaseValue.Value
+            decimal grpRate = 0m;
+
+            //30-04-2021 - GIWA wants to check if patient got this drug in the past x period for opd only
+            if (!prescChkInpatient && presctnIntValidation > 0 && xdtlastattend != DateTime.Now.Date && 
+                DateTime.Now.Date.Subtract(xdtlastattend).Days <= presctnIntValidation && !msmrfunc.CheckHistoryPresciption(phbchain.GROUPCODE, 
+                phbchain.PATIENTNO, mstkcode, presctnIntValidation))
+            {
+                vm.REPORTS.txtreference = ""; //txtStkCode.Text = "";
+                vm.REPORTS.txtbranch = "";  //cboDescription.Text = "";
+                // txtStkCode.Focus();
+                return;
+            }
+
+            //27.04.2021 - implemented drug cost by billing category for corporate - GIWA
+            if (phbchain.GROUPHTYPE == "C" && string.IsNullOrWhiteSpace(phbchain.HMOSERVTYPE)) //coproate
+            {
+                rtnCost = grpRate = msmrfunc.CheckGrpDrugChargePercentage(dtGrpDrgChargRate, phbchain.PATCATEG, vm.REPORTS.nmrcurcredit, vm.REPORTS.txtdiscount);
+            }
+            else if (phbchain.GROUPHTYPE == "C" && !string.IsNullOrWhiteSpace(phbchain.HMOSERVTYPE)) //check hmo/nhis drgs define 
+            {
+                //cost = rtnamt;
+                //31.10.2016 MUST CHECK RTNAMT - QTY AVAIL OR COST ?
+
+                rtnCost = msmrfunc.CheckCorpPatientStkDefined(phbchain.GROUPHEAD, phbchain.GROUPHTYPE, phbchain.HMOSERVTYPE,
+                    phbchain.GROUPCODE, nhisgentariff, (prescChkInpatient) ? true : false, ref cost, fee_for_service, mstkcode,
+                    ref preauthorization, ref iscapitated, ref tocontinue, vm.REPORTS.txtbranch);
+
+                vm.REPORTS.chkCurrtAdmRev = iscapitated;
+
+                if (!tocontinue)
+                {
+                    vm.REPORTS.txtreference = ""; //txtStkCode.Text = "";
+                    vm.REPORTS.txtbranch = "";  //cboDescription.Text = "";
+
+                    //txtStkCode.Focus();
+                    return;
+                }
+            }
+
+            if (grpRate < 1 && rtnCost < 1m && phbchain.GROUPHTYPE == "C" && !string.IsNullOrWhiteSpace(phbchain.PATCATEG))
+            {
+                rtnCost = msmrfunc.CheckCustClassforStkDefined(phbchain.PATCATEG, ref preauthorization, ref iscapitated, 
+                    ref cost, ref tocontinue, mstkcode, vm.REPORTS.txtbranch);
+
+                vm.REPORTS.chkCurrtAdmRev = iscapitated;
+
+                if (!tocontinue)
+                {
+                    vm.REPORTS.txtreference = ""; //txtStkCode.Text = "";
+                    vm.REPORTS.txtbranch = "";  //cboDescription.Text = "";
+
+                    //txtStkCode.Focus();
+                    return;
+                }
+            }
+
+            if (grpRate < 1 && rtnCost < 1m) //stock differential tarif defined
+            {
+                rtnCost = msmrfunc.CheckStkCharge(phbchain.PATCATEG, ref cost, ref tocontinue, mstkcode);
+
+                if (!tocontinue)
+                {
+                    vm.REPORTS.txtreference = ""; //txtStkCode.Text = "";
+                    vm.REPORTS.txtbranch = "";  //cboDescription.Text = "";
+
+                    //txtStkCode.Focus();
+                    return;
+                }
+            }
+
+            //anycode = txtStkCode.Text;
+            vm.REPORTS.nmrMinBalance = rtnCost; //savedstksellamount
+            vm.REPORTS.txtdiscount = rtnCost; //nmrunitcost.Value
+            // the following segment is necessary to be able to know the doseage type to enable - Tab/Liquid - 04/06/2010
+
+            if (string.IsNullOrWhiteSpace(vm.REPORTS.cbotype))
+            {
+                vm.REPORTS.ActRslt = vm.REPORTS.txtbranch.Trim() + " - Unable to Determine Drug Type; CLICK YES for SYRUP/LIQUID; NO for OTHERS";
+
+                //if (result == DialogResult.Yes)
+                //{
+                //    vm.REPORTS.cbotype = "Tabs";
+                //    // return;
+                //}
+                //else if (result == DialogResult.No)
+                //{
+                //    vm.REPORTS.cbotype = "Btl";
+                //    // return;
+                //}
+            }
+
+            foundit = false;
+
+            vm.REPORTS.newrec = true;
+
+            //we must scan through wgeta_ array to check if stock had been selected - we edit
+            if (tableList != null)
+            {
+                foreach(var row in tableList)
+                {
+                    if (string.IsNullOrWhiteSpace(row.txtclinic)) {
+                        continue;
+                    }
+
+                    if (row.txtclinic.Trim() == mstkcode.Trim())
+                    {
+                        foundit = true;
+                        vm.REPORTS.txtstaffno = row.txtstaffno;
+                        break;
+                    }
+                }
+
+                if (foundit)
+                {
+                    //ServiceDuplicateOptions serviceuplicate = new ServiceDuplicateOptions();
+                    //serviceuplicate.Closed += new EventHandler(serviceuplicate_Closed);
+                    //serviceuplicate.ShowDialog();
+
+                    vm.REPORTS.chkHMO = true;
+                }
+            }
+            
+            if (preauthorization && reqAlertCount < 5)
+            {
+                requestalert[reqAlertCount] = vm.REPORTS.txtbranch.Trim();
+                reqAlertCount++;
+            }
+
+            vm.REPORTS.nmrAmountTo = reqAlertCount;
+            return;
+        }
+
+        public JsonResult prescStockDiscFocusout(string prescStockDisc, bool prescChkInpatient, string dtlastattend,
+            string prescGroupCode, string prescPatientNo, int reqAlertCount, IEnumerable<MR_DATA.REPORTS> tableList)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+
+            DataTable dt = Dataaccess.GetAnytable("", "SMS", 
+                "select name from stock where item = '" + prescStockDisc + "'", false);
+
+            if (dt.Rows.Count < 1)
+            {
+                msmrfunc.mrGlobals.auto_search_string = prescStockDisc;
+                //btnstock.PerformClick();
+            }
+            else
+            {
+                vm.REPORTS.txtbranch = dt.Rows[0]["name"].ToString(); //txtDescription.Text
+            }
+
+            GetItemDtls(prescStockDisc, prescChkInpatient, dtlastattend, prescGroupCode, prescPatientNo, reqAlertCount, tableList);
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        private void prescGetcontrolsettings()
+        {
+            string mdrugsonbill, nhisfac_code, nhisbillcode, mfacility, mdrugcode = "", pharmacyStore;
+            Decimal fxtype, autoremind_period;
+            bool nhisgentariff, mallowexp, isnhischarge, markupdrgbillonPercentage;
+            decimal mdrgmarkup = 0m, medhistupdateallowed, presctnIntValidation;
+            string[] requestalert = new string[5];
+            bool inpatient = true;
+            bool mtth = false;
+
+            DataTable dt = Dataaccess.GetAnytable("", "MR", 
+                "SELECT glbatchno, ecgno, dischtime, othercharg, installed, pvtcode, dischtime, serial, fsh, FESTLEVPAS from mrcontrol order by recid", false);
+
+            // mdrugcode = dt.Rows[0]["mdrugcode"].ToString();
+            pharmacyStore = dt.Rows[0]["serial"].ToString().Trim();
+            //if (string.IsNullOrWhiteSpace(pharmacyStore))
+            //    dtstock = Dataaccess.GetAnytable("", "SMS", "select DISTINCT name, item from stock order by name ", true);
+            //else
+            //    dtstock = Dataaccess.GetAnytable("", "SMS", "select name, item from stock where rtrim(store) = '" + pharmacyStore + "' order by name ", true);
+
+            fxtype = (Decimal)dt.Rows[1]["glbatchno"];
+            mdrgmarkup = (Decimal)dt.Rows[1]["ecgno"];
+            markupdrgbillonPercentage = Convert.ToBoolean(dt.Rows[1]["fsh"]);
+
+            mfacility = dt.Rows[2]["dischtime"].ToString();
+            medhistupdateallowed = (Decimal)dt.Rows[2]["glbatchno"];
+
+            mdrugsonbill = dt.Rows[3]["othercharg"].ToString();
+
+            nhisgentariff = (bool)dt.Rows[5]["installed"]; //use gen tariff to nhis outpatient consult
+
+            nhisfac_code = dt.Rows[8]["pvtcode"].ToString();
+            nhisbillcode = dt.Rows[8]["dischtime"].ToString().Substring(0, 7);
+            isnhischarge = (bool)dt.Rows[8]["othercharg"];
+            presctnIntValidation = (decimal)dt.Rows[2]["glbatchno"];
+
+            DataTable dtsms = Dataaccess.GetAnytable("", "SMS", 
+                "SELECT allowexp, enqno from smcontrol where recid = '1'", false);
+
+            mallowexp = (bool)dtsms.Rows[0]["allowexp"];
+            autoremind_period = (Decimal)dtsms.Rows[0]["enqno"];
+
+            if (inpatient)
+            {
+                vm.REPORTS.chkbillregistration = true; //chkinpatient.Checked
+                vm.REPORTS.chkbyacctofficers = false; // chkinpatient.Enabled = btnConvert.Enabled = false;
+                vm.REPORTS.cbotitle = "In-Patient Prescriptions Management"; //this.Text
+                vm.REPORTS.chkByDateRange = (mtth) ? true : false; //chktth.Checked
+                //btninpatprescdtl.Enabled = true;
+            }
+
+            DataTable dtmrsetup = Dataaccess.GetAnytable("", "MR", "Select drugcode from mrsetup order by facility", false);
+            mdrugcode = dtmrsetup.Rows[0]["drugcode"].ToString();
+        }
+
+        void loadprevDefinitions(string msection, string revAdmReference, billchaindtl phbchain, string revTreatmentDate)
+        {
+            DateTime mtrans_date = Convert.ToDateTime(revTreatmentDate);
+
+            if (msection == "4" || msection == "8") //DOCS AND PHARMACY ONLY
+            {
+                //ok
+            }
+            else
+            {
+                //msgeventtracker = "EXIT";
+                vm.REPORTS.alertMessage = "Further Access Denied....";
+                //btnclose.PerformClick();
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(revAdmReference))
+            {
+                //msgeventtracker = "EXIT";
+                vm.REPORTS.alertMessage = "This Request has NO Consultation Reference... Cannot be Tracked!!!";
+                vm.REPORTS.chkApplyFilter = false; //btnsave.Enabled
+                //btnclose.PerformClick();
+                return;
+            }
+           
+            DataTable dt;
+
+            if (vm.REPORTS.chkbillregistration){
+                dt = DISPENSA.GetDISPENSA(phbchain.GROUPCODE, phbchain.PATIENTNO, mtrans_date, true);
+            }
+            else {
+                dt = DISPENSA.GetDISPENSA(phbchain.GROUPCODE, phbchain.PATIENTNO, mtrans_date, false);
+            }
+
+            if (dt.Rows.Count < 1)
+                return;
+
+            vm.DISPENSAS = ErpFunc.ConvertDtToList<MR_DATA.DISPENSA>(dt);
+        }
+
+
+        public JsonResult revPrescriptionBtnClick(string revGroupCode, string revPatientNo, string msection,
+            string revAdmReference, string revTreatmentDate)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            Customer customer = new Customer();
+            billchaindtl phbchain = new billchaindtl();
+
+            Session["Inpatient"] = "N";
+            prescGetcontrolsettings();
+            //initcomboboxes();
+
+            phbchain = Getbillchain(revPatientNo, revGroupCode);
+
+            loadprevDefinitions(msection, revAdmReference, phbchain, revTreatmentDate);
+
+            if (phbchain.GROUPHTYPE == "C")
+                customer = Customer.GetCustomer(phbchain.GROUPHEAD);
+
+            Session["inp2medhist"] = "";
+            //onNmrDose = alertforConsumables = false;
+            //get lastattendance date
+
+            DateTime dtlastattend = DateTime.Now.Date;
+            Medhrec medhrec = Medhrec.GetMEDHREC(phbchain.GROUPCODE, phbchain.PATIENTNO);
+
+            if (medhrec != null)
+                dtlastattend = medhrec.DATE5.Date; //.ToShortDateString() + "  @ " + medhrec.DATE5.ToShortTimeString();
+
+            if (phbchain.GROUPHTYPE == "C") //&& customer.HMO ) ALL CORPORATE
+                vm.REPORTS.chkADVCorporate = true; //chkPrivateAcct.Enabled
+
+            vm.REPORTS.dtregistered = dtlastattend;
+
+            return Json(vm, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult diabSubmitBtnClick(IEnumerable<MR_DATA.REPORTS> tableList, string obAdmReference)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            string woperato = Request.Cookies["mrName"].Value;
+
+            ObservationCharts formObject = new ObservationCharts(vm, woperato);
+            vm.REPORTS = formObject.btnSubmit_Db_Click(tableList, obAdmReference);
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult fluidSubmitBtnClick(IEnumerable<MR_DATA.REPORTS> tableList, string obAdmReference)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            string woperato = Request.Cookies["mrName"].Value;
+
+            ObservationCharts formObject = new ObservationCharts(vm, woperato);
+            vm.REPORTS = formObject.btnSubmit_fluid_Click(tableList, obAdmReference);
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult intenSubmitBtnClick(IEnumerable<MR_DATA.REPORTS> tableList, string obAdmReference)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            string woperato = Request.Cookies["mrName"].Value;
+
+            ObservationCharts formObject = new ObservationCharts(vm, woperato);
+            vm.REPORTS = formObject.btnSubmit_bp_Click(tableList, obAdmReference);
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public JsonResult obAdmReferenceFocusout(string obAdmReference)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            Admrecs admrec = new Admrecs();
+
+            if (obAdmReference.Substring(0, 1) != "A")
+            {
+                if (bissclass.IsDigitsOnly(obAdmReference.Trim()))
+                {
+                    obAdmReference = bissclass.autonumconfig(obAdmReference, true, "A", "999999999");
+                    vm.REPORTS.txtreference = obAdmReference;
+                }
+            }
+
+            //check if reference exist
+            //anycode = "";
+            admrec = Admrecs.GetADMRECS(obAdmReference);
+
+            if (admrec == null) //new defintion
+            {
+                vm.REPORTS.alertMessage = "Invalid Admission Reference...";
+                //txtreference.Text = "";
+                //txtreference.Focus();
+                return Json(vm, JsonRequestBehavior.AllowGet);
+            }
+
+            if (!displayadmrecs(admrec, obAdmReference))
+            {
+                vm.REPORTS.txtreference = "";
+                //txtreference.Focus();
+            }
+
+            return Json(vm, JsonRequestBehavior.AllowGet);
+        }
+
+        void obChartDisplaydetails(string revAdmReference)
+        {
+            vm.MRB22S = ErpFunc.RsGet<MR_DATA.MRB22>("MR_DATA",
+               "select * from mrb22 where reference = '" + revAdmReference + "'");
+
+            vm.MRB23S = ErpFunc.RsGet<MR_DATA.MRB23>("MR_DATA",
+               "select * from mrb23 where reference = '" + revAdmReference + "'");
+
+            vm.MRB24S = ErpFunc.RsGet<MR_DATA.MRB24>("MR_DATA",
+               "select * from mrb24 where reference = '" + revAdmReference + "'");
+        }
+
+        bool displayadmrecs(Admrecs admrecs, string revAdmReference)
+        {
+            billchaindtl bchain = new billchaindtl();
+
+            DataTable dtfacility = Dataaccess.GetAnytable("", "CODES", "SELECT TYPE_CODE, NAME FROM SERVICECENTRECODES order by name ", true),
+                dtdiag = Dataaccess.GetAnytable("", "CODES", "SELECT TYPE_CODE, NAME FROM DIAGNOSISCODES order by name", true);
+
+            vm.REPORTS.txtgroupcode = admrecs.GROUPCODE;
+            vm.REPORTS.txtpatientno = admrecs.PATIENTNO;
+            vm.REPORTS.TXTPATIENTNAME = admrecs.NAME;
+            vm.REPORTS.combFacility = bissclass.combodisplayitemCodeName("type_code", admrecs.FACILITY, dtfacility, "name"); //lblfaciitySu.Text
+            vm.REPORTS.txtRoom = admrecs.ROOM;
+            vm.REPORTS.txtBed = admrecs.BED;
+            vm.REPORTS.diagnosis = bissclass.combodisplayitemCodeName("type_code", admrecs.DIAGNOSIS, dtdiag, "name");
+
+            if (vm.REPORTS.diagnosis.Trim() != admrecs.DIAGNOSIS_ALL && !string.IsNullOrWhiteSpace(admrecs.DIAGNOSIS_ALL))
+                vm.REPORTS.diagnosis = admrecs.DIAGNOSIS_ALL;
+
+            vm.REPORTS.REPORT_TYPE1 = admrecs.ADM_DATE.ToShortDateString();
+            vm.REPORTS.REPORT_TYPE2 = admrecs.DISCHARGE;
+            DateTime xdischarge = string.IsNullOrWhiteSpace(admrecs.DISCHARGE) ? DateTime.Now.Date : Convert.ToDateTime(admrecs.DISCHARGE);
+            vm.REPORTS.lblStaffNumber = (xdischarge - admrecs.ADM_DATE).Days.ToString() + " day(s)";
+
+            bchain = Getbillchain(admrecs.PATIENTNO, admrecs.GROUPCODE);
+            vm.REPORTS.txtaddress1 = bchain.RESIDENCE;
+            vm.REPORTS.txtstaffno = patientprofile(bchain);
+
+            vm.REPORTS.txtgrouphead = msmrfunc.GETGroupheadname(bchain.GHGROUPCODE, bchain.GROUPHEAD, bchain.GROUPHTYPE);
+
+            if (vm.REPORTS.txtgrouphead.Trim() == "Abort")
+            {
+                return false;
+            }
+
+            obChartDisplaydetails(revAdmReference);
+
+            if (admrecs.DISCHARGE != "")
+            {
+                vm.REPORTS.ActRslt = "This Patient has been discharged on " + admrecs.DISCHARGE + "," + admrecs.NAME;
+                return false;
+            }
+
+            return true;
+        }
+
+        public JsonResult observChartOnLoad(string revAdmReference)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            Admrecs admrec = new Admrecs();
+            billchaindtl bchain = new billchaindtl();
+
+            //check if reference exist
+            admrec = Admrecs.GetADMRECS(revAdmReference);
+
+            if (string.IsNullOrWhiteSpace(revAdmReference) || admrec == null)
+            {
+                vm.REPORTS.alertMessage = "Patient Record must be Selected...";
+                return Json(vm, JsonRequestBehavior.AllowGet);
+            }
+
+            if (!string.IsNullOrWhiteSpace(revAdmReference) && !string.IsNullOrWhiteSpace(admrec.REFERENCE))
+            {
+                displayadmrecs(admrec, revAdmReference);
+                //edtprofile.Focus();
+            }
+
+            return Json(vm, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult defSubmitBtnClicked(IEnumerable<MR_DATA.MRB20> tableList)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            string woperato = Request.Cookies["mrName"].Value;
+
+            TemplateGrpDetails formObject = new TemplateGrpDetails(vm);
+            vm.REPORTS = formObject.btnSubmit_Click(tableList);
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult defineGrpDetailsOnLoad()
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+
+            vm.TEMPLATEGRPS = ErpFunc.RsGet<MR_DATA.TEMPLATEGRP>("MR_DATA", "select * from TEMPLATEGRP");
+
+            if (vm.TEMPLATEGRPS.Count() < 1)
+            {
+                return Json(vm.TEMPLATEGRPS, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(vm.TEMPLATEGRPS, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult templateDeleteBtnClick(int tableRecID)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+
+            string xstr = "delete from MRB20 where recid = '" + tableRecID.ToString() + "'";
+            bissclass.UpdateRecords(xstr, "MR");
+            vm.REPORTS.alertMessage = "Item deleted from database..";
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult templateSubmitBtnClick(int screenId, string tempDoctor, string tempAreaOfSpec, IEnumerable<MR_DATA.MRB20> tableList)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            string woperato = Request.Cookies["mrName"].Value;
+
+            DocsTemplates formObject = new DocsTemplates(vm, woperato);
+            vm.REPORTS = formObject.SaveDetails(screenId, tempDoctor, tempAreaOfSpec, tableList);
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult tempOnLoad()
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+
+            vm.MRB20S = ErpFunc.RsGet<MR_DATA.MRB20>("MR_DATA", "select * from mrb20");
+
+            if(vm.MRB20S.Count() < 1)
+            {
+                return Json(vm.MRB20S, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(vm.MRB20S, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult revGetHistoryBtnClick(string revHistDateFrom, string revHistDateTo, bool revChkQueryBackup, 
+            string revAdmReference)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            Admrecs admrecs = new Admrecs();
+            billchaindtl bchain = new billchaindtl();
+
+            admrecs = Admrecs.GetADMRECS(revAdmReference);
+            bchain = Getbillchain(admrecs.PATIENTNO, admrecs.GROUPCODE);
+            
+            var historyDateTo = Convert.ToDateTime(revHistDateTo);
+            var historyDateFrom = Convert.ToDateTime(revHistDateFrom);
+
+            if ((historyDateTo - historyDateFrom).TotalDays > 190)
+            {
+                vm.REPORTS.alertMessage = "Medical History Query Date Range is too wide...";
+                return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+            }
+
+            medhistryRev(false, admrecs, bchain, historyDateFrom, historyDateTo, revChkQueryBackup);
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult revSaveBtnClick(MR_DATA.REPORTS dataList)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            string woperato = Request.Cookies["mrName"].Value;
+            Admrecs admrecs = new Admrecs();
+            billchaindtl bchain = new billchaindtl();
+
+            vm.REPORTS = dataList;
+
+            admrecs = Admrecs.GetADMRECS(vm.REPORTS.txtreference);
+            bchain = Getbillchain(admrecs.PATIENTNO, admrecs.GROUPCODE);
+
+            if (string.IsNullOrWhiteSpace(vm.REPORTS.txtreference) || admrecs == null || admrecs.PATIENTNO == null)
+            {
+                vm.REPORTS.alertMessage = "Patient Record must be Selected...";
+                return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+            }
+              
+            Admissions formObject = new Admissions(vm, woperato);
+            vm.REPORTS = formObject.saveRevDetails(admrecs, bchain);
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        void ExitReviewDate(DateTime treatmentDate, string revAdmReference, Admrecs admrecs, billchaindtl bchain,
+            string msection, string woperator, string revDiagnosis, string revDateOfAdm)
+        {
+            DataTable dt = Dataaccess.GetAnytable("", "MR",
+               "select wseclevel, CANDELETE, CANALTER, CANADD from mrstlev where operator = '" + woperator + "'", false);
+
+            int mdoc_seclevel = (Int32)dt.Rows[0]["wseclevel"];
+
+            string xaccesscode = "", retrieved_note = "";
+
+            if (treatmentDate.Date > DateTime.Now.Date || treatmentDate.Date < admrecs.ADM_DATE)
+            {
+                vm.REPORTS.alertMessage = "Invalid Date Specification...";
+                //vm.REPORTS.REPORT_TYPE1 = string.Format("{0:yyyy-MM-dd}", DateTime.Now.Date); //dtTreatmentDateRev.Value
+                //dtTreatmentDateRev.Focus();
+                return;
+            }
+
+            if (bchain == null || string.IsNullOrWhiteSpace(bchain.PATIENTNO) || string.IsNullOrWhiteSpace(revAdmReference))
+                return;
+
+            vm.REPORTS.newrec = true; //newrecRev
+            vm.REPORTS.REPORT_TYPE2 = DateTime.Now.ToShortTimeString(); // txtTimeTrtmtRev.Text
+
+            //medhistryRev(false);
+            MedHist medhistRev = MedHist.GetMEDHIST(bchain.GROUPCODE, bchain.PATIENTNO, revAdmReference,
+                false, true, treatmentDate.Date, "DESC");
+
+            if (medhistRev != null)
+            {
+                vm.REPORTS.newrec = false;
+
+                if (medhistRev.PROTECTED > 0 && mdoc_seclevel < medhistRev.PROTECTED)
+                {
+                    vm.REPORTS.ActRslt = "Access to Secured Medical History Records Denied...";
+                    //txtreferenceRev.Focus();
+                    return;
+                }
+
+                if (medhistRev.PROTECTED > 0 && medhistRev.ENCHRYPTED)
+                {
+                    POPREAD popread = new POPREAD("Medical History Enchrypted Access Code", 
+                        "This Medical History is Enchrypted... Enter Access Code :", ref xaccesscode,
+                        false, false, "", "", "", false, "", "");
+                    //popread.Closed += new EventHandler(popread_Closed);
+                    //popread.ShowDialog();
+                }
+
+                vm.REPORTS.edtallergies = retrieved_note = medhistRev.COMMENTS.Trim(); // txtcurrentrecs.Text
+                vm.REPORTS.edtallergies = vm.REPORTS.edtallergies + "\r\n";
+                vm.REPORTS.chkADVCorporate = (medhistRev.PROTECTED > 0) ? true : false; // chkProtectRev.Checked
+                vm.REPORTS.chkApplyFilter = (medhistRev.ENCHRYPTED) ? true : false; //chkEncryptRev.Checked
+            }
+            else if (msection == "4")
+            {
+                vm.REPORTS.edtallergies = "==> Admission Update BY : " + woperator.Trim() + " @ " + 
+                    DateTime.Now.ToString("HH:mmtt ") + " Date Admitted : " + revDateOfAdm + " : Diag : " +
+                    revDiagnosis + "\r\n\r\n";
+            }
+
+            if (msection == "4")
+                vm.REPORTS.chkBroughtForward = true; // btnPrescriptionRev.Enabled = btnInvProcRev.Enabled = btnTTHRev.Enabled = true;
+            else
+            {
+                //txtcurrentrecs.ReadOnly = true;
+                vm.REPORTS.chkByBranch = true; //btnSaveRev.Enabled = true;
+            }
+
+            //timer_Adm.Enabled = timer_Doc.Enabled = false;
+            vm.REPORTS.txtclinic = vm.REPORTS.edtallergies; //savedCaseNote
+            //txtcurrentrecs.Focus();
+            return;
+        }
+
+        public JsonResult revTreatmentDateFocusout(string revTreatmentDate, string revAdmReference, string msection,
+            string woperator, string revDiagnosis, string revDateOfAdm)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            Admrecs admrecs = new Admrecs();
+            billchaindtl bchain = new billchaindtl();
+
+            admrecs = Admrecs.GetADMRECS(revAdmReference);
+            bchain = Getbillchain(admrecs.PATIENTNO, admrecs.GROUPCODE);
+
+            DateTime treatmentDate = Convert.ToDateTime(revTreatmentDate);
+
+            ExitReviewDate(treatmentDate, revAdmReference, admrecs, bchain, msection, woperator, revDiagnosis, revDateOfAdm);
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        void ImageInfo(Admrecs admrecs)
+        {
+            vm.MEDHPICPROPS = ErpFunc.RsGet<MR_DATA.MEDHPIC>("MR_DATA",
+                "select TRANS_DATE,PIC1,NOTE1, PIC2, NOTE2, PIC3, NOTE3, PIC4, NOTE4, PIC5, NOTE5, TOTPIC, FACILITY1, " +
+                "FACILITY2, FACILITY3, FACILITY4, FACILITY5, pdffile1, pdffile2, pdffile3, pdffile4, pdffile5 from medhpic where ltrim(rtrim(groupcode)) = '" +
+                admrecs.GROUPCODE.Trim() + "' and ltrim(rtrim(patientno)) = '" + admrecs.PATIENTNO.Trim() + "'");
+
+        }
+
+        DataTable GetChainedPatNo(billchaindtl bc)
+        {
+            DataTable dt = Dataaccess.GetAnytable("", "MR", 
+                "select chainedgc,chainedpatno from MEDHISTCHAIN where groupcode = '" + bc.GROUPCODE + 
+                "' and patientno = '" + bc.PATIENTNO + "' ORDER BY chainedpatno", false);
+
+            return dt;
+        }
+
+        string GetPrescriptnDetails(string xgc, string xpat, DateTime xdate)
+        {
+            bool ftime = true;
+            string tmpstring = "SELECT sp_inst, itemno, stk_desc, unit, qty_pr, qty_gv, cost, cdose, dose, interval, duration, cinterval, cduration, rx from dispensa where ltrim(rtrim(groupcode)) = '" + xgc.Trim() + "' and ltrim(rtrim(patientno)) = '" + xpat + "' AND TRANS_DATE >= '" + xdate.ToShortDateString() + "' and trans_date <= '" + xdate.ToShortDateString() + " 23:59:59:999' ";
+            DataTable dtdrugs = Dataaccess.GetAnytable("", "MR", tmpstring, false);
+
+            string rxspecialinstructions = "", xdtl = "";
+            foreach (DataRow row in dtdrugs.Rows)
+            {
+                if (ftime)
+                {
+                    xdtl += "\r\n Prescriptions : \r\n";
+                    //"S/N Drugs Details.......................... Unit Presc'd......  Given........ Cost...... D/ I /D" + "\r\n"; //   ..ForeColor = System.Drawing.Color.DarkGray;  //+'\n';
+
+                    rxspecialinstructions = row["sp_inst"].ToString();
+                }
+                ftime = false;
+                // tmpstring = row["cdose"].ToString() == "" ? row["dose"].ToString() + "x" + row["interval"].ToString() + 'x' + row["duration"].ToString() : row["cdose"].ToString() + "x" + row["cinterval"].ToString() + 'x' + row["cduration"].ToString();
+                //xdtl += row["itemno"].ToString() + ".... " + row["stk_desc"].ToString() + "..... " + row["unit"].ToString() + ".... " + row["qty_pr"].ToString() + "......  " + row["qty_gv"].ToString() + ".......... " + row["cost"].ToString() + " " + tmpstring + "  (" + row["cost"].ToString() + ")" + "\r\n";
+                tmpstring = row["cdose"].ToString() == "" ? row["dose"].ToString() + " x " + row["interval"].ToString() + " x " + row["duration"].ToString() : row["cdose"].ToString() + " x " + row["cinterval"].ToString() + 'x' + row["cduration"].ToString();
+                xdtl += row["itemno"].ToString() + ". " + row["qty_pr"].ToString() + " " + row["unit"].ToString() + " " + row["stk_desc"].ToString() + "   Gv[" + row["qty_gv"].ToString() + "] @ " + row["cost"].ToString() + "  " + tmpstring + "\r\n"; //"  (" + row["cost"].ToString() + ")" + 
+            }
+            if (rxspecialinstructions != "")
+                xdtl += rxspecialinstructions + "\r\n";
+            return xdtl;
+        }
+
+        string GetChainedRecords(billchaindtl bc, DataTable xdtchained, DateTime xdate)
+        {
+            string chainedselect = "";
+            string dtl = "";
+            DataRow row;
+            DataTable chainedmedhist = new DataTable();
+            for (int i = 0; i < xdtchained.Rows.Count; i++)
+            {
+                row = xdtchained.Rows[i];
+                chainedselect += "select comments, protected, enchrypted, trans_date, name, ctime, groupcode, patientno, doctor from medhist where groupcode = '" + 
+                    row["chainedgc"].ToString() + "' and patientno = '" + row["chainedpatno"].ToString() + "'"; // and trans_date = '" + xdate.ToShortDateString() + "'";
+                                                                                                                                                                                                                                                                //28.01.2020 querry by date limits ability of program to return med hist of chained accounts
+                if (xdtchained.Rows.Count > i + 1)
+                    chainedselect += " UNION ";
+            }
+            if (chainedselect == "")
+                return dtl;
+
+            chainedselect += " order by trans_date"; // DESC";
+            chainedmedhist = Dataaccess.GetAnytable("", "MR", chainedselect, false);
+            if (chainedmedhist.Rows.Count < 1)
+                return dtl;
+            //	bool ftime = true;
+            string xname = "";
+            foreach (DataRow xrow in chainedmedhist.Rows)
+            {
+                if (xrow["name"].ToString() != xname)
+                {
+                    dtl += "\r\n";
+                    dtl += " *** ==>> CHAINED MED.HISTORY FROM > " + xrow["groupcode"].ToString().Trim() + ":" + xrow["patientno"].ToString() + " - " + xrow["name"].ToString().Trim() + "  S T A R T  \r\n";
+                    xname = xrow["name"].ToString();
+                }
+                dtl += " *** DATE : " + Convert.ToDateTime(xrow["trans_date"]).ToShortDateString() + " ***";
+
+                dtl += "\r\n";
+                //	ftime = false;
+                dtl += xrow["COMMENTS"].ToString().Trim() + "\r\n";
+                dtl += GetPrescriptnDetails(xrow["GROUPCODE"].ToString(), xrow["PATIENTNO"].ToString(), Convert.ToDateTime(xrow["trans_date"]).Date);
+                dtl += "\r\n\r\n";
+            }
+            dtl += " *** END-OF-CHAINED MED. HISTORY"; // FOR : " + xdate.ToShortDateString();
+
+            return dtl;
+        }
+
+        public string GetMEDHISTCaseNotes(string GroupCodeID, string PatientID, bool ByPatient, bool ByDate, DateTime xdatefrom, DateTime xdateto, billchaindtl bchain, string xsortorder)
+        {
+            MedHist medhist = new MedHist();
+            string details = "";
+            DataTable dtchained = new DataTable();
+            //  DateTime dtmin_date = msmrfunc.mrGlobals.mta_start;
+            SqlConnection connection = new SqlConnection(); connection = Dataaccess.mrConnection();
+            SqlCommand selectCommand = new SqlCommand();
+            selectCommand.CommandText = (ByDate) ? "MEDHIST_GetByDateCaseNote" : "MEDHIST_GetByPatientCaseNote";
+            selectCommand.Connection = connection;
+            selectCommand.CommandType = CommandType.StoredProcedure;
+
+            selectCommand.Parameters.AddWithValue("@Groupcode", GroupCodeID);
+            selectCommand.Parameters.AddWithValue("@Patientno", PatientID);
+            selectCommand.Parameters.AddWithValue("@datefrom", xdatefrom);
+            selectCommand.Parameters.AddWithValue("@dateto", xdateto);
+            selectCommand.Parameters.AddWithValue("@sortorder", xsortorder);
+            try
+            {
+                string tmpstring = "";
+                bool ftime = true;
+                //   DataTable dtdrugs = new DataTable();
+                connection.Open();
+                SqlDataReader reader = selectCommand.ExecuteReader();
+
+                //   List<Trigger> TriggerValues = new List<Trigger>();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        medhist.PATIENTNO = reader["patientno"].ToString();
+                        medhist.NAME = reader["name"].ToString();
+                        medhist.TRANS_DATE = (DateTime)reader["trans_date"];
+                        medhist.CTIME = reader["ctime"].ToString();
+                        medhist.COMMENTS = reader["comments"].ToString();
+                        medhist.GROUPCODE = reader["groupcode"].ToString();
+                        medhist.DOCTOR = (reader["doctor"] == DBNull.Value) ? "" : reader["doctor"].ToString();
+                        medhist.PROTECTED = (Decimal)reader["protected"];
+                        medhist.ENCHRYPTED = (bool)reader["ENCHRYPTED"];
+                        //update variable
+                        details += medhist.TRANS_DATE.ToShortDateString() + " : @ " + medhist.CTIME + " :- " + medhist.DOCTOR.Trim() + "  (" + bissclass.seeksay("select name from doctors where rtrim(reference) = '" + medhist.DOCTOR.Trim() + "'", "MR", "name") + ") \r\n";
+                        //17-08-2013 for chained med history
+                        /*     if (bchain.MEDHISTORYCHAINED && dtrow["patientno"].ToString() != bchain.PATIENTNO)
+							 {
+								 txtPrev_records.Text += " ==>> CHAINED MED.HISTORY FROM " + dtrow["groupcode"].ToString().Trim() + ":" + dtrow["patientno"].ToString() + " - " + dtrow["name"].ToString() + "\n";
+							 }*/
+                        //check for protect and enchryption - 14/10/2011,21.09.2016
+                        if (medhist.PROTECTED > 0 && msmrfunc.mrGlobals.nwseclevel < medhist.PROTECTED)
+                        {
+                            tmpstring = medhist.ENCHRYPTED ? "and ENCHRYPTED " : "";
+                            details += " *** PROTECTED " + tmpstring + " PATIENT MEDICAL HISTORY ***" + "\r\n";
+                            tmpstring += Enumerable.Repeat("-", 144);
+                            tmpstring += "\r\n";
+                        }
+                        else
+                        {
+                            details += medhist.COMMENTS.Trim() + "\r\n";
+
+                            //get drugs from prescription
+                            details += GetPrescriptnDetails(medhist.GROUPCODE, medhist.PATIENTNO, medhist.TRANS_DATE);
+
+                            //check for chained medic history for this date
+                            if (bchain != null && bchain.MEDHISTORYCHAINED && ftime) //16.03.2019
+                            {
+                                // if (ftime) //get chained recoreds
+                                // {
+                                dtchained = GetChainedPatNo(bchain); //gets chained patient numbers
+                                details += GetChainedRecords(bchain, dtchained, medhist.TRANS_DATE); //gets medi recs 
+                                                                                                     // }
+                                ftime = false;
+                            }
+                        }
+                        details += string.Concat(Enumerable.Repeat("-", 144));
+                        details += "\r\n";
+                    }
+                }
+
+                reader.Close();
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                //throw ex;
+   //             MessageBox.Show("" + ex, "Patient Medical Details ", MessageBoxButtons.OK,
+   //MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                connection.Close();
+                return null;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return details;
+        }
+
+        void medhistryRev(bool allrecords, Admrecs admrecs, billchaindtl bchain, DateTime dateFrom, 
+            DateTime dateTo, bool revChkQueryBackup)
+        {
+            DateTime startdate, enddate;
+
+            if (allrecords)
+            {
+                startdate = admrecs.ADM_DATE.AddDays(-30);
+                enddate = DateTime.Now.Date;// (DateTime.Now.Date - admrecs.ADM_DATE).TotalDays > 7 ? DateTime.Now.Date.AddDays(-7) : admrecs.ADM_DATE;
+            }
+            else
+            {
+                startdate = dateFrom.Date;
+                enddate = dateTo.Date;
+            }
+
+            DateTime historyDateFrom = startdate; //dtHistoryDatefrom.Value
+            DateTime historyDateTo = enddate; //dtHistoryDateto.Value
+
+            vm.REPORTS.REPORT_TYPE3 = string.Format("{0:yyyy-MM-dd}", historyDateFrom);
+            vm.REPORTS.REPORT_TYPE4 = string.Format("{0:yyyy-MM-dd}", historyDateTo);
+
+            if (revChkQueryBackup)
+            {
+                //this.txtPreviousRecRev.BackColor = System.Drawing.Color.White;
+                //this.txtPreviousRecRev.ForeColor = System.Drawing.Color.Blue;
+                vm.REPORTS.REPORT_TYPE5 = MedHist.GetMEDHISTBKUPCaseNotes(bchain.GROUPCODE, bchain.PATIENTNO, 
+                    historyDateFrom, historyDateTo); //txtPreviousRecRev.Text
+                //LightGray 
+            }
+            else
+            {
+                //this.txtPreviousRecRev.BackColor = System.Drawing.Color.LightGray;
+                //this.txtPreviousRecRev.ForeColor = System.Drawing.Color.Black;
+                vm.REPORTS.REPORT_TYPE5 = GetMEDHISTCaseNotes(bchain.GROUPCODE, bchain.PATIENTNO, 
+                    false, true, startdate, enddate, bchain, "DESC"); //txtPreviousRecRev.Text
+            }
+            return;
+        }
+
+        public billchaindtl Getbillchain(string PatientID, string groupcode)
+        {
+            billchaindtl bchain = new billchaindtl();
+
+            SqlConnection connection = new SqlConnection(); connection = Dataaccess.mrConnection();
+            SqlCommand selectCommand = new SqlCommand();
+            selectCommand.CommandText = string.IsNullOrWhiteSpace(groupcode) ? "BILLCHAIN_checkpatno" : "BILLCHAIN_Get"; //"spGetPatient";
+            selectCommand.Connection = connection;
+            selectCommand.CommandType = CommandType.StoredProcedure;
+
+            selectCommand.Parameters.AddWithValue("@GroupCode", groupcode);
+            selectCommand.Parameters.AddWithValue("@PatientNo", PatientID);
+
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = selectCommand.ExecuteReader(CommandBehavior.SingleRow);
+                if (reader.Read())
+                {
+                    bchain.GROUPCODE = reader["groupcode"].ToString();
+                    bchain.PATIENTNO = reader["patientno"].ToString();
+                    bchain.GROUPHEAD = reader["grouphead"].ToString();
+                    bchain.NAME = reader["name"].ToString();
+                    bchain.REG_DATE = (DateTime)reader["reg_date"];
+                    bchain.POSTED = (bool)reader["posted"];
+                    bchain.POST_DATE = (DateTime)reader["post_date"];
+                    bchain.GROUPHTYPE = reader["grouphtype"].ToString();
+                    bchain.STAFFNO = reader["staffno"].ToString();
+                    bchain.RELATIONSH = reader["relationsh"].ToString();
+                    bchain.SECTION = reader["section"].ToString();
+                    bchain.DEPARTMENT = reader["department"].ToString();
+                    bchain.CUR_DB = (Decimal)reader["cur_db"];
+                    bchain.STATUS = reader["status"].ToString();
+                    bchain.SEX = reader["sex"].ToString();
+                    bchain.M_STATUS = reader["m_status"].ToString();
+                    bchain.BIRTHDATE = (DateTime)reader["birthdate"];
+                    bchain.CUMVISITS = (Decimal)reader["cumvisits"];
+                    bchain.HMOCODE = reader["hmocode"].ToString();
+                    bchain.PATCATEG = reader["patcateg"].ToString();
+                    bchain.RESIDENCE = reader["residence"].ToString();
+                    bchain.GHGROUPCODE = reader["ghgroupcode"].ToString();
+                    bchain.HMOSERVTYPE = reader["hmoservtype"].ToString();
+                    bchain.BILLONACCT = reader["billonacct"].ToString();
+                    bchain.CURRENCY = reader["currency"].ToString();
+                    bchain.OPERATOR = reader["operator"].ToString();
+                    bchain.DTIME = (DateTime)reader["dtime"];
+                    bchain.EXPIRYDATE = (DateTime)reader["expirydate"];
+                    bchain.ASTNOTES = (bool)reader["astnotes"];
+                    bchain.CLINIC = reader["clinic"].ToString();
+                    bchain.PHONE = reader["phone"].ToString();
+                    bchain.EMAIL = reader["email"].ToString();
+                    bchain.PICLOCATION = reader["piclocation"].ToString();
+                    bchain.SURNAME = reader["surname"].ToString();
+                    bchain.OTHERNAMES = reader["othernames"].ToString();
+                    bchain.TITLE = reader["title"].ToString();
+                    bchain.SPNOTES = reader["spnotes"].ToString();
+                    bchain.MEDNOTES = reader["mednotes"].ToString();
+                    bchain.MEDHISTORYCHAINED = (bool)reader["medhistorychained"];
+                    bchain.PATIENTNO_PRINCIPAL = reader["patientno_principal"].ToString();
+                }
+                else
+                {
+                    connection.Close();
+                    return null;
+
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                //throw ex;
+                //             MessageBox.Show("" + ex, "Get Patient Details ", MessageBoxButtons.OK,
+                //MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                connection.Close();
+                return null;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return bchain;
+        }
+
+
+        public JsonResult revAdmReferenceFocusout(string revAdmReference, string woperator, string msection, 
+            string revHistDateFrom, string revHistDateTo, bool revChkQueryBackup)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            Admrecs admrecs = new Admrecs();
+            billchaindtl bchain = new billchaindtl();
+            DataTable dtdiag = Dataaccess.GetAnytable("", "CODES", "SELECT TYPE_CODE, NAME FROM DIAGNOSISCODES order by name", true);
+            DataTable dt = Dataaccess.GetAnytable("", "MR",
+               "select wseclevel, CANDELETE, CANALTER, CANADD from mrstlev where operator = '" + woperator + "'", false);
+
+            int mdoc_seclevel = (Int32)dt.Rows[0]["wseclevel"];
+
+            DateTime dateFrom = Convert.ToDateTime(revHistDateFrom);
+            DateTime dateTo = Convert.ToDateTime(revHistDateTo);
+
+            if (revAdmReference.Substring(0, 1) != "A")
+            {
+                vm.REPORTS.txtreference = bissclass.autonumconfig(revAdmReference, true, "A", "999999999");
+            }
+
+            //check if reference exist
+            //AnyCode = Anycode1 = "";
+            admrecs = Admrecs.GetADMRECS(revAdmReference);
+
+            if (admrecs == null) //new defintion
+            {
+                vm.REPORTS.alertMessage = "Invalid Admission Reference...";
+                vm.REPORTS.txtreference = "";
+                return Json(vm, JsonRequestBehavior.AllowGet);
+            }
+
+            vm.REPORTS.mreference = vm.REPORTS.txtreference;
+            vm.REPORTS.mgrouphtype = admrecs.GROUPHTYPE;
+            vm.REPORTS.txtpatientno = admrecs.PATIENTNO;
+            vm.REPORTS.txtgroupcode = admrecs.GROUPCODE;
+            vm.REPORTS.lblbillspayable = admrecs.FACILITY; // lblfacilityRev.Text
+            vm.REPORTS.TXTPATIENTNAME = admrecs.NAME;
+            vm.REPORTS.txtRoom = admrecs.ROOM;
+            vm.REPORTS.txtBed = admrecs.BED;
+            vm.REPORTS.diagnosis = bissclass.combodisplayitemCodeName("type_code", admrecs.DIAGNOSIS, dtdiag, "name");
+
+            if (vm.REPORTS.diagnosis.Trim() != admrecs.DIAGNOSIS_ALL && !string.IsNullOrWhiteSpace(admrecs.DIAGNOSIS_ALL))
+                vm.REPORTS.diagnosis = admrecs.DIAGNOSIS_ALL.Trim();
+
+            vm.REPORTS.REPORT_TYPE1 = admrecs.ADM_DATE.ToShortDateString(); //txtadm_dateRev.Text
+            vm.REPORTS.REPORT_TYPE2 = admrecs.DISCHARGE; //txtDischargeDateRev.Text
+            DateTime xdischarge = string.IsNullOrWhiteSpace(admrecs.DISCHARGE) ? DateTime.Now.Date : Convert.ToDateTime(admrecs.DISCHARGE);
+            vm.REPORTS.lblStaffNumber = xdischarge.Subtract(admrecs.ADM_DATE).TotalDays.ToString() + " day(s)"; //lblLenghtofStay_Rev.Text
+            vm.REPORTS.mgrouphead = admrecs.GROUPHEAD;
+            
+            bchain = Getbillchain(admrecs.PATIENTNO, admrecs.GROUPCODE);
+
+            if (bchain == null)
+            {
+                return Json(vm, JsonRequestBehavior.AllowGet);
+            }
+
+            vm.REPORTS.txtaddress1 = bchain.RESIDENCE;
+            vm.REPORTS.txtsurname = patientprofile(bchain); //edtprofileRev.Text
+            vm.REPORTS.txtgrouphead = getgrouphead(bchain.GROUPHEAD, bchain.GHGROUPCODE, bchain.GROUPHTYPE);
+
+            if (vm.REPORTS.txtgrouphead.Trim() == "Abort")
+            {
+                //txtreferenceRev.Focus();
+                return Json(vm, JsonRequestBehavior.AllowGet);
+            }
+
+            //displayPatientPicture(this.pictureBox_Rev, bchain.PICLOCATION);
+            if (admrecs.DISCHARGE != "")
+            {
+                vm.REPORTS.ActRslt = "This Patient has been discharged on " + admrecs.DISCHARGE + "," + admrecs.NAME;
+                return Json(vm, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                vm.REPORTS.chkADVCorporate = true; //btnSaveRev.Enabled
+                vm.REPORTS.chkApplyFilter = true; // btnObservationChart.Enabled = btnFluidChatRev.Enabled = btnDiabeticChatRev.Enabled = btnInPrescRev.Enabled = true;
+
+                if (msection == "4" && mdoc_seclevel >= 5)
+                    vm.REPORTS.chkByBranch = true; // chkProtectRev.Enabled = chkEncryptRev.Enabled = true;
+
+                medhistryRev(true, admrecs, bchain, dateFrom, dateTo, revChkQueryBackup);
+                ImageInfo(admrecs);
+
+                vm.REPORTS.txtdiscount = getAccummulatedCharge(revAdmReference, admrecs.ACAMT); //nmrCummAmt_Rev.Value
+                //dtTreatmentDateRev.Focus();
+            }
+
+            return Json(vm, JsonRequestBehavior.AllowGet);
+        }
+
+        //Service Update
+        public JsonResult xSaveNoteBtnClick(string xSpecInstText, string xMedNoteText, string xmgroupcode, string xmpatientno)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+
+            frmSpInstnMednotes formObject = new frmSpInstnMednotes(vm);
+            vm.REPORTS = formObject.btnSubmit_Click(xSpecInstText, xMedNoteText, xmgroupcode, xmpatientno);
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult trtmentInpPrescAddBtnClicked(string phProcess, string given)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            bool iscostcentrestores;
+
+            DataTable dt = Dataaccess.GetAnytable("", "MR", "select facilauto from mrcontrol where recid = '5'", false);
+
+            iscostcentrestores = (bool)dt.Rows[0]["facilauto"];
+
+            if (iscostcentrestores && phProcess == "NO" && given == "0")
+            {
+                vm.REPORTS.alertMessage = "This Item has not been transferred from Pharmacy... CAN'T ADD TO CHART UNTIL PHARMACY HAS WORKED ON IT. TKS!!!";
+                return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+            }
+
+            vm.REPORTS.chkADVCorporate = true; //panel_TF.Visible
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult trtmentInpPrescBtnClicked(string trtmentReference)
+        {
+            vm.INPDISPENSAS = ErpFunc.RsGet<MR_DATA.INPDISPENSA>("MR_DATA",
+                "select trans_date, itemno, stk_item, stk_desc, qty_pr, cumgv, unit, dose, duration, cdose, cinterval, " + 
+                "cduration, unitcost, cost, rx, doctor, stkbal, recid, posted, qty_gv, phtransferred, sp_inst, interval " + 
+                "from inpdispensa where reference = '" + trtmentReference + "' and posted = '0' order by trans_date");
+
+            return Json(vm.INPDISPENSAS, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult trtmentRemoveBtnClick(decimal stkBalance, string recId)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+
+            if (stkBalance > 0)
+            {
+                string updatestring = "DELETE from duenext WHERE RECID = '" + recId + "' ";
+
+                bissclass.UpdateRecords(updatestring, "MR");
+            }
+
+            //dataGridView1.Rows.RemoveAt(recno);
+            vm.REPORTS.alertMessage = "Record Deleted...";
+            //recno = 0;
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult trtmentSubmitBtnClick(IEnumerable<MR_DATA.REPORTS> tableList, string trtmentReference, string trtmentUnit)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            vm.REPORTS.txtreference = trtmentReference;
+            vm.REPORTS.comhmoservgrp = trtmentUnit; 
+            //string woperato = Request.Cookies["mrName"].Value;
+
+            frmTreatmentChart formObject = new frmTreatmentChart(vm);
+            vm.REPORTS = formObject.btnSubmit_Click(tableList);
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        void writeAdmdetails(bool xnewrec, string xreference, DateTime xdate, string xtime, string xprocess, 
+            string masterprocess, string stkitemcode, string xdescription, string unit, decimal qty, decimal xamount, 
+            bool posted, DateTime postdate, string xoperator, DateTime opdatetime, string groupcode, string patientno, 
+            string doctor, string facility, int recid, string xstore)
+        {
+            // DateTime dtmin_date = (DateTime)System.Data.SqlTypes.SqlDateTime.MinValue;
+            SqlConnection connection = new SqlConnection(); connection = Dataaccess.mrConnection();
+            SqlCommand insertCommand = new SqlCommand();
+            insertCommand.CommandText = (xnewrec) ? "Admdetai_Add" : "Admdetai_Update";
+            insertCommand.Connection = connection;
+            insertCommand.CommandType = CommandType.StoredProcedure;
+
+            insertCommand.Parameters.AddWithValue("@reference", xreference);
+            insertCommand.Parameters.AddWithValue("@trans_date", xdate);
+            insertCommand.Parameters.AddWithValue("@time", xtime);
+            insertCommand.Parameters.AddWithValue("@mastprocess", masterprocess);
+            insertCommand.Parameters.AddWithValue("@process", xprocess);
+            insertCommand.Parameters.AddWithValue("@stk_item", stkitemcode);
+            insertCommand.Parameters.AddWithValue("@description", xdescription);
+            insertCommand.Parameters.AddWithValue("@unit", unit);
+            insertCommand.Parameters.AddWithValue("@qty", qty);
+            insertCommand.Parameters.AddWithValue("@amount", xamount);
+            insertCommand.Parameters.AddWithValue("@posted", posted);
+            insertCommand.Parameters.AddWithValue("@post_date", postdate);
+            insertCommand.Parameters.AddWithValue("@operator", xoperator);
+            insertCommand.Parameters.AddWithValue("@op_time", opdatetime);
+            insertCommand.Parameters.AddWithValue("@groupcode", groupcode);
+            insertCommand.Parameters.AddWithValue("@patientno", patientno);
+            insertCommand.Parameters.AddWithValue("@doctor", doctor);
+            insertCommand.Parameters.AddWithValue("@facility", facility);
+            insertCommand.Parameters.AddWithValue("@store", xstore);
+            if (!xnewrec)
+                insertCommand.Parameters.AddWithValue("@recid", recid);
+            try
+            {
+                connection.Open();
+                insertCommand.ExecuteNonQuery();
+                //return true;
+
+            }
+            catch (SqlException ex)
+            {
+                // throw ex;
+                vm.REPORTS.alertMessage = "SQL access" + ex;
+                return;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+        }
+
+        void writeTransmast(DateTime trans_date, string store, string stkcode, string transdescription, string updatetype,
+            decimal updateqty, string reference, bool toadd, string xoperator, DateTime operatordttime, string purpose)
+        {
+            //get stock information
+            Stock stock = new Stock();
+            stock = Stock.GetStock(store, stkcode, false);
+            decimal stkbalance = toadd ? stock.StockQty + updateqty : stock.StockQty - updateqty;
+
+            DateTime dtmin_date = (DateTime)System.Data.SqlTypes.SqlDateTime.MinValue;
+            SqlConnection connection = new SqlConnection(); connection = Dataaccess.stkConnection();
+            SqlCommand insertCommand = new SqlCommand();
+            insertCommand.CommandText = "TRANSMAS_Add";
+            insertCommand.Connection = connection;
+            insertCommand.CommandType = CommandType.StoredProcedure;
+
+            insertCommand.Parameters.AddWithValue("@Ref_No", reference);
+            insertCommand.Parameters.AddWithValue("@Trans_Date", trans_date);
+            insertCommand.Parameters.AddWithValue("@TransType", updatetype);
+            insertCommand.Parameters.AddWithValue("@Store", store);
+            insertCommand.Parameters.AddWithValue("@Item", stkcode);
+            insertCommand.Parameters.AddWithValue("@Descript", transdescription);
+            insertCommand.Parameters.AddWithValue("@Trans_Qty", updateqty);
+            insertCommand.Parameters.AddWithValue("@Stock_Bal", stkbalance);
+            insertCommand.Parameters.AddWithValue("@Cost", stock.Cost);
+            insertCommand.Parameters.AddWithValue("@Sell", stock.Sell);
+            insertCommand.Parameters.AddWithValue("@Posted", false);
+            insertCommand.Parameters.AddWithValue("@Bin", stock.Bin);
+            insertCommand.Parameters.AddWithValue("@Type", stock.Type);
+            insertCommand.Parameters.AddWithValue("@RecType", stock.RecType);
+            insertCommand.Parameters.AddWithValue("@Unit", stock.Unit);
+            insertCommand.Parameters.AddWithValue("@Costval", stock.costval);
+            insertCommand.Parameters.AddWithValue("@Whsell", stock.Whsell);
+            insertCommand.Parameters.AddWithValue("@Operator", xoperator);
+            insertCommand.Parameters.AddWithValue("@dtime", operatordttime);
+            insertCommand.Parameters.AddWithValue("@usize", stock.Usize);
+            insertCommand.Parameters.AddWithValue("@Sellval", stock.Sellval);
+            insertCommand.Parameters.AddWithValue("@FcCost", stock.Fccost);
+            insertCommand.Parameters.AddWithValue("@Fcsell", stock.Fcsell);
+            insertCommand.Parameters.AddWithValue("@Currency", stock.Currency);
+            insertCommand.Parameters.AddWithValue("@Status", stock.Status);
+            insertCommand.Parameters.AddWithValue("@purpose", purpose);
+
+            try
+            {
+                connection.Open();
+                insertCommand.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                vm.REPORTS.alertMessage = "" + ex;
+                return;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public JsonResult trtmentTbodyClick(MR_DATA.DUENEXT rowList, bool trtmentChkStore, string trtmentUnit, 
+            string trtmentName, string trtmentReference, string trtmentProcBillCode, bool medhistwritten)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+
+            Admrecs admrec = new Admrecs();
+
+            //check if reference exist
+            admrec = Admrecs.GetADMRECS(trtmentReference);
+
+            //TOTAL COST AND BILL QTY GREATER THAN 0, CHECK AND UPDATE ADMDETAIL
+            if (Convert.ToDecimal(rowList.COST) >= 1 && Convert.ToDecimal(rowList.BILLQTY) >= 1)
+            {
+                if (!string.IsNullOrWhiteSpace(rowList.STK_ITEM)) //DRUGCODE
+                {
+                    string xfile = trtmentChkStore ? "stockmas" : "stock";
+                    DataTable dt = Dataaccess.GetAnytable("", "MR", "SELECT stock_qty,cost,type from " + xfile + " where item = '" + 
+                        rowList.PACKQTY.ToString() + "' and store = '" + trtmentUnit + "'", false);
+
+                    if (dt.Rows.Count < 1)
+                    {
+                        vm.REPORTS.alertMessage = rowList.STK_DESC + " is NOT defined in " + trtmentUnit.Trim() + 
+                            " \r\n This item can't be processed... Check Selections and Try Again!";
+                        return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+                    }
+
+                    if ((decimal)dt.Rows[0]["stock_qty"] < Convert.ToDecimal(rowList.BILLQTY))
+                    {
+                        vm.REPORTS.alertMessage = "There is not enough qty in stock to service request for " + rowList.STK_DESC;
+                        return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+                    }
+
+                    //update transmas if store checked
+                    if (trtmentChkStore)
+                    {
+                        writeTransmast(Convert.ToDateTime(rowList.TRANS_DATE), trtmentUnit, rowList.STK_ITEM, rowList.STK_DESC,
+                            "I", Convert.ToDecimal(rowList.BILLQTY), trtmentReference, true, msmrfunc.mrGlobals.WOPERATOR, 
+                            DateTime.Now, trtmentProcBillCode);
+                    }
+                    else
+                    {
+                        string updatestring = "update stockmas set stock_qty = stock_qty - '" + Convert.ToDecimal(rowList.BILLQTY) + 
+                            "' where store = '" + trtmentUnit + "' and item = '" + rowList.STK_ITEM + "'";
+                        bissclass.UpdateRecords(updatestring, "SMS");
+
+                        SqlConnection connection = new SqlConnection(); connection = Dataaccess.mrConnection();
+                        SqlCommand selectCommand = new SqlCommand();
+                        selectCommand.CommandText = "STKTRANS_Add";
+                        selectCommand.Connection = connection;
+                        selectCommand.CommandType = CommandType.StoredProcedure;
+                        DataRow row = dt.Rows[0];
+                        connection.Open();
+                        selectCommand.Parameters.AddWithValue("@Reference", trtmentReference);
+                        selectCommand.Parameters.AddWithValue("@TRANS_DATE", Convert.ToDateTime(rowList.TRANS_DATE));
+                        selectCommand.Parameters.AddWithValue("@TRANSTYPE", "I");
+                        selectCommand.Parameters.AddWithValue("@STORE", trtmentUnit);
+                        selectCommand.Parameters.AddWithValue("@ITEM", rowList.STK_ITEM);
+                        selectCommand.Parameters.AddWithValue("@DESCRIPTION", rowList.STK_DESC);
+                        selectCommand.Parameters.AddWithValue("@TRANS_QTY", Convert.ToDecimal(rowList.BILLQTY));
+                        selectCommand.Parameters.AddWithValue("@STOCK_BAL,", (decimal)row["STOCK_QTY"] - Convert.ToDecimal(rowList.BILLQTY));
+                        selectCommand.Parameters.AddWithValue("@COST", (decimal)row["cost"]);
+                        selectCommand.Parameters.AddWithValue("@SELL", Convert.ToDecimal(rowList.UNITCOST));
+                        selectCommand.Parameters.AddWithValue("@POSTED", true);
+                        selectCommand.Parameters.AddWithValue("@BIN", "");
+                        selectCommand.Parameters.AddWithValue("@TYPE", row["type"].ToString());
+                        selectCommand.Parameters.AddWithValue("@UNIT", rowList.BILLQTYUNIT);
+                        selectCommand.Parameters.AddWithValue("@RECTYPE", "I");
+                        selectCommand.Parameters.AddWithValue("@U_SIZE", 0m);
+                        selectCommand.Parameters.AddWithValue("@COSTVAL", 0m);
+                        selectCommand.Parameters.AddWithValue("@SELLVAL", 0m);
+                        selectCommand.Parameters.AddWithValue("@WHSELL", 0m);
+                        selectCommand.Parameters.AddWithValue("@OPERATOR", msmrfunc.mrGlobals.WOPERATOR);
+                        selectCommand.Parameters.AddWithValue("@DTIME", DateTime.Now);
+
+                        selectCommand.ExecuteNonQuery();
+
+                        connection.Close();
+                    }
+                }
+
+                writeAdmdetails(true, trtmentReference, Convert.ToDateTime(rowList.TRANS_DATE), rowList.TIMEGIVEN, 
+                    trtmentProcBillCode, trtmentProcBillCode, rowList.STK_ITEM, rowList.STK_DESC, rowList.BILLQTYUNIT, 
+                    Convert.ToDecimal(rowList.BILLQTY), Convert.ToDecimal(rowList.COST), false, DateTime.Now,
+                    msmrfunc.mrGlobals.WOPERATOR, DateTime.Now, admrec.GROUPCODE, admrec.PATIENTNO, "", "", 0, trtmentUnit);
+
+                Admrecs.UpdateAdmrecAmounts(trtmentReference, Convert.ToDecimal(rowList.COST), 0m);
+            }
+
+            string billat = Convert.ToDecimal(rowList.BILLQTY) == 0 ? "0" : Convert.ToDecimal(rowList.BILLQTY) + " " + 
+                rowList.BILLQTYUNIT + " = " + rowList.COST.ToString() + " BY " + msmrfunc.mrGlobals.WOPERATOR;
+
+            string xcomments = rowList.STK_DESC.Trim() + " Givern : " + rowList.TIMEGIVEN + " Dose : " + rowList.DOSE.ToString() + 
+                " " + rowList.UNIT + "\r\n Billed at " + billat;
+
+            //update med history file
+            MedHist medhist = MedHist.GetMEDHIST(admrec.GROUPCODE, admrec.PATIENTNO, "", false, true,
+                Convert.ToDateTime(rowList.TRANS_DATE), "DESC");
+
+            bool newhist = (medhist == null) ? true : false;
+
+            if (!newhist)
+            {
+                xcomments = medhist.COMMENTS.Trim() + "\r\n" + xcomments.Trim();
+            }
+
+            if (!medhistwritten)
+            {
+                xcomments = "==> IN-PATIENT PRESCRIPTIONS (Given):" + DateTime.Now.ToString("dd-MM-yyyy @ HH:mm:sst") + 
+                    " : " + msmrfunc.mrGlobals.WOPERATOR + "\r\n" + xcomments;
+
+                vm.REPORTS.chkAuditProfile = true; //for medhistwritten
+            }
+
+            MedHist.updatemedhistcomments(admrec.GROUPCODE, admrec.PATIENTNO, Convert.ToDateTime(rowList.TRANS_DATE), 
+                xcomments, newhist, admrec.REFERENCE, admrec.NAME, admrec.GHGROUPCODE, admrec.GROUPHEAD, "");
+
+            vm.REPORTS.ActRslt = "Completed...";
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult suTreatmentChtBtnClick(string suAdminReference)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            Admrecs admrec = new Admrecs();
+
+            //check if reference exist
+            admrec = Admrecs.GetADMRECS(suAdminReference);
+
+            if (admrec == null)
+            {
+                vm.REPORTS.alertMessage = "A patient admission record must be specified...";
+                return Json(vm, JsonRequestBehavior.AllowGet);
+            }
+
+
+            vm.REPORTS.txtreference = admrec.REFERENCE;
+            vm.REPORTS.txtgroupcode = admrec.GROUPCODE;
+            vm.REPORTS.txtpatientno = admrec.PATIENTNO;
+            vm.REPORTS.TXTPATIENTNAME = admrec.NAME;
+            vm.REPORTS.diagnosis = admrec.DIAGNOSIS;
+            vm.REPORTS.REPORT_TYPE1 = admrec.ADM_DATE.ToString(); 
+            vm.REPORTS.txtBed = admrec.BED;
+            vm.REPORTS.txtRoom = admrec.ROOM;
+            vm.REPORTS.combFacility = admrec.FACILITY;
+
+            vm.DUENEXTS = ErpFunc.RsGet<MR_DATA.DUENEXT>("MR_DATA",
+                "SELECT * FROM DUENEXT WHERE REFERENCE = '"+ suAdminReference + "'");
+
+
+            return Json(vm, JsonRequestBehavior.AllowGet);
+        }
+
+        void AutogenerateCharge(string xtype, DataRow xrow, DataRow xrow1, string acc_code)
+        {
+            DataTable dispserv = DISPSERV.GetDISPSERV();
+
+            string woperator = Request.Cookies["mrName"].Value;
+            string mbillcode = "";
+            decimal xamt = 0m;
+
+            if (xtype == "A") //accommodation
+            {
+                mbillcode = acc_code;
+                xamt = (decimal)xrow["rate"];
+            }
+            else if (xtype == "F")
+            {
+                mbillcode = xrow1["regcode"].ToString();
+                xamt = (decimal)xrow["dailyfeeding"];
+            }
+            else
+            {
+                mbillcode = xrow1["conscode"].ToString();
+                xamt = (decimal)xrow["dailypnc"];
+            }
+
+            //check, just in case nurses had raised bill manually before now
+            DataTable dt = Dataaccess.GetAnytable("", "MR", "SELECT reference from admdetai where reference = '" + xrow["reference"].ToString() + 
+                "' and trans_date = '" + DateTime.Now.ToShortDateString() + "' and process = '" + mbillcode + "'", false);
+
+            if (dt.Rows.Count > 0)
+                return;
+
+            string masterprocess, xds; masterprocess = xds = "";
+
+            foreach (DataRow row in dispserv.Rows)
+            {
+                if (xtype == "A" && row["description"].ToString().Contains("ACCOMMODATION") ||
+                    xtype == "F" && row["description"].ToString().Contains("FEEDING") ||
+                    xtype == "P" && row["description"].ToString().Contains("NURSING") ||
+                    xtype == "P" && row["description"].ToString().Contains("PROF"))
+                {
+                    xds = row["description"].ToString();
+                    masterprocess = row["reference"].ToString();
+                    break;
+                }
+            }
+
+            dt = Dataaccess.GetAnytable("", "MR", "select name from tariff where reference = '" + mbillcode + "'", false);
+
+            if (dt.Rows.Count > 0)
+                xds = dt.Rows[0]["name"].ToString();
+
+            ADMDETAI.writeAdmdetails(true, xrow["reference"].ToString(), DateTime.Now.Date, DateTime.Now.ToLongTimeString(), mbillcode, 
+                masterprocess, "", xds, "", 0m, xamt, false, DateTime.Now, woperator, DateTime.Now, xrow["groupcode"].ToString(), 
+                xrow["patientno"].ToString(), "", xrow["facility"].ToString(), 0, "");
+
+            /* xds = "update admrecs set posted = '1', acamt = acamt + '" + xamt + "', date_bille = '"+DateTime.Now.Date+"' where reference = '" + xrow["reference"].ToString();
+             bissclass.UpdateRecords(xds, "MR");*/
+            Admrecs.UpdateAdmrecAmounts(xrow["reference"].ToString(), xamt, 0m);
+
+        }
+
+        void TimerProcess()
+        {
+            DataTable dt1 = Dataaccess.GetAnytable("", "MR",
+              "select fccode, facilauto, facilauto, facilauto, glintenabl, dactive, pvtcode, installed, serial, ta_post from mrcontrol order by recid", false);
+
+            bool mautoaccommodation = (bool)dt1.Rows[1]["facilauto"];
+            bool mautofeeding = (bool)dt1.Rows[2]["facilauto"];
+            bool mautopnc = (bool)dt1.Rows[3]["facilauto"];
+            string acc_code = dt1.Rows[3]["pvtcode"].ToString();
+
+            var dateNow = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
+
+            if (mautoaccommodation || mautofeeding || mautopnc)
+            {
+                DataTable dt2 = Dataaccess.GetAnytable("", "MR", 
+                    "select reference, rate, dailyfeeding, dailypnc, groupcode, patientno, facility from admrecs where discharge" + 
+                    " = '' and date_bille < '" + dateNow + "'", false);
+
+                //DataTable dt2 = Dataaccess.GetAnytable("", "MR",
+                //   "select reference, rate, dailyfeeding, dailypnc, groupcode, patientno, facility from admrecs where discharge" +
+                //   " = '' and date_bille < '" + DateTime.Now.ToShortDateString() + "'", false);
+
+
+                if (dt2.Rows.Count < 1)
+                    return;
+
+                //timer_Adm.Enabled = false;
+                // int xcount = 0;
+
+                DataTable dtc = Dataaccess.GetAnytable("", "MR", "SELECT REGCODE, conscode from mrcontrol where recid = '8'", false);
+
+                foreach (DataRow row in dt2.Rows)
+                {
+                    if (mautoaccommodation && (decimal)row["rate"] > 0)
+                        AutogenerateCharge("A", row, dtc.Rows[0], acc_code);
+                    if (mautofeeding && (decimal)row["dailyfeeding"] > 0)
+                        AutogenerateCharge("F", row, dtc.Rows[0], acc_code);
+                    if (mautopnc && (decimal)row["dailypnc"] > 0)
+                        AutogenerateCharge("P", row, dtc.Rows[0], acc_code);
+
+                    string updatestr = "update admrecs set date_bille = '" + DateTime.Now.Date + "' where reference = '" + row["REFERENCE"].ToString() + "'";
+                    bissclass.UpdateRecords(updatestr, "MR");
+                }
+
+                vm.REPORTS.alertMessage = "Completed for " + dt2.Rows.Count.ToString() + " In-Patient(s) ";
+
+                //timer_Adm.Enabled = true;
+            }
+            return;
+        }
+
+        public JsonResult suAutoGenerateBtnClick(string inpPrescAdmRef)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+
+            TimerProcess();
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        void LoadDetails(string suAdminReference, bool isduenext, string inpPrescDateFrom, 
+            string inpPrescDateTo, bool chkUnProcessed)
+        {
+            string datestr;
+            DateTime dateFrom = Convert.ToDateTime(inpPrescDateFrom);
+            DateTime dateTo = Convert.ToDateTime(inpPrescDateTo);
+
+            // mreference = "";
+            if (isduenext)
+                datestr = " posted = '0'";
+            else
+            {
+                datestr = " trans_date >= '" + dateFrom.ToShortDateString() + "' and trans_date <= '" +
+                    dateTo.ToShortDateString() + " 23:59:59.999'";
+
+                if (chkUnProcessed)
+                    datestr += " and (phtransferred = '0' OR qty_pr != cumgv)";
+            }
+
+            if (!string.IsNullOrWhiteSpace(suAdminReference))
+                datestr += " and reference = '" + suAdminReference + "'";
+
+            vm.INPDISPENSAS = ErpFunc.RsGet<MR_DATA.INPDISPENSA>("MR_DATA",
+                "select trans_date, itemno, stk_item, stk_desc, qty_pr, cumgv, unit, cdose, cinterval, cduration, " +
+                "unitcost, cost, rx, doctor, stkbal, recid, posted, qty_gv, phtransferred, phqtytransferred, name, " +
+                "groupcode, patientno, unitpurvalue from inpdispensa where " + datestr + " order by trans_date");
+
+        }
+
+        public JsonResult inpPrescLoadBtnClick(string inpPrescAdmRef, bool isduenext, string inpPrescDateFrom,
+            string inpPrescDateTo, bool chkUnProcessed)
+        {
+            LoadDetails(inpPrescAdmRef, isduenext, inpPrescDateFrom, inpPrescDateTo, chkUnProcessed);
+
+            return Json(vm.INPDISPENSAS, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult inpPrescAdmRefFocusout(string inpPrescAdmRef)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+
+            if (inpPrescAdmRef.Substring(0, 1) != "A")
+            {
+                if (bissclass.IsDigitsOnly(inpPrescAdmRef.Trim()))
+                    vm.REPORTS.txtreference = bissclass.autonumconfig(inpPrescAdmRef, true, "A", "999999999");
+            }
+
+            //check if reference exist
+            //string admreference,string groupcode,string patientno, string name
+            //AnyCode = "";
+
+            DataTable dt = Dataaccess.GetAnytable("", "MR", 
+                "select name, reference, groupcode, patientno, adm_date from admrecs where reference = '" + 
+                inpPrescAdmRef + "'", false);
+
+            if (dt.Rows.Count < 1)
+            {
+                vm.REPORTS.alertMessage = "Invalid Admission Reference...";
+                vm.REPORTS.txtreference = "";
+                return Json(vm.INPDISPENSAS, JsonRequestBehavior.AllowGet);
+            }
+
+            DataRow row = dt.Rows[0];
+            vm.REPORTS.TXTPATIENTNAME = row["name"].ToString(); //txtNameSu.Text
+            vm.REPORTS.mreference = row["reference"].ToString();
+            //mgroupcode = row["groupcode"].ToString();
+            //mpatientno = row["patientno"].ToString();
+            DateTime dateFrom = Convert.ToDateTime(row["adm_date"]).Date;
+            DateTime dateTo = DateTime.Now.Date;
+
+            vm.REPORTS.REPORT_TYPE1 = string.Format("{0:yyyy-MM-dd}", dateFrom);
+            vm.REPORTS.REPORT_TYPE2 = string.Format("{0:yyyy-MM-dd}", dateTo);
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult inpPrescLoadDetails(string xAdminReference, bool isduenext, string inpPrescDateFrom, 
+            string inpPrescDateTo, bool chkUnProcessed)
+        {
+            LoadDetails(xAdminReference, isduenext, inpPrescDateFrom, inpPrescDateTo, chkUnProcessed);
+
+            return Json(vm.INPDISPENSAS, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult suStockItemFocusout(string suStockItem, string suUnitID, string suUnitIDText, string suStockItemText,
+            bool suIsDelete, string suDateGiven, decimal SUamtsave, IEnumerable<MR_DATA.REPORTS> tableList)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+
+            decimal qtyavailable = 0m, cost = 0m, strength = 0m, stkper = 0m, packqty = 0m, pur_cost = 0m, amtsave = SUamtsave;
+            bool tocontinue = true, iscapitated = false, preauthorization = false;
+            string txtdose = "", unitid = "", xdesc = "", sutracker = "stock";
+            int autoremind_period = 0;
+            bool isdeleted = suIsDelete;
+            string woperator = Request.Cookies["mrName"].Value;
+            DateTime transDate = Convert.ToDateTime(suDateGiven);
+
+            DataTable dt = Dataaccess.GetAnytable("", "MR",
+                "select wseclevel, CANDELETE, CANALTER, CANADD from mrstlev where operator = '" + woperator + "'", false);
+
+            int mdoc_seclevel = (Int32)dt.Rows[0]["wseclevel"];
+
+            if (string.IsNullOrWhiteSpace(suUnitID))
+            {
+                vm.REPORTS.alertMessage = "Store / Dispensing Unit must be selected...";
+                return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+            }
+
+            int xv = SUDuplicateCheck(xdesc, sutracker, isdeleted, transDate, mdoc_seclevel, tableList);
+
+            if (xv < 1 || isdeleted)
+                return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+
+            if (suStockItem != null) //valid stock definition was selected - CHECK FOR VALID SELECTION
+            {
+                bool nothing = false;
+                decimal rtnamt = stockitemValidate(suStockItem, ref qtyavailable, ref tocontinue, 
+                    ref preauthorization, ref iscapitated, suStockItemText, ref txtdose, ref unitid, ref cost, 
+                    ref strength, ref stkper, ref packqty, autoremind_period, ref pur_cost, suUnitID, ref nothing);
+
+                if (!tocontinue)
+                {
+                    vm.REPORTS.cbotitle = ""; //combStkItemSu.Text
+                    vm.REPORTS.txtdiscount = 0m; //nmrAmountSu.Value
+                    // combStkItemSu.Focus();
+                    return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+                }
+
+                if (rtnamt > 0)
+                {
+                    amtsave = rtnamt;
+                    vm.REPORTS.txtdiscount = rtnamt; //nmrAmountSu.Value
+                }
+                else //we check for special discount for patient
+                {
+                    amtsave = cost; //cost of drug on general tariff
+                }
+
+                if (amtsave > 0)
+                    rtnamt = msmrfunc.applyDefineddiscountValue(amtsave);
+
+                if (preauthorization)
+                {
+                    vm.REPORTS.SessionBis = "Confirm to Initiate Pre-Authorization Request Alerts to Sections...";
+
+                    //if (result == DialogResult.Yes)
+                    //{
+                    //    preauthorizationAlert();
+                    //    return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+                    //}
+                }
+
+                vm.REPORTS.nmrPayable = amtsave;
+
+                //nmrQtySu.Focus();
+                return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+        
+        public JsonResult inPatientPresBtnClick(string xAdminReference)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            Admrecs admrecs = new Admrecs();
+            admrecs = Admrecs.GetADMRECS(xAdminReference);
+
+            if (string.IsNullOrWhiteSpace(xAdminReference) || admrecs == null)
+            {
+                vm.REPORTS.alertMessage = "Patient Record must be Selected...";
+                return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+            }
+            
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult xMedicalNotesClick(string xReference)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            Admrecs admrecs = new Admrecs();
+            admrecs = Admrecs.GetADMRECS(xReference);
+
+            if (string.IsNullOrWhiteSpace(xReference) || admrecs == null)
+            {
+                vm.REPORTS.alertMessage = "Patient Record must be Selected...";
+                return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+            }
+
+            vm.REPORTS.TXTPATIENTNAME = admrecs.NAME;
+            vm.REPORTS.txtgroupcode = admrecs.GROUPCODE;
+            vm.REPORTS.txtpatientno = admrecs.PATIENTNO;
+
+            DataTable dtnotes = Dataaccess.GetAnytable("", "MR",
+                "select SPNOTES, mednotes from billchain where groupcode = '" + vm.REPORTS.txtgroupcode +
+                "' and patientno = '" + vm.REPORTS.txtpatientno + "'", false);
+
+            if (dtnotes.Rows.Count < 1)
+                return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+
+            vm.REPORTS.edtallergies = dtnotes.Rows[0]["mednotes"].ToString().Trim(); //txtMednotes
+            vm.REPORTS.edtspinstructions = dtnotes.Rows[0]["spnotes"].ToString().Trim(); //txtSpInstructions
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult suSubmitBtnClick(IEnumerable<MR_DATA.REPORTS> tableList, string suAdminReference)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            vm.REPORTS.txtreference = suAdminReference;
+
+            string woperato = Request.Cookies["mrName"].Value;
+
+            Admissions formObject = new Admissions(vm, woperato);
+            vm.REPORTS = formObject.btnSubmitSU_Click(tableList);
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult suReturnDelete(string recID)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+
+            int xrecid = -1;
+            if (!string.IsNullOrWhiteSpace(recID))
+                xrecid = Convert.ToInt32(recID);
+
+            if (xrecid != -1)
+            {
+                string updstr = "delete from admdetai where recid = '" + xrecid + "'";
+                bissclass.UpdateRecords(updstr, "MR");
+            }
+
+            vm.REPORTS.alertMessage = "Record Deleted...";
+            vm.REPORTS.cmbdelete = false;
+            //rtnval = 0;
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        int SUDuplicateCheck(string xdesc, string sutracker, bool isdeleted, DateTime transDate, int mdoc_seclevel,
+            IEnumerable<MR_DATA.REPORTS> tableList)
+        {
+            int rtnval = 99;
+            DateTime xdate;
+            vm.REPORTS.newrec = true;
+            string recid = "";
+
+            if(tableList != null)
+            {
+                foreach (var row in tableList)
+                {
+                    xdate = Convert.ToDateTime(row.txtclinic);
+
+                    if (xdate == transDate.Date && row.edtallergies.Trim() == xdesc.Trim())
+                    {
+                        vm.REPORTS.nmr30days = Convert.ToInt32(row.txtstaffno); //recno
+                        recid = row.txtbranch;
+
+                        if (sutracker == "stock")
+                            vm.REPORTS.txtconsultamt = row.edtallergies; //combStkItemSu.Text
+                        else
+                            vm.REPORTS.txtothername = row.edtallergies; //combProcedureSu.Text
+
+                        vm.REPORTS.nmrcurdebit = Convert.ToDecimal(row.cbotype); //nmrQtySu.Value
+                        vm.REPORTS.txtemployer = row.cbotype; //combUnitSu.Text
+                        vm.REPORTS.nmrMinBalance = Convert.ToDecimal(row.txtcreditlimit); //nmrAmountSu.Value
+
+                        ServiceDuplicateOptions serviceduplicate = new ServiceDuplicateOptions();
+                        //serviceduplicate.ShowDialog();
+
+                        rtnval = msmrfunc.mrGlobals.returnvalue;
+
+                        if (rtnval < 1 || rtnval > 3)
+                        {
+                            //combProcessSu.Focus();
+                        }
+                        else if (rtnval == 1) //ADD 
+                            vm.REPORTS.newrec = true;
+                        else if (rtnval == 2)  // AMend
+                            vm.REPORTS.newrec = false;
+                        else if (rtnval == 3) //Delete
+                        {
+                            if (mdoc_seclevel < 7)
+                            {
+                                vm.REPORTS.ActRslt = "You are not allowed to delete a charted Service on this Platform\r\n\r\n Please See Systmes Administrator or Your Sectional Head";
+                                rtnval = 0;
+                                //break;
+                            }
+                            else
+                                isdeleted = true;
+                        }
+                        break;
+                    }
+                }
+            }
+
+            if (isdeleted)
+            {
+                vm.REPORTS.SessionDs = "Confirm to Delete Record..." + recid;
+
+                //if (result == DialogResult.Yes)
+                //{
+                //    int xrecid = -1;
+                //    if (!string.IsNullOrWhiteSpace(listView3.Items[recno].SubItems[14].Text))
+                //        xrecid = Convert.ToInt32(listView3.Items[recno].SubItems[14].Text);
+                //    if (xrecid != -1)
+                //    {
+                //        string updstr = "delete from admdetai where recid = '" + xrecid + "'";
+                //        bissclass.UpdateRecords(updstr, "MR");
+                //    }
+                //    listView3.Items[recno].Remove();
+                //    MessageBox.Show("Record Deleted...");
+                //    isdeleted = false;
+                //    rtnval = 0;
+                //}
+            }
+
+            return rtnval;
+        }
+
+        public JsonResult suProcedureFocusout(string suProcedure, string suAdminReference, string suDateGiven, 
+            string suStockItem, IEnumerable<MR_DATA.REPORTS> tableList)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            Admrecs admrecs = new Admrecs();
+            billchaindtl bchain = new billchaindtl();
+            string woperator = Request.Cookies["mrName"].Value;
+
+            DateTime transDate = Convert.ToDateTime(suDateGiven);
+            string sutracker = "procedure";
+            string procedure = suProcedure;
+            bool iscapitated, tocontinue;
+            bool preauthorization = false;
+            string xdesc = "", xfacility = "";
+            decimal rtnamt = 0m;
+            bool isdeleted = false;
+
+            admrecs = Admrecs.GetADMRECS(suAdminReference);
+
+            if(admrecs == null)
+            {
+                return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+            }
+
+            bchain = Getbillchain(admrecs.PATIENTNO, admrecs.GROUPCODE);
+            rtnamt = msmrfunc.getFeefromtariff(procedure, bchain.PATCATEG, ref xdesc, ref xfacility);
+
+            DataTable dt = Dataaccess.GetAnytable("", "MR",
+                "select wseclevel, CANDELETE, CANALTER, CANADD from mrstlev where operator = '" + woperator + "'", false);
+
+            int mdoc_seclevel = (Int32)dt.Rows[0]["wseclevel"];
+
+            decimal amtsave = rtnamt;
+            vm.REPORTS.nmrMinBalance = amtsave; //nmrAmountSu.Value
+            iscapitated = false;
+            tocontinue = true;
+            vm.REPORTS.txtconsultamt = suStockItem;
+
+            int xv = SUDuplicateCheck(xdesc, sutracker, isdeleted, transDate, mdoc_seclevel, tableList);
+            vm.REPORTS.cmbdelete = isdeleted;
+
+            if (xv < 1 || isdeleted)
+                return Json(vm, JsonRequestBehavior.AllowGet);
+
+            if (xv == 1)
+            {
+                vm.REPORTS.nmrMinBalance = amtsave; //nmrAmountSu.Value
+                vm.REPORTS.nmrcurdebit = 0m; //nmrQtySu.Value
+            }
+
+            //check for hmo/nhis tariff
+            if (bchain.GROUPHTYPE == "C" && !string.IsNullOrWhiteSpace(bchain.HMOSERVTYPE))
+            {
+                rtnamt = msmrfunc.hmonhistariffcheck("C", bchain.GROUPHEAD, bchain.HMOSERVTYPE, bchain.PATIENTNO, 
+                    procedure, ref preauthorization, ref iscapitated, ref tocontinue, vm.REPORTS.txtconsultamt);
+
+                if (!tocontinue)
+                {
+                    vm.REPORTS.txtothername = procedure = ""; //combProcedureSu.Text
+                    vm.REPORTS.nmrMinBalance = 0m; // nmrAmountSu.Value
+                    //combProcedureSu.Focus();
+                    return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+                }
+
+                if (rtnamt > 0)
+                {
+                    amtsave = rtnamt;
+                    vm.REPORTS.nmrMinBalance = rtnamt;
+                }
+            }
+
+            if (bchain.GROUPHTYPE == "C")
+            {
+                //we check corporate clients tariff for amount to charge
+                rtnamt = msmrfunc.othercorpClientTariffCheck(bchain.PATIENTNO, bchain.PATCATEG, ref preauthorization, 
+                    ref tocontinue, vm.REPORTS.txtconsultamt, procedure);
+
+                if (!tocontinue)
+                {
+                    vm.REPORTS.txtothername = procedure = ""; //combProcedureSu.Text
+                    vm.REPORTS.nmrMinBalance = 0m;
+                    //combProcedureSu.Focus();
+                    return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+                }
+                if (rtnamt > 0)
+                {
+                    amtsave = rtnamt;
+                    vm.REPORTS.nmrMinBalance = rtnamt;
+                }
+            }
+
+            if (rtnamt > 0) //we check for special discount for patient
+            {
+                rtnamt = msmrfunc.applyDefineddiscountValue(amtsave);
+            }
+
+            if (preauthorization)
+            {
+                vm.REPORTS.SessionBis = "Confirm to Initiate Pre-Authorization Request Alerts to Sections...";
+
+                //if (result == DialogResult.Yes)
+                //{
+                //    preauthorizationAlert();
+                //    return Json(vm, JsonRequestBehavior.AllowGet);
+                //}
+            }
+
+            //nmrQtySu.Focus();
+            vm.REPORTS.nmrPayable = amtsave;
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        void displayserivesSU(string suAdminReference)
+        {
+            vm.ADMDETAIS = ErpFunc.RsGet<MR_DATA.ADMDETAI>("MR_DATA",
+                "SELECT * FROM ADMDETAI WHERE REFERENCE='" + suAdminReference + "'");
+        }
+
+        decimal getAccummulatedCharge(string xreference, decimal oldamt)
+        {
+            DataTable dt = Dataaccess.GetAnytable("", "MR", "select sum(amount) as amount from admdetai where reference = '" + xreference + "'", false);
+
+            if (dt.Rows.Count < 1)
+                return 0m;
+            
+            string amount = dt.Rows[0]["amount"].ToString();
+
+            if (amount.Trim() == "")
+                amount = "0";
+
+            if (Convert.ToDecimal(amount) != oldamt)
+            {
+                string updstr = "update admrecs set acamt = '" + Convert.ToDecimal(dt.Rows[0]["amount"]) + "' where reference = '" + xreference + "'";
+                bissclass.UpdateRecords(updstr, "MR");
+            }
+
+            return Convert.ToDecimal(amount);
+        }
+
+        public JsonResult suAdminReferenceFocusout(string suAdminReference)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            Admrecs admrecs = new Admrecs();
+            billchaindtl bchain = new billchaindtl();
+            DataTable dtfacility = Dataaccess.GetAnytable("", "CODES", "SELECT TYPE_CODE, NAME FROM SERVICECENTRECODES order by name ", true),
+            dtdiag = Dataaccess.GetAnytable("", "CODES", "SELECT TYPE_CODE, NAME FROM DIAGNOSISCODES order by name", true);
+
+            if (suAdminReference.Substring(0, 1) != "A")
+            {
+                if (bissclass.IsDigitsOnly(suAdminReference))
+                    vm.REPORTS.txtreference = bissclass.autonumconfig(suAdminReference, true, "A", "999999999");
+            }
+
+            //check if reference exist
+            //AnyCode = Anycode1 = "";
+            admrecs = Admrecs.GetADMRECS(suAdminReference);
+
+            if (admrecs == null) //new defintion
+            {
+                vm.REPORTS.alertMessage = "Invalid Admission Reference...";
+                vm.REPORTS.txtreference = "";
+                //txtreferenceSU.Select();
+                return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                vm.REPORTS.mgrouphtype = admrecs.GROUPHTYPE;
+                vm.REPORTS.txtpatientno = admrecs.PATIENTNO;
+                vm.REPORTS.txtgroupcode = admrecs.GROUPCODE;
+                vm.REPORTS.combFacility = bissclass.combodisplayitemCodeName("type_code", admrecs.FACILITY, dtfacility, "name"); // admrecs.FACILITY;
+                vm.REPORTS.TXTPATIENTNAME = admrecs.NAME;
+                vm.REPORTS.txtRoom = admrecs.ROOM;
+                vm.REPORTS.txtBed = admrecs.BED;
+                vm.REPORTS.diagnosis = bissclass.combodisplayitemCodeName("type_code", admrecs.DIAGNOSIS, dtdiag, "name");
+
+                if (vm.REPORTS.diagnosis.Trim() != admrecs.DIAGNOSIS_ALL && !string.IsNullOrWhiteSpace(admrecs.DIAGNOSIS_ALL))
+                    vm.REPORTS.diagnosis = admrecs.DIAGNOSIS_ALL;
+
+                vm.REPORTS.REPORT_TYPE1 = admrecs.ADM_DATE.ToShortDateString(); //for txtadm_dateSu.Text
+                vm.REPORTS.REPORT_TYPE2 = admrecs.DISCHARGE;
+                DateTime xdischarge = string.IsNullOrWhiteSpace(admrecs.DISCHARGE) ? DateTime.Now.Date : Convert.ToDateTime(admrecs.DISCHARGE);
+                vm.REPORTS.REPORT_TYPE3 = (xdischarge - admrecs.ADM_DATE).Days.ToString() + " day(s)";
+                vm.REPORTS.mgrouphead = admrecs.GROUPHEAD;
+                bchain = Getbillchain(admrecs.PATIENTNO, admrecs.GROUPCODE);
+                vm.REPORTS.txtaddress1 = bchain.RESIDENCE;
+                vm.REPORTS.txtstaffno = patientprofile(bchain); //edtprofileSu.Text
+                vm.REPORTS.txtgrouphead = getgrouphead(bchain.GROUPHEAD, bchain.GHGROUPCODE, bchain.GROUPHTYPE);
+
+                if (vm.REPORTS.txtgrouphead.Trim() == "Abort")
+                {
+                    //txtreferenceSU.Focus();
+                    return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+                }
+
+                //displayPatientPicture(this.pictureBox_SU, bchain.PICLOCATION);
+                displayserivesSU(suAdminReference);
+                vm.REPORTS.mreference = vm.REPORTS.txtreference;
+
+                if (admrecs.DISCHARGE != "") {
+                    vm.REPORTS.ActRslt = "This Patient has been discharged on " + admrecs.DISCHARGE + "," + admrecs.NAME;
+                }
+                else {
+                    vm.REPORTS.chkADVCorporate = true; //for btnTreatmtCht.Enabled
+                }
+
+                getAccummulatedCharge(admrecs.REFERENCE, admrecs.ACAMT);
+                // if (nmrCurrentTotalSU.Value != admrecs.ACAMT)
+                //     Admrecs.UpdateAdmrecAmounts(admrecs.REFERENCE, nmrCurrentTotalSU.Value, 0m);
+                vm.REPORTS.chkApplyFilter = true; //for btnInPtPrescSu.Enabled
+            }
+
+            return Json(vm, JsonRequestBehavior.AllowGet);
+        }
+
+
+        //Registration
+        public JsonResult regLoadListBtnClick()
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+
+            DataTable dt = getLinkDetails("", 0, 0m, 0m, "", false, "A", 9, "A", "");
+
+            if (dt.Rows.Count > 0)
+            {
+                frmGetlinkinfo linkinfo = new frmGetlinkinfo(dt);
+                //linkinfo.ShowDialog();
+
+                vm.REPORTS.txtreference = msmrfunc.mrGlobals.anycode; //mcrossref
+                //Anycode1 = AnyCode = "";
+                //txtreferenceReg.Focus();
+                return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult regSubmitBtnClick(MR_DATA.REPORTS dataObject)
+        {
+            vm.REPORTS = dataObject;
+
+            string woperato = Request.Cookies["mrName"].Value;
+
+            Admissions formObject = new Admissions(vm, woperato);
+            vm.REPORTS = formObject.btnSaveReg_Click();
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        void displaydetails_SpaceDef(string regFacility)
+        {
+            vm.ADMSPACES = ErpFunc.RsGet<MR_DATA.ADMSPACE>("MR_DATA",
+               "SELECT * FROM ADMSPACE WHERE FACILITY='" + regFacility + "' ORDER BY ROOM");
+        }
+
+        public JsonResult regFacilityOnChange(string regFacility)
+        {
+            displaydetails_SpaceDef(regFacility);
+
+            return Json(vm.ADMSPACES, JsonRequestBehavior.AllowGet);
+        }
+
+        void checkOutPatientBillnPay(billchaindtl bchain)
+        {
+            //15/05/2012 - we check if patient has bills from outpatient consulting for today
+            DataTable tmpbills = Dataaccess.GetAnytable("", "MR", "select billing.reference, billing.amount, paydetail.reference as Payreference, paydetail.amount as PayAmount from billing LEFT JOIN paydetail on billing.groupcode = paydetail.groupcode and billing.patientno = paydetail.patientno where billing.groupcode = '" + 
+                bchain.GROUPCODE + "' and billing.patientno = '" + bchain.PATIENTNO + "' and billing.trans_date = '" + DateTime.Now.ToShortDateString() + "'", false);
+
+            if (tmpbills.Rows.Count < 1)
+            {
+                tmpbills = Dataaccess.GetAnytable("", "MR", "select INPDISPENSA.reference from INPDISPENSA where INPDISPENSA.groupcode = '" + bchain.GROUPCODE + 
+                    "' and INPDISPENSA.patientno = '" + bchain.PATIENTNO + "' and INPDISPENSA.trans_date = '" + DateTime.Now.ToShortDateString() + "'", false);
+
+                if (tmpbills.Rows.Count < 1)
+                {
+                    tmpbills = Dataaccess.GetAnytable("", "MR", "select suspense.reference from suspense where suspense.groupcode = '" + bchain.GROUPCODE + 
+                        "' and suspense.patientno = '" + bchain.PATIENTNO + "' and suspense.trans_date = '" + DateTime.Now.ToShortDateString() + "'", false);
+
+                    if (tmpbills.Rows.Count > 0){
+                        vm.REPORTS.chkApplyFilter = true; //chkConvertbills.Visible
+                    }
+                }
+            }
+
+            if (tmpbills.Rows.Count > 0)
+            {
+                vm.REPORTS.chkApplyFilter = true; //chkConvertbills.Visible
+                vm.REPORTS.ActRslt = "Out-Patient Bills/Payments/Request(s) found for this Patient on this Visit...\r\n CONVERSION ON RECORD SAVE ! ";
+            }
+            return;
+            // combFacilityreg.Focus();
+        }
+
+        public JsonResult regPatientNoFocusout(string regPatientNo, string regGroupCode)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            billchaindtl bchain = new billchaindtl();
+            Customer customers = new Customer();
+
+            //check if patientno exists
+            bchain = Getbillchain(regPatientNo, regGroupCode);
+            if (bchain == null)
+            {
+                vm.REPORTS.alertMessage = "Invalid Patient Number...";
+                //txtPatNoReg.Text = "";
+                //txtgroupcode_Reg.Focus();
+                return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                //displayPatientPicture(this.pictureBox_Reg, bchain.PICLOCATION);
+                //we check if this patient is already admitted on different reference and not discharged
+                //Admrecs tmpadmrecs = Admrecs.GetADMRECS(bchain.GROUPCODE, bchain.PATIENTNO, " ", true);
+                DataTable tmpadmrecs = Dataaccess.GetAnytable("", "MR", "select reference, adm_date from admrecs where groupcode = '" + 
+                    bchain.GROUPCODE + "' and patientno = '" + bchain.PATIENTNO + "' and discharge = ''", false);
+
+                if (tmpadmrecs.Rows.Count > 0)
+                {
+                    vm.REPORTS.alertMessage = "This Patient is already on Admission... CHECK Admission Ref. : " + tmpadmrecs.Rows[0]["REFERENCE"].ToString().Trim();
+                    //txtPatNoReg.Text = "";
+                    //pictureBox_Reg.Image = null;
+                    //txtPatNoReg.Select();
+                    return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+                }
+
+                vm.REPORTS.mgrouphtype = bchain.GROUPHTYPE;
+                //DisplayDetailsReg();
+                vm.REPORTS.txtsurname = patientprofile(bchain); //edtprofileReg.Text
+                vm.REPORTS.txtgrouphead = getgrouphead(bchain.GROUPHEAD, bchain.GHGROUPCODE, bchain.GROUPHTYPE);
+
+                if (vm.REPORTS.txtgrouphead.Trim() == "Abort")
+                {
+                    vm.REPORTS.chkSegmented = true;
+                    //txtreferenceReg.Focus();
+                    //btnreload.PerformClick();
+                    return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+                }
+
+                vm.REPORTS.TXTPATIENTNAME = bchain.NAME;
+                //15/05/2012 - we check if patient has bills from outpatient consulting for today
+                checkOutPatientBillnPay(bchain);
+               
+                //we get defined specific bed space/feeding tariff, if corporate
+                if (bchain.GROUPHTYPE == "C")
+                {
+                    vm.REPORTS.nmrPayable = 0m; //for nmrFeedingReg.Value;
+                    vm.REPORTS.txtdiscount = 0m; //for nmrDailyRateReg.Value
+
+                    if (customers.HMO)
+                    {
+                        Hmodetail hmodetail = Hmodetail.GetHMODETAIL(bchain.GROUPHEAD, bchain.HMOSERVTYPE);
+                        if (hmodetail != null)
+                        {
+                            vm.REPORTS.nmrPayable = hmodetail.FEEDING; //nmrFeedingReg.Value
+                            vm.REPORTS.txtdiscount = hmodetail.ACCFEEDING; //nmrDailyRateReg.Value
+                        }
+                    }
+
+                    vm.REPORTS.nmrPayable = vm.REPORTS.nmrPayable < 1 ? customers.Feeding : vm.REPORTS.nmrPayable;
+                    vm.REPORTS.txtdiscount = vm.REPORTS.txtdiscount < 1 ? customers.Admissions : vm.REPORTS.txtdiscount;
+                }
+            }
+            //combFacilityreg.Focus();
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        string patientprofile(billchaindtl bchain)
+        {
+            //edtprofileRev.Text = 
+            string xtext = "[ " + bchain.SEX + " ] ;    AGE : ";
+            string xx = (bchain.BIRTHDATE.Year > 1920) ? bissclass.agecalc(bchain.BIRTHDATE, DateTime.Now.Date) :
+                (bchain.RELATIONSH == "C") ? "Minor" : (bchain.RELATIONSH == "S" || bchain.RELATIONSH == "W" ||
+                bchain.RELATIONSH == "H") ? "< Adult >" : "...";
+            string xx1 = "     M_STATUS : < " + bchain.M_STATUS + " > ";
+            xtext = xtext + xx + "; " + xx1;
+            return xtext;
+        }
+
+        void DisplayDetailsReg(Admrecs admrecs, billchaindtl bchain)
+        {
+            vm.REPORTS.mgrouphtype = admrecs.GROUPHTYPE;
+            vm.REPORTS.mgrouphead = admrecs.GROUPHEAD;
+
+            vm.REPORTS.txtpatientno = admrecs.PATIENTNO;
+            vm.REPORTS.txtgroupcode = admrecs.GROUPCODE;
+            vm.REPORTS.TXTPATIENTNAME = admrecs.NAME;
+            //combFacilityreg.Text = bissclass.combodisplayitemCodeName("type_code", admrecs.FACILITY, dtfacility, "name");
+            vm.REPORTS.combFacility = admrecs.FACILITY; //= facilitysave
+            vm.REPORTS.REPORT_TYPE1 = admrecs.ROOM;  //= roomsave
+            vm.REPORTS.REPORT_TYPE2 = admrecs.BED;  // = bedsave
+            DateTime dateReg = admrecs.ADM_DATE; //= madmdate 
+            vm.REPORTS.REPORT_TYPE3 = string.Format("{0:yyyy-MM-dd}", dateReg);
+            vm.REPORTS.txtTimeFrom = admrecs.TIME;
+            vm.REPORTS.doctor = admrecs.DOCTOR;
+            //bissclass.displaycombo(combDocReg, dtdocs, admrecs.DOCTOR, "reference");
+            //bissclass.displaycombo(combDiagReg, dtdiag, admrecs.DIAGNOSIS, "type_code");
+            //bissclass.displaycombo(combCostCtrReg, dtbranch, admrecs.UNIT, "type_code");
+
+            vm.REPORTS.txtbranch = admrecs.UNIT;
+            vm.REPORTS.txtdiscount = admrecs.RATE; //nmrDailyRateReg.Value
+            //oldrate = admrecs.RATE;
+            vm.REPORTS.nmrbalance = admrecs.DAILYPNC; //nmrPncReg.Value
+            vm.REPORTS.nmrPayable = admrecs.DAILYFEEDING;
+            vm.REPORTS.txtsurname = patientprofile(bchain); //edtprofileReg.Text
+            vm.REPORTS.REPORT_TYPE4 = admrecs.DIAGNOSIS_ALL; //diagnosis
+            //displayPatientPicture(this.pictureBox_Reg, bchain.PICLOCATION);
+        }
+
+        public JsonResult regReferenceFocusout(string regReference, decimal mlastno)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            Admrecs admrecs = new Admrecs();
+            billchaindtl bchain = new billchaindtl();
+            string woperator = Request.Cookies["mrName"].Value;
+
+            DataTable dt = Dataaccess.GetAnytable("", "MR",
+               "select wseclevel, CANDELETE, CANALTER, CANADD from mrstlev where operator = '" + woperator + "'", false);
+
+            bool mcandelete = (bool)dt.Rows[0]["candelete"];
+            bool mcanadd = (bool)dt.Rows[0]["canadd"];
+            bool mcanalter = (bool)dt.Rows[0]["canalter"];
+
+            string AnyCode = msmrfunc.mrGlobals.anycode;
+
+            if (string.IsNullOrWhiteSpace(AnyCode) || regReference.Substring(0, 1) != "A")
+            {
+                if (bissclass.IsDigitsOnly(regReference) && Convert.ToDecimal(regReference) > mlastno)
+                {
+                    vm.REPORTS.alertMessage = "Admissions Reference is out of Sequence...";
+                    vm.REPORTS.chkAuditProfile = true;
+
+                    return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+                }
+
+                if (bissclass.IsDigitsOnly(regReference))
+                    vm.REPORTS.txtreference = bissclass.autonumconfig(regReference, true, "A", "999999999");
+            }
+
+            vm.REPORTS.newrec = true;
+            AnyCode = "";
+            admrecs = Admrecs.GetADMRECS(regReference);
+
+            if (admrecs == null) //new defintion
+            {
+                vm.REPORTS.txtTimeFrom = DateTime.Now.ToShortTimeString();
+                vm.REPORTS.chkADVCorporate = true;  //chk_Reg_AdmNoticeToDoc.Checked
+            }
+            else
+            {
+                vm.REPORTS.newrec = false;
+
+                string xvalue = getgrouphead(admrecs.GROUPHEAD, admrecs.GHGROUPCODE, admrecs.GROUPHTYPE);
+                if (xvalue == "Abort")
+                {
+                    vm.REPORTS.chkAuditProfile = true;
+                    //txtreferenceReg.Focus();
+                    //btnreload.PerformClick();
+                    return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+                }
+
+                vm.REPORTS.txtgrouphead = xvalue;
+
+                bchain = Getbillchain(admrecs.PATIENTNO, admrecs.GROUPCODE);
+
+                DisplayDetailsReg(admrecs, bchain);
+
+                if (admrecs.DISCHARGE != "")
+                {
+                    vm.REPORTS.alertMessage = "This Patient has been discharged on " + admrecs.DISCHARGE + "," + admrecs.NAME;
+                    vm.REPORTS.chkAuditProfile = true;
+                    vm.REPORTS.txtreference = "";
+                    //txtreferenceReg.Select();
+                    //btnreload.PerformClick();
+                    return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+                }
+
+                if (admrecs.POSTED || admrecs.ACAMT > 0)
+                {
+                    vm.REPORTS.ActRslt = "Record is Posted... LIMITED UPDATE ALLOWED!";
+                    //txtPatNoReg.Enabled = txtgroupcode_Reg.Enabled = combFacilityreg.Enabled = combRmWdReg.Enabled = combBedReg.Enabled = dtdateregReg.Enabled = false;
+                    //lblLimitedUpdate1.Visible = lblLimitedUpdate2.Visible = lblLimitedUpdate3.Visible = lblLimitedUpdate4.Visible = lblLimitedUpdate5.Visible = lblLimitedUpdate6.Visible = true;
+                }
+                else
+                {
+                    vm.REPORTS.txtstaffno = "Record Exists";
+                    vm.REPORTS.chkApplyFilter = mcandelete ? true : false; //btnDeleteReg.Enabled
+                }
+            }
+
+            if (vm.REPORTS.newrec && mcanadd)
+                vm.REPORTS.chkbillregistration = true; //btnSaveReg.Enabled
+            else if (!vm.REPORTS.newrec && mcanalter)
+                vm.REPORTS.chkbillregistration = true; //btnSaveReg.Enabled
+
+            if (vm.REPORTS.newrec)
+                vm.REPORTS.chkByBranch = true; //txtgroupcode_Reg.Focus();
+            else if (admrecs.POSTED || admrecs.ACAMT > 0)
+                vm.REPORTS.chkCurrtAdmRev = true; //combDiagReg.Focus();
+
+                return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        void LINKDISPLAYDETAILS(string mcrossref)
+        {
+            Mrattend mrattend = new Mrattend();
+            bool payok = false;
+
+            DataTable dt1 = Dataaccess.GetAnytable("", "MR",
+                "select fccode, facilauto, facilauto, facilauto, glintenabl, dactive, pvtcode, installed, serial, ta_post from mrcontrol order by recid", false);
+
+            bool mdactive = (bool)dt1.Rows[3]["dactive"];
+
+            if (!string.IsNullOrWhiteSpace(mcrossref))
+            {
+                mrattend = Mrattend.GetMrattend(mcrossref);
+                if (mrattend == null)
+                {
+                    vm.REPORTS.alertMessage = "Unable to Link Selected Consultation Reference in Daily Attendance Register... ";
+                    //txtreferenceReg.Text = "";
+                    //txtreferenceReg.Focus();
+                    return;
+                }
+
+                vm.REPORTS.txtgroupcode = mrattend.GROUPCODE;
+                vm.REPORTS.txtpatientno = mrattend.PATIENTNO;
+                DateTime dateReg = mrattend.TRANS_DATE;
+                vm.REPORTS.REPORT_TYPE1 = string.Format("{0:yyyy-MM-dd}", dateReg);
+                vm.REPORTS.TXTPATIENTNAME = mrattend.NAME;
+                //bissclass.displaycombo(combDiagReg, dtdiag, mrattend.DIAGNOSIS, "type_code");
+                //bissclass.displaycombo(combDocReg, dtdocs, mrattend.DOCTOR, "reference");
+                vm.REPORTS.mgroupcode = mrattend.GROUPCODE;
+                vm.REPORTS.mpatientno = mrattend.PATIENTNO;
+                vm.REPORTS.mgrouphead = mrattend.GROUPHEAD;
+                vm.REPORTS.mghgroupcode = mrattend.GHGROUPCODE;
+                vm.REPORTS.mgrouphtype = mrattend.GROUPHTYPE;
+
+                //get diagnosis
+                DataTable dt = Dataaccess.GetAnytable("", "MR", "select provisional, final from pmedhdiag where reference = '" + mrattend.REFERENCE + "'", false);
+
+                if (dt.Rows.Count > 0)
+                {
+                     vm.REPORTS.REPORT_TYPE2 = dt.Rows[0]["provisional"].ToString() + ", " + 
+                        dt.Rows[0]["final"].ToString(); //txtPrimaryDiagnosis.Text
+                }
+
+                if (vm.REPORTS.mgrouphead == vm.REPORTS.mpatientno || vm.REPORTS.mgrouphtype == "P")
+                    vm.REPORTS.cashpaying = true;
+
+                if (vm.REPORTS.cashpaying)
+                    payok = msmrfunc.checklinkOK("A", mcrossref);
+
+                if (vm.REPORTS.cashpaying && mdactive && !payok)
+                {
+                    vm.REPORTS.alertMessage = "No Admission Deposit found for this Referal...";
+                    vm.REPORTS.chkAuditProfile = true;
+                    //txtreferenceReg.Text = "";
+                    // txtreferenceReg.Focus();
+                    //btnreload.PerformClick();
+                    return;
+                }
+            }
+        }
+
+        public JsonResult regReferenceFocus(string regReference, string regmcrossref)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+            decimal mlastno = 0;
+
+            string mcrossref = regmcrossref;
+
+            if (!string.IsNullOrWhiteSpace(mcrossref)) {
+                LINKDISPLAYDETAILS(mcrossref);
+            }
+
+            if (string.IsNullOrWhiteSpace(regReference))
+            {
+                vm.REPORTS.mlastno = msmrfunc.getcontrol_lastnumber("ADMIT", 8, false, mlastno, false);
+                vm.REPORTS.txtreference = vm.REPORTS.mlastno.ToString();
+            }
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+
+        //Space Definition
+        public JsonResult spacDefRelBedSpBtnClicked(string tableRecID)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+
+            string updstr = "update admspace set occupant = '' where recid = '" + tableRecID + "'";
+            bissclass.UpdateRecords(updstr, "MR");
+            vm.REPORTS.alertMessage = "Record Updated...";
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        bool DeleteAdmSpace(string xfacility, string room, string bed)
+        {
+            SqlConnection connection = new SqlConnection(); connection = Dataaccess.mrConnection();
+            SqlCommand deleteStatement = new SqlCommand();
+            deleteStatement.CommandText = "admspace_Delete";
+            deleteStatement.Connection = connection;
+            deleteStatement.CommandType = CommandType.StoredProcedure;
+
+            deleteStatement.Parameters.AddWithValue("@Facility", xfacility);
+            deleteStatement.Parameters.AddWithValue("@Room", room);
+            deleteStatement.Parameters.AddWithValue("@Bed", bed);
+
+            try
+            {
+                connection.Open();
+                int count = deleteStatement.ExecuteNonQuery();
+
+                if (count > 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch (SqlException ex)
+            {
+                //throw ex;
+                vm.REPORTS.alertMessage = "" + ex;
+                return false;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public JsonResult spacDefDeleteBtnClicked(string spacDefFacility, string spacDefRoom, string spacDefBedNo)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+
+            if (DeleteAdmSpace(spacDefFacility, spacDefRoom, spacDefBedNo))
+            {
+                vm.REPORTS.alertMessage = "Deleted Successfully";
+            };
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult spacDefSubmitBtnClicked(IEnumerable<MR_DATA.REPORTS> tableList)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+
+            vm.REPORTSS = tableList;
+
+            string woperato = Request.Cookies["mrName"].Value;
+
+            Admissions formObject = new Admissions(vm, woperato);
+
+            vm.REPORTS = formObject.savedetails();
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult spacDefFacilityFocusout(string spacDefFacility)
+        {
+            vm.ADMSPACES = ErpFunc.RsGet<MR_DATA.ADMSPACE>("MR_DATA", 
+                "SELECT * FROM ADMSPACE WHERE FACILITY='"+ spacDefFacility +"' ORDER BY ROOM");
+
+            return Json(vm.ADMSPACES, JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
+        //Admissions Management End
+
+
+        //Image Acquisition Start
+        #region        
+
+        public JsonResult imageAcqSubmitClicked(MR_DATA.REPORTS dataObject)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+
+            vm.REPORTS = dataObject;
+
+            string woperato = Request.Cookies["mrName"].Value;
+
+            frmImageAcquisition formObject = new frmImageAcquisition(woperato, vm);
+
+            vm.REPORTS = formObject.btnSave_Click();
+
+
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult imageOkBtnClicked(HttpPostedFileBase file, bool isPDF)
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+
+            if (file == null)
+            {
+                return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+            }
+            
+            string fileName = System.IO.Path.GetFileNameWithoutExtension(file.FileName);
+            string extension = System.IO.Path.GetExtension(file.FileName);
+            string fullFileName = fileName + DateTime.Now.ToString("yymmssff") + extension; //Date is added to the name to make each file to be unique;
+            string path = System.IO.Path.Combine(Server.MapPath("~/Resources/Images/"), fullFileName);
+            file.SaveAs(path);
+
+            vm.REPORTS.pictureBox1 = fullFileName;
+            vm.REPORTS.RptPath = path;
+           
+            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+        }
 
         public JsonResult imageAcqPatientNoFocusOut(string groupCode, string patientNo)
         {
@@ -150,7 +4152,7 @@ namespace OtherClasses.FILE
             billchaindtl bchain = new billchaindtl();
 
             //check if patientno exists
-            bchain = billchaindtl.Getbillchain(patientNo, groupCode);
+            bchain = Getbillchain(patientNo, groupCode);
 
             if (bchain == null)
             {
@@ -164,101 +4166,64 @@ namespace OtherClasses.FILE
             return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
         }
 
+        void loadpreviousDefinitions(string groupCode, string patientNo, string transDate)
+        {
+            vm.REPORTS.newrec = true;
 
-        //void loadpreviousDefinitions(string groupCode, string patientNo, string transDate)
-        //{
-        //    vm.REPORTS.newrec = true;
-        //    var transDateTime = Convert.ToDateTime(transDate);
+            DataTable medhpic = Dataaccess.GetAnytable("", "MR",
+                "select * from medhpic where groupcode = '" + groupCode + "' and patientno = '" + patientNo +
+                "' and trans_date = '" + transDate + "'", false);
 
-        //    //if (!string.IsNullOrWhiteSpace(cboQueryPrevDef.Text))
-        //    //{
-        //    //    int xsel = cboQueryPrevDef.SelectedIndex;
-        //    //    DataRow rowsel = dtselected.Rows[xsel];
-        //    //    txtgroupcode.Text = rowsel["groupcode"].ToString();
-        //    //    txtPatientNo.Text = rowsel["patientno"].ToString();
-        //    //    dtTrans_date.Value = Convert.ToDateTime(rowsel["trans_date"]).Date;
-        //    //}
+            if (medhpic.Rows.Count < 1)
+                return;
 
-        //    DataTable medhpic = Dataaccess.GetAnytable("", "MR", 
-        //        "select * from medhpic where groupcode = '" + groupCode + "' and patientno = '" + patientNo + 
-        //        "' and trans_date = '" + transDateTime.ToShortDateString() + "'", false);
+            vm.REPORTS.newrec = false;
+            int recid = Convert.ToInt32(medhpic.Rows[0]["recid"]);
+            DataRow row = medhpic.Rows[0];
 
-        //    if (medhpic.Rows.Count < 1)
-        //        return;
+          
+            if (!string.IsNullOrWhiteSpace(row["pic1"].ToString()))
+                vm.MEDHPICPROP.PIC1 = System.IO.Path.GetFileName(row["pic1"].ToString().Trim());
+            if (!string.IsNullOrWhiteSpace(row["pic2"].ToString()))
+                vm.MEDHPICPROP.PIC2 = System.IO.Path.GetFileName(row["pic2"].ToString().Trim());
+            if (!string.IsNullOrWhiteSpace(row["pic3"].ToString()))
+                vm.MEDHPICPROP.PIC3 = System.IO.Path.GetFileName(row["pic3"].ToString().Trim());
+            if (!string.IsNullOrWhiteSpace(row["pic4"].ToString()))
+                vm.MEDHPICPROP.PIC4 = System.IO.Path.GetFileName(row["pic4"].ToString().Trim());
+            if (!string.IsNullOrWhiteSpace(row["pic5"].ToString()))
+                vm.MEDHPICPROP.PIC5 = System.IO.Path.GetFileName(row["pic5"].ToString().Trim());
+            if (!string.IsNullOrWhiteSpace(row["pic6"].ToString()))
+                vm.MEDHPICPROP.PIC6 = System.IO.Path.GetFileName(row["pic6"].ToString().Trim());
+            if (!string.IsNullOrWhiteSpace(row["pic7"].ToString()))
+                vm.MEDHPICPROP.PIC7 = System.IO.Path.GetFileName(row["pic7"].ToString().Trim());
+            if (!string.IsNullOrWhiteSpace(row["pic8"].ToString()))
+                vm.MEDHPICPROP.PIC8 = System.IO.Path.GetFileName(row["pic8"].ToString().Trim());
+            if (!string.IsNullOrWhiteSpace(row["pic9"].ToString()))
+                vm.MEDHPICPROP.PIC9 = System.IO.Path.GetFileName(row["pic9"].ToString().Trim());
+            if (!string.IsNullOrWhiteSpace(row["pic10"].ToString()))
+                vm.MEDHPICPROP.PIC10 = System.IO.Path.GetFileName(row["pic10"].ToString().Trim());
 
-        //    vm.REPORTS.newrec = false;
-        //    int recid = Convert.ToInt32(medhpic.Rows[0]["recid"]);
-        //    DataRow row = medhpic.Rows[0];
 
-        //    for (int i = 0; i < 10; i++) //images
-        //    {
-        //        imagenotes[i, 0] = row["note" + (i + 1).ToString()].ToString();
-        //        imagenotes[i, 1] = row["facility" + (i + 1).ToString()].ToString();
-        //        imagenotes[i, 2] = row["recid"].ToString();
-        //        imagenotes[i, 3] = row["pic" + (i + 1).ToString()].ToString();
+            vm.MEDHPICPROP.pdffile1 = row["pdffile1"].ToString().Trim();
+            vm.MEDHPICPROP.pdffile2 = row["pdffile2"].ToString().Trim();
+            vm.MEDHPICPROP.pdffile3 = row["pdffile3"].ToString().Trim();
+            vm.MEDHPICPROP.pdffile4 = row["pdffile4"].ToString().Trim();
+            vm.MEDHPICPROP.pdffile5 = row["pdffile5"].ToString().Trim();
+            vm.MEDHPICPROP.pdffile6 = row["pdffile6"].ToString().Trim();
+            vm.MEDHPICPROP.pdffile7 = row["pdffile7"].ToString().Trim();
+            vm.MEDHPICPROP.pdffile8 = row["pdffile8"].ToString().Trim();
+            vm.MEDHPICPROP.pdffile9 = row["pdffile9"].ToString().Trim();
 
-        //        if (!string.IsNullOrWhiteSpace(imagenotes[i, 3]))
-        //            picsCounter++;
-        //    }
-
-        //    if (!string.IsNullOrWhiteSpace(row["pic1"].ToString()))
-        //        pictureBox1.Image = WebGUIGatway.getpicture(row["pic1"].ToString().Trim());
-        //    if (!string.IsNullOrWhiteSpace(row["pic2"].ToString()))
-        //        pictureBox2.Image = WebGUIGatway.getpicture(row["pic2"].ToString().Trim());
-        //    if (!string.IsNullOrWhiteSpace(row["pic3"].ToString()))
-        //        pictureBox3.Image = WebGUIGatway.getpicture(row["pic3"].ToString().Trim());
-        //    if (!string.IsNullOrWhiteSpace(row["pic4"].ToString()))
-        //        pictureBox4.Image = WebGUIGatway.getpicture(row["pic4"].ToString().Trim());
-        //    if (!string.IsNullOrWhiteSpace(row["pic5"].ToString()))
-        //        pictureBox5.Image = WebGUIGatway.getpicture(row["pic5"].ToString().Trim());
-        //    if (!string.IsNullOrWhiteSpace(row["pic6"].ToString()))
-        //        pictureBox6.Image = WebGUIGatway.getpicture(row["pic6"].ToString().Trim());
-        //    if (!string.IsNullOrWhiteSpace(row["pic7"].ToString()))
-        //        pictureBox7.Image = WebGUIGatway.getpicture(row["pic7"].ToString().Trim());
-        //    if (!string.IsNullOrWhiteSpace(row["pic8"].ToString()))
-        //        pictureBox8.Image = WebGUIGatway.getpicture(row["pic8"].ToString().Trim());
-        //    if (!string.IsNullOrWhiteSpace(row["pic9"].ToString()))
-        //        pictureBox9.Image = WebGUIGatway.getpicture(row["pic9"].ToString().Trim());
-        //    if (!string.IsNullOrWhiteSpace(row["pic10"].ToString()))
-        //        pictureBox10.Image = WebGUIGatway.getpicture(row["pic10"].ToString().Trim());
-
-        //    txtImage1.Text = row["pic1"].ToString().Trim();
-        //    txtImage2.Text = row["pic2"].ToString().Trim();
-        //    txtImage3.Text = row["pic3"].ToString().Trim();
-        //    txtImage4.Text = row["pic4"].ToString().Trim();
-        //    txtImage5.Text = row["pic5"].ToString().Trim();
-        //    txtImage6.Text = row["pic6"].ToString().Trim();
-        //    txtImage7.Text = row["pic7"].ToString().Trim();
-        //    txtImage8.Text = row["pic8"].ToString().Trim();
-        //    txtImage9.Text = row["pic9"].ToString().Trim();
-        //    txtImage10.Text = row["pic10"].ToString().Trim();
-
-        //    for (int i = 0; i < 9; i++) //pdf
-        //    {
-        //        pdfNotes[i] = row["pdffile" + (i + 1).ToString()].ToString().Trim();
-        //        if (!string.IsNullOrWhiteSpace(pdfNotes[i]))
-        //            pdfCounter++;
-        //    }
-        //    txtPDF1.Text = row["pdffile1"].ToString().Trim();
-        //    txtPDF2.Text = row["pdffile2"].ToString().Trim();
-        //    txtPDF3.Text = row["pdffile3"].ToString().Trim();
-        //    txtPDF4.Text = row["pdffile4"].ToString().Trim();
-        //    txtPDF5.Text = row["pdffile5"].ToString().Trim();
-        //    txtPDF6.Text = row["pdffile6"].ToString().Trim();
-        //    txtPDF7.Text = row["pdffile7"].ToString().Trim();
-        //    txtPDF8.Text = row["pdffile8"].ToString().Trim();
-        //    txtPDF9.Text = row["pdffile9"].ToString().Trim();
-
-        //}
-
+        }
 
         public JsonResult PrevDefinitionFocusOut(string groupCode, string patientNo, string transDate)
         {
             vm.REPORTS = new MR_DATA.REPORTS();
+            vm.MEDHPICPROP = new MR_DATA.MEDHPIC();
 
-            //loadpreviousDefinitions(groupCode, patientNo, transDate);
+            loadpreviousDefinitions(groupCode, patientNo, transDate);
 
-            return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
+            return Json(vm, JsonRequestBehavior.AllowGet);
         }
 
         #endregion
@@ -267,7 +4232,7 @@ namespace OtherClasses.FILE
 
         //Material Definition Costing Start
         #region
-
+        
         public JsonResult validateStock(string code, string store)
         {
             vm.REPORTS = new MR_DATA.REPORTS();
@@ -288,7 +4253,9 @@ namespace OtherClasses.FILE
 
             if (vm.SCS01vm.stock.posted != true)
             {
-                vm.REPORTS.alertMessage = "Selected Stock : " + vm.SCS01vm.stock.name.Trim() + " Definition has not been confirmed in " + vm.SCS01vm.stock.store;
+                vm.REPORTS.alertMessage = "Selected Stock : " + vm.SCS01vm.stock.name.Trim() + 
+                    " Definition has not been confirmed in " + vm.SCS01vm.stock.store;
+
                 return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
             }
             if (vm.SCS01vm.stock.status == "D")
@@ -377,7 +4344,6 @@ namespace OtherClasses.FILE
             return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
         }
 
-
         public JsonResult MCostingProcedureFocusOut(string facility, string procedure)
         {
             vm.MRB19S = ErpFunc.RsGet<MR_DATA.MRB19>("MR_DATA",
@@ -398,7 +4364,7 @@ namespace OtherClasses.FILE
         #endregion
         //Material Definition Costing End
 
-
+        
         //SampleCollectDetails start
         #region
         public JsonResult sampleReferenceFocusout(string facility, string sampleReference)
@@ -489,7 +4455,6 @@ namespace OtherClasses.FILE
             return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
         }
 
-
         public JsonResult othersNoteClick(bool chkBlood, bool chkSputum, bool chkStool, bool chkUrine, bool chkSwab, bool chkSemen,
             bool chkHair, string otherText, string sampleCollectedBy, string collectionDateTime, string defaults)
         {
@@ -511,7 +4476,6 @@ namespace OtherClasses.FILE
 
             return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
         }
-
 
         public JsonResult defaultClick(bool chkBlood, bool chkSputum, bool chkStool, bool chkUrine, bool chkSwab, bool chkSemen,
             bool chkHair, string otherText, string sampleCollectedBy, string collectionDateTime, string othersNote)
@@ -609,7 +4573,6 @@ namespace OtherClasses.FILE
             return xreturnvalue;
         }
 
-
         public JsonResult returnCrossRefFocusout(string crossRef, string sampleCollectedBy, string patientNo)
         {
             vm.REPORTS = new MR_DATA.REPORTS();
@@ -634,7 +4597,6 @@ namespace OtherClasses.FILE
 
             return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
         }
-
 
         bool displaypatdetailsSample(string xreference, string sampleCollectedBy)
         {
@@ -714,7 +4676,7 @@ namespace OtherClasses.FILE
 
             if (!string.IsNullOrWhiteSpace(vm.REPORTS.txtpatientno))
             {
-                bchain = billchaindtl.Getbillchain(vm.REPORTS.txtpatientno, vm.REPORTS.txtgroupcode);
+                bchain = Getbillchain(vm.REPORTS.txtpatientno, vm.REPORTS.txtgroupcode);
 
                 if (bchain == null)
                 {
@@ -800,7 +4762,6 @@ namespace OtherClasses.FILE
             return true;
         }
 
-
         public JsonResult crossRefFocusout(string crossRef, string sampleCollectedBy)
         {
             vm.REPORTS = new MR_DATA.REPORTS();
@@ -815,7 +4776,6 @@ namespace OtherClasses.FILE
 
             return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
         }
-
 
         public JsonResult crossRefFocus(string facility, string msection)
         {
@@ -839,7 +4799,6 @@ namespace OtherClasses.FILE
 
             return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
         }
-
 
         public JsonResult facilityFocusout(string facility)
         {
@@ -1055,8 +5014,8 @@ namespace OtherClasses.FILE
             return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
         }
 
-        private DataTable getLinkDetails(string reference, int recno, decimal cumbil, decimal cumpay, string facility, bool linkok,
-            string msection, int procedure, string admflag, string doctor)
+        private DataTable getLinkDetails(string reference, int recno, decimal cumbil, decimal cumpay, string facility, 
+            bool linkok, string msection, int procedure, string admflag, string doctor)
         {
             msmrfunc.mrGlobals.anycode = "";
             string global_clinic_code = msmrfunc.mrGlobals.global_clinic_code;
@@ -1551,8 +5510,9 @@ namespace OtherClasses.FILE
             //show table
             vm.REPORTS.chkReportbyAgent = true;
 
-            DataTable dt = Billings.GetBILLINGdetails(vm.REPORTS.mgrouphead, vm.REPORTS.txtothername, vm.REPORTS.mpatientno, (vm.REPORTS.mgrouphead.Trim() == "MISC") ? "N" :
-                (!string.IsNullOrWhiteSpace(vm.REPORTS.mpatientno)) ? "P" : "G", vm.REPORTS.TRANS_DATE1.Value.Date, vm.REPORTS.TRANS_DATE1.Value.Date);
+            DataTable dt = Billings.GetBILLINGdetails(vm.REPORTS.mgrouphead, vm.REPORTS.txtothername, vm.REPORTS.mpatientno, 
+                (vm.REPORTS.mgrouphead.Trim() == "MISC") ? "N" : (!string.IsNullOrWhiteSpace(vm.REPORTS.mpatientno)) ?
+                "P" : "G", vm.REPORTS.TRANS_DATE1.Value.Date, vm.REPORTS.TRANS_DATE1.Value.Date, vm.REPORTS.txtgroupcode);
 
             if (dt.Rows.Count > 0)
             {
@@ -1928,7 +5888,7 @@ namespace OtherClasses.FILE
 
             DataTable bills = Billings.GetBILLING(consultAdmRef);
 
-            bchain = billchaindtl.Getbillchain(BTpatientNo, BTgroupCode);
+            bchain = Getbillchain(BTpatientNo, BTgroupCode);
 
             string updstr = "";
             if (chkTransferVal)
@@ -2001,7 +5961,7 @@ namespace OtherClasses.FILE
             patientinfo patients = new patientinfo();
             Customer customers = new Customer();
 
-            bchain = billchaindtl.Getbillchain(BTpatientNo, BTgroupCode);
+            bchain = Getbillchain(BTpatientNo, BTgroupCode);
 
             if (bchain == null || string.IsNullOrWhiteSpace(bchain.PATIENTNO))
             {
@@ -2107,7 +6067,7 @@ namespace OtherClasses.FILE
             //}
 
             //check if patientno exists
-            bchain = billchaindtl.Getbillchain(ldBillsPatientNo, ldBillsGroupCode);
+            bchain = Getbillchain(ldBillsPatientNo, ldBillsGroupCode);
 
             if (bchain == null)
             {
@@ -2162,7 +6122,8 @@ namespace OtherClasses.FILE
             //for (int i = 0; i < dataGridView1.Rows.Count; i++)
             //{
             //    row = dataGridView1.Rows[i];
-            //    if (row.Cells[1].Value == null || string.IsNullOrWhiteSpace(row.Cells[3].FormattedValue.ToString()) || Convert.ToDecimal(row.Cells[4].Value) < 1 || Convert.ToDecimal(row.Cells[6].Value) < 1 || Convert.ToDecimal(row.Cells[7].Value) < 1)
+            //    if (row.Cells[1].Value == null || string.IsNullOrWhiteSpace(row.Cells[3].FormattedValue.ToString()) || 
+            //      Convert.ToDecimal(row.Cells[4].Value) < 1 || Convert.ToDecimal(row.Cells[6].Value) < 1 || Convert.ToDecimal(row.Cells[7].Value) < 1)
             //        continue;
             //    itema_[i, 0] = row.Cells[0].Value.ToString();
             //    itema_[i, 1] = row.Cells[1].FormattedValue.ToString();
@@ -2260,7 +6221,7 @@ namespace OtherClasses.FILE
             string xdesc = "";
             string facility2 = "";
 
-            bchain = billchaindtl.Getbillchain(patientNo, groupCode);
+            bchain = Getbillchain(patientNo, groupCode);
 
             string patcateg = bchain == null ? "" : bchain.PATCATEG;
 
@@ -2315,7 +6276,7 @@ namespace OtherClasses.FILE
             vm.REPORTS = new MR_DATA.REPORTS();
             billchaindtl bchain = new billchaindtl();
 
-            bchain = billchaindtl.Getbillchain(patientNo, groupCode);
+            bchain = Getbillchain(patientNo, groupCode);
             bool isPosted = false;
             bool foundit = false;
             vm.REPORTS.newrec = true;
@@ -2459,7 +6420,7 @@ namespace OtherClasses.FILE
             vm.REPORTS.nmrBalbf = 0;  //nmrCurrentTotal.Value
 
             //check if patientno exists
-            bchain = billchaindtl.Getbillchain(patientNo, groupCode);
+            bchain = Getbillchain(patientNo, groupCode);
 
             if (bchain == null || string.IsNullOrWhiteSpace(bchain.PATIENTNO))
             {
@@ -2655,7 +6616,7 @@ namespace OtherClasses.FILE
             //}
 
             //check if patientno exists
-            bchain = billchaindtl.Getbillchain(patientNo, groupCode);
+            bchain = Getbillchain(patientNo, groupCode);
 
             if (bchain == null)
             {
@@ -2828,7 +6789,7 @@ namespace OtherClasses.FILE
             vm.REPORTS.newrec = true;
             
             //check if patientno exists
-            bchain = billchaindtl.Getbillchain(hospitalNo, groupCode);
+            bchain = Getbillchain(hospitalNo, groupCode);
 
             if (bchain == null)
             {
@@ -2911,8 +6872,9 @@ namespace OtherClasses.FILE
             Customer customers = new Customer();
             string mbill_cir = "";
             string mgrouphtype = vm.REPORTS.cbotype;
+            var woperator = Request.Cookies["mrName"].Value;
 
-            if(bchain == null)
+            if (bchain == null)
             {
                 return false;
             }
@@ -3012,7 +6974,8 @@ namespace OtherClasses.FILE
                     return false;
                 
                 //update overwrite profile
-                msmrfunc.updateOverwrite(referenceNo, "Overwrite Suspended Registration at ANC Booking", bchain, bchain.GROUPHTYPE == "P" ? patients.cr_limit : customers.Cr_limit, 0m);
+                msmrfunc.updateOverwrite(referenceNo, "Overwrite Suspended Registration at ANC Booking", bchain,
+                    bchain.GROUPHTYPE == "P" ? patients.cr_limit : customers.Cr_limit, 0m, woperator);
             }
 
             return true;
@@ -3079,7 +7042,7 @@ namespace OtherClasses.FILE
                 vm.REPORTS.txtgrouphead = ancreg.GROUPHEAD;  // for mgrouphead
                 vm.REPORTS.REPORT_TYPE3 = @String.Format("{0:yyyy-MM-dd}", ancreg.REG_DATE);
 
-                bchain = billchaindtl.Getbillchain(hospitalNo, groupCode);
+                bchain = Getbillchain(hospitalNo, groupCode);
                 vm.REPORTS.REPORT_TYPE1 = @String.Format("{0:yyyy-MM-dd}", ancreg.LMP); //for dtlmp.Value 
                 vm.REPORTS.REPORT_TYPE2 = @String.Format("{0:yyyy-MM-dd}", ancreg.EDD);  //for dtedd.Value
 
@@ -3157,6 +7120,7 @@ namespace OtherClasses.FILE
 
 
         //OPD VITALS START
+
         #region
         public JsonResult BPHLoadBtnClicked(string consultReference, string dateRangeBPH, string dateToBPH)
         {
@@ -3165,7 +7129,7 @@ namespace OtherClasses.FILE
 
             mrattend = Mrattend.GetMrattend(consultReference);
 
-            bchain = billchaindtl.Getbillchain(mrattend.PATIENTNO, mrattend.GROUPCODE);
+            bchain = Getbillchain(mrattend.PATIENTNO, mrattend.GROUPCODE);
 
             if (bchain == null || string.IsNullOrWhiteSpace(bchain.PATIENTNO))
             {
@@ -3189,7 +7153,7 @@ namespace OtherClasses.FILE
 
             mrattend = Mrattend.GetMrattend(consultReference);
 
-            bchain = billchaindtl.Getbillchain(mrattend.PATIENTNO, mrattend.GROUPCODE);
+            bchain = Getbillchain(mrattend.PATIENTNO, mrattend.GROUPCODE);
 
             if (bchain == null || string.IsNullOrWhiteSpace(bchain.PATIENTNO))
                 return Json(vm.REPORTS, JsonRequestBehavior.AllowGet);
@@ -3267,7 +7231,7 @@ namespace OtherClasses.FILE
 
             mrattend = Mrattend.GetMrattend(consultReference);
 
-            bchain = billchaindtl.Getbillchain(mrattend.PATIENTNO, mrattend.GROUPCODE);
+            bchain = Getbillchain(mrattend.PATIENTNO, mrattend.GROUPCODE);
 
             var historyDateFrom = Convert.ToDateTime(dateFrom);
             var historyDateTo = Convert.ToDateTime(dateTo);
@@ -3365,7 +7329,7 @@ namespace OtherClasses.FILE
 
             if (calltype != "S")
             {
-                bchain = billchaindtl.Getbillchain(mrattend.PATIENTNO, mrattend.GROUPCODE);
+                bchain = Getbillchain(mrattend.PATIENTNO, mrattend.GROUPCODE);
 
                 //this.panel2.Enabled = true;
                 //chkinpatient.Visible = true;
@@ -3436,7 +7400,6 @@ namespace OtherClasses.FILE
 
             return vm;
         }
-
 
 
         public JsonResult precedureReqClicked(string consultReference, string calltype)
@@ -3518,7 +7481,7 @@ namespace OtherClasses.FILE
             }
 
             //patient profile
-            bchain = billchaindtl.Getbillchain(mrattend.PATIENTNO, mrattend.GROUPCODE);
+            bchain = Getbillchain(mrattend.PATIENTNO, mrattend.GROUPCODE);
             if (bchain == null)
             {
                 vm.REPORTS.alertMessage = "Error in Patient Master File for this Consultaton Reference...'\r\n' Pls Check and Try and Again !";
@@ -3660,11 +7623,10 @@ namespace OtherClasses.FILE
             return Json(vm, JsonRequestBehavior.AllowGet);
         }
 
-
         #endregion
         //OPD VITALS END
 
-
+        
         #region
         //For Special Service Patient
         public JsonResult SSPsubmitBtnClicked(string SSPtransDate, string hiddenNewRec, string SSPhospitalNo, string SSPpatGroupCode, 
@@ -3701,7 +7663,6 @@ namespace OtherClasses.FILE
 
             return Json(vm, JsonRequestBehavior.AllowGet);
         }
-
 
         public JsonResult grpProcedSecondCall (string grpProcedure)
         {
@@ -3878,7 +7839,7 @@ namespace OtherClasses.FILE
             string hmoServType = "";
 
 
-            bchain = billchaindtl.Getbillchain(SSPhospitalNo, SSPpatGroupCode);
+            bchain = Getbillchain(SSPhospitalNo, SSPpatGroupCode);
 
             if (bchain != null)
             {
@@ -4086,7 +8047,7 @@ namespace OtherClasses.FILE
             billchaindtl bchain = new billchaindtl();
 
             //check if patientno exists
-            bchain = billchaindtl.Getbillchain(SSPhospitalNo, SSPpatGroupCode);
+            bchain = Getbillchain(SSPhospitalNo, SSPpatGroupCode);
 
             if (SSPbillsPayableBy != null && SSPbillsPayableBy.Trim() != "")
             {
@@ -4232,7 +8193,7 @@ namespace OtherClasses.FILE
             string mgrouphtype = "";
 
             //check if patientno exists
-            bchain = billchaindtl.Getbillchain(SSPhospitalNo, SSPpatGroupCode);
+            bchain = Getbillchain(SSPhospitalNo, SSPpatGroupCode);
 
             if (bchain == null)
             {
@@ -4279,7 +8240,7 @@ namespace OtherClasses.FILE
             DateTime dtmin_date = msmrfunc.mrGlobals.mta_start;
 
 
-            bchain = billchaindtl.Getbillchain(hospitalCardNo, PatGroupCode);
+            bchain = Getbillchain(hospitalCardNo, PatGroupCode);
             customers = Customer.GetCustomer(bchain.GROUPHEAD);
             medhrec = Medhrec.GetMEDHREC(bchain.GROUPCODE, bchain.PATIENTNO);
 
@@ -4695,7 +8656,7 @@ namespace OtherClasses.FILE
             string mgrouphtype = "";
 
             //check if patientno exists
-            bchain = billchaindtl.Getbillchain(hospitalCardNo, PatGroupCode);
+            bchain = Getbillchain(hospitalCardNo, PatGroupCode);
             if (bchain == null)
             {
                 vm.REPORTS.alertMessage = "Invalid Patient Number... ";  //"Invalid Patient Number... "
@@ -4787,7 +8748,7 @@ namespace OtherClasses.FILE
 
                 if (!string.IsNullOrWhiteSpace(vm.REPORTS.txtpatientno))
                 {
-                    bchain = billchaindtl.Getbillchain(mrattend.PATIENTNO, mrattend.GROUPCODE);
+                    bchain = Getbillchain(mrattend.PATIENTNO, mrattend.GROUPCODE);
 
                     DisplayDetails(bchain);
 
@@ -4935,7 +8896,7 @@ namespace OtherClasses.FILE
             billchaindtl bchain = new billchaindtl();
 
             //check if patientno exists
-            bchain = billchaindtl.Getbillchain(hospitalNo, patientGroupCode);
+            bchain = Getbillchain(hospitalNo, patientGroupCode);
 
             vm.BILLCHAIN.NAME = bchain.NAME;
             vm.BILLCHAIN.GROUPCODE = bchain.GROUPCODE;
@@ -4954,7 +8915,7 @@ namespace OtherClasses.FILE
             billchaindtl bchain = new billchaindtl();
 
             //check if patientno exists
-            bchain = billchaindtl.Getbillchain(hospitalNo, patientGroupCode);
+            bchain = Getbillchain(hospitalNo, patientGroupCode);
             if (bchain == null)
             {
                 vm.REPORTS.alertMessage = "Invalid Patient Number... ";
@@ -5067,7 +9028,7 @@ namespace OtherClasses.FILE
             billchaindtl bchain = new billchaindtl();
             patientinfo patients = new patientinfo();
 
-            bchain = billchaindtl.Getbillchain(hospitalNo, patientGroupCode);
+            bchain = Getbillchain(hospitalNo, patientGroupCode);
 
             if (bchain == null)
             {
@@ -5139,7 +9100,7 @@ namespace OtherClasses.FILE
             vm.REPORTS = new MR_DATA.REPORTS();
 
             //check if patientno exists
-            billchaindtl tmpchain = billchaindtl.Getbillchain(billOnAcct, patientGroupCode);
+            billchaindtl tmpchain = Getbillchain(billOnAcct, patientGroupCode);
 
             if (tmpchain == null || tmpchain.GROUPHEAD.Trim() != billsPayableBy.Trim())  // wrong value
             {
@@ -5263,7 +9224,7 @@ namespace OtherClasses.FILE
             }
 
             //check if patientno exists
-            bchain = billchaindtl.Getbillchain(patientNo, patientGroupCode);
+            bchain = Getbillchain(patientNo, patientGroupCode);
             patients = patientinfo.GetPatient(billsPayableBy, groupCode);
             if (bchain == null) //new defintion
             {
@@ -5468,7 +9429,7 @@ namespace OtherClasses.FILE
             vm.REPORTS = new MR_DATA.REPORTS();
             billchaindtl bchain = new billchaindtl();
 
-            bchain = billchaindtl.Getbillchain(chnMedPatientNo, chnMedGroupCode);
+            bchain = Getbillchain(chnMedPatientNo, chnMedGroupCode);
 
             vm.REPORTS.TXTPATIENTNAME = bchain.NAME;
             vm.REPORTS.REPORT_TYPE1 = bchain.REG_DATE.ToShortDateString();
@@ -5492,7 +9453,7 @@ namespace OtherClasses.FILE
             //}
 
             //check if patientno exists
-            bchain = billchaindtl.Getbillchain(chnMedPatientNo, chnMedGroupCode);
+            bchain = Getbillchain(chnMedPatientNo, chnMedGroupCode);
 
             if (bchain == null)
             {
@@ -5693,7 +9654,7 @@ namespace OtherClasses.FILE
             else
             {
                 DisplayPatients(getAcctInfo, patients);
-                bchain = billchaindtl.Getbillchain(patientNo, groupCode);
+                bchain = Getbillchain(patientNo, groupCode);
                 if (bchain != null)
                 {
                     vm.REPORTS.edtspinstructions = bchain.SPNOTES;
@@ -5854,30 +9815,61 @@ namespace OtherClasses.FILE
 
             var vm = new MR_DATA.MR_DATAvm { };
 
-            vm.ADMRECSS = ErpFunc.RsGet<MR_DATA.ADMRECS>("MR_DATA",
-                "Select NAME, GROUPCODE, PATIENTNO, REFERENCE, ADM_DATE, DISCHARGE, ROOM, BED, GROUPHEAD, GHGROUPCODE, ACAMT, PAYMENTS " +
-                "from ADMRECS WHERE NAME LIKE '%" +
-                srchVal[0] + "%' ORDER BY NAME ASC OFFSET " + offset +
-                " ROWS FETCH FIRST " + rows + " ROWS ONLY");
-
-            foreach (var aa in vm.ADMRECSS)
+            if (srchVal.Length > 2 && srchVal[2] == "True")
             {
-                aa.GROUPHEAD = aa.GHGROUPCODE.Trim() + " " + aa.GROUPHEAD.Trim();
-                aa.NAME += " : (" + aa.PATIENTNO + "/" + aa.GROUPCODE + ")";
-                aa.ROOM += "/" + aa.BED;
+                vm.ADMRECSS = ErpFunc.RsGet<MR_DATA.ADMRECS>("MR_DATA",
+                                "Select NAME, GROUPCODE, PATIENTNO, REFERENCE, ADM_DATE, DISCHARGE, ROOM, BED, GROUPHEAD, GHGROUPCODE, ACAMT, PAYMENTS " +
+                                "from ADMRECS WHERE discharge='' and NAME LIKE '%" +
+                                srchVal[0] + "%' ORDER BY NAME ASC OFFSET " + offset +
+                                " ROWS FETCH FIRST " + rows + " ROWS ONLY");
+
+                foreach (var aa in vm.ADMRECSS)
+                {
+                    aa.GROUPHEAD = aa.GHGROUPCODE + " " + aa.GROUPHEAD;
+                    aa.NAME += " : (" + aa.PATIENTNO + "/" + aa.GROUPCODE + ")";
+                    aa.ROOM += "/" + aa.BED;
+                }
+
+                var max = Convert.ToInt32(ErpFunc.CLGet("MR_DATA", "Select COUNT(*) from ADMRECS WHERE "+
+                    " discharge='' and NAME LIKE '%" + srchVal[0] + "%'"));
+
+                if (max % rows == 0) { max /= rows; } else { max /= rows; max++; }
+
+                SYSCODETABS.SYSCODETABSvm bb = new SYSCODETABS.SYSCODETABSvm
+                {
+                    ERPmiscl = new SYSCODETABS.ERPmiscl { FillUpTable = srchVal[1] + "++++" + max.ToString() }
+                };
+
+                vm.SYSCODETABSvm = bb;
             }
-
-            var max = Convert.ToInt32(ErpFunc.CLGet("MR_DATA", "Select COUNT(*) from ADMRECS WHERE NAME" +
-                " LIKE '%" + srchVal[0] + "%'"));
-
-            if (max % rows == 0) { max /= rows; } else { max /= rows; max++; }
-
-            SYSCODETABS.SYSCODETABSvm bb = new SYSCODETABS.SYSCODETABSvm
+            else if(srchVal.Length == 2 || srchVal.Length > 2 && srchVal[2]=="False")
             {
-                ERPmiscl = new SYSCODETABS.ERPmiscl { FillUpTable = srchVal[1] + "++++" + max.ToString() }
-            };
+                vm.ADMRECSS = ErpFunc.RsGet<MR_DATA.ADMRECS>("MR_DATA",
+                                "Select NAME, GROUPCODE, PATIENTNO, REFERENCE, ADM_DATE, DISCHARGE, ROOM, BED, GROUPHEAD, GHGROUPCODE, ACAMT, PAYMENTS " +
+                                "from ADMRECS WHERE NAME LIKE '%" +
+                                srchVal[0] + "%' ORDER BY NAME ASC OFFSET " + offset +
+                                " ROWS FETCH FIRST " + rows + " ROWS ONLY");
 
-            vm.SYSCODETABSvm = bb;
+                foreach (var aa in vm.ADMRECSS)
+                {
+                    aa.GROUPHEAD = aa.GHGROUPCODE + " " + aa.GROUPHEAD;
+                    aa.NAME += " : (" + aa.PATIENTNO + "/" + aa.GROUPCODE + ")";
+                    aa.ROOM += "/" + aa.BED;
+                }
+
+                var max = Convert.ToInt32(ErpFunc.CLGet("MR_DATA", "Select COUNT(*) from ADMRECS WHERE NAME" +
+                    " LIKE '%" + srchVal[0] + "%'"));
+
+                if (max % rows == 0) { max /= rows; } else { max /= rows; max++; }
+
+                SYSCODETABS.SYSCODETABSvm bb = new SYSCODETABS.SYSCODETABSvm
+                {
+                    ERPmiscl = new SYSCODETABS.ERPmiscl { FillUpTable = srchVal[1] + "++++" + max.ToString() }
+                };
+
+                vm.SYSCODETABSvm = bb;
+            }
+            
 
             return Json(vm, JsonRequestBehavior.AllowGet);
         }
@@ -6046,8 +10038,6 @@ namespace OtherClasses.FILE
             return Json(vm, JsonRequestBehavior.AllowGet);
         }
 
-
-
         public JsonResult RptPatientLookUp(string Id)
         {
             int rows = 17;
@@ -6078,7 +10068,6 @@ namespace OtherClasses.FILE
 
             return Json(vm, JsonRequestBehavior.AllowGet);
         }
-
 
         public JsonResult RptPaydetailLookUp(string Id)
         {
@@ -6111,7 +10100,6 @@ namespace OtherClasses.FILE
             return Json(vm, JsonRequestBehavior.AllowGet);
         }
 
-
         public string RptCustomerExists(string Id)
         {
             string retVal = "False";
@@ -6128,6 +10116,7 @@ namespace OtherClasses.FILE
 
             return retVal;
         }
+
         public JsonResult RptCustomerFillUp(string Id)
         {
             var vm = new MR_DATA.MR_DATAvm
@@ -6139,6 +10128,49 @@ namespace OtherClasses.FILE
 
             return Json(vm, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult RptANC01LookUp(string Id)
+        {
+            int rows = 17;
+            string[] srchVal = Id.Split('~');
+            srchVal[0] = srchVal[0].Trim();
+            int offset = Convert.ToInt16(srchVal[1]); offset--; offset *= rows;
+
+            var vm = new MR_DATA.MR_DATAvm { };
+
+            vm.ANC01S = srchVal.Length > 2 ?
+                ErpFunc.RsGet<MR_DATA.ANC01>("MR_DATA",
+                "Select NAME, REFERENCE, REG_DATE, DEL_DATE, GROUPCODE, PATIENTNO " +
+                "from ANC01 WHERE NAME LIKE '%" +
+                srchVal[0] + "%' AND GROUPCODE='" + srchVal[2] + "' ORDER BY NAME ASC OFFSET " + offset +
+                " ROWS FETCH FIRST " + rows + " ROWS ONLY")
+                :
+                ErpFunc.RsGet<MR_DATA.ANC01>("MR_DATA",
+                "Select NAME, REFERENCE, REG_DATE, DEL_DATE, GROUPCODE, PATIENTNO " +
+                "from ANC01 WHERE NAME LIKE '%" +
+                srchVal[0] + "%' ORDER BY NAME ASC OFFSET " + offset +
+                " ROWS FETCH FIRST " + rows + " ROWS ONLY");
+
+
+            var max = srchVal.Length > 2 ?
+                Convert.ToInt32(ErpFunc.CLGet("MR_DATA", "Select COUNT(*) from ANC01 WHERE NAME" +
+                " LIKE '%" + srchVal[0] + "%' AND GROUPCODE='" + srchVal[2] + "' "))
+                :
+                Convert.ToInt32(ErpFunc.CLGet("MR_DATA", "Select COUNT(*) from ANC01 WHERE NAME" +
+                " LIKE '%" + srchVal[0] + "%'"));
+
+            if (max % rows == 0) { max /= rows; } else { max /= rows; max++; }
+
+            SYSCODETABS.SYSCODETABSvm bb = new SYSCODETABS.SYSCODETABSvm
+            {
+                ERPmiscl = new SYSCODETABS.ERPmiscl { FillUpTable = srchVal[1] + "++++" + max.ToString() }
+            };
+
+            vm.SYSCODETABSvm = bb;
+
+            return Json(vm, JsonRequestBehavior.AllowGet);
+        }
+
 
         public JsonResult RptANCREGLookUp(string Id)
         {
@@ -6181,7 +10213,6 @@ namespace OtherClasses.FILE
 
             return Json(vm, JsonRequestBehavior.AllowGet);
         }
-
 
         public JsonResult RptBillChainLookUp(string Id)
         {
@@ -6263,9 +10294,9 @@ namespace OtherClasses.FILE
 
             vm.SYSCODETABSvm = bb;
 
+            
             return Json(vm, JsonRequestBehavior.AllowGet);
         }
-
 
         public JsonResult RptGrpCodeLookUp(string Id)
         {
@@ -6323,6 +10354,7 @@ namespace OtherClasses.FILE
 
             return retVal;
         }
+
         public string RptPatNoExists(string Id)
         {
             string retVal = "False";
@@ -6340,6 +10372,36 @@ namespace OtherClasses.FILE
 
             return retVal;
         }
+
+        public JsonResult RptStockLookUp(string Id)
+        {
+            int rows = 17;
+            string[] srchVal = Id.Split('~');
+            srchVal[0] = srchVal[0].Trim();
+            int offset = Convert.ToInt16(srchVal[1]); offset--; offset *= rows;
+
+            var vm = new SCS01.SCS01vm { };
+
+            vm.stocks = ErpFunc.RsGet<SCS01.stock>("SCS01",
+                "Select * from stock WHERE NAME LIKE '%" +
+                srchVal[0] + "%' ORDER BY NAME ASC OFFSET " + offset +
+                " ROWS FETCH FIRST " + rows + " ROWS ONLY");
+
+            var max = Convert.ToInt32(ErpFunc.CLGet("SCS01", "Select COUNT(*) from stock WHERE NAME" +
+                " LIKE '%" + srchVal[0] + "%'"));
+
+            if (max % rows == 0) { max /= rows; } else { max /= rows; max++; }
+
+            SYSCODETABS.SYSCODETABSvm bb = new SYSCODETABS.SYSCODETABSvm
+            {
+                ERPmiscl = new SYSCODETABS.ERPmiscl { FillUpTable = srchVal[1] + "++++" + max.ToString() }
+            };
+
+            vm.SYSCODETABSvm = bb;
+
+            return Json(vm, JsonRequestBehavior.AllowGet);
+        }
+
 
         public JsonResult RptTariffLookUp(string Id)
         {
@@ -6375,6 +10437,7 @@ namespace OtherClasses.FILE
 
             return Json(vm, JsonRequestBehavior.AllowGet);
         }
+
         public string RptTariffExists(string Id)
         {
             string retVal = "False";
@@ -6391,6 +10454,7 @@ namespace OtherClasses.FILE
 
             return retVal;
         }
+
         public JsonResult RptTariffFillUp(string Id)
         {
             var vm = new MR_DATA.MR_DATAvm
@@ -6428,6 +10492,7 @@ namespace OtherClasses.FILE
         public JsonResult RptProductFillUp(string Id)
         {
             SCS01.SCS01vm s = new SCS01.SCS01vm();
+
             if (Id.IndexOf("~") != -1)
             {
                 string[] Idd = Id.Split('~');
@@ -6496,7 +10561,6 @@ namespace OtherClasses.FILE
             return Json(vm, JsonRequestBehavior.AllowGet);
         }
 
-
         public JsonResult RptInvoiceLookUp(string Id)
         {
             int rows = 17;
@@ -6527,6 +10591,7 @@ namespace OtherClasses.FILE
 
             return Json(vm, JsonRequestBehavior.AllowGet);
         }
+
         public string RptInvoiceExists(string Id)
         {
             string retVal = "False";
@@ -6543,6 +10608,7 @@ namespace OtherClasses.FILE
 
             return retVal;
         }
+
         public JsonResult RptInvoiceFillUp(string Id)
         {
             var vm = new AR_DATA.AR_DATAvm
@@ -6553,6 +10619,7 @@ namespace OtherClasses.FILE
 
             return Json(vm, JsonRequestBehavior.AllowGet);
         }
+
         public string RptCSARecInconsistency(string Id)
         {
             string status = "";
@@ -6634,6 +10701,7 @@ namespace OtherClasses.FILE
 
             return status;
         }
+
         public string RptAccessCode(string Id)
         {
             string retVal = "False";
@@ -6674,6 +10742,7 @@ namespace OtherClasses.FILE
 
             return retVal;
         }
+
         public JsonResult CustomerFillUp(string Id)
         {
             var vm = new AR_DATA.AR_DATAvm
@@ -6683,6 +10752,7 @@ namespace OtherClasses.FILE
             };
             return Json(vm, JsonRequestBehavior.AllowGet);
         }
+
         public JsonResult CustomerLookUp(string Id)
         {
             int rows = 17;
@@ -6744,6 +10814,7 @@ namespace OtherClasses.FILE
 
             return Json(vm, JsonRequestBehavior.AllowGet);
         }
+
         public JsonResult PSInvoiceLookUp(string Id)
         {
             int rows = 17;
@@ -6776,6 +10847,7 @@ namespace OtherClasses.FILE
 
             return Json(vm, JsonRequestBehavior.AllowGet);
         }
+
         public JsonResult GetPSTableData(string Id)
         {
             var prod = ErpFunc.RsGet<AR_DATA.VCTDETAIL>("AR_DATA", "SELECT * FROM VCTDETAIL WHERE REFERENCE=@p1 " +
@@ -6834,6 +10906,7 @@ namespace OtherClasses.FILE
 
             return Json(vm, JsonRequestBehavior.AllowGet);
         }
+
         public string PSInvoiceExists(string Id)
         {
             string[] aa = Id.Split('~');

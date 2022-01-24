@@ -1,5 +1,7 @@
-﻿using mradmin.DataAccess;
+﻿using mradmin.BissClass;
+using mradmin.DataAccess;
 using msfunc;
+using msfunc.Forms;
 using OtherClasses;
 using OtherClasses.FILE;
 using OtherClasses.Models;
@@ -282,7 +284,6 @@ namespace Medical_Records.Controllers
             return View(vm);
         }
 
-
         public ActionResult Waiting_AttendanceListByClinic()
         {
             vm.REPORTS = new MR_DATA.REPORTS();
@@ -354,6 +355,7 @@ namespace Medical_Records.Controllers
             return View(vm);
         }
 
+
         public ActionResult ReceiptGenerator()
         {
             vm.REPORTS = new MR_DATA.REPORTS();
@@ -417,9 +419,7 @@ namespace Medical_Records.Controllers
 
                 Session["MaterialCostDefinition"] = vm.REPORTS;
 
-            } else {
-
-            }
+            } 
 
 
             return RedirectToAction(formTitle);
@@ -556,7 +556,103 @@ namespace Medical_Records.Controllers
 
         public ActionResult AdmissionsManagement()
         {
-            return View();
+            vm.REPORTS = new MR_DATA.REPORTS();
+
+            vm.SYSCODETABSvm = new SYSCODETABS.SYSCODETABSvm
+            {
+                ServiceCentreCodess = ErpFunc.RsGet<SYSCODETABS.ServiceCentreCodes>("SYSCODETABS", 
+                    "SELECT type_code, name from servicecentrecodes order by name"),
+
+                DiagnosisCodess = ErpFunc.RsGet<SYSCODETABS.DiagnosisCodes>("SYSCODETABS",
+                    "SELECT type_code, name FROM DIAGNOSISCODES order by name"),
+
+                BranchCodess = ErpFunc.RsGet<SYSCODETABS.BranchCodes>("SYSCODETABS",
+                    "SELECT type_code, name FROM branchcodes order by name"),
+
+                mrPatDischReasonss = ErpFunc.RsGet<SYSCODETABS.mrPatDischReasons>("SYSCODETABS",
+                    "SELECT TYPE_CODE, NAME FROM mrpatdischreasons order by name"),
+
+                CostCentreCodess = ErpFunc.RsGet<SYSCODETABS.CostCentreCodes>("SYSCODETABS",
+                    "SELECT type_code, name FROM COSTCENTRECODES ORDER BY name"),
+            };
+
+            vm.SCS01vm = new SCS01.SCS01vm
+            {
+                STOREs = ErpFunc.RsGet<SCS01.STORE>("SCS01", "select storecode, name from store order by name"),
+                stocks = ErpFunc.RsGet<SCS01.stock>("SCS01", "SELECT DISTINCT NAME, ITEM FROM STOCK order by name"),
+            };
+
+            vm.DOCTORSS = ErpFunc.RsGet<MR_DATA.DOCTORS>("MR_DATA",
+                "SELECT REFERENCE, NAME FROM DOCTORS WHERE RECTYPE = 'D' and STATUS = 'A' order by NAME");
+
+            vm.TARIFFS = ErpFunc.RsGet<MR_DATA.TARIFF>("MR_DATA",
+                "SELECT REFERENCE, NAME FROM TARIFF order by name");
+
+            vm.DISPSERVS = ErpFunc.RsGet<MR_DATA.DISPSERV>("MR_DATA",
+                "SELECT REFERENCE, DESCRIPTION FROM dispserv order by description");
+
+            vm.TEMPLATEGRPS = ErpFunc.RsGet<MR_DATA.TEMPLATEGRP>("MR_DATA", "select * from TEMPLATEGRP");
+
+            vm.CUSTOMERS = ErpFunc.RsGet<MR_DATA.CUSTOMER>("MR_DATA", 
+                "SELECT CUSTNO, NAME FROM CUSTOMER WHERE referrer = '1' order by NAME");
+
+            vm.GRPPROCEDURES = ErpFunc.RsGet<MR_DATA.GRPPROCEDURE>("MR_DATA", 
+                "select REFERENCE, NAME from grpprocedure order by name");
+
+            vm.ROUTDRGSS = ErpFunc.RsGet<MR_DATA.ROUTDRGS>("MR_DATA",
+                "select DISTINCT reference FROM routdrgs ORDER BY reference");
+
+            vm.REPORTS.REPORT_TYPE1 = Request.Cookies["mrName"].Value;
+            vm.REPORTS.msection = "A";
+
+            return View(vm);
+        }
+
+        public ActionResult AnteNatalRecords()
+        {
+            vm.REPORTS = new MR_DATA.REPORTS();
+
+            vm.REPORTS.REPORT_TYPE1 = Request.Cookies["mrName"].Value; //operator
+
+            DataTable udt = Dataaccess.GetAnytable("", "MR", 
+                "select * from mrstlev where operator = '" + vm.REPORTS.REPORT_TYPE1 + "'", false);
+
+            if (udt.Rows.Count < 1 || string.IsNullOrWhiteSpace(udt.Rows[0]["section"].ToString()))
+            {
+                vm.REPORTS.ActRslt = "Your profile to this Application has not been properly defined..." +
+                    "Pls See Your Systems Administrator!";
+
+                vm.REPORTS.msection = "";
+            } else {
+                vm.REPORTS.msection = msmrfunc.mrGlobals.msection = udt.Rows[0]["section"].ToString().Substring(0, 1);
+            }
+
+            string xdoc = "";
+            if (new string[] { "1", "4", "3", "9" }.Contains(vm.REPORTS.msection)) //msection.Contains("429"))  //doctors and nurses
+            {
+                if (vm.REPORTS.msection == "4")
+                {
+                    xdoc = bissclass.sysGlobals.anycode;
+                    if (string.IsNullOrWhiteSpace(xdoc))
+                    {
+                        vm.REPORTS.alertMessage = "Access Denied...";
+                        //return;
+                    }
+                }
+            }
+
+            vm.REPORTS.doctor = xdoc;
+
+            vm.SYSCODETABSvm = new SYSCODETABS.SYSCODETABSvm
+            {
+                DiagnosisCodess = ErpFunc.RsGet<SYSCODETABS.DiagnosisCodes>("SYSCODETABS",
+                   "select type_code,name from DesignationCodes order by name"),
+            };
+
+            vm.DOCTORSS = ErpFunc.RsGet<MR_DATA.DOCTORS>("MR_DATA",
+                "SELECT REFERENCE, NAME FROM DOCTORS WHERE RECTYPE = 'D' and STATUS = 'A' order by NAME");
+
+            return View(vm);
         }
 
         public ActionResult PaediatricsClinic()
@@ -592,7 +688,8 @@ namespace Medical_Records.Controllers
 
             vm.SYSCODETABSvm = new SYSCODETABS.SYSCODETABSvm
             {
-                ServiceCentreCodess = ErpFunc.RsGet<SYSCODETABS.ServiceCentreCodes>("SYSCODETABS", "SELECT type_code, name from servicecentrecodes order by name")
+                ServiceCentreCodess = ErpFunc.RsGet<SYSCODETABS.ServiceCentreCodes>("SYSCODETABS", 
+                    "SELECT type_code, name from servicecentrecodes order by name")
             };
 
             vm.REPORTS.msection = "6";
@@ -623,9 +720,9 @@ namespace Medical_Records.Controllers
 
             vm.SYSCODETABSvm = new SYSCODETABS.SYSCODETABSvm
             {
-                ServiceCentreCodess = ErpFunc.RsGet<SYSCODETABS.ServiceCentreCodes>("SYSCODETABS", "SELECT type_code, name from servicecentrecodes order by name")
+                ServiceCentreCodess = ErpFunc.RsGet<SYSCODETABS.ServiceCentreCodes>("SYSCODETABS", 
+                    "SELECT type_code, name from servicecentrecodes order by name")
             };
-
 
             return View(vm);
         }
@@ -648,7 +745,8 @@ namespace Medical_Records.Controllers
                 "SELECT medhpic.groupcode+':'+medhpic.patientno+':'+convert(char,medhpic.trans_date) AS facility1, medhpic.groupcode,medhpic.patientno,medhpic.trans_date,billchain.name from medhpic LEFT JOIN BILLCHAIN on medhpic.groupcode = billchain.groupcode and medhpic.patientno = billchain.patientno order by name");
 
             return View(vm);
-        } 
+        }
+
 
         public ActionResult MaterialCostDefinition()
         {

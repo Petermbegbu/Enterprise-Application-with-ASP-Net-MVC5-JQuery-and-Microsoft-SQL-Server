@@ -1,0 +1,815 @@
+﻿@using ReportViewerForMvc
+@model OtherClasses.Models.MR_DATA.MR_DATAvm
+
+@{
+    ViewBag.Title = "MaterialCostDefinition";
+    ViewBag.TitleBar = "INVESTIGATIONS MATERIAL COSTING DEFINITION";
+    Layout = "~/Views/Shared/_MRFormLayout.cshtml";
+
+    bool hasData = false; string b = "in active";
+    if (Model.REPORTS != null && Model.REPORTS.GeneratedReport != null)
+    { hasData = true; }
+}
+
+
+<style>
+    
+   .tableDiv1 {
+       height: 30rem;
+   }
+
+</style>
+
+
+<!--Modal Start-->
+<div id="1LkUp" class="djq-modal djq-hide">
+
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR [ALL] DEFINED INVESTIGATIONS/PROCEDURES</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable1">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ lukUpClose1">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+<!--Modal Start-->
+<div id="2LkUp" class="djq-modal djq-hide">
+
+    <div class="djq-body">
+        <div>
+            <div class="djq-body1 deep-g alc">
+                <label class="label ls">LOOKUP FOR REGISTERED STOCK ITEMS IN ALL STORES</label>
+            </div>
+            <div class="numberOfRows djq-hide"></div>
+
+            <div class="djq-body11 alc">
+                <label class="label">Search: </label>
+                <input type="text" id="mySearchTerm" value="" class="input w-7" />
+                <button type="button" id="btnSearch" class="btn clm search-dataJQ">SEARCH</button>
+                <label id="djq-result" class="label"></label>
+                <label id="djq-aval" class="label hide">LOADING...</label>
+                <label id="djq-curVal" class="djq-hide"></label>
+                <label id="djq-max" class="djq-hide"></label>
+            </div>
+            <div class="loader djq-transp">.</div>
+
+        </div>
+        <div>
+            <div class="djq-body2" style="margin-top: 0px !important;">
+                <table id="regPTable2">
+
+                    <thead>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+            </div>
+        </div>
+
+        <div class="djq-body3 deep-g alc">
+            <div class="inline-block ww50 all va-top">
+                <button type="button" id="first"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;&lt;
+                </button>
+                <button type="button" id="previous"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &lt;&lt;
+                </button>
+                <button type="button" id="next"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;
+                </button>
+                <button type="button" id="last"
+                        class="btn clm " style="background-color:#607d8b !important;">
+                    &gt;&gt;&gt;
+                </button>
+            </div>
+            <div class="inline-block ww45 va-top">
+                <button type="button" class="btn clm select-dataJQ">SELECT</button>
+                <button type="button" class="btn clm close-dataJQ">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal End-->
+
+
+
+<form method="post" action="@Url.Action("ReportViewer", "File", new { formTitle= "MaterialCostDefinition" })">
+    <div class="diff tab-content">
+
+        <div id="TAB1" class="tab-pane fade  @if (!hasData) { @b}">
+
+            <section class="materialCostForm dif">
+              <div class="py-4">
+                  <div class="newline">
+                      <label class="label w-7 drk">Service Unit/Facility</label>
+                      @Html.DropDownListFor(m => m.SYSCODETABSvm.ServiceCentreCodes.name,
+                            new SelectList(Model.SYSCODETABSvm.ServiceCentreCodess, "type_code", "name"), "",
+                            new { @id = "ivgFac", @class = "input w-8 increase-height facility" })
+                      <label class="ll pr-5 drk labelFacility pl-2">...</label>
+                  </div>
+
+                  <div class="newline">
+                      <label class="label w-7 drk">Procedure</label>
+                      <select name="cbo" id="" class="input w-8 increase-height procedure">
+                          <option value=""></option>
+                      </select>
+
+                      <input type="button" name="btn" id="refLookUp1" class="btn-small" />
+                  </div>
+
+                  <div class="newline">
+                      <label class="label w-7 drk">Select Default Store</label>
+                      @Html.DropDownListFor(m => m.SCS01vm.STORE.NAME,
+                            new SelectList(Model.SCS01vm.STOREs, "STORECODE", "NAME"), "",
+                            new { @id = "ivgFac", @class = "input w-8 increase-height store" })
+                  </div>
+              </div>
+            </section>
+
+            <section class="dif">
+                <div class="d-flex justify-content-around flex-wrap py-3">
+                    <span>
+                        <label for="chkEdit" class="label w-1 drk">EDIT</label>
+                        <input type="checkbox" id="chkEdit" class="chkEdit" />
+                    </span>
+                    <span>
+                        <select class="input w-3 rowNumber"></select>
+                    </span>
+                    <span>
+                        <input type="text" value="" class="input w-3 code dData1"/>
+                        <input type="button" name="btn" id="refLookUp2" class="btn-small" />
+                    </span>
+
+                    <input type="button" name="" value="Add" class="btn addBtn" />
+                    <input type="button" name="" value="Remove" class="btn removeBtn" />
+                    <input type="button" name="" value="Append" class="btn appendBtn" />
+                    <input type="button" name="" value="Copy" class="btn copyBtn" />
+                </div>
+            </section>
+
+            <section class="dif">
+                <div class="tableDiv1 v-scroll">
+                    <table class="" name="">
+                        <thead>
+                            <tr>
+                                <th class="">S/N</th>
+                                <th class="px-5">Stk_Item</th>
+                                <th class="px-5">Description</th>
+                                <th class="px-5">Store</th>
+                                <th class="px-5">Qty_Reqd</th>
+                                <th class="px-5">U/M</th>
+                                <th class="px-5">Unit_Cost</th>
+                                <th class="px-5">Unit_Sell</th>
+                                <th class="px-5">No.Of_Test</th>
+                                <th class="px-5">Cu_Count</th>
+                                <th class="px-5">On_Digital</th>
+                                <th class="px-5">Select_Table</th>
+                                <th class="px-5">Status</th>
+                                <th class="px-5">RECID</th>
+                            </tr>
+                        </thead>
+                        <tbody class="tbody1"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <input type="hidden" value="@Model.REPORTS.alertMessage" class="hiddenAlert" />
+            <input type="hidden" value="" class="input cData1" />
+            <input type="hidden" value="" class="input cData2" />
+            
+        </div>
+
+        <div id="TAB2" class="rpt tab-pane fade  @if (hasData) { @b} alc">
+            @if (hasData)
+            { @Html.ReportViewer(Model.REPORTS.GeneratedReport as Microsoft.Reporting.WebForms.ReportViewer, new { @class = "" }) }
+            else
+            {
+                <div style="min-height:50%;"><label class="lbl">Report Unavailable.</label></div>
+            }
+        </div>
+
+    </div>
+
+    <div class="newline n1 alc dif">
+        <br />
+        <input type="button" value="BACK" id="back1" class="btn" title="HINT: DOUBLE CLICK TO SHOW CLOSED REPORT" />
+        <a data-toggle="tab" class="" id="back2" href="#TAB1"></a>
+        <a data-toggle="tab" id="back3" class="" href="@if (hasData) { @("#TAB2") } else { @("#") } "></a>
+        
+        &nbsp;&nbsp;&nbsp;
+        <input type="button" name="" value="Submit" class="btn submitBtn" />
+
+        &nbsp;&nbsp;&nbsp;
+
+        <input type="button" name="" value="PRINT" id="print1" class="btn" />
+        <input type="hidden" id="pdfPath"
+               value="@if (hasData) { @(string.IsNullOrWhiteSpace(Model.REPORTS.PdfPath) ? "" : Model.REPORTS.PdfPath)} " />
+        <input type="hidden" value="False" name="REPORTS.PRINT" id="print2" />
+
+        &nbsp;&nbsp;&nbsp;
+
+        <input type="button" name="" value="PREVIEW" id="pre1" class="btn previewBtn" />
+        <input type="submit" name="" value="" id="send" class="djq-hide" />
+
+        <!--
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <a href="~/Home/Index" title="Close"><input type="button" name="btnClose" value="Close" class="btn oraa" /></a>
+
+        <br /><br />
+    </div>
+
+</form>
+
+
+
+@section scripts
+{
+    <script>
+        $(function () {
+            var dOM = $('body'); //must assign
+            var formFields = document.getElementById('mainForm'); //must assign, used for calling javaScript methods
+            appendTagInvalid1(dOM, "@ViewBag.iinvalid"); //must call
+            servErrorAlert("#eLkUp", "@ViewBag.Msg"); //must call
+
+            var dTHN1 = ['DESCRIPTION', 'CODE', 'MIN-AMOUNT', 'DIFF-CHARGE', 'FACILITY']; //for table header
+            var dBCN1 = ['NAME', 'REFERENCE', 'AMOUNT', 'DIFFCHARGE', 'CATEGORY']; //for database header
+            var jaxURL1 = "@Url.Action("RptTariffLookUp", "AJAX")";
+
+            var dTHN2 = ['DESCRIPTION', 'CODE', 'STORE', 'QUANTITY', 'GENERIC', 'UNIT_COST', 'STATUS']; //for table header
+            var dBCN2 = ['name', 'item', 'store', 'stock_qty', 'generic', 'cost', 'status']; //for database header
+            var jaxURL2 = "@Url.Action("ProductLookUp", "AJAX")";
+
+            //For Procedures
+            LoadDynamicDT1(jaxURL1, dTHN1, dBCN1, 'TARIFFS', '#refLookUp1', '#1LkUp', '#regPTable1', '.cData', [3, 6]);
+
+            //For Stock
+            LoadDynamicDT1(jaxURL2, dTHN2, dBCN2, 'stocks', '#refLookUp2', '#2LkUp', '#regPTable2', '.dData', [3]);
+
+
+            function ClearControls() {
+                location.reload(true);
+                scrollToTop();
+            }
+
+            //On Load
+            $(".appendBtn").prop({ disabled: true });
+            $(".copyBtn").prop({ disabled: true });
+
+            let hiddenAlert = $(".hiddenAlert").val().trim();
+            if (hiddenAlert.trim() != "") {
+                alert(hiddenAlert);
+            }
+
+            $(".facility").on({
+                focusout: function () {
+                    let facility = $(".facility").val();
+
+                    if (facility == "" || facility == null) {
+                        return;
+                    } else {
+                        $(".labelFacility").text(facility);
+
+                        $.ajax({
+                            url: "/AJAX/MCostingFacilityFocusOut",
+                            method: "POST",
+                            data: { facility: facility },
+                            success: function (data) {
+
+                                if (data != null) {
+                                    let tariffs = data;
+                                    let options = "";
+
+                                    for (var i = 0; i < tariffs.length; i++) {
+                                        options += `<option value="${tariffs[i].REFERENCE}">${tariffs[i].NAME}</option>`;
+                                    }
+
+                                    $(".procedure").html(options);
+                                }
+
+                            }
+                        })
+
+                    }
+
+                }
+            })
+
+            $(".lukUpClose1").on({
+                click: function () {
+                    let cData1 = $(".cData1").val();
+                    let cData2 = $(".cData2").val();
+
+                    $(".facility").val(cData2);
+                    $(".facility").focusout();
+
+                    setTimeout(function () {
+                        $(".procedure").val(cData1);
+                    }, 50);
+                }
+            })
+
+
+            $(".procedure").on({
+                focusout: function () {
+                    let procedure = $(this).val();
+                    let facility = $(".facility").val();
+
+                    if (procedure == "" || procedure == null || facility == "" || facility == null) {
+                        return;
+                    }
+
+                    $(".appendBtn").prop({ disabled: true });
+                    $(".copyBtn").prop({ disabled: true });
+
+                    $.ajax({
+                        url: "/AJAX/MCostingProcedureFocusOut",
+                        method: "POST",
+                        data: { facility: facility, procedure: procedure },
+                        success: function (data) {
+                            if (data != null) {
+
+                                let MRB19S = data;
+
+                                if (MRB19S.length > 0) {
+                                    $(".copyBtn").prop({ disabled: false });
+
+                                    let rows = "";
+                                    for (var i = 0; i < MRB19S.length; i++) {
+                                        let item = MRB19S[i].ITEM;
+                                        let description = MRB19S[i].DESCRIPTION;
+                                        let store = MRB19S[i].STORE;
+                                        let quantity = MRB19S[i].QTY;
+                                        let unit = MRB19S[i].UNIT;
+                                        let cost = MRB19S[i].COST;
+                                        let sell = MRB19S[i].SELL;
+                                        let numberOfTest = MRB19S[i].NUMBOFTEST;
+                                        let testCount = MRB19S[i].TESTCOUNT;
+                                        let onDigital = MRB19S[i].ONDIGITAL == true ? "checked" : "";
+                                        let selectable = MRB19S[i].SELECTABLE == true ? "checked" : "";
+                                        let recid = MRB19S[i].RECID;
+
+                                        rows += "<tr>" +
+                                                        "<td></td>" +
+                                                        "<td class='py-2'> <input type='text' class='input w-3' value='" + item + "'/></td>" +
+                                                        "<td class='py-2'>" + description + "</td>" +
+                                                        "<td class='py-2'> <input type='text' class='input w-3' value='" + store + "'/></td>" +
+                                                        "<td class='py-2'> <input type='number' class='input w-3' value='" + quantity + "'/></td>" +
+                                                        "<td class='py-2'> <input type='number' class='input w-3' value='" + unit + "'/></td>" +
+                                                        "<td class='py-2'> <input type='number' class='input w-3' value='" + cost + "'/></td>" +
+                                                        "<td class='py-2'> <input type='number' class='input w-3' value='" + sell + "'/></td>" +
+                                                        "<td class='py-2'> <input type='number' class='input w-3' value='" + numberOfTest + "'/></td>" +
+                                                        "<td class='py-2'>" + testCount + "</td>" +
+                                                        "<td class='py-2'> <input type='checkbox' class='input w-3' " + onDigital + "/></td>" +
+                                                        "<td class='py-2'> <input type='checkbox' class='input w-3' " + selectable + "/></td>" +
+                                                        "<td class='py-2'></td>" +
+                                                        "<td class='py-2'>" + recid + "</td>" +
+                                                "</tr>";
+                                    }
+
+                                    $(".tbody1").append(rows);
+
+                                    //re-adjust the count values after deleting or adding a row
+                                    let counter = 0;
+                                    $(".tbody1").find("tr").each(function () {
+                                        $(this).find("td").eq(0).text(++counter);
+
+                                        //Added an onChange event to the qtyfield
+                                        $(this).find("td").eq(4).find("input").on({
+                                            change: function () {
+                                                $(this).parents("tr").find("td").eq(12).text("UPDATED");
+                                            }
+                                        })
+                                    });
+
+                                    if (counter > 0) {
+                                        $(".copyBtn").prop({ disabled: false });
+                                    }
+
+                                    let options = "";
+                                    for (var i = 1; i <= counter; i++) {
+                                        options += `<option>${i}</option>`;
+                                    }
+                                    $(".rowNumber").html(options);
+
+                                }
+                            }
+                        }
+                    })
+                }
+            })
+
+
+            $(".removeBtn").on({
+                click: function () {
+                    let rowNumber = Number($(".rowNumber").val());
+                    let recID = 0;
+                    let found = false;
+                    let description = "";
+
+                    $(".tbody1").find("tr").each(function () {
+                        let rowNum = Number($(this).find("td").eq(0).text().trim());
+
+                        if (rowNumber == rowNum) {
+                            recID = Number($(this).find("td").eq(13).text().trim());
+                            description = $(this).find("td").eq(2).text().trim();
+                            found = true;
+                        }
+                    })
+
+                    if (!found) {
+                        alert("No such row in the Table!! \nPossibly an empty table \nPlease add rows to the table!!")
+                        return;
+                    } else {
+                        if (confirm(`Confirm to delete Item \n${description}`)) {
+                            if (recID == 0) {
+                                $(".tbody1").find("tr").each(function () {
+                                    let rowNum = Number($(this).find("td").eq(0).text().trim());
+
+                                    if (rowNumber == rowNum) {
+                                        $(this).remove();
+                                        alert("Removed Succesfully!!");
+                                    }
+                                })
+
+                                //re-adjust the count values after deleting or adding a row
+                                let counter = 0;
+                                $(".tbody1").find("tr").each(function () {
+                                    $(this).find("td").eq(0).text(++counter);
+                                });
+
+                                let options = "";
+                                for (var i = 1; i <= counter; i++) {
+                                    options += `<option>${i}</option>`;
+                                }
+                                $(".rowNumber").html(options);
+                            } else {
+                                $.ajax({
+                                    url: "/AJAX/McostingRemoveBtn",
+                                    method: "POST",
+                                    data: { recID: recID },
+                                    success: function (data) {
+                                        $(".tbody1").find("tr").each(function () {
+                                            let rowNum = Number($(this).find("td").eq(0).text().trim());
+
+                                            if (rowNumber == rowNum) {
+                                                $(this).remove();
+                                            }
+                                        })
+
+                                        if (data.alertMessage != null) {
+                                            alert(data.alertMessage)
+                                        }
+                                    }
+                                }).then(() => {
+                                    //re-adjust the count values after deleting or adding a row
+                                    let counter = 0;
+                                    $(".tbody1").find("tr").each(function () {
+                                        $(this).find("td").eq(0).text(++counter);
+                                    });
+
+                                    let options = "";
+                                    for (var i = 1; i <= counter; i++) {
+                                        options += `<option>${i}</option>`;
+                                    }
+                                    $(".rowNumber").html(options);
+
+                                })
+                            }
+
+                            
+                        }
+
+                    }
+
+                   
+                }
+            })
+
+
+            $(".addBtn").on({
+                click: function () {
+                    let code = $(".code").val().trim();
+                    let store = $(".store").val();
+                    let rowNumber = Number($(".rowNumber").val());
+                    let chkEdit = $(".chkEdit").prop("checked");
+
+                    if (store == null || store == "") {
+                        alert("Please select Store!!");
+                        $(".store").focus();
+                        return;
+                    } else if (code == "") {
+                        alert("Select an Item!!");
+                        $(".code").focus();
+                        return;
+                    } else {
+                        $.ajax({
+                            url: "/AJAX/validateStock",
+                            method: "POST",
+                            data: { code: code, store: store },
+                            success: function (data) {
+                                if (data != null) {
+
+                                    if (chkEdit) {
+                                        let lastNumber = Number($(".tbody1").find("tr").last().find("td").eq(0).text());
+
+                                        if (lastNumber == 0) {
+                                            alert("There is no row to Edit!! \nUncheck the Edit box to add a row");
+                                            return;
+                                        }
+
+                                        if (data.alertMessage != null) {
+                                            $(".tbody1").find("tr").each(function () {
+                                                let rowNum = Number($(this).find("td").eq(0).text().trim());
+
+                                                if (rowNumber == rowNum) {
+                                                    $(this).find("td").eq(1).find("input").val("");
+                                                    $(this).find("td").eq(2).text("");
+                                                    $(this).find("td").eq(3).find("input").val("");
+                                                    $(this).find("td").eq(5).find("input").val("");
+                                                    $(this).find("td").eq(6).find("input").val("");
+                                                    $(this).find("td").eq(7).find("input").val("");
+                                                }
+                                            })
+
+                                            alert(data.alertMessage);
+                                            return;
+                                        }
+
+                                        $(".tbody1").find("tr").each(function () {
+                                            let rowNum = Number($(this).find("td").eq(0).text().trim());
+
+                                            if (rowNumber == rowNum) {
+                                                $(this).find("td").eq(1).find("input").val(data.txtreference);
+                                                $(this).find("td").eq(2).text(data.TXTPATIENTNAME);
+                                                $(this).find("td").eq(3).find("input").val(data.txtaddress1);
+                                                $(this).find("td").eq(5).find("input").val(data.cbotype);
+                                                $(this).find("td").eq(6).find("input").val(data.cost);
+                                                $(this).find("td").eq(7).find("input").val(data.sell);
+                                            }
+                                        })
+                                    } else {
+                                        if (data.alertMessage != null) {
+                                            alert(data.alertMessage);
+                                            return;
+                                        }
+
+                                        let rows = "<tr>" +
+                                                        "<td></td>" +
+                                                        "<td class='py-2'> <input type='text' class='input w-3' value='" + data.txtreference + "'/></td>" +
+                                                        "<td class='py-2'>" + data.TXTPATIENTNAME + "</td>" +
+                                                        "<td class='py-2'> <input type='text' class='input w-3' value='" + data.txtaddress1 + "'/></td>" +
+                                                        "<td class='py-2'> <input type='number' class='input w-3' value='" + 0 + "'/></td>" +
+                                                        "<td class='py-2'> <input type='text' class='input w-3' value='" + data.cbotype + "'/></td>" +
+                                                        "<td class='py-2'> <input type='number' class='input w-3' value='" + data.cost + "'/></td>" +
+                                                        "<td class='py-2'> <input type='number' class='input w-3' value='" + data.sell + "'/></td>" +
+                                                        "<td class='py-2'> <input type='number' class='input w-3' value='" + 0 + "'/></td>" +
+                                                        "<td class='py-2'>" + 0 + "</td>" +
+                                                        "<td class='py-2'> <input type='checkbox' class='input w-3'/></td>" +
+                                                        "<td class='py-2'> <input type='checkbox' class='input w-3'/></td>" +
+                                                        "<td class='py-2'></td>" +
+                                                        "<td class='py-2'>" + 0 + "</td>" +
+                                                    "</tr>";
+
+                                        $(".tbody1").append(rows);
+
+                                        //re-adjust the count values after deleting or adding a row
+                                        let counter = 0;
+                                        $(".tbody1").find("tr").each(function () {
+                                            $(this).find("td").eq(0).text(++counter);
+
+                                            //Added an onChange event to the qtyfield
+                                            $(this).find("td").eq(4).find("input").on({
+                                                change: function () {
+                                                    $(this).parents("tr").find("td").eq(12).text("UPDATED");
+                                                }
+                                            })
+                                        });
+
+                                        if (counter > 0) {
+                                            $(".copyBtn").prop({ disabled: false });
+                                        }
+
+                                        //add row number to the dropdown
+                                        let options = "";
+                                        for (var i = 1; i <= counter; i++) {
+                                            options += `<option>${i}</option>`;
+                                        }
+                                        $(".rowNumber").html(options);
+
+                                        //clear the code field after adding a row
+                                        $(".code").val("");
+                                    }
+                                }
+
+
+                            }
+                        })
+
+                    }
+
+                }
+            })
+
+
+            $(".submitBtn").on({
+                click: function () {
+                    let procedure = $(".procedure").val();
+                    let facility = $(".facility").val();
+                    let store = $(".store").val();
+
+                    //REPORT Class holds the table data 
+                    let tableList = [];
+                    $(".tbody1").find("tr").each(function () {
+                        let rowObject = {
+                            txtstaffno: $(this).find("td").eq(0).text().trim(),  // for serial no.
+                            cbotype: $(this).find("td").eq(1).find("input").val().trim(),  // for stock item
+                            edtallergies: $(this).find("td").eq(2).text().trim(),  // for description
+                            txtbranch: $(this).find("td").eq(3).find("input").val().trim(),  // for store
+                            cboAge: $(this).find("td").eq(4).find("input").val().trim(),  // for qty required
+                            txtaddress1: $(this).find("td").eq(5).find("input").val().trim(),  // for unit/m
+                            txtcurrency: $(this).find("td").eq(6).find("input").val().trim(),  // for unit_cost
+                            txtclinic: $(this).find("td").eq(7).find("input").val().trim(),  // for unit_sell
+                            cbogenotype: $(this).find("td").eq(8).find("input").val().trim(),  // for test
+                            txtkinphone: $(this).find("td").eq(9).text().trim(),  // for count
+                            cmbsave: $(this).find("td").eq(10).find("input").prop("checked"), // for ondigital
+                            cmdgrpmember: $(this).find("td").eq(11).find("input").prop("checked"), // for select table
+                            txtgroupcode: $(this).find("td").eq(12).text().trim(),  // for status
+                            txtpatientno: $(this).find("td").eq(13).text().trim(),  // for recid
+                        };
+
+                        tableList.push(rowObject)
+                    });
+
+                    //Check if no row is in the table
+                    let num = Number($(".tbody1").find("tr").last().find("td").eq(0).text());
+
+                    if (num == 0) {
+                        alert("No Row in the table!!");
+                        return;
+                    }
+
+                    if (procedure == "" || procedure == null) {
+                        alert("Procedure is Required...");
+                        $(".procedure").focus();
+                        return;
+                    } else if (store == "" || store == null) {
+                        alert("Store is Required...");
+                        $(".store").focus();
+                        return;
+                    } else if (facility == "" || facility == null) {
+                        alert("Facility is Required...");
+                        $(".facility").focus();
+                    } else {
+                        if (confirm("Confirm To Save Records...")) {
+                            $.ajax({
+                                url: "/AJAX/matCostingSubmit",
+                                method: "POST",
+                                data: {
+                                    tableList: tableList, facility: facility, procedure: procedure
+                                },
+                                success: function (data) {
+
+                                    if (data.alertMessage != null) {
+                                        alert(data.alertMessage);
+                                    }
+
+                                    if (data.ActRslt != null) {
+                                        alert(data.ActRslt);
+                                    }
+
+                                }
+                            })
+                        }
+                    }
+
+                }
+            })
+
+
+            $(".copyBtn").on({
+                click: function () {
+                    if (confirm("Confirm to copy details of this defintion..")) {
+                        let procedure = $(".procedure").val();
+                        let facility = $(".facility").val();
+
+                        $.ajax({
+                            url: "/AJAX/copyBtnClicked",
+                            method: "POST",
+                            data: { facility: facility, procedure: procedure },
+                            success: function (data) {
+                                $(".copyBtn").prop({disabled: true})
+                            }
+                        })
+                    }
+
+                }
+            })
+
+
+            $(".appendBtn").on({
+                click: function () {
+                    if (confirm("Confirm to Append copied details to this defintion..")) {
+                        let procedure = $(".procedure").val();
+                        let facility = $(".facility").val();
+
+                        $.ajax({
+                            url: "/AJAX/appendBtnClicked",
+                            method: "POST",
+                            data: { facility: facility, procedure: procedure },
+                            success: function (data) {
+                                if (data.alertMessage != null) {
+                                    alert(data.alertMessage);
+                                }
+
+                                $(".appendBtn").prop({ disabled: true })
+                            }
+                        })
+                    }
+
+                }
+            })
+
+
+            
+
+
+            RptBtns(dOM, '@(hasData?(Model.REPORTS.PRINT?"True":""):"")');
+
+            dOM.find('#pre1').on({
+                click: function () {
+                    let facility = $(".facility").val();
+
+                    if (facility == "" || facility == null) {
+                        alert("Facility / Service Centre must be identified...");
+                        $(".facility").focus();
+                        return;
+                    } else {
+                        dOM.find('#send').click();
+                    }
+                }
+            });
+
+        });
+
+
+
+    </script>
+}

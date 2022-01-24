@@ -538,7 +538,7 @@
                             <div class="py-3 d-flex justify-content-around">
                                 <input type="button" value="Submit" class="btn submitBtn" />
                                 <input type="submit" value="Submit" class="btn hiddenSubmit" />
-                                <input type="button" value="Close" class="btn" />
+                                <a href="~/Home/Index" title="Close"><input type="button" name="" value="Close" class="btn oraa" /></a>
                             </div>
                         </div>
                     </div>
@@ -577,7 +577,9 @@
 
     @*Hidden alertMessage*@
     <input type="hidden" value="@Model.REPORTS.alertMessage" name="" class="hiddenAlertMessage" />
-    <a href="" class="hiddenReport" target="_blank">REPORT</a>
+    <a href="" class="hiddenReport" target="_blank">
+        <button class="hiddenReportBtn">REPORT</button>
+    </a>
 
 </section>
 
@@ -1199,16 +1201,18 @@
                                 let value = data.split("**");
 
                                 if (value[0] == "False") {
+                                    console.log("value0", value[0]);
                                     alert(value[1])
                                     return;
                                 }
-
-                                $(".hiddenReport").attr("href", `${value[1]}`).click();
-
+                                console.log("value1",value[1]);
+                                $(".hiddenReport").prop({href: `${value[1]}`});
                             }
 
                         }
 
+                    }).then(() => {
+                        $(".hiddenReportBtn").click();
                     })
                 }
             })
